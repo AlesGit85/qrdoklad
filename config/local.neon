@@ -1,0 +1,13 @@
+# Local development settings
+parameters:
+	productionMode: false
+
+session:
+	cookieSecure: false
+	cookieSamesite: Lax
+
+# Local database settings
+database:
+	dsn: 'sqlite::memory:'
+	user:
+	password:

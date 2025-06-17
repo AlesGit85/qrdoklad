@@ -1,0 +1,69 @@
+# Apache configuration file (see https://httpd.apache.org/docs/current/mod/quickreference.html)
+
+# Allow access to all resources by default
+Require all granted
+
+# Disable directory listing for security reasons
+<IfModule mod_autoindex.c>
+	Options -Indexes
+</IfModule>
+
+# Enable pretty URLs (removing the need for "index.php" in the URL)
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# Set base for subdirectory installations (uncomment if needed)
+	# RewriteBase /
+
+	# Force usage of HTTPS on production (uncomment for production)
+	# RewriteCond %{HTTPS} !on
+	# RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|.*\.test)$ [NC]
+	# RewriteRule .? https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	# Permit requests to the '.well-known' directory (used for SSL verification and more)
+	RewriteRule ^\.well-known/.* - [L]
+
+	# Block access to hidden files (starting with a dot) and URLs resembling WordPress admin paths
+	RewriteRule /\.|^\.|^wp-(login|admin|includes|content) - [F]
+
+	# Block access to sensitive directories
+	RewriteRule ^(app|config|log|temp|vendor)/ - [F]
+	RewriteRule \.(neon|lock|md)$ - [F]
+
+	# Return 404 for missing files with specific extensions (images, scripts, styles, archives)
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule \.(pdf|js|mjs|ico|gif|jpg|jpeg|png|webp|avif|svg|css|rar|zip|7z|tar\.gz|map|eot|ttf|otf|woff|woff2)$ - [L]
+
+	# Front controller pattern - all requests are routed through index.php
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . index.php [L]
+</IfModule>
+
+# Enable gzip compression for text files
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/xml application/rss+xml image/svg+xml
+</IfModule>
+
+# Set proper MIME types
+<IfModule mod_mime.c>
+	AddType application/javascript .js .mjs
+	AddType text/css .css
+	AddType image/svg+xml .svg
+	AddType application/font-woff .woff
+	AddType application/font-woff2 .woff2
+</IfModule>
+
+# Cache static files (uncomment for production)
+# <IfModule mod_expires.c>
+#	ExpiresActive On
+#	ExpiresByType text/css "access plus 1 year"
+#	ExpiresByType application/javascript "access plus 1 year"
+#	ExpiresByType image/png "access plus 1 year"
+#	ExpiresByType image/jpg "access plus 1 year"
+#	ExpiresByType image/jpeg "access plus 1 year"
+#	ExpiresByType image/gif "access plus 1 year"
+#	ExpiresByType image/svg+xml "access plus 1 year"
+#	ExpiresByType application/font-woff "access plus 1 year"
+#	ExpiresByType application/font-woff2 "access plus 1 year"
+# </IfModule>

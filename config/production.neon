@@ -1,0 +1,13 @@
+# Production specific settings
+parameters:
+	productionMode: true
+
+session:
+	cookieSecure: true
+	cookieSamesite: Strict
+
+# Případně produkční databáze
+# database:
+#	dsn: 'mysql:host=localhost;dbname=qrdoklad_prod'
+#	user: 'prod_user'
+#	password: 'secure_password'

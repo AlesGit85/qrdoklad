@@ -7,10 +7,13 @@ if (ob_get_level()) {
     ob_end_clean();
 }
 
-require __DIR__ . '/../vendor/autoload.php';
+// Autodetect root directory (works for both www and web folders)
+$rootDir = dirname(__DIR__);
+
+require $rootDir . '/vendor/autoload.php';
 
 try {
-    $bootstrap = new App\Bootstrap;
+    $bootstrap = new App\Bootstrap($rootDir);
     $container = $bootstrap->bootWebApplication();
     $application = $container->getByType(Nette\Application\Application::class);
     $application->run();
