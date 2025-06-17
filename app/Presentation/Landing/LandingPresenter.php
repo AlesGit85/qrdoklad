@@ -4,9 +4,13 @@ namespace App\Presentation\Landing;
 
 use Nette\Application\UI\Presenter;
 use Nette\Application\UI\Form;
+use Nette\Utils\DateTime;
 
 class LandingPresenter extends Presenter
 {
+    /** @var array Slouží jako jednoduchý rate limiting */
+    private static array $submitAttempts = [];
+
     public function beforeRender(): void
     {
         parent::beforeRender();
@@ -150,21 +154,29 @@ class LandingPresenter extends Presenter
     }
 
     /**
-     * Kontaktní formulář
+     * Kontaktní formulář s CSRF ochranou
      */
     protected function createComponentContactForm(): Form
     {
         $form = new Form;
 
+        // CSRF ochrana (Nette ji přidává automaticky, ale můžeme ji explicitně nastavit)
+        $form->addProtection('Vypršela doba platnosti formuláře. Odešlete jej znovu.');
+
         $form->addText('name', 'Jméno a příjmení:')
-            ->setRequired('Vyplňte prosím jméno a příjmení');
+            ->setRequired('Vyplňte prosím jméno a příjmení')
+            ->addRule(Form::MIN_LENGTH, 'Jméno musí mít alespoň %d znaky', 2)
+            ->addRule(Form::MAX_LENGTH, 'Jméno je příliš dlouhé (max %d znaků)', 100);
 
         $form->addEmail('email', 'E-mail:')
-            ->setRequired('Vyplňte prosím e-mailovou adresu');
+            ->setRequired('Vyplňte prosím e-mailovou adresu')
+            ->addRule(Form::EMAIL, 'Zadejte platnou e-mailovou adresu');
 
-        $form->addText('company', 'Firma:');
+        $form->addText('company', 'Firma:')
+            ->addRule(Form::MAX_LENGTH, 'Název firmy je příliš dlouhý (max %d znaků)', 150);
 
-        $form->addText('phone', 'Telefon:');
+        $form->addText('phone', 'Telefon:')
+            ->addRule(Form::PATTERN, 'Zadejte telefon ve formátu +420 XXX XXX XXX', '(\+420\s?)?[0-9\s]{9,}');
 
         $form->addSelect('subject', 'Předmět dotazu:', [
             '' => 'Vyberte předmět dotazu',
@@ -178,8 +190,15 @@ class LandingPresenter extends Presenter
 
         $form->addTextArea('message', 'Zpráva:')
             ->setRequired('Napište nám zprávu')
+            ->addRule(Form::MIN_LENGTH, 'Zpráva musí mít alespoň %d znaků', 10)
+            ->addRule(Form::MAX_LENGTH, 'Zpráva je příliš dlouhá (max %d znaků)', 2000)
             ->setHtmlAttribute('rows', 5)
             ->setHtmlAttribute('placeholder', 'Popište nám svůj dotaz nebo požadavek...');
+
+        // Honeypot field (skryté pole pro boty)
+        $form->addText('website', 'Website:')
+            ->setHtmlAttribute('style', 'display: none;')
+            ->setHtmlAttribute('tabindex', '-1');
 
         $form->addSubmit('send', 'Odeslat zprávu')
             ->setHtmlAttribute('class', 'btn btn-primary btn-lg');
@@ -191,30 +210,138 @@ class LandingPresenter extends Presenter
 
     public function contactFormSucceeded(Form $form, \stdClass $values): void
     {
-        // Zde by byla logika pro odeslání e-mailu
-        // Například: poslání na info@qrdoklad.cz
-        // Můžete použít Nette\Mail\Mailer
-        
-        /*
-        $mail = new Nette\Mail\Message;
-        $mail->setFrom($values->email, $values->name)
-            ->addTo('info@qrdoklad.cz')
-            ->setSubject('Nový kontakt z webu: ' . ($values->subject ?: 'Obecný dotaz'))
-            ->setBody("
-                Jméno: {$values->name}
-                E-mail: {$values->email}
-                Firma: {$values->company}
-                Telefon: {$values->phone}
-                Předmět: {$values->subject}
-                
-                Zpráva:
-                {$values->message}
-            ");
+        try {
+            // Rate limiting check
+            if (!$this->checkRateLimit()) {
+                $this->flashMessage('Příliš mnoho pokusů o odeslání. Zkuste to znovu za chvíli.', 'error');
+                $this->redirect('this');
+                return;
+            }
+
+            // Honeypot check
+            if (!empty($values->website)) {
+                // Bot detection - tichý drop
+                $this->redirect('this');
+                return;
+            }
+
+            // Validace dat (dodatečná)
+            if (strlen($values->message) < 10) {
+                $this->flashMessage('Zpráva je příliš krátká.', 'error');
+                $this->redirect('this');
+                return;
+            }
+
+            // Jednoduchá spam detekce
+            if ($this->detectSpam($values->message)) {
+                $this->flashMessage('Zpráva byla označena jako spam.', 'error');
+                $this->redirect('this');
+                return;
+            }
+
+            // Sanitace dat
+            $cleanData = $this->sanitizeFormData($values);
+
+            // Zde by byla logika pro odeslání e-mailu
+            // Když bude email připravený, použijete $cleanData
             
-        $mailer->send($mail);
-        */
+            /*
+            $mail = new Nette\Mail\Message;
+            $mail->setFrom($cleanData->email, $cleanData->name)
+                ->addTo('info@qrdoklad.cz')
+                ->setSubject('Nový kontakt z webu: ' . ($cleanData->subject ?: 'Obecný dotaz'))
+                ->setHtmlBody($this->generateEmailTemplate($cleanData));
+                
+            $mailer->send($mail);
+            */
+            
+            // Zalogujeme pokus o odeslání
+            $this->logSubmitAttempt();
+            
+            $this->flashMessage('Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!', 'success');
+            
+        } catch (\Exception $e) {
+            // Logování chyby (v produkci)
+            // \Tracy\Debugger::log($e, \Tracy\ILogger::ERROR);
+            
+            $this->flashMessage('Nastala chyba při odesílání zprávy. Zkuste to prosím znovu.', 'error');
+        }
         
-        $this->flashMessage('Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!', 'success');
         $this->redirect('this');
+    }
+
+    /**
+     * Jednoduchý rate limiting
+     */
+    private function checkRateLimit(): bool
+    {
+        $ip = $this->getHttpRequest()->getRemoteAddress();
+        $now = time();
+        $window = 300; // 5 minut
+        $maxAttempts = 3;
+
+        // Cleanup starých pokusů
+        self::$submitAttempts = array_filter(self::$submitAttempts, function($timestamp) use ($now, $window) {
+            return ($now - $timestamp) < $window;
+        });
+
+        // Počet pokusů z této IP
+        $ipAttempts = array_filter(self::$submitAttempts, function($timestamp, $attemptIp) use ($ip) {
+            return $attemptIp === $ip;
+        }, ARRAY_FILTER_USE_BOTH);
+
+        return count($ipAttempts) < $maxAttempts;
+    }
+
+    /**
+     * Zaloguje pokus o odeslání
+     */
+    private function logSubmitAttempt(): void
+    {
+        $ip = $this->getHttpRequest()->getRemoteAddress();
+        self::$submitAttempts[$ip . '_' . time()] = time();
+    }
+
+    /**
+     * Jednoduchá spam detekce
+     */
+    private function detectSpam(string $message): bool
+    {
+        $spamWords = [
+            'viagra', 'casino', 'lottery', 'winner', 'congratulations',
+            'click here', 'act now', 'limited time', 'free money'
+        ];
+
+        $message = strtolower($message);
+        
+        foreach ($spamWords as $word) {
+            if (strpos($message, strtolower($word)) !== false) {
+                return true;
+            }
+        }
+
+        // Příliš mnoho odkazů
+        if (substr_count($message, 'http') > 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Sanitace dat formuláře
+     */
+    private function sanitizeFormData(\stdClass $values): \stdClass
+    {
+        $clean = new \stdClass();
+        
+        $clean->name = trim(strip_tags($values->name));
+        $clean->email = filter_var(trim($values->email), FILTER_SANITIZE_EMAIL);
+        $clean->company = trim(strip_tags($values->company ?? ''));
+        $clean->phone = trim(strip_tags($values->phone ?? ''));
+        $clean->subject = trim(strip_tags($values->subject ?? ''));
+        $clean->message = trim(strip_tags($values->message));
+        
+        return $clean;
     }
 }

@@ -5,7 +5,7 @@ return array (
     'App\\Bootstrap' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Bootstrap.php',
-      1 => 1749151234,
+      1 => 1750195725,
     ),
     'App\\Core\\RouterFactory' => 
     array (
@@ -35,7 +35,7 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1750195489,
+      1 => 1750195747,
     ),
   ),
   1 => 
@@ -44,7 +44,7 @@ return array (
     'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
     'App\\Presentation\\Landing\\LandingTemplate' => 3,
     'App\\Presentation\\Landing\\LandingFunkceTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 2,
+    'App\\Presentation\\Landing\\LandingCenikTemplate' => 3,
     'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
   ),
   2 => 
