@@ -21,6 +21,12 @@ final class RouterFactory
         $router->addRoute('cenik', 'Landing:cenik');
         $router->addRoute('kontakt', 'Landing:kontakt');
         
+        // Obsahové stránky
+        $router->addRoute('ochrana-osobnich-udaju', 'Landing:privacy');
+        $router->addRoute('obchodni-podminky', 'Landing:terms');
+        $router->addRoute('faq', 'Landing:faq');
+        $router->addRoute('o-nas', 'Landing:about');
+        
         // Fallback route
         $router->addRoute('<presenter>/<action>[/<id>]', 'Landing:default');
 

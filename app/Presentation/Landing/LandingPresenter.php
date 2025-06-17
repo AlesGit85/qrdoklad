@@ -87,6 +87,150 @@ class LandingPresenter extends Presenter
     }
 
     /**
+     * Ochrana osobních údajů
+     */
+    public function renderPrivacy(): void
+    {
+        $this->template->pageTitle = 'Ochrana osobních údajů - QRdoklad';
+        $this->template->metaDescription = 'Zásady ochrany osobních údajů pro QRdoklad. Jak zpracováváme vaše data v souladu s GDPR a českými zákony.';
+        $this->template->metaKeywords = 'ochrana osobních údajů, GDPR, soukromí, zpracování dat';
+    }
+
+    /**
+     * Obchodní podmínky
+     */
+    public function renderTerms(): void
+    {
+        $this->template->pageTitle = 'Obchodní podmínky - QRdoklad';
+        $this->template->metaDescription = 'Obchodní podmínky pro používání fakturačního systému QRdoklad. Práva a povinnosti uživatelů.';
+        $this->template->metaKeywords = 'obchodní podmínky, VOP, všeobecné obchodní podmínky, smlouva';
+    }
+
+    /**
+     * FAQ - Často kladené otázky
+     */
+    public function renderFaq(): void
+    {
+        $this->template->pageTitle = 'FAQ - Často kladené otázky | QRdoklad';
+        $this->template->metaDescription = 'Odpovědi na nejčastější otázky o fakturačním systému QRdoklad. Najděte rychlé odpovědi na vaše dotazy.';
+        $this->template->metaKeywords = 'FAQ, často kladené otázky, nápověda, pomoc, dotazy';
+        
+        // FAQ data
+        $this->template->faqData = $this->getFaqData();
+    }
+
+    /**
+     * O nás
+     */
+    public function renderAbout(): void
+    {
+        $this->template->pageTitle = 'O nás - QRdoklad';
+        $this->template->metaDescription = 'Poznejte tým za QRdokladem. Naše mise je zjednodušit fakturaci pro české podnikatele pomocí moderních technologií.';
+        $this->template->metaKeywords = 'o nás, tým, mise, historie, QRdoklad, fakturační systém';
+    }
+
+    /**
+     * FAQ data
+     */
+    private function getFaqData(): array
+    {
+        return [
+            'general' => [
+                'title' => 'Obecné otázky',
+                'questions' => [
+                    [
+                        'question' => 'Co je QRdoklad?',
+                        'answer' => 'QRdoklad je moderní cloudový fakturační systém určený pro české podnikatele. Umožňuje rychlé vystavování faktur s QR platbami, automatické vyhledávání v ARES a kompletní správu klientů.'
+                    ],
+                    [
+                        'question' => 'Je QRdoklad vhodný pro mou firmu?',
+                        'answer' => 'QRdoklad je navržen pro všechny velikosti firem - od OSVČ až po větší společnosti. Nabízíme různé balíčky podle počtu faktur a potřeb vašeho podnikání.'
+                    ],
+                    [
+                        'question' => 'Jak rychle si mohu zprovoznit QRdoklad?',
+                        'answer' => 'Registrace a základní nastavení zabere jen několik minut. První fakturu můžete vystavit během 5 minut od registrace. Pomůžeme vám s importem dat z jiných systémů.'
+                    ],
+                    [
+                        'question' => 'Potřebuji nějaký speciální software?',
+                        'answer' => 'Ne, QRdoklad funguje přímo v prohlížeči. Stačí internetové připojení a moderní prohlížeč (Chrome, Firefox, Safari, Edge).'
+                    ]
+                ]
+            ],
+            'pricing' => [
+                'title' => 'Ceny a platba',
+                'questions' => [
+                    [
+                        'question' => 'Jaké jsou možnosti platby?',
+                        'answer' => 'Přijímáme platby kartou (Visa, Mastercard), bankovním převodem a QR platbami. Pro firemní zákazníky nabízíme také fakturaci na firmu.'
+                    ],
+                    [
+                        'question' => 'Můžu změnit tarif kdykoli?',
+                        'answer' => 'Ano, tarif můžete změnit kdykoli z vašeho účtu. Při upgradu se rozdíl doplatí poměrně, při downgradu se rozdíl započte do dalšího období.'
+                    ],
+                    [
+                        'question' => 'Jsou v ceně zahrnuty všechny funkce?',
+                        'answer' => 'Ano, v každém tarifu jsou zahrnuty všechny uvedené funkce bez dalších poplatků. Neúčtujeme extra za QR kódy, e-maily nebo počet klientů.'
+                    ],
+                    [
+                        'question' => 'Můžu službu kdykoli zrušit?',
+                        'answer' => 'Ano, službu můžete zrušit kdykoli bez výpovědní lhůty a sankcí. Vaše data zůstanou dostupná ještě 30 dní pro případný export.'
+                    ],
+                    [
+                        'question' => 'Co zahrnuje zkušební období?',
+                        'answer' => 'Prvních 30 dní můžete používat QRdoklad zcela zdarma s plnou funkcionalitou. Nepotřebujete zadat platební kartu.'
+                    ]
+                ]
+            ],
+            'technical' => [
+                'title' => 'Technické otázky',
+                'questions' => [
+                    [
+                        'question' => 'Jsou moje data v bezpečí?',
+                        'answer' => 'Ano, všechna data jsou šifrována a pravidelně zálohována. Používáme moderní bezpečnostní standardy a jsme v souladu s GDPR. Servery jsou umístěny v EU.'
+                    ],
+                    [
+                        'question' => 'Mohu exportovat svoje data?',
+                        'answer' => 'Samozřejmě. Kdykoliv můžete exportovat všechna svá data ve standardních formátech (CSV, PDF, XML). Vaše data vám patří a máte k nim plný přístup.'
+                    ],
+                    [
+                        'question' => 'Máte mobilní aplikaci?',
+                        'answer' => 'QRdoklad je responzivní webová aplikace optimalizovaná pro všechna zařízení. Funguje perfektně na mobilech a tabletech. Nativní mobilní aplikace je v přípravě.'
+                    ],
+                    [
+                        'question' => 'Jak funguje automatické ARES vyhledávání?',
+                        'answer' => 'Stačí zadat IČO klienta a systém automaticky doplní všechny firemní údaje z databáze ARES včetně aktuálního stavu plátcovství DPH.'
+                    ],
+                    [
+                        'question' => 'Podporujete API integrace?',
+                        'answer' => 'Ano, nabízíme REST API pro integraci s vašimi systémy. Dokumentace je dostupná pro Business a Enterprise zákazníky.'
+                    ]
+                ]
+            ],
+            'features' => [
+                'title' => 'Funkce a možnosti',
+                'questions' => [
+                    [
+                        'question' => 'Jak fungují QR platby?',
+                        'answer' => 'Na každé faktuře je automaticky vygenerován QR kód s platebními údaji. Zákazník kód naskenuje mobilním bankovnictvím a platba je vyřízena během sekund.'
+                    ],
+                    [
+                        'question' => 'Mohu si přizpůsobit design faktur?',
+                        'answer' => 'Ano, můžete nahrát vlastní logo, změnit barvy a fonty. V Business tarifu máte k dispozici pokročilý editor šablon.'
+                    ],
+                    [
+                        'question' => 'Podporujete opakující se faktury?',
+                        'answer' => 'Ano, můžete nastavit automatické vystavování faktur v měsíčních, čtvrtletních nebo ročních intervalech.'
+                    ],
+                    [
+                        'question' => 'Jak fungují automatické připomínky?',
+                        'answer' => 'Systém automaticky pošle připomínky o splatných fakturách podle vámi nastaveného harmonogramu. Texty připomínek si můžete přizpůsobit.'
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
      * Sitemap.xml generátor
      */
     public function actionSitemap(): void
@@ -131,6 +275,30 @@ class LandingPresenter extends Presenter
                 'changefreq' => 'monthly',
                 'priority' => '0.7',
                 'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'ochrana-osobnich-udaju',
+                'changefreq' => 'yearly',
+                'priority' => '0.3',
+                'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'obchodni-podminky',
+                'changefreq' => 'yearly',
+                'priority' => '0.3',
+                'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'faq',
+                'changefreq' => 'monthly',
+                'priority' => '0.6',
+                'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'o-nas',
+                'changefreq' => 'yearly',
+                'priority' => '0.5',
+                'lastmod' => date('Y-m-d')
             ]
         ];
 
@@ -159,8 +327,8 @@ class LandingPresenter extends Presenter
         $data = [
             '@context' => 'https://schema.org',
             '@type' => 'Organization',
-            'name' => 'QRdoklad',
-            'alternateName' => 'QRdoklad.cz',
+            'name' => 'QRdoklad.cz',
+            'alternateName' => 'QRdoklad',
             'url' => $baseUrl,
             'logo' => $baseUrl . 'images/logo.svg',
             'description' => 'Moderní fakturační systém s QR platbami pro české firmy',
@@ -310,7 +478,7 @@ class LandingPresenter extends Presenter
             '@type' => 'ContactPage',
             'mainEntity' => [
                 '@type' => 'Organization',
-                'name' => 'QRdoklad',
+                'name' => 'QRdoklad.cz',
                 'telephone' => '+420703985390',
                 'email' => 'info@qrdoklad.cz',
                 'address' => [
@@ -350,14 +518,18 @@ class LandingPresenter extends Presenter
             $pageNames = [
                 'funkce' => 'Funkce',
                 'cenik' => 'Ceník', 
-                'kontakt' => 'Kontakt'
+                'kontakt' => 'Kontakt',
+                'privacy' => 'Ochrana osobních údajů',
+                'terms' => 'Obchodní podmínky',
+                'faq' => 'FAQ',
+                'about' => 'O nás'
             ];
             
             $breadcrumbs['itemListElement'][] = [
                 '@type' => 'ListItem',
                 'position' => 2,
                 'name' => $pageNames[$action] ?? ucfirst($action),
-                'item' => $baseUrl . $action
+                'item' => $baseUrl . $this->getRequest()->getUrl()->getPath()
             ];
         }
 

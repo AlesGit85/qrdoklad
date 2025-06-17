@@ -10,7 +10,7 @@ return array (
     'App\\Core\\RouterFactory' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Core\\RouterFactory.php',
-      1 => 1750195194,
+      1 => 1750200004,
     ),
     'App\\Presentation\\Accessory\\LatteExtension' => 
     array (
@@ -35,7 +35,7 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1750198039,
+      1 => 1750200292,
     ),
     'App\\Security\\SecurityMiddleware' => 
     array (
@@ -45,12 +45,13 @@ return array (
   ),
   1 => 
   array (
-    'null' => 2,
+    'null' => 3,
     'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
     'App\\Presentation\\Landing\\LandingTemplate' => 3,
     'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
     'App\\Presentation\\Landing\\LandingFunkceTemplate' => 2,
     'App\\Presentation\\Landing\\LandingCenikTemplate' => 2,
+    'App\\Presentation\\Privacy\\PrivacyPresenter' => 3,
   ),
   2 => 
   array (
