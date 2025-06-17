@@ -8,9 +8,14 @@ Require all granted
 	Options -Indexes
 </IfModule>
 
-# Enable pretty URLs (removing the need for "index.php" in the URL)
+# Favicon fallback - pokud není nalezen, použij default
 <IfModule mod_rewrite.c>
 	RewriteEngine On
+
+	# Favicon handling
+	RewriteCond %{REQUEST_URI} ^/favicon\.ico$ [NC]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^.*$ /images/logo.svg [L,R=302]
 
 	# Set base for subdirectory installations (uncomment if needed)
 	# RewriteBase /
@@ -52,11 +57,13 @@ Require all granted
 	AddType image/svg+xml .svg
 	AddType application/font-woff .woff
 	AddType application/font-woff2 .woff2
+	AddType image/x-icon .ico
 </IfModule>
 
 # Cache static files (uncomment for production)
 # <IfModule mod_expires.c>
 #	ExpiresActive On
+#	ExpiresByType image/x-icon "access plus 1 year"
 #	ExpiresByType text/css "access plus 1 year"
 #	ExpiresByType application/javascript "access plus 1 year"
 #	ExpiresByType image/png "access plus 1 year"

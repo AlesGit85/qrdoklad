@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QRdoklad - Icon Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #B1D235;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .icon-preview {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .icon-preview:hover {
+            border-color: #B1D235;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(177, 210, 53, 0.2);
+        }
+        
+        .icon-preview h3 {
+            color: #212529;
+            margin: 15px 0 10px;
+            font-size: 1.1rem;
+        }
+        
+        .icon-preview p {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        canvas {
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #B1D235, #95B11F);
+            color: #212529;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(177, 210, 53, 0.3);
+            color: #212529;
+            text-decoration: none;
+        }
+        
+        .generate-all {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .generate-all button {
+            background: linear-gradient(135deg, #212529, #495057);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .generate-all button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(33, 37, 41, 0.3);
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 5px solid #B1D235;
+        }
+        
+        .instructions h3 {
+            color: #B1D235;
+            margin-top: 0;
+        }
+        
+        .instructions ol {
+            color: #495057;
+            line-height: 1.6;
+        }
+        
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 QRdoklad Icon Generator</h1>
+        
+        <div class="generate-all">
+            <button onclick="generateAllIcons()">
+                ✨ Vygenerovat všechny ikony
+            </button>
+            <p style="color: #6c757d; margin-top: 10px;">
+                Barvy: 
+                <span class="color-preview" style="background: #B1D235;"></span> #B1D235 (Primární)
+                <span class="color-preview" style="background: #95B11F;"></span> #95B11F (Sekundární)
+                <span class="color-preview" style="background: #212529;"></span> #212529 (Text)
+            </p>
+        </div>
+        
+        <div class="preview-grid" id="iconGrid">
+            <!-- Ikony se vygenerují zde -->
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Návod k použití:</h3>
+            <ol>
+                <li>Klikni na <strong>"Vygenerovat všechny ikony"</strong> pro vytvoření všech formátů</li>
+                <li>Stáhni jednotlivé ikony kliknutím na tlačítka <strong>"Stáhnout"</strong></li>
+                <li>Nahraj ikony do složky <code>web/</code> tvého projektu</li>
+                <li>Ikony jsou optimalizované pro moderní prohlížeče a mobilní zařízení</li>
+                <li>OG image můžeš upravit přidáním textu nebo dalších elementů</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const icons = [
+            { name: 'favicon-16x16.png', size: 16, description: 'Browser favicon (malý)' },
+            { name: 'favicon-32x32.png', size: 32, description: 'Browser favicon (velký)' },
+            { name: 'apple-touch-icon.png', size: 180, description: 'iOS home screen icon' },
+            { name: 'android-chrome-192x192.png', size: 192, description: 'Android home screen' },
+            { name: 'android-chrome-512x512.png', size: 512, description: 'Android splash screen' },
+            { name: 'og-image.jpg', size: 1200, description: 'Social media preview', width: 1200, height: 630 }
+        ];
+
+        function generateAllIcons() {
+            const grid = document.getElementById('iconGrid');
+            grid.innerHTML = '';
+            
+            icons.forEach(icon => {
+                const iconDiv = createIconPreview(icon);
+                grid.appendChild(iconDiv);
+            });
+        }
+
+        function createIconPreview(iconConfig) {
+            const div = document.createElement('div');
+            div.className = 'icon-preview';
+            
+            const canvas = document.createElement('canvas');
+            const size = iconConfig.size;
+            const width = iconConfig.width || size;
+            const height = iconConfig.height || size;
+            
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.width = Math.min(width, 200) + 'px';
+            canvas.style.height = Math.min(height, 200) + 'px';
+            
+            generateIcon(canvas, iconConfig);
+            
+            div.innerHTML = `
+                <h3>${iconConfig.name}</h3>
+                <p>${iconConfig.description}</p>
+                <p style="font-size: 0.8rem; color: #6c757d;">${width} × ${height}px</p>
+            `;
+            
+            div.appendChild(canvas);
+            
+            const downloadBtn = document.createElement('a');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = '📥 Stáhnout';
+            downloadBtn.onclick = () => downloadCanvas(canvas, iconConfig.name);
+            
+            div.appendChild(downloadBtn);
+            
+            return div;
+        }
+
+        function generateIcon(canvas, config) {
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            if (config.name === 'og-image.jpg') {
+                generateOGImage(ctx, width, height);
+            } else {
+                generateRegularIcon(ctx, width, height);
+            }
+        }
+
+        function generateOGImage(ctx, width, height) {
+            // Gradient background
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, '#B1D235');
+            gradient.addColorStop(1, '#95B11F');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+            
+            // QR code (stylized)
+            const qrSize = Math.min(width, height) * 0.3;
+            const qrX = width * 0.1;
+            const qrY = (height - qrSize) / 2;
+            
+            drawQRCode(ctx, qrX, qrY, qrSize, '#ffffff');
+            
+            // Text
+            ctx.fillStyle = '#212529';
+            ctx.font = `bold ${height * 0.12}px Inter, sans-serif`;
+            ctx.textAlign = 'left';
+            ctx.fillText('QRdoklad', qrX + qrSize + width * 0.05, height * 0.45);
+            
+            ctx.font = `${height * 0.08}px Inter, sans-serif`;
+            ctx.fillText('Moderní fakturační systém', qrX + qrSize + width * 0.05, height * 0.6);
+            ctx.fillText('s QR platbami', qrX + qrSize + width * 0.05, height * 0.72);
+        }
+
+        function generateRegularIcon(ctx, width, height) {
+            // Background with gradient for larger icons
+            if (width >= 180) {
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, '#B1D235');
+                gradient.addColorStop(1, '#95B11F');
+                ctx.fillStyle = gradient;
+            } else {
+                ctx.fillStyle = '#B1D235';
+            }
+            
+            // Rounded rectangle background
+            const radius = width * 0.15;
+            drawRoundedRect(ctx, 0, 0, width, height, radius);
+            ctx.fill();
+            
+            // QR code
+            const qrSize = width * 0.7;
+            const qrX = (width - qrSize) / 2;
+            const qrY = (height - qrSize) / 2;
+            
+            drawQRCode(ctx, qrX, qrY, qrSize, '#212529');
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function drawQRCode(ctx, x, y, size, color) {
+            ctx.fillStyle = color;
+            
+            const cellSize = size / 21; // 21x21 QR grid
+            
+            // QR pattern based on your logo
+            const pattern = [
+                [1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,0,0,1],
+                [1,0,1,1,1,0,1,0,0,1,1,1,0,0,1,0,1,1,1,0,1],
+                [1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,1],
+                [1,0,1,1,1,0,1,0,0,1,0,1,0,0,1,0,1,1,1,0,1],
+                [1,0,0,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,0,1],
+                [1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0],
+                [1,0,1,1,0,1,1,1,0,0,1,0,0,1,1,1,0,1,1,0,1],
+                [0,1,0,1,1,0,0,0,1,1,0,1,1,0,0,0,1,0,1,1,0],
+                [1,1,1,0,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,1],
+                [0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0],
+                [1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,1],
+                [1,0,1,1,1,0,1,0,0,1,0,1,0,0,1,0,1,1,1,0,1],
+                [1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1],
+                [1,0,1,1,1,0,1,0,0,0,1,0,0,0,1,0,1,1,1,0,1],
+                [1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,0,0,1],
+                [1,1,1,1,1,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1]
+            ];
+            
+            for (let row = 0; row < 21; row++) {
+                for (let col = 0; col < 21; col++) {
+                    if (pattern[row][col]) {
+                        ctx.fillRect(
+                            x + col * cellSize,
+                            y + row * cellSize,
+                            cellSize,
+                            cellSize
+                        );
+                    }
+                }
+            }
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            
+            if (filename.endsWith('.jpg')) {
+                link.href = canvas.toDataURL('image/jpeg', 0.9);
+            } else {
+                link.href = canvas.toDataURL('image/png');
+            }
+            
+            link.click();
+        }
+
+        // Generate icons on page load
+        window.onload = () => {
+            generateAllIcons();
+        };
+    </script>
+</body>
+</html>

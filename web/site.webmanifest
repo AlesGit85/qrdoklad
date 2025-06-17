@@ -1,0 +1,41 @@
+{
+    "name": "QRdoklad - Fakturační systém",
+    "short_name": "QRdoklad",
+    "description": "Moderní fakturační systém s QR platbami",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#B1D235",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png", 
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["business", "finance", "productivity"],
+    "lang": "cs",
+    "scope": "/",
+    "shortcuts": [
+        {
+            "name": "Funkce",
+            "short_name": "Funkce",
+            "description": "Přehled funkcí QRdokladu",
+            "url": "/funkce",
+            "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Ceník",
+            "short_name": "Ceník", 
+            "description": "Cenové balíčky",
+            "url": "/cenik",
+            "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }]
+        }
+    ]
+}
