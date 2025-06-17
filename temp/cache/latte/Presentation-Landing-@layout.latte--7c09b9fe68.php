@@ -37,6 +37,50 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
 		echo LR\Filters::escapeHtmlAttr($metaDescription ?? 'QRdoklad - Moderní fakturační systém pro vaše podnikání') /* line 7 */;
 		echo '">
     
+    <!-- SEO meta tagy -->
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="QRdoklad s.r.o.">
+    <meta name="keywords" content="fakturační systém, QR platby, ARES, fakturace, účetnictví, podnikání, ČR">
+    <link rel="canonical" href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiPresenter->link('//this')) /* line 13 */;
+		echo '">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="';
+		echo LR\Filters::escapeHtmlAttr($pageTitle ?? 'QRdoklad - Moderní fakturační systém') /* line 17 */;
+		echo '">
+    <meta property="og:description" content="';
+		echo LR\Filters::escapeHtmlAttr($metaDescription ?? 'Profesionální fakturační systém s QR platbami pro české firmy') /* line 18 */;
+		echo '">
+    <meta property="og:url" content="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiPresenter->link('//this')) /* line 19 */;
+		echo '">
+    <meta property="og:site_name" content="QRdoklad">
+    <meta property="og:image" content="';
+		echo LR\Filters::escapeHtmlAttr($basePath) /* line 21 */;
+		echo '/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="cs_CZ">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="';
+		echo LR\Filters::escapeHtmlAttr($pageTitle ?? 'QRdoklad - Moderní fakturační systém') /* line 28 */;
+		echo '">
+    <meta name="twitter:description" content="';
+		echo LR\Filters::escapeHtmlAttr($metaDescription ?? 'Profesionální fakturační systém s QR platbami pro české firmy') /* line 29 */;
+		echo '">
+    <meta name="twitter:image" content="';
+		echo LR\Filters::escapeHtmlAttr($basePath) /* line 30 */;
+		echo '/images/og-image.jpg">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">';
+		echo LR\Filters::convertJSToHtmlRawText($structuredData) /* line 33 */;
+		echo '</script>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -46,28 +90,31 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
     
     <!-- Vlastní CSS -->
     <link rel="stylesheet" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 17 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 43 */;
 		echo '/css/landing.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 20 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 46 */;
 		echo '/favicon.ico">
+    <link rel="apple-touch-icon" href="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 47 */;
+		echo '/apple-touch-icon.png">
 </head>
 
 <body>
     <!-- Navigace -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 27 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 54 */;
 		echo '" class="navbar-brand">
                 <img src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 28 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 55 */;
 		echo '/images/logo.svg" alt="QRdoklad" height="40" class="d-inline-block align-text-top">
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -75,36 +122,36 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 38 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 65 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'default' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 38 */;
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'default' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 65 */;
 		echo '>
                             <i class="bi bi-house-fill"></i> Domů
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 43 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 70 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'funkce' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 43 */;
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'funkce' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 70 */;
 		echo '>
                             <i class="bi bi-gear-fill"></i> Funkce
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 48 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 75 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'cenik' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 48 */;
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'cenik' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 75 */;
 		echo '>
                             <i class="bi bi-currency-euro"></i> Ceník
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 53 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 80 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'kontakt' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 53 */;
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'kontakt' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 80 */;
 		echo '>
                             <i class="bi bi-envelope-fill"></i> Kontakt
                         </a>
@@ -122,7 +169,7 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
     <!-- Hlavní obsah -->
     <main>
 ';
-		$this->renderBlock('content', [], 'html') /* line 69 */;
+		$this->renderBlock('content', [], 'html') /* line 96 */;
 		echo '    </main>
 
     <!-- Patička -->
@@ -144,10 +191,10 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                     <h6 class="text-primary mb-3">Produkt</h6>
                     <ul class="list-unstyled">
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 90 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 117 */;
 		echo '" class="text-light-50">Funkce</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 91 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 118 */;
 		echo '" class="text-light-50">Ceník</a></li>
                         <li><a href="#" class="text-light-50">API dokumentace</a></li>
                         <li><a href="#" class="text-light-50">Changelog</a></li>
@@ -159,7 +206,7 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-light-50">Nápověda</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 101 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 128 */;
 		echo '" class="text-light-50">Kontakt</a></li>
                         <li><a href="#" class="text-light-50">FAQ</a></li>
                         <li><a href="#" class="text-light-50">Status</a></li>
@@ -191,12 +238,12 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <p class="mb-0 text-light-50">&copy; ';
-		echo LR\Filters::escapeHtmlText(date('Y')) /* line 131 */;
+		echo LR\Filters::escapeHtmlText(date('Y')) /* line 158 */;
 		echo ' QRdoklad. Všechna práva vyhrazena.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0 text-light-50">
-                        Vyvinuto s <i class="bi bi-heart-fill text-danger"></i> v České republice od <a href="https://allimedia.cz" target="_blank">Allimedia.cz</a>
+                        Vyvinuto s <i class="bi bi-heart-fill text-danger"></i> v České republice
                     </p>
                 </div>
             </div>
@@ -205,9 +252,10 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Vlastní JS -->
+    
+    <!-- QRdoklad JS - vše v jednom souboru -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 145 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 173 */;
 		echo '/js/landing.js"></script>
 </body>
 </html>';

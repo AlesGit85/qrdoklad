@@ -12,6 +12,9 @@ final class RouterFactory
     {
         $router = new RouteList;
 
+        // SEO routes
+        $router->addRoute('sitemap.xml', 'Landing:sitemap');
+        
         // Landing page routes
         $router->addRoute('', 'Landing:default');
         $router->addRoute('funkce', 'Landing:funkce');

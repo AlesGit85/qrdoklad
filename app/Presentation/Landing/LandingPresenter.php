@@ -7,6 +7,15 @@ use Nette\Application\UI\Form;
 
 class LandingPresenter extends Presenter
 {
+    public function beforeRender(): void
+    {
+        parent::beforeRender();
+        
+        // Vygenerujeme structured data pro každou stránku
+        $baseUrl = $this->getHttpRequest()->getUrl()->getBaseUrl();
+        $this->template->structuredData = $this->generateStructuredData($baseUrl);
+    }
+
     /**
      * Hlavní prezentační stránka
      */
@@ -41,6 +50,103 @@ class LandingPresenter extends Presenter
     {
         $this->template->pageTitle = 'Kontakt - QRdoklad';
         $this->template->metaDescription = 'Kontaktujte nás ohledně fakturačního systému QRdoklad. Jsme tu pro vás a rádi odpovíme na všechny vaše otázky.';
+    }
+
+    /**
+     * Sitemap.xml generátor
+     */
+    public function actionSitemap(): void
+    {
+        $this->getHttpResponse()->setHeader('Content-Type', 'application/xml; charset=utf-8');
+        
+        $baseUrl = $this->getHttpRequest()->getUrl()->getBaseUrl();
+        $sitemap = $this->generateSitemap($baseUrl);
+        
+        echo $sitemap;
+        $this->terminate();
+    }
+
+    /**
+     * Generuje sitemap.xml
+     */
+    private function generateSitemap(string $baseUrl): string
+    {
+        $urls = [
+            [
+                'loc' => $baseUrl,
+                'changefreq' => 'weekly',
+                'priority' => '1.0',
+                'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'funkce',
+                'changefreq' => 'monthly',
+                'priority' => '0.8',
+                'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'cenik',
+                'changefreq' => 'monthly',
+                'priority' => '0.9',
+                'lastmod' => date('Y-m-d')
+            ],
+            [
+                'loc' => $baseUrl . 'kontakt',
+                'changefreq' => 'monthly',
+                'priority' => '0.7',
+                'lastmod' => date('Y-m-d')
+            ]
+        ];
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        
+        foreach ($urls as $url) {
+            $xml .= '  <url>' . "\n";
+            $xml .= '    <loc>' . htmlspecialchars($url['loc']) . '</loc>' . "\n";
+            $xml .= '    <lastmod>' . $url['lastmod'] . '</lastmod>' . "\n";
+            $xml .= '    <changefreq>' . $url['changefreq'] . '</changefreq>' . "\n";
+            $xml .= '    <priority>' . $url['priority'] . '</priority>' . "\n";
+            $xml .= '  </url>' . "\n";
+        }
+        
+        $xml .= '</urlset>';
+        
+        return $xml;
+    }
+
+    /**
+     * Generuje structured data pro SEO
+     */
+    private function generateStructuredData(string $baseUrl): string
+    {
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'QRdoklad',
+            'url' => $baseUrl,
+            'logo' => $baseUrl . 'images/logo.svg',
+            'description' => 'Moderní fakturační systém s QR platbami pro české firmy',
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => '+420703985390',
+                'contactType' => 'customer service',
+                'areaServed' => 'CZ',
+                'availableLanguage' => 'Czech'
+            ],
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressCountry' => 'CZ',
+                'addressLocality' => 'Librantice',
+                'postalCode' => '503 46'
+            ],
+            'sameAs' => [
+                'https://www.facebook.com/qrdoklad',
+                'https://www.linkedin.com/company/qrdoklad'
+            ]
+        ];
+
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     /**

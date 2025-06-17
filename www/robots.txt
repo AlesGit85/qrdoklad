@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Blokujeme technické složky
+Disallow: /temp/
+Disallow: /log/
+Disallow: /app/
+Disallow: /vendor/
+Disallow: /config/
+Disallow: /*.neon$
+Disallow: /*.lock$
+
+# Povolujeme důležité soubory
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /.well-known/
+
+# Sitemap
+Sitemap: https://qrdoklad.cz/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
