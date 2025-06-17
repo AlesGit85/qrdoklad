@@ -35,7 +35,12 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1750196009,
+      1 => 1750198039,
+    ),
+    'App\\Security\\SecurityMiddleware' => 
+    array (
+      0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Security\\SecurityMiddleware.php',
+      1 => 1750199751,
     ),
   ),
   1 => 

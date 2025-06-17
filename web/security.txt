@@ -1,0 +1,9 @@
+Contact: mailto:security@qrdoklad.cz
+Preferred-Languages: cs, en
+Canonical: https://qrdoklad.cz/.well-known/security.txt
+Policy: https://qrdoklad.cz/security-policy
+Acknowledgments: https://qrdoklad.cz/security-acknowledgments
+
+# QRdoklad Security Contact
+# Please report security vulnerabilities responsibly
+# We appreciate your cooperation in keeping our users safe

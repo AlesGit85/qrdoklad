@@ -35,17 +35,22 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1750196009,
+      1 => 1750198039,
+    ),
+    'App\\Security\\SecurityMiddleware' => 
+    array (
+      0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Security\\SecurityMiddleware.php',
+      1 => 1750199751,
     ),
   ),
   1 => 
   array (
-    'null' => 1,
-    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 2,
+    'null' => 2,
+    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
     'App\\Presentation\\Landing\\LandingTemplate' => 3,
     'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 1,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 1,
+    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 2,
+    'App\\Presentation\\Landing\\LandingCenikTemplate' => 2,
   ),
   2 => 
   array (

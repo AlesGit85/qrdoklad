@@ -1,0 +1,44 @@
+# Security configuration for QRdoklad
+parameters:
+	security:
+		# Session security
+		sessionName: 'QRDOKLAD_SECURE'
+		sessionTimeout: '1 hour'
+		
+		# CSRF protection
+		csrfProtection: true
+		csrfExpiration: 3600
+		
+		# Rate limiting
+		rateLimitRequests: 100
+		rateLimitWindow: 300  # 5 minutes
+		
+		# Password security
+		passwordMinLength: 8
+		passwordRequireSpecialChar: true
+		passwordRequireNumber: true
+		
+		# File upload security
+		allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
+		maxFileSize: 10485760  # 10MB
+		
+		# IP restrictions (for admin access)
+		adminAllowedIPs: []  # Empty = allow all, add IPs for restriction
+
+session:
+	autoStart: false
+	expiration: '1 hour'
+	name: QRDOKLAD_SECURE
+	cookieHttponly: true
+	cookieSecure: auto
+	cookieSamesite: Strict
+	cookiePath: /
+	cookieDomain: 
+
+http:
+	# Security headers via Nette
+	headers:
+		X-Content-Type-Options: nosniff
+		X-Frame-Options: DENY
+		X-XSS-Protection: "1; mode=block"
+		Referrer-Policy: strict-origin-when-cross-origin

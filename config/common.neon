@@ -3,6 +3,10 @@
 parameters:
 
 
+includes:
+	- security.neon
+
+
 application:
 	errorPresenter:
 		4xx: Error:Error4xx
@@ -14,17 +18,6 @@ database:
 	dsn: 'sqlite::memory:'
 	user:
 	password:
-
-
-session:
-	autoStart: false
-	cookieSamesite: Lax
-	cookieSecure: auto
-	cookieHttponly: true
-	expiration: 14 days
-	name: QRDOKLAD_SESSION
-	cookiePath: /
-	cookieDomain: 
 
 
 latte:

@@ -399,12 +399,12 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 	public function createServiceSession__session(): Nette\Http\Session
 	{
 		$service = new Nette\Http\Session($this->getService('http.request'), $this->getService('http.response'));
-		$service->setExpiration('14 days');
+		$service->setExpiration('1 hour');
 		$service->setOptions([
-			'cookieSamesite' => 'Strict',
-			'cookieSecure' => true,
+			'name' => 'QRDOKLAD_SECURE',
 			'cookieHttponly' => true,
-			'name' => 'QRDOKLAD_SESSION',
+			'cookieSecure' => true,
+			'cookieSamesite' => 'Strict',
 			'cookiePath' => '/',
 			'cookieDomain' => null,
 		]);
@@ -441,7 +441,10 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 			$response = $this->getService('http.response');
 			$response->setHeader('X-Powered-By', 'Nette Framework 3');
 			$response->setHeader('Content-Type', 'text/html; charset=utf-8');
-			$response->setHeader('X-Frame-Options', 'SAMEORIGIN');
+			$response->setHeader('X-Content-Type-Options', 'nosniff');
+			$response->setHeader('X-Frame-Options', 'DENY');
+			$response->setHeader('X-XSS-Protection', '1; mode=block');
+			$response->setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 			Nette\Http\Helpers::initCookie($this->getService('http.request'), $response);
 		})();
 		// tracy.

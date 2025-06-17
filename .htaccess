@@ -1,1 +1,190 @@
-Require all denied
+# QRdoklad Security Configuration
+# Apache configuration with advanced security headers
+
+# Allow access to all resources by default
+Require all granted
+
+# Disable directory listing for security reasons
+<IfModule mod_autoindex.c>
+	Options -Indexes
+</IfModule>
+
+# Disable server signature
+ServerTokens Prod
+Header unset Server
+Header always unset X-Powered-By
+
+# Security Headers
+<IfModule mod_headers.c>
+	# Prevent MIME type sniffing
+	Header always set X-Content-Type-Options "nosniff"
+	
+	# Prevent clickjacking
+	Header always set X-Frame-Options "DENY"
+	
+	# XSS Protection
+	Header always set X-XSS-Protection "1; mode=block"
+	
+	# Referrer Policy
+	Header always set Referrer-Policy "strict-origin-when-cross-origin"
+	
+	# Content Security Policy (CSP)
+	Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+	
+	# Strict Transport Security (HTTPS only - uncomment for production)
+	# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+	
+	# Permissions Policy (formerly Feature Policy)
+	Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=()"
+	
+	# Cross-Origin policies
+	Header always set Cross-Origin-Embedder-Policy "require-corp"
+	Header always set Cross-Origin-Opener-Policy "same-origin"
+	Header always set Cross-Origin-Resource-Policy "same-origin"
+	
+	# Remove sensitive headers
+	Header always unset X-Powered-By
+	Header always unset Server
+	Header always unset X-AspNet-Version
+	Header always unset X-AspNetMvc-Version
+</IfModule>
+
+# URL Rewriting and Security Rules
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	# Block malicious requests
+	RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteCond %{QUERY_STRING} (\<|%3C).*iframe.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} (\<|%3C).*object.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} (\<|%3C).*embed.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]
+	RewriteCond %{QUERY_STRING} (\<|%3C).*applet.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} union.*select.*\( [NC,OR]
+	RewriteCond %{QUERY_STRING} concat.*\( [NC]
+	RewriteRule .* - [F,L]
+
+	# Block suspicious user agents
+	RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
+	RewriteCond %{HTTP_USER_AGENT} "wget" [NC,OR]
+	RewriteCond %{HTTP_USER_AGENT} "nikto" [NC,OR]
+	RewriteCond %{HTTP_USER_AGENT} "sqlmap" [NC,OR]
+	RewriteCond %{HTTP_USER_AGENT} "masscan" [NC]
+	RewriteRule .* - [F,L]
+
+	# Block directory traversal attempts
+	RewriteCond %{QUERY_STRING} \.\./\.\./\.\./
+	RewriteRule .* - [F,L]
+
+	# Set base for subdirectory installations (uncomment if needed)
+	# RewriteBase /
+
+	# Force HTTPS on production (uncomment for production)
+	# RewriteCond %{HTTPS} !on
+	# RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|.*\.test)$ [NC]
+	# RewriteRule .? https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	# Favicon handling with fallback
+	RewriteCond %{REQUEST_URI} ^/favicon\.ico$ [NC]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^.*$ /images/logo.svg [L,R=302]
+
+	# Permit requests to the '.well-known' directory (used for SSL verification and more)
+	RewriteRule ^\.well-known/.* - [L]
+
+	# Block access to hidden files (starting with a dot) and URLs resembling WordPress admin paths
+	RewriteRule /\.|^\.|^wp-(login|admin|includes|content) - [F]
+
+	# Block access to sensitive directories and files
+	RewriteRule ^(app|config|log|temp|vendor)/ - [F]
+	RewriteRule \.(neon|lock|md|txt|log|ini|conf)$ - [F]
+	RewriteRule ^(composer\.(json|lock)|package\.json|\.gitignore|\.env)$ - [F]
+
+	# Return 404 for missing files with specific extensions
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule \.(pdf|js|mjs|ico|gif|jpg|jpeg|png|webp|avif|svg|css|rar|zip|7z|tar\.gz|map|eot|ttf|otf|woff|woff2)$ - [L]
+
+	# Front controller pattern - all requests are routed through index.php
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . index.php [L]
+</IfModule>
+
+# Enable gzip compression for better performance
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+	AddOutputFilterByType DEFLATE application/javascript application/json application/xml 
+	AddOutputFilterByType DEFLATE application/rss+xml image/svg+xml
+	AddOutputFilterByType DEFLATE application/font-woff application/font-woff2
+</IfModule>
+
+# Set proper MIME types
+<IfModule mod_mime.c>
+	AddType application/javascript .js .mjs
+	AddType text/css .css
+	AddType image/svg+xml .svg
+	AddType application/font-woff .woff
+	AddType application/font-woff2 .woff2
+	AddType image/x-icon .ico
+	AddType application/json .json
+	AddType application/ld+json .jsonld
+</IfModule>
+
+# Cache static files for better performance
+<IfModule mod_expires.c>
+	ExpiresActive On
+	
+	# Images
+	ExpiresByType image/x-icon "access plus 1 year"
+	ExpiresByType image/png "access plus 1 year"
+	ExpiresByType image/jpg "access plus 1 year"
+	ExpiresByType image/jpeg "access plus 1 year"
+	ExpiresByType image/gif "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 year"
+	ExpiresByType image/webp "access plus 1 year"
+	
+	# Fonts
+	ExpiresByType application/font-woff "access plus 1 year"
+	ExpiresByType application/font-woff2 "access plus 1 year"
+	ExpiresByType font/woff "access plus 1 year"
+	ExpiresByType font/woff2 "access plus 1 year"
+	
+	# CSS and JavaScript
+	ExpiresByType text/css "access plus 1 month"
+	ExpiresByType application/javascript "access plus 1 month"
+	ExpiresByType text/javascript "access plus 1 month"
+	
+	# HTML and JSON
+	ExpiresByType text/html "access plus 1 hour"
+	ExpiresByType application/json "access plus 1 hour"
+	
+	# Manifest and other
+	ExpiresByType application/manifest+json "access plus 1 week"
+	ExpiresByType text/xml "access plus 1 hour"
+</IfModule>
+
+# Additional security measures
+<IfModule mod_env.c>
+	# Hide PHP version
+	SetEnv HTTP_MOD_REWRITE On
+</IfModule>
+
+# Prevent access to backup files
+<FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">
+	Require all denied
+</FilesMatch>
+
+# Prevent access to version control files
+<FilesMatch "\.(git|svn|hg|bzr)">
+	Require all denied
+</FilesMatch>
+
+# Limit file upload size (if applicable)
+<IfModule mod_php.c>
+	php_value upload_max_filesize 10M
+	php_value post_max_size 10M
+	php_value max_execution_time 30
+	php_value max_input_time 30
+</IfModule>
