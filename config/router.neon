@@ -1,0 +1,24 @@
+services:
+	routing.router:
+		factory: Nette\Application\Routers\RouteList
+		setup:
+			# Hlavní stránka - Landing presenter
+			- addRoute('', 'Landing:default')
+			
+			# Subpages pro Landing
+			- addRoute('funkce', 'Landing:funkce')
+			- addRoute('cenik', 'Landing:cenik')
+			- addRoute('kontakt', 'Landing:kontakt')
+			
+			# Admin/App routes (pro případné budoucí použití)
+			- addRoute('admin[/<presenter>[/<action>[/<id>]]]', [
+				module: 'Admin',
+				presenter: 'Dashboard',
+				action: 'default'
+			])
+			
+			# Ostatní routes
+			- addRoute('<presenter>/<action>[/<id>]', [
+				presenter: 'Landing',
+				action: 'default'
+			])
