@@ -1,0 +1,325 @@
+/**
+ * QRdoklad Layout Styles
+ * Navigace, footer, hlavní layout prvky
+ */
+
+/* Navigation - Úplně černý design */
+.navbar {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--white) !important;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+.navbar-brand img {
+    transition: var(--transition);
+    filter: brightness(1);
+}
+
+/* Hover efekt - zelený glow pro bílé logo */
+.navbar-brand img:hover {
+    filter: drop-shadow(0 0 10px var(--primary-color)) brightness(1.1);
+    transform: scale(1.05);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+/* Odstranění duplicitního textu - logo už obsahuje název */
+.brand-text {
+    display: none;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin: 0 4px;
+    padding: 12px 20px !important;
+    border-radius: 10px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(177, 210, 53, 0.2), transparent);
+    transition: var(--transition);
+}
+
+.nav-link:hover::before {
+    left: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(177, 210, 53, 0.15);
+    color: var(--primary-color) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.3);
+}
+
+.nav-link.active {
+    background: rgba(177, 210, 53, 0.2);
+    box-shadow: 0 4px 20px rgba(177, 210, 53, 0.4);
+}
+
+/* Moderní tlačítka v navbaru */
+.navbar-nav .btn {
+    margin: 0 4px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.navbar-nav .btn-outline-primary {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.navbar-nav .btn-outline-primary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-nav .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: var(--dark-color);
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.4);
+}
+
+.navbar-nav .btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(177, 210, 53, 0.6);
+}
+
+/* Hamburger menu pro mobil */
+.navbar-toggler {
+    border: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Scroll efekt pro navbar */
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.98);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(25px);
+}
+
+/* Mobilní navbar */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 15px;
+        margin-top: 1rem;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-link {
+        margin: 4px 0;
+        text-align: center;
+    }
+    
+    .navbar-nav .btn {
+        margin: 8px 0;
+        width: 100%;
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.1) 0%, rgba(149, 177, 31, 0.05) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23B1D235;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%2395B11F;stop-opacity:0.05"/></linearGradient></defs><path d="M0,0 Q500,200 1000,0 L1000,1000 L0,1000 Z" fill="url(%23a)"/></svg>') no-repeat center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-color);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-buttons {
+    margin-bottom: 2rem;
+}
+
+.hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--gray-color);
+}
+
+.feature-item i {
+    font-size: 1.1rem;
+}
+
+/* Footer */
+.footer {
+    padding: 60px 0 30px;
+}
+
+.footer h5,
+.footer h6 {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 8px;
+}
+
+.footer ul li a {
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer a:hover {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: rgba(177, 210, 53, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    line-height: 40px;
+    transition: var(--transition);
+    color: var(--primary-color) !important;
+}
+
+.social-links a:hover {
+    background: var(--primary-color);
+    color: var(--dark-color) !important;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.cta-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    margin-bottom: 2rem;
+}
+
+.cta-features {
+    opacity: 0.9;
+}
+
+.cta-feature {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.guarantee-info {
+    opacity: 0.9;
+}
+
+.guarantee-info p {
+    font-size: 0.95rem;
+}

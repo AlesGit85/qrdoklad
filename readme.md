@@ -1,64 +1,217 @@
-Nette Web Project
-=================
+# QRdoklad - Prezentační web
 
-Welcome to the Nette Web Project! This is a basic skeleton application built using
-[Nette](https://nette.org), ideal for kick-starting your new web projects.
+Moderní a responzivní prezentační web pro fakturační systém QRdoklad vytvořený v Nette Framework.
 
-Nette is a renowned PHP web development framework, celebrated for its user-friendliness,
-robust security, and outstanding performance. It's among the safest choices
-for PHP frameworks out there.
+## 📁 Struktura projektu
 
-If Nette helps you, consider supporting it by [making a donation](https://nette.org/donate).
-Thank you for your generosity!
+### PHP (Nette Framework)
+```
+app/
+├── Presentation/
+│   └── Landing/
+│       ├── LandingPresenter.php    # Hlavní presenter
+│       ├── @layout.latte          # Základní layout
+│       ├── default.latte          # Domovská stránka
+│       ├── funkce.latte           # Stránka funkcí
+│       ├── cenik.latte            # Ceník
+│       └── kontakt.latte          # Kontaktní formulář
+└── Core/
+    └── RouterFactory.php          # Routing konfigurace
+```
 
+### CSS (Modulární struktura)
+```
+www/css/
+├── landing.css                # Hlavní CSS soubor (importy)
+├── base.css                   # Základní styly a proměnné
+├── components.css             # Komponenty (tlačítka, karty, formuláře)
+├── layout.css                 # Layout (navbar, footer, hero)
+├── pages.css                  # Specifické stránky (homepage, features)
+├── pricing-contact.css        # Ceník a kontakt
+└── responsive.css             # Media queries pro všechny breakpointy
+```
 
-Requirements
-------------
+### JavaScript (Modulární struktura)
+```
+www/js/
+├── landing.js                 # Hlavní soubor + utils
+├── scroll-effects.js          # Scroll animace a navbar efekty
+├── pricing.js                 # Pricing toggle a kalkulačka
+└── contact.js                 # Kontaktní formulář a validace
+```
 
-This Web Project is compatible with Nette 3.2 and requires PHP 8.1.
+### Ostatní soubory
+```
+www/
+├── images/
+│   └── logo.svg              # SVG logo
+└── favicon.ico               # Favicon (volitelný)
+```
 
+## 🎨 Barevné schéma
 
-Installation
-------------
+```css
+:root {
+    --primary-color: #B1D235;      /* Primární zelená */
+    --secondary-color: #95B11F;    /* Sekundární zelená */
+    --gray-color: #6c757d;         /* Šedá */
+    --dark-color: #212529;         /* Černá */
+    --light-gray: #f8f9fa;         /* Světle šedá */
+    --white: #ffffff;              /* Bílá */
+}
+```
 
-To install the Web Project, Composer is the recommended tool. If you're new to Composer,
-follow [these instructions](https://doc.nette.org/composer). Then, run:
+## 📄 Stránky
 
-	composer create-project nette/web-project path/to/install
-	cd path/to/install
+### 🏠 Domovská stránka (`/`)
+- Hero sekce s animovanými kartami
+- Výhody systému (6 bloků)
+- Ukázka funkcí s obrázkem
+- Testimonials (3 reference)
+- CTA sekce
 
-Ensure the `temp/` and `log/` directories are writable.
+### ⚙️ Funkce (`/funkce`)
+- Hero sekce
+- Detailní popis hlavních funkcí (4 velké karty)
+- Pokročilé funkce (6 menších karet)
+- Proces vystavení faktury (4 kroky)
+- CTA sekce
 
+### 💰 Ceník (`/cenik`)
+- Hero sekce
+- Měsíční/roční toggle
+- 3 cenové balíčky (Starter, Business, Enterprise)
+- FAQ sekce (5 otázek)
+- Interaktivní kalkulačka úspor
+- CTA sekce
 
-Asset Building with Vite
-------------------------
+### 📞 Kontakt (`/kontakt`)
+- Hero sekce s rychlými kontakty
+- Kontaktní formulář s validací
+- Kontaktní informace
+- Rychlé akce
+- Mapa (placeholder)
+- FAQ pro kontakt (4 otázky)
+- CTA sekce
 
-This project supports Vite for asset building, which is recommended but optional. To activate Vite:
+## 🔧 Funkce
 
-1. Uncomment the `type: vite` line in the `common.neon` configuration file under the assets mapping section.
-2. Then set up and build the assets:
+### CSS Moduly
+- **base.css**: CSS proměnné, základní styly, utility třídy
+- **components.css**: Tlačítka, karty, formuláře, accordion
+- **layout.css**: Navbar, hero, footer, CTA sekce
+- **pages.css**: Homepage specifické styly (floating cards, animace)
+- **pricing-contact.css**: Pricing toggle, kalkulačka, kontaktní formulář
+- **responsive.css**: Všechny media queries (768px, 576px, 1400px+)
 
-		npm install
-		npm run build
+### JavaScript Moduly
+- **landing.js**: Hlavní inicializace, utility funkce, tracking
+- **scroll-effects.js**: Scroll animace, počítadla, navbar efekty
+- **pricing.js**: Pricing toggle, kalkulačka úspor s live výpočty
+- **contact.js**: Validace formuláře, auto-save, character count
 
+### Interaktivní prvky
+- ✅ Scroll animace při scrollování
+- ✅ Navbar efekty (změna průhlednosti)
+- ✅ Pricing toggle (měsíční/roční)
+- ✅ Kalkulačka úspor s live výpočty
+- ✅ Kontaktní formulář s validací
+- ✅ Auto-save draftu formuláře
+- ✅ Character count pro textarea
+- ✅ Smooth scrolling pro anchor linky
+- ✅ Google Analytics tracking
 
-Web Server Setup
-----------------
+## 🚀 Instalace a spuštění
 
-To quickly dive in, use PHP's built-in server:
+1. **Naklonuj projekt**
+```bash
+git clone [repository]
+cd qrdoklad
+```
 
-	php -S localhost:8000 -t www
+2. **Nainstaluj závislosti**
+```bash
+composer install
+```
 
-Then, open `http://localhost:8000` in your browser to view the welcome page.
+3. **Spusť lokální server**
+```bash
+php -S localhost:8000 -t www
+```
 
-For Apache or Nginx users, configure a virtual host pointing to your project's `www/` directory.
+4. **Otevři v prohlížeči**
+```
+http://localhost:8000
+```
 
-**Important Note:** Ensure `app/`, `config/`, `log/`, and `temp/` directories are not web-accessible.
-Refer to [security warning](https://nette.org/security-warning) for more details.
+## 📱 Responzivní design
 
+- **Desktop**: 1400px+ (extra large screens)
+- **Laptop**: 992px - 1399px (large screens)
+- **Tablet**: 768px - 991px (medium screens)
+- **Mobile**: 576px - 767px (small screens)
+- **Tiny**: <576px (extra small screens)
 
-Minimal Skeleton
-----------------
+## 🎯 Optimalizace
 
-For demonstrating issues or similar tasks, rather than starting a new project, use
-[minimal skeleton](https://github.com/nette/web-project/tree/minimal).
+### Performance
+- Minimalizované CSS importy
+- Throttled scroll listenery
+- Debounced resize events
+- Lazy loading připraveno
+- Optimalizované animace
+
+### SEO
+- Sémantické HTML tagy
+- Meta description pro každou stránku
+- Strukturované nadpisy (H1-H6)
+- Alt texty pro obrázky
+- Sitemap připraveno
+
+### Accessibility
+- Správné kontrastní poměry
+- Focus stavy pro keyboard navigation
+- ARIA labels kde potřeba
+- Responsive font sizes
+- Reduced motion podporováno
+
+## 🔧 Další vývoj
+
+### Co přidat
+- [ ] Skutečné odesílání e-mailů z kontaktního formuláře
+- [ ] Google Maps integrace
+- [ ] Blog sekce
+- [ ] Vícejazyčnost (EN)
+- [ ] FAQ sekce
+- [ ] Privacy policy & Terms of service
+- [ ] Cookie consent
+- [ ] Chat widget
+- [ ] Newsletter signup
+
+### Technické vylepšení
+- [ ] Service Worker pro offline funkcionalität
+- [ ] WebP obrázky s fallbackem
+- [ ] Critical CSS inlining
+- [ ] JavaScript lazy loading
+- [ ] Redis cache pro Nette
+- [ ] HTTPS & Security headers
+- [ ] CDN pro statické soubory
+
+## 📊 Analytics události
+
+JavaScript automaticky trackuje tyto události:
+- `CTA` - kliknutí na call-to-action tlačítka
+- `Navigation` - navigace mezi stránkami
+- `Pricing` - interakce s cenami a kalkulačkou
+- `Contact` - práce s kontaktním formulářem
+- `Calculator` - používání kalkulačky úspor
+
+## 🔗 Užitečné odkazy
+
+- [Nette Documentation](https://doc.nette.org/)
+- [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/)
+- [Latte Template Documentation](https://latte.nette.org/)
+
+---
+
+**Vytvořeno pro QRdoklad © 2025**

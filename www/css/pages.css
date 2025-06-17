@@ -1,0 +1,262 @@
+/**
+ * QRdoklad Pages Styles
+ * Specifické styly pro jednotlivé stránky
+ */
+
+/* Homepage specific */
+.hero-image {
+    position: relative;
+    height: 500px;
+}
+
+.floating-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    animation: float 6s ease-in-out infinite;
+}
+
+.invoice-card {
+    width: 280px;
+    top: 20%;
+    right: 10%;
+    padding: 20px;
+}
+
+.stats-card {
+    width: 200px;
+    bottom: 20%;
+    left: 10%;
+    padding: 15px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.invoice-total {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.qr-code-placeholder {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-item i {
+    font-size: 2rem;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.floating-card:nth-child(2) {
+    animation-delay: -3s;
+}
+
+/* Features Page */
+.features-detail-section {
+    padding: 80px 0;
+}
+
+.feature-detail-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    height: 100%;
+    transition: var(--transition);
+}
+
+.feature-detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon-large {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+    font-size: 3rem;
+}
+
+.feature-detail-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.feature-description {
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.feature-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: var(--gray-color);
+}
+
+.feature-benefits i {
+    font-size: 1.1rem;
+}
+
+/* Advanced Features */
+.advanced-features-section {
+    padding: 80px 0;
+}
+
+.advanced-feature-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    height: 100%;
+    transition: var(--transition);
+}
+
+.advanced-feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.advanced-feature-card .feature-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.advanced-feature-card h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.advanced-feature-card p {
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+/* Process Section */
+.process-section {
+    padding: 80px 0;
+}
+
+.process-step {
+    text-align: center;
+    position: relative;
+    padding: 2rem 1rem;
+}
+
+.step-number {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: var(--dark-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto 1.5rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+    border: 3px solid var(--white);
+}
+
+.process-step h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.process-step p {
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+/* Process Step Connectors */
+@media (min-width: 992px) {
+    .process-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 20px;
+        right: -50%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        z-index: 1;
+    }
+}

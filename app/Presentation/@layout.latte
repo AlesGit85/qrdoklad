@@ -1,17 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
-
-	{asset? 'main.js'}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{ifset title}{include title|striptags} | {/ifset}QRdoklad - Moderní fakturační systém</title>
+    <meta name="description" content="{$metaDescription ?? 'QRdoklad - Moderní fakturační systém pro vaše podnikání'}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons - novější verze -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vlastní CSS -->
+    <link rel="stylesheet" href="{$basePath}/css/landing.css">
+    
+    <!-- INLINE TEST CSS -->
+    <style>
+        .navbar { background: red !important; }
+        .nav-link { color: yellow !important; font-size: 25px !important; }
+        .nav-link i { font-size: 20px !important; color: lime !important; }
+    </style>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{$basePath}/favicon.ico">
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+    <!-- Navigace -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" n:href="Landing:default">
+                <img src="{$basePath}/images/logo.svg" alt="QRdoklad" height="40" class="d-inline-block align-text-top navbar-logo">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a n:href="Landing:default" n:class="nav-link, $presenter->action === 'default' ? active">
+                            <span class="nav-icon">🏠</span> Domů
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a n:href="Landing:funkce" n:class="nav-link, $presenter->action === 'funkce' ? active">
+                            <span class="nav-icon">⚙️</span> Funkce
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a n:href="Landing:cenik" n:class="nav-link, $presenter->action === 'cenik' ? active">
+                            <span class="nav-icon">💰</span> Ceník
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a n:href="Landing:kontakt" n:class="nav-link, $presenter->action === 'kontakt' ? active">
+                            <span class="nav-icon">✉️</span> Kontakt
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <a href="https://app.qrdoklad.cz" class="btn btn-outline-primary me-2">Přihlášení</a>
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary">Vyzkoušet zdarma</a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-	{include content}
+    <!-- Hlavní obsah -->
+    <main>
+        {include content}
+    </main>
+
+    <!-- Patička -->
+    <footer class="footer bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-primary mb-3">QRdoklad</h5>
+                    <p class="mb-3">Moderní fakturační systém pro vaše podnikání. Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-primary mb-3">Produkt</h6>
+                    <ul class="list-unstyled">
+                        <li><a n:href="Landing:funkce" class="text-light-50">Funkce</a></li>
+                        <li><a n:href="Landing:cenik" class="text-light-50">Ceník</a></li>
+                        <li><a href="#" class="text-light-50">API dokumentace</a></li>
+                        <li><a href="#" class="text-light-50">Changelog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-primary mb-3">Podpora</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light-50">Nápověda</a></li>
+                        <li><a n:href="Landing:kontakt" class="text-light-50">Kontakt</a></li>
+                        <li><a href="#" class="text-light-50">FAQ</a></li>
+                        <li><a href="#" class="text-light-50">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-primary mb-3">Právní</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light-50">Podmínky použití</a></li>
+                        <li><a href="#" class="text-light-50">Ochrana soukromí</a></li>
+                        <li><a href="#" class="text-light-50">GDPR</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="text-primary mb-3">Společnost</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light-50">O nás</a></li>
+                        <li><a href="#" class="text-light-50">Tým</a></li>
+                        <li><a href="#" class="text-light-50">Kariéra</a></li>
+                        <li><a href="#" class="text-light-50">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4 border-secondary">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light-50">&copy; {date('Y')} QRdoklad. Všechna práva vyhrazena.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-light-50">
+                        Vyvinuto s <i class="bi bi-heart-fill text-danger"></i> v České republice
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- QRdoklad JS - vše v jednom souboru -->
+    <script src="{$basePath}/js/landing.js"></script>
 </body>
 </html>

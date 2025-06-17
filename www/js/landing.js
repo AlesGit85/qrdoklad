@@ -1,170 +1,491 @@
 /**
  * QRdoklad Landing Page JavaScript
- * Moderní interaktivní prvky a animace
+ * Vše v jednom souboru, ale pěkně organizované
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializace všech funkcí
-    initScrollEffects();
-    initAnimations();
-    initSmoothScrolling();
-    initNavbarEffects();
-    initCounterAnimations();
-    initPricingToggle();
-    initSavingsCalculator();
-    initContactForm();
+    console.log('QRdoklad Landing Page - DOMContentLoaded');
+    
+    // Inicializace všech modulů
+    ScrollEffects.init();
+    NavbarEffects.init();
+    SmoothScrolling.init();
+    PricingToggle.init();
+    SavingsCalculator.init();
+    ContactForm.init();
     
     console.log('QRdoklad Landing Page initialized');
 });
 
-/**
- * Kontaktní formulář validace a funkcionalita
- */
-function initContactForm() {
-    const contactForm = document.querySelector('.contact-form');
-    if (!contactForm) return;
+/*
+==================================
+SCROLL EFFECTS MODULE
+==================================
+*/
+const ScrollEffects = {
+    observer: null,
     
-    const nameInput = contactForm.querySelector('input[name="name"]');
-    const emailInput = contactForm.querySelector('input[name="email"]');
-    const messageInput = contactForm.querySelector('textarea[name="message"]');
-    const privacyCheckbox = contactForm.querySelector('#privacy');
-    const submitButton = contactForm.querySelector('input[type="submit"]');
+    init() {
+        this.initScrollAnimations();
+        this.initCounterAnimations();
+        this.addScrollAnimationStyles();
+    },
+
+    initScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll(
+            '.benefit-card, .testimonial-card, .feature-list-item, .section-title, .section-subtitle, .feature-detail-card, .pricing-card, .advanced-feature-card'
+        );
+        
+        animatedElements.forEach(el => {
+            el.classList.add('animate-on-scroll');
+            this.observer.observe(el);
+        });
+    },
+
+    initCounterAnimations() {
+        const counters = document.querySelectorAll('.counter');
+        if (counters.length === 0) return;
+        
+        const observerOptions = { threshold: 0.5 };
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        counters.forEach(counter => counterObserver.observe(counter));
+    },
+
+    animateCounter(counter) {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                counter.textContent = target.toLocaleString('cs-CZ');
+                clearInterval(timer);
+            } else {
+                counter.textContent = Math.floor(current).toLocaleString('cs-CZ');
+            }
+        }, 16);
+    },
+
+    addScrollAnimationStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .animate-on-scroll {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s ease;
+            }
+            .animate-on-scroll.animate-in {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+};
+
+/*
+==================================
+NAVBAR EFFECTS MODULE
+==================================
+*/
+const NavbarEffects = {
+    navbar: null,
+    lastScrollTop: 0,
     
-    // Real-time validace
-    if (nameInput) {
-        nameInput.addEventListener('blur', function() {
-            validateField(this, 'Prosím vyplňte jméno a příjmení');
+    init() {
+        this.navbar = document.querySelector('.navbar');
+        if (!this.navbar) return;
+        this.initScrollEffects();
+    },
+
+    initScrollEffects() {
+        const scrollHandler = Utils.throttle(() => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 50) {
+                this.navbar.classList.add('scrolled');
+                this.navbar.style.background = 'rgba(0, 0, 0, 0.98)';
+                this.navbar.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.7)';
+                this.navbar.style.backdropFilter = 'blur(25px)';
+            } else {
+                this.navbar.classList.remove('scrolled');
+                this.navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                this.navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
+                this.navbar.style.backdropFilter = 'blur(20px)';
+            }
+            
+            this.lastScrollTop = scrollTop;
+        }, 16);
+        
+        window.addEventListener('scroll', scrollHandler);
+        
+        // Inicializační stav
+        scrollHandler();
+    }
+};
+
+/*
+==================================
+SMOOTH SCROLLING MODULE
+==================================
+*/
+const SmoothScrolling = {
+    init() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
     }
+};
+
+/*
+==================================
+PRICING TOGGLE MODULE
+==================================
+*/
+const PricingToggle = {
+    toggle: null,
+    monthlyPrices: null,
+    annualPrices: null,
+    annualNotes: null,
     
-    if (emailInput) {
-        emailInput.addEventListener('blur', function() {
-            validateEmail(this);
+    init() {
+        this.toggle = document.getElementById('priceToggle');
+        if (!this.toggle) return;
+        
+        this.monthlyPrices = document.querySelectorAll('.monthly-price');
+        this.annualPrices = document.querySelectorAll('.annual-price');
+        this.annualNotes = document.querySelectorAll('.annual-note');
+        
+        this.toggle.addEventListener('change', () => {
+            this.togglePrices();
         });
+    },
+
+    togglePrices() {
+        if (this.toggle.checked) {
+            this.monthlyPrices.forEach(price => price.style.display = 'none');
+            this.annualPrices.forEach(price => price.style.display = 'inline');
+            this.annualNotes.forEach(note => note.style.display = 'block');
+        } else {
+            this.monthlyPrices.forEach(price => price.style.display = 'inline');
+            this.annualPrices.forEach(price => price.style.display = 'none');
+            this.annualNotes.forEach(note => note.style.display = 'none');
+        }
     }
+};
+
+/*
+==================================
+SAVINGS CALCULATOR MODULE
+==================================
+*/
+const SavingsCalculator = {
+    sliders: {},
+    valueDisplays: {},
+    resultElements: {},
     
-    if (messageInput) {
-        messageInput.addEventListener('blur', function() {
-            validateField(this, 'Prosím napište nám zprávu');
+    init() {
+        console.log('SavingsCalculator init called');
+        
+        this.sliders.invoiceCount = document.getElementById('invoiceCount');
+        if (!this.sliders.invoiceCount) {
+            console.log('Kalkulačka není na této stránce');
+            return;
+        }
+        
+        console.log('Kalkulačka nalezena, inicializuji...');
+        this.initElements();
+        this.bindEvents();
+        this.updateCalculator();
+    },
+
+    initElements() {
+        this.sliders.timePerInvoice = document.getElementById('timePerInvoice');
+        this.sliders.hourlyRate = document.getElementById('hourlyRate');
+        
+        this.valueDisplays.invoiceCount = document.getElementById('invoiceCountValue');
+        this.valueDisplays.timePerInvoice = document.getElementById('timePerInvoiceValue');
+        this.valueDisplays.hourlyRate = document.getElementById('hourlyRateValue');
+        
+        this.resultElements.timeSaved = document.getElementById('timeSaved');
+        this.resultElements.moneySaved = document.getElementById('moneySaved');
+        this.resultElements.yearlySavings = document.getElementById('yearlySavings');
+        this.resultElements.roiTime = document.getElementById('roiTime');
+        
+        console.log('Elementy nalezeny:', {
+            sliders: this.sliders,
+            displays: this.valueDisplays,
+            results: this.resultElements
         });
+    },
+
+    bindEvents() {
+        Object.values(this.sliders).forEach(slider => {
+            if (slider) {
+                slider.addEventListener('input', () => {
+                    console.log('Slider changed:', slider.id, slider.value);
+                    this.updateCalculator();
+                });
+            }
+        });
+    },
+
+    updateCalculator() {
+        const values = this.getSliderValues();
+        this.updateDisplayedValues(values);
+        const calculations = this.performCalculations(values);
+        this.updateResults(calculations);
+    },
+
+    getSliderValues() {
+        return {
+            invoiceCount: parseInt(this.sliders.invoiceCount.value),
+            timePerInvoice: parseInt(this.sliders.timePerInvoice.value),
+            hourlyRate: parseInt(this.sliders.hourlyRate.value)
+        };
+    },
+
+    updateDisplayedValues(values) {
+        if (this.valueDisplays.invoiceCount) {
+            this.valueDisplays.invoiceCount.textContent = values.invoiceCount;
+        }
+        if (this.valueDisplays.timePerInvoice) {
+            this.valueDisplays.timePerInvoice.textContent = values.timePerInvoice;
+        }
+        if (this.valueDisplays.hourlyRate) {
+            this.valueDisplays.hourlyRate.textContent = values.hourlyRate.toLocaleString('cs-CZ') + ' Kč';
+        }
+    },
+
+    performCalculations(values) {
+        const currentTimePerMonth = values.invoiceCount * values.timePerInvoice;
+        const qrdokladTimePerInvoice = 2;
+        const newTimePerMonth = values.invoiceCount * qrdokladTimePerInvoice;
+        const timeSavedMinutes = currentTimePerMonth - newTimePerMonth;
+        const timeSavedHours = Math.round(timeSavedMinutes / 60 * 10) / 10;
+        
+        const moneySavedPerMonth = (timeSavedMinutes / 60) * values.hourlyRate;
+        const monthlySubscription = 599;
+        const netSavingsPerMonth = moneySavedPerMonth - monthlySubscription;
+        const yearlySavings = netSavingsPerMonth * 12;
+        const roiDays = Math.ceil(monthlySubscription / (moneySavedPerMonth / 30));
+        
+        return {
+            timeSavedHours,
+            netSavingsPerMonth,
+            yearlySavings,
+            roiDays
+        };
+    },
+
+    updateResults(calculations) {
+        if (this.resultElements.timeSaved) {
+            this.resultElements.timeSaved.textContent = calculations.timeSavedHours + ' hodin';
+        }
+        if (this.resultElements.moneySaved) {
+            this.resultElements.moneySaved.textContent = Math.round(calculations.netSavingsPerMonth).toLocaleString('cs-CZ') + ' Kč';
+        }
+        if (this.resultElements.yearlySavings) {
+            this.resultElements.yearlySavings.textContent = Math.round(calculations.yearlySavings).toLocaleString('cs-CZ') + ' Kč';
+        }
+        if (this.resultElements.roiTime) {
+            if (calculations.roiDays <= 7) {
+                this.resultElements.roiTime.textContent = calculations.roiDays + ' dní';
+            } else if (calculations.roiDays <= 30) {
+                this.resultElements.roiTime.textContent = Math.ceil(calculations.roiDays / 7) + ' týdny';
+            } else {
+                this.resultElements.roiTime.textContent = Math.ceil(calculations.roiDays / 30) + ' měsíce';
+            }
+        }
     }
+};
+
+/*
+==================================
+CONTACT FORM MODULE
+==================================
+*/
+const ContactForm = {
+    form: null,
+    fields: {},
+    submitButton: null,
     
-    // Validace před odesláním
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    init() {
+        this.form = document.querySelector('.contact-form');
+        if (!this.form) return;
         
-        let isValid = true;
-        
-        // Validace povinných polí
-        if (nameInput && !validateField(nameInput, 'Prosím vyplňte jméno a příjmení')) {
-            isValid = false;
+        this.initFields();
+        this.bindEvents();
+    },
+
+    initFields() {
+        this.fields = {
+            name: this.form.querySelector('input[name="name"]'),
+            email: this.form.querySelector('input[name="email"]'),
+            message: this.form.querySelector('textarea[name="message"]'),
+            privacy: this.form.querySelector('#privacy')
+        };
+        this.submitButton = this.form.querySelector('input[type="submit"]');
+    },
+
+    bindEvents() {
+        if (this.fields.name) {
+            this.fields.name.addEventListener('blur', () => {
+                this.validateField(this.fields.name, 'Prosím vyplňte jméno a příjmení');
+            });
         }
         
-        if (emailInput && !validateEmail(emailInput)) {
-            isValid = false;
+        if (this.fields.email) {
+            this.fields.email.addEventListener('blur', () => {
+                this.validateEmail(this.fields.email);
+            });
         }
         
-        if (messageInput && !validateField(messageInput, 'Prosím napište nám zprávu')) {
-            isValid = false;
+        if (this.fields.message) {
+            this.fields.message.addEventListener('blur', () => {
+                this.validateField(this.fields.message, 'Prosím napište nám zprávu');
+            });
         }
         
-        if (privacyCheckbox && !privacyCheckbox.checked) {
-            alert('Prosím potvrďte souhlas se zpracováním osobních údajů');
-            isValid = false;
-        }
-        
-        if (isValid) {
-            // Simulace odeslání formuláře
-            submitContactForm(contactForm);
-        }
-    });
-    
-    function validateField(field, errorMessage) {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleSubmit();
+        });
+    },
+
+    validateField(field, errorMessage) {
         const value = field.value.trim();
         const feedback = field.parentNode.querySelector('.invalid-feedback');
         
         if (value === '') {
-            field.classList.add('is-invalid');
-            field.classList.remove('is-valid');
-            if (feedback) {
-                feedback.textContent = errorMessage;
-            }
+            this.setFieldInvalid(field, errorMessage, feedback);
             return false;
         } else {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
+            this.setFieldValid(field);
             return true;
         }
-    }
-    
-    function validateEmail(field) {
+    },
+
+    validateEmail(field) {
         const email = field.value.trim();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const feedback = field.parentNode.querySelector('.invalid-feedback');
         
         if (email === '') {
-            field.classList.add('is-invalid');
-            field.classList.remove('is-valid');
-            if (feedback) {
-                feedback.textContent = 'Prosím vyplňte e-mailovou adresu';
-            }
+            this.setFieldInvalid(field, 'Prosím vyplňte e-mailovou adresu', feedback);
             return false;
         } else if (!emailRegex.test(email)) {
-            field.classList.add('is-invalid');
-            field.classList.remove('is-valid');
-            if (feedback) {
-                feedback.textContent = 'Prosím zadejte platnou e-mailovou adresu';
-            }
+            this.setFieldInvalid(field, 'Prosím zadejte platnou e-mailovou adresu', feedback);
             return false;
         } else {
-            field.classList.remove('is-invalid');
-            field.classList.add('is-valid');
+            this.setFieldValid(field);
             return true;
         }
-    }
-    
-    function submitContactForm(form) {
-        const originalText = submitButton.value;
+    },
+
+    setFieldInvalid(field, message, feedback) {
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+        if (feedback) {
+            feedback.textContent = message;
+        }
+    },
+
+    setFieldValid(field) {
+        field.classList.remove('is-invalid');
+        field.classList.add('is-valid');
+    },
+
+    handleSubmit() {
+        let isValid = this.validateForm();
+        if (isValid) {
+            this.submitForm();
+        }
+    },
+
+    validateForm() {
+        let isValid = true;
         
-        // Loading state
-        submitButton.value = 'Odesílám...';
-        submitButton.disabled = true;
+        if (this.fields.name && !this.validateField(this.fields.name, 'Prosím vyplňte jméno a příjmení')) {
+            isValid = false;
+        }
+        if (this.fields.email && !this.validateEmail(this.fields.email)) {
+            isValid = false;
+        }
+        if (this.fields.message && !this.validateField(this.fields.message, 'Prosím napište nám zprávu')) {
+            isValid = false;
+        }
+        if (this.fields.privacy && !this.fields.privacy.checked) {
+            alert('Prosím potvrďte souhlas se zpracováním osobních údajů');
+            isValid = false;
+        }
         
-        // Simulace AJAX požadavku (v reálné aplikaci by tady byl fetch na server)
+        return isValid;
+    },
+
+    submitForm() {
+        const originalText = this.submitButton.value;
+        this.submitButton.value = 'Odesílám...';
+        this.submitButton.disabled = true;
+        
         setTimeout(() => {
-            // Success state
-            submitButton.value = 'Odesláno!';
-            submitButton.classList.remove('btn-primary');
-            submitButton.classList.add('btn-success');
+            this.submitButton.value = 'Odesláno!';
+            this.submitButton.classList.remove('btn-primary');
+            this.submitButton.classList.add('btn-success');
             
-            // Zobrazení success zprávy
-            showSuccessMessage();
+            this.showSuccessMessage();
             
-            // Reset formuláře
             setTimeout(() => {
-                form.reset();
-                form.querySelectorAll('.form-control').forEach(input => {
+                this.form.reset();
+                this.form.querySelectorAll('.form-control').forEach(input => {
                     input.classList.remove('is-valid', 'is-invalid');
                 });
                 
-                submitButton.value = originalText;
-                submitButton.disabled = false;
-                submitButton.classList.remove('btn-success');
-                submitButton.classList.add('btn-primary');
+                this.submitButton.value = originalText;
+                this.submitButton.disabled = false;
+                this.submitButton.classList.remove('btn-success');
+                this.submitButton.classList.add('btn-primary');
             }, 3000);
-            
         }, 2000);
-    }
-    
-    function showSuccessMessage() {
-        // Vytvoření success notifikace
+    },
+
+    showSuccessMessage() {
         const successDiv = document.createElement('div');
         successDiv.className = 'alert alert-success alert-dismissible fade show position-fixed';
         successDiv.style.cssText = `
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            min-width: 300px;
+            top: 20px; right: 20px; z-index: 9999; min-width: 300px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         `;
         successDiv.innerHTML = `
@@ -174,376 +495,39 @@ function initContactForm() {
         `;
         
         document.body.appendChild(successDiv);
-        
-        // Automatické odstranění po 5 sekundách
         setTimeout(() => {
             if (successDiv.parentNode) {
                 successDiv.remove();
             }
         }, 5000);
     }
-}
+};
 
-/**
- * Pricing toggle funkcionalita
- */
-function initPricingToggle() {
-    const toggle = document.getElementById('priceToggle');
-    if (!toggle) return;
-    
-    const monthlyPrices = document.querySelectorAll('.monthly-price');
-    const annualPrices = document.querySelectorAll('.annual-price');
-    const annualNotes = document.querySelectorAll('.annual-note');
-    
-    toggle.addEventListener('change', function() {
-        if (this.checked) {
-            // Zobrazit roční ceny
-            monthlyPrices.forEach(price => price.style.display = 'none');
-            annualPrices.forEach(price => price.style.display = 'inline');
-            annualNotes.forEach(note => note.style.display = 'block');
-        } else {
-            // Zobrazit měsíční ceny
-            monthlyPrices.forEach(price => price.style.display = 'inline');
-            annualPrices.forEach(price => price.style.display = 'none');
-            annualNotes.forEach(note => note.style.display = 'none');
-        }
-    });
-}
-
-/**
- * Kalkulačka úspor
- */
-function initSavingsCalculator() {
-    const invoiceCountSlider = document.getElementById('invoiceCount');
-    const timePerInvoiceSlider = document.getElementById('timePerInvoice');
-    const hourlyRateSlider = document.getElementById('hourlyRate');
-    
-    if (!invoiceCountSlider) return; // Kalkulačka není na této stránce
-    
-    const invoiceCountValue = document.getElementById('invoiceCountValue');
-    const timePerInvoiceValue = document.getElementById('timePerInvoiceValue');
-    const hourlyRateValue = document.getElementById('hourlyRateValue');
-    
-    const timeSavedElement = document.getElementById('timeSaved');
-    const moneySavedElement = document.getElementById('moneySaved');
-    const yearlySavingsElement = document.getElementById('yearlySavings');
-    const roiTimeElement = document.getElementById('roiTime');
-    
-    function updateCalculator() {
-        const invoiceCount = parseInt(invoiceCountSlider.value);
-        const timePerInvoice = parseInt(timePerInvoiceSlider.value);
-        const hourlyRate = parseInt(hourlyRateSlider.value);
-        
-        // Aktualizace zobrazených hodnot
-        invoiceCountValue.textContent = invoiceCount;
-        timePerInvoiceValue.textContent = timePerInvoice;
-        hourlyRateValue.textContent = hourlyRate.toLocaleString('cs-CZ') + ' Kč';
-        
-        // Výpočty
-        const currentTimePerMonth = invoiceCount * timePerInvoice; // minuty
-        const qrdokladTimePerInvoice = 2; // minuty s QRdokladem
-        const newTimePerMonth = invoiceCount * qrdokladTimePerInvoice;
-        const timeSavedMinutes = currentTimePerMonth - newTimePerMonth;
-        const timeSavedHours = Math.round(timeSavedMinutes / 60 * 10) / 10;
-        
-        const moneySavedPerMonth = (timeSavedMinutes / 60) * hourlyRate;
-        const yearlySavings = moneySavedPerMonth * 12;
-        
-        // Business plán stojí 599 Kč/měsíc
-        const monthlySubscription = 599;
-        const netSavingsPerMonth = moneySavedPerMonth - monthlySubscription;
-        const roiDays = Math.ceil(monthlySubscription / (moneySavedPerMonth / 30));
-        
-        // Aktualizace výsledků
-        timeSavedElement.textContent = timeSavedHours + ' hodin';
-        moneySavedElement.textContent = Math.round(netSavingsPerMonth).toLocaleString('cs-CZ') + ' Kč';
-        yearlySavingsElement.textContent = Math.round(netSavingsPerMonth * 12).toLocaleString('cs-CZ') + ' Kč';
-        
-        if (roiDays <= 7) {
-            roiTimeElement.textContent = roiDays + ' dní';
-        } else if (roiDays <= 30) {
-            roiTimeElement.textContent = Math.ceil(roiDays / 7) + ' týdny';
-        } else {
-            roiTimeElement.textContent = Math.ceil(roiDays / 30) + ' měsíce';
-        }
-    }
-    
-    // Event listenery pro slidery
-    invoiceCountSlider.addEventListener('input', updateCalculator);
-    timePerInvoiceSlider.addEventListener('input', updateCalculator);
-    hourlyRateSlider.addEventListener('input', updateCalculator);
-    
-    // Inicializační výpočet
-    updateCalculator();
-}
-
-/**
- * Efekty při scrollování
- */
-function initScrollEffects() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
+/*
+==================================
+UTILITIES
+==================================
+*/
+const Utils = {
+    throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
             }
-        });
-    }, observerOptions);
+        }
+    },
 
-    // Observe všechny elementy které chceme animovat
-    const animatedElements = document.querySelectorAll(
-        '.benefit-card, .testimonial-card, .feature-list-item, .section-title, .section-subtitle'
-    );
-    
-    animatedElements.forEach(el => {
-        el.classList.add('animate-on-scroll');
-        observer.observe(el);
-    });
-}
-
-/**
- * CSS animace pro scroll efekty
- */
-function initAnimations() {
-    // Přidáme CSS styly pro animace
-    const style = document.createElement('style');
-    style.textContent = `
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+    trackEvent(category, action, label = null) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', action, {
+                'event_category': category,
+                'event_label': label
+            });
         }
-        
-        .animate-on-scroll.animate-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .benefit-card.animate-on-scroll {
-            transition-delay: 0.1s;
-        }
-        
-        .benefit-card:nth-child(2).animate-on-scroll {
-            transition-delay: 0.2s;
-        }
-        
-        .benefit-card:nth-child(3).animate-on-scroll {
-            transition-delay: 0.3s;
-        }
-        
-        .testimonial-card.animate-on-scroll {
-            transition-delay: 0.15s;
-        }
-        
-        .testimonial-card:nth-child(2).animate-on-scroll {
-            transition-delay: 0.3s;
-        }
-        
-        .testimonial-card:nth-child(3).animate-on-scroll {
-            transition-delay: 0.45s;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-/**
- * Plynulé scrollování pro anchor odkazy
- */
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-/**
- * Efekty pro navbar při scrollování
- */
-function initNavbarEffects() {
-    const navbar = document.querySelector('.navbar');
-    let lastScrollTop = 0;
-    
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Změna průhlednosti navbar při scrollu
-        if (scrollTop > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
-        } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        }
-        
-        // Skrytí navbar při scrollování dolů (volitelné)
-        // if (scrollTop > lastScrollTop && scrollTop > 100) {
-        //     navbar.style.transform = 'translateY(-100%)';
-        // } else {
-        //     navbar.style.transform = 'translateY(0)';
-        // }
-        
-        lastScrollTop = scrollTop;
-    });
-}
-
-/**
- * Animace čítačů (pokud budou použity)
- */
-function initCounterAnimations() {
-    const counters = document.querySelectorAll('.counter');
-    
-    const observerOptions = {
-        threshold: 0.5
-    };
-    
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.getAttribute('data-count'));
-                const duration = 2000; // 2 sekundy
-                const step = target / (duration / 16); // 60 FPS
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += step;
-                    if (current >= target) {
-                        counter.textContent = target.toLocaleString('cs-CZ');
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.floor(current).toLocaleString('cs-CZ');
-                    }
-                }, 16);
-                
-                counterObserver.unobserve(counter);
-            }
-        });
-    }, observerOptions);
-    
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
-    });
-}
-
-/**
- * Paralax efekt pro hero sekci (volitelné)
- */
-function initParallaxEffect() {
-    const hero = document.querySelector('.hero-section');
-    
-    if (hero) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            hero.style.transform = `translateY(${rate}px)`;
-        });
     }
-}
-
-/**
- * Lazy loading pro obrázky (pokud budou použity)
- */
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => {
-        imageObserver.observe(img);
-    });
-}
-
-/**
- * Funkcionalita pro demo video/modal (pokud bude potřeba)
- */
-function initDemoModal() {
-    const demoButtons = document.querySelectorAll('[data-demo]');
-    
-    demoButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Zde by byla logika pro otevření demo videa
-            console.log('Demo video clicked');
-        });
-    });
-}
-
-/**
- * Google Analytics events (pokud bude potřeba)
- */
-function trackEvent(category, action, label = null) {
-    if (typeof gtag !== 'undefined') {
-        gtag('event', action, {
-            'event_category': category,
-            'event_label': label
-        });
-    }
-}
-
-// Event listenery pro tracking
-document.addEventListener('click', function(e) {
-    // Track CTA button clicks
-    if (e.target.matches('a[href*="sign/up"]')) {
-        trackEvent('CTA', 'click', 'Sign Up Button');
-    }
-    
-    if (e.target.matches('a[href*="kontakt"]')) {
-        trackEvent('Navigation', 'click', 'Contact Page');
-    }
-    
-    if (e.target.matches('a[href*="cenik"]')) {
-        trackEvent('Navigation', 'click', 'Pricing Page');
-    }
-});
-
-/**
- * Form validation a AJAX odeslání (pokud bude potřeba)
- */
-function initFormHandling() {
-    const forms = document.querySelectorAll('form[data-ajax]');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(form);
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            
-            // Loading state
-            submitButton.textContent = 'Odesílám...';
-            submitButton.disabled = true;
-            
-            // Simulace AJAX požadavku
-            setTimeout(() => {
-                submitButton.textContent = 'Odesláno!';
-                setTimeout(() => {
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                    form.reset();
-                }, 2000);
-            }, 1000);
-        });
-    });
-}
+};

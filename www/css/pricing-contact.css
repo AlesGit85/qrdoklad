@@ -1,0 +1,565 @@
+/**
+ * QRdoklad Pricing & Contact Styles
+ * Specifické styly pro ceník a kontakt
+ */
+
+/* PRICING STYLES */
+
+/* Pricing Toggle */
+.pricing-toggle {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--white);
+    padding: 8px;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+}
+
+.toggle-label {
+    font-weight: 500;
+    color: var(--gray-color);
+    font-size: 0.95rem;
+}
+
+.price-toggle {
+    position: relative;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label-switch {
+    display: block;
+    width: 50px;
+    height: 25px;
+    background: var(--light-gray);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.toggle-label-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-input:checked + .toggle-label-switch {
+    background: var(--primary-color);
+}
+
+.toggle-input:checked + .toggle-label-switch::after {
+    transform: translateX(25px);
+}
+
+.discount-badge {
+    background: var(--primary-color);
+    color: var(--dark-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* Pricing Cards */
+.pricing-section {
+    padding: 80px 0;
+}
+
+.pricing-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 2.5rem 2rem;
+    height: 100%;
+    position: relative;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card.featured-plan {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(177, 210, 53, 0.2);
+}
+
+.pricing-card.featured-plan:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: var(--dark-color);
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.plan-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.plan-description {
+    color: var(--gray-color);
+    margin-bottom: 1.5rem;
+}
+
+.price-display {
+    margin-bottom: 0.5rem;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.period {
+    font-size: 1.1rem;
+    color: var(--gray-color);
+    font-weight: 500;
+}
+
+.price-note {
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+.pricing-features {
+    margin-bottom: 2rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+.feature-list i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.pricing-footer {
+    text-align: center;
+}
+
+.trial-info {
+    margin-top: 1rem;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+/* Savings Calculator */
+.savings-calculator {
+    padding: 80px 0;
+}
+
+.calculator-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 3rem;
+}
+
+.calculator-inputs h4,
+.calculator-results h4 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 2rem;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: 8px;
+}
+
+.form-range {
+    margin-bottom: 8px;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: var(--primary-color);
+    border: none;
+    height: 20px;
+    width: 20px;
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--primary-color);
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.input-group span {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.savings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.savings-item:last-child {
+    border-bottom: none;
+}
+
+.savings-label {
+    font-weight: 500;
+    color: var(--gray-color);
+}
+
+.savings-value {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.savings-value.highlight {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.roi-info {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.roi-info p {
+    margin: 0;
+    color: var(--gray-color);
+}
+
+/* CONTACT STYLES */
+
+.contact-quick-info {
+    margin-top: 2rem;
+}
+
+.quick-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    padding: 12px 20px;
+    border-radius: 25px;
+    box-shadow: var(--shadow);
+    font-weight: 500;
+    color: var(--gray-color);
+}
+
+.quick-contact-item i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.contact-section {
+    padding: 80px 0;
+}
+
+.contact-form-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 3rem;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.form-subtitle {
+    color: var(--gray-color);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form .form-check {
+    margin: 1.5rem 0;
+}
+
+.contact-form .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.contact-form .form-check-label {
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+.contact-form .form-check-label a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.contact-form .form-check-label a:hover {
+    text-decoration: underline;
+}
+
+.form-submit {
+    text-align: center;
+}
+
+.submit-info {
+    margin-top: 1rem;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+.contact-info-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    height: fit-content;
+}
+
+.contact-info-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+}
+
+.contact-info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.contact-details h5 {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-details p {
+    color: var(--gray-color);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contact-details a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+.quick-actions-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.quick-actions-card h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 2px solid var(--light-gray);
+    text-decoration: none;
+    color: var(--gray-color);
+    transition: var(--transition);
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.quick-action-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(177, 210, 53, 0.05);
+    color: var(--dark-color);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.quick-action-btn i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.quick-action-btn h6 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.quick-action-btn small {
+    color: var(--gray-color);
+}
+
+/* Map Section */
+.map-section {
+    padding: 80px 0;
+}
+
+.map-container {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--white);
+}
+
+.map-placeholder {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-color);
+    text-align: center;
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.map-placeholder h4 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.map-placeholder p {
+    margin-bottom: 1.5rem;
+}
+
+/* Contact FAQ */
+.contact-faq-section {
+    padding: 80px 0;
+}
+
+.faq-item {
+    text-align: center;
+    padding: 2rem;
+}
+
+.faq-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.faq-item h5 {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.faq-item p {
+    color: var(--gray-color);
+    line-height: 1.5;
+}
