@@ -16,6 +16,7 @@ class Container_498f6ae5a7 extends Nette\DI\Container
 		'database.default.context' => 'database.default.explorer',
 		'httpRequest' => 'http.request',
 		'httpResponse' => 'http.response',
+		'nette.authorizator' => 'security.authorizator',
 		'nette.cacheJournal' => 'cache.journal',
 		'nette.database.default' => 'database.default',
 		'nette.database.default.context' => 'database.default.explorer',
@@ -55,6 +56,7 @@ class Container_498f6ae5a7 extends Nette\DI\Container
 		'Nette\Security\Passwords' => [['security.passwords']],
 		'Nette\Security\UserStorage' => [['security.userStorage']],
 		'Nette\Security\User' => [['security.user']],
+		'Nette\Security\Authorizator' => [['security.authorizator']],
 		'Nette\Http\Session' => [['session.session']],
 		'Tracy\ILogger' => [['tracy.logger']],
 		'Tracy\BlueScreen' => [['tracy.blueScreen']],
@@ -360,6 +362,16 @@ class Container_498f6ae5a7 extends Nette\DI\Container
 	}
 
 
+	public function createServiceSecurity__authorizator(): Nette\Security\Authorizator
+	{
+		$service = new Nette\Security\Permission;
+		$service->addRole('guest', null);
+		$service->addRole('user', null);
+		$service->addRole('admin', null);
+		return $service;
+	}
+
+
 	public function createServiceSecurity__passwords(): Nette\Security\Passwords
 	{
 		return new Nette\Security\Passwords;
@@ -368,7 +380,10 @@ class Container_498f6ae5a7 extends Nette\DI\Container
 
 	public function createServiceSecurity__user(): Nette\Security\User
 	{
-		$service = new Nette\Security\User($this->getService('security.userStorage'));
+		$service = new Nette\Security\User(
+			$this->getService('security.userStorage'),
+			authorizator: $this->getService('security.authorizator'),
+		);
 		$this->getService('tracy.bar')->addPanel(new Nette\Bridges\SecurityTracy\UserPanel($service));
 		return $service;
 	}
@@ -383,7 +398,15 @@ class Container_498f6ae5a7 extends Nette\DI\Container
 	public function createServiceSession__session(): Nette\Http\Session
 	{
 		$service = new Nette\Http\Session($this->getService('http.request'), $this->getService('http.response'));
-		$service->setOptions(['cookieSamesite' => 'Lax']);
+		$service->setExpiration('14 days');
+		$service->setOptions([
+			'cookieSamesite' => 'Lax',
+			'cookieSecure' => 'auto',
+			'cookieHttponly' => true,
+			'name' => 'QRDOKLAD_SESSION',
+			'cookiePath' => '/',
+			'cookieDomain' => null,
+		]);
 		return $service;
 	}
 
@@ -419,10 +442,6 @@ class Container_498f6ae5a7 extends Nette\DI\Container
 			$response->setHeader('Content-Type', 'text/html; charset=utf-8');
 			$response->setHeader('X-Frame-Options', 'SAMEORIGIN');
 			Nette\Http\Helpers::initCookie($this->getService('http.request'), $response);
-		})();
-		// session.
-		(function () {
-			$this->getService('session.session')->autoStart(false);
 		})();
 		// tracy.
 		(function () {

@@ -16,6 +16,17 @@ database:
 	password:
 
 
+session:
+	autoStart: false
+	cookieSamesite: Lax
+	cookieSecure: auto
+	cookieHttponly: true
+	expiration: 14 days
+	name: QRDOKLAD_SESSION
+	cookiePath: /
+	cookieDomain: 
+
+
 latte:
 	strictTypes: yes
 	strictParsing: yes
@@ -34,3 +45,12 @@ di:
 	export:
 		parameters: no
 		tags: no
+
+
+security:
+	# users:
+		# admin: secret # user 'admin', password 'secret'
+	roles:
+		guest:
+		user:
+		admin:
