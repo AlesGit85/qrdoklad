@@ -97,6 +97,14 @@ class LandingPresenter extends Presenter
     }
 
     /**
+     * Redirect z /privacy na /ochrana-osobnich-udaju
+     */
+    public function actionPrivacyRedirect(): void
+    {
+        $this->redirectPermanent('Landing:privacy');
+    }
+
+    /**
      * Obchodní podmínky
      */
     public function renderTerms(): void
@@ -104,6 +112,14 @@ class LandingPresenter extends Presenter
         $this->template->pageTitle = 'Obchodní podmínky - QRdoklad';
         $this->template->metaDescription = 'Obchodní podmínky pro používání fakturačního systému QRdoklad. Práva a povinnosti uživatelů.';
         $this->template->metaKeywords = 'obchodní podmínky, VOP, všeobecné obchodní podmínky, smlouva';
+    }
+
+    /**
+     * Redirect z /terms na /obchodni-podminky
+     */
+    public function actionTermsRedirect(): void
+    {
+        $this->redirectPermanent('Landing:terms');
     }
 
     /**
@@ -127,6 +143,14 @@ class LandingPresenter extends Presenter
         $this->template->pageTitle = 'O nás - QRdoklad';
         $this->template->metaDescription = 'Poznejte tým za QRdokladem. Naše mise je zjednodušit fakturaci pro české podnikatele pomocí moderních technologií.';
         $this->template->metaKeywords = 'o nás, tým, mise, historie, QRdoklad, fakturační systém';
+    }
+
+    /**
+     * Redirect z /about na /o-nas
+     */
+    public function actionAboutRedirect(): void
+    {
+        $this->redirectPermanent('Landing:about');
     }
 
     /**
@@ -529,7 +553,7 @@ class LandingPresenter extends Presenter
                 '@type' => 'ListItem',
                 'position' => 2,
                 'name' => $pageNames[$action] ?? ucfirst($action),
-                'item' => $baseUrl . $this->getRequest()->getUrl()->getPath()
+                'item' => $baseUrl . $this->getHttpRequest()->getUrl()->getPath()
             ];
         }
 

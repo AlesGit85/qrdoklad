@@ -15,6 +15,11 @@ final class RouterFactory
         // SEO routes
         $router->addRoute('sitemap.xml', 'Landing:sitemap');
         
+        // Redirecty z anglických URL na české
+        $router->addRoute('privacy', 'Landing:privacyRedirect');
+        $router->addRoute('terms', 'Landing:termsRedirect');
+        $router->addRoute('about', 'Landing:aboutRedirect');
+        
         // Landing page routes
         $router->addRoute('', 'Landing:default');
         $router->addRoute('funkce', 'Landing:funkce');
