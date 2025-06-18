@@ -54,7 +54,7 @@ return array (
     'App\\Presentation\\Privacy\\PrivacyPresenter' => 3,
     'App\\Presentation\\Landing\\LandingPrivacyTemplate' => 3,
     'App\\Presentation\\Landing\\LandingTermsTemplate' => 1,
-    'App\\Presentation\\Landing\\LandingFaqTemplate' => 2,
+    'App\\Presentation\\Landing\\LandingFaqTemplate' => 3,
     'App\\Presentation\\Landing\\LandingAboutTemplate' => 1,
   ),
   2 => 
