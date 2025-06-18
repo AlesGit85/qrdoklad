@@ -51,7 +51,7 @@ return array (
     'App\\Presentation\\Landing\\LandingAboutTemplate' => 2,
     'App\\Presentation\\Landing\\LandingFaqTemplate' => 1,
     'App\\Presentation\\Landing\\LandingBlogTemplate' => 1,
-    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 2,
+    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 3,
     'App\\Presentation\\Landing\\LandingCenikTemplate' => 1,
     'App\\Presentation\\Landing\\LandingKontaktTemplate' => 1,
   ),
