@@ -1,35 +1,48 @@
 {block content}
 
-<!-- Hero sekce pro O nás -->
-<section class="hero-section py-5">
+<!-- Hero sekce -->
+<section class="hero-section d-flex align-items-center">
     <div class="container">
-        <div class="row align-items-center min-vh-50 py-5">
+        <div class="row align-items-center">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="hero-title">
-                    O <span class="text-primary">QRdokladu</span>
+                <h1 class="hero-title text-white mb-4">
+                    O společnosti QRdoklad
                 </h1>
-                <p class="hero-subtitle">
-                    Jsme tým nadšenců, kteří věří, že fakturace může být jednoduchá, rychlá a příjemná. 
-                    Naše mise je revolucionalizovat způsob, jakým čeští podnikatelé spravují své finance.
+                <p class="hero-subtitle text-light mb-4">
+                    Jsme tým nadšenců, kteří věří, že fakturace může být jednoduchá, rychlá a efektivní.
+                    Naší misí je pomoci českým podnikatelům ušetřit čas a soustředit se na to, co umí nejlépe.
                 </p>
-                <div class="hero-stats mt-4">
-                    <div class="row justify-content-center g-4">
-                        <div class="col-auto">
-                            <div class="stat-item">
-                                <h3 class="text-primary counter" data-count="1000">0</h3>
-                                <p>Spokojených zákazníků</p>
+                <div class="hero-stats row g-4 justify-content-center">
+                    <div class="col-auto">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="bi bi-calendar"></i>
+                            </div>
+                            <div class="stat-text">
+                                <span class="stat-number">2024</span>
+                                <span class="stat-label">Rok založení</span>
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <div class="stat-item">
-                                <h3 class="text-primary counter" data-count="50000">0</h3>
-                                <p>Vystavených faktur</p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <div class="stat-text">
+                                <span class="stat-number">1000+</span>
+                                <span class="stat-label">Spokojených klientů</span>
                             </div>
                         </div>
-                        <div class="col-auto">
-                            <div class="stat-item">
-                                <h3 class="text-primary counter" data-count="2024">0</h3>
-                                <p>Rok založení</p>
+                    </div>
+                    <div class="col-auto">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="bi bi-file-text"></i>
+                            </div>
+                            <div class="stat-text">
+                                <span class="stat-number">50k+</span>
+                                <span class="stat-label">Vystavených faktur</span>
                             </div>
                         </div>
                     </div>
@@ -42,74 +55,157 @@
 <!-- Naše mise -->
 <section class="mission-section py-5">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4">
-                <h2 class="section-title">Naše mise</h2>
-                <p class="section-subtitle mb-4">
-                    Věříme, že administrace by neměla brzdit podnikání. Proto vytváříme nástroje, 
-                    které šetří čas a umožňují podnikatelům soustředit se na to, co je baví.
-                </p>
-                
-                <div class="mission-points">
-                    <div class="mission-point">
-                        <div class="point-icon">
-                            <i class="bi bi-lightning-charge"></i>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="mission-content">
+                    <h2 class="section-title">Naše mise</h2>
+                    <p class="section-subtitle text-muted">
+                        Zjednodušit podnikání pomocí moderních technologií
+                    </p>
+                    <p>
+                        Věříme, že každý podnikatel by měl mít přístup k profesionálním nástrojům, 
+                        které mu umožní efektivně spravovat svou administrativu. QRdoklad je výsledkem 
+                        našeho úsilí vytvořit fakturační systém, který kombinuje jednoduchost s výkonem.
+                    </p>
+                    <p>
+                        Naším cílem není jen poskytovat software, ale být partnerem, který pomáhá 
+                        českým firmám růst a prosperovat v digitální éře.
+                    </p>
+                    <div class="mission-values mt-4">
+                        <div class="value-item d-flex align-items-center mb-3">
+                            <div class="value-icon me-3">
+                                <i class="bi bi-lightbulb text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Inovace</h6>
+                                <p class="small text-muted mb-0">Neustále hledáme nové způsoby, jak zlepšit uživatelský zážitek</p>
+                            </div>
                         </div>
-                        <div class="point-content">
-                            <h5>Rychlost a jednoduchost</h5>
-                            <p>Fakturu vystavíte za méně než 2 minuty díky intuitivnímu rozhraní.</p>
+                        <div class="value-item d-flex align-items-center mb-3">
+                            <div class="value-icon me-3">
+                                <i class="bi bi-shield-check text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Spolehlivost</h6>
+                                <p class="small text-muted mb-0">Vaše data jsou v bezpečí a služba dostupná 24/7</p>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="mission-point">
-                        <div class="point-icon">
-                            <i class="bi bi-shield-check"></i>
-                        </div>
-                        <div class="point-content">
-                            <h5>Bezpečnost a spolehlivost</h5>
-                            <p>Vaše data jsou v bezpečí díky moderním technologiím a pravidelným zálohám.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mission-point">
-                        <div class="point-icon">
-                            <i class="bi bi-heart"></i>
-                        </div>
-                        <div class="point-content">
-                            <h5>Zákaznická spokojenost</h5>
-                            <p>Neustále vylepšujeme náš systém na základě zpětné vazby od uživatelů.</p>
+                        <div class="value-item d-flex align-items-center">
+                            <div class="value-icon me-3">
+                                <i class="bi bi-heart text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">Zákaznický přístup</h6>
+                                <p class="small text-muted mb-0">Každý zákazník je pro nás důležitý, bez ohledu na velikost</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="col-lg-6">
-                <div class="mission-visual">
-                    <div class="visual-card">
-                        <div class="card-icon">
-                            <i class="bi bi-bullseye"></i>
-                        </div>
-                        <h4>Naše vize</h4>
-                        <p>
-                            Chceme být nejvíce oblíbeným fakturačním systémem v České republice. 
-                            Systémem, který je tak jednoduchý a efektivní, že si uživatelé nedokážou 
-                            představit práci bez něj.
-                        </p>
-                        <div class="progress-indicators">
-                            <div class="progress-item">
-                                <span>Uživatelská spokojenost</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 96%">96%</div>
-                                </div>
-                            </div>
-                            <div class="progress-item">
-                                <span>Rychlost růstu</span>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: 87%">87%</div>
-                                </div>
-                            </div>
+                <div class="mission-image">
+                    <div class="image-placeholder bg-primary bg-opacity-10 rounded d-flex align-items-center justify-content-center">
+                        <div class="text-center">
+                            <i class="bi bi-rocket text-primary" style="font-size: 6rem; opacity: 0.3;"></i>
+                            <p class="text-muted mt-3">Zde bude obrázek týmu nebo kanceláře</p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Náš příběh -->
+<section class="story-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">Náš příběh</h2>
+                <p class="section-subtitle">
+                    Jak vznikl QRdoklad a proč jsme se rozhodli změnit svět fakturace
+                </p>
+            </div>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-icon">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Začátek 2024</div>
+                    <h5>Nápad</h5>
+                    <p>
+                        Frustrace z komplikovaných fakturačních systémů nás vedla k myšlence 
+                        vytvořit něco lepšího. Systém, který bude intuitivní, rychlý a přitom výkonný.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-icon">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Jaro 2024</div>
+                    <h5>Vývoj</h5>
+                    <p>
+                        Začali jsme vyvíjet první verzi QRdokladu. Zaměřili jsme se na jednoduchost 
+                        použití a moderní technologie včetně QR plateb.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Léto 2024</div>
+                    <h5>Beta testování</h5>
+                    <p>
+                        Spustili jsme beta verzi s prvními uživateli. Jejich zpětná vazba 
+                        nám pomohla vylepšit systém a přidat chybějící funkce.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-icon">
+                        <i class="bi bi-rocket"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Podzim 2024</div>
+                    <h5>Oficiální spuštění</h5>
+                    <p>
+                        QRdoklad byl oficiálně spuštěn pro veřejnost. Od té doby neustále 
+                        přidáváme nové funkce a vylepšujeme uživatelský zážitek.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-marker">
+                    <div class="timeline-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <h5>Růst a inovace</h5>
+                    <p>
+                        Pokračujeme v rozvoji systému, přidáváme pokročilé funkce 
+                        a rozšiřujeme náš tým, abychom mohli poskytovat ještě lepší služby.
+                    </p>
                 </div>
             </div>
         </div>
@@ -117,13 +213,13 @@
 </section>
 
 <!-- Náš tým -->
-<section class="team-section py-5 bg-light">
+<section class="team-section py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h2 class="section-title">Náš tým</h2>
                 <p class="section-subtitle">
-                    Poznámte lidi, kteří denně pracují na tom, aby byl QRdoklad lepší
+                    Poznamezte lidi, kteří stojí za QRdokladem
                 </p>
             </div>
         </div>
@@ -132,17 +228,22 @@
             <div class="col-lg-4 col-md-6">
                 <div class="team-card">
                     <div class="team-avatar">
-                        <i class="bi bi-person-circle"></i>
+                        <div class="avatar-placeholder bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person text-primary" style="font-size: 3rem;"></i>
+                        </div>
                     </div>
-                    <h5>Martin Nový</h5>
-                    <p class="role">Zakladatel & CEO</p>
-                    <p class="bio">
-                        Zkušený podnikatel s vášní pro jednoduché řešení složitých problémů. 
-                        15 let zkušeností v IT a fintech.
-                    </p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+                    <div class="team-info">
+                        <h5>Jan Novák</h5>
+                        <p class="team-role text-primary">CEO & Founder</p>
+                        <p class="team-description">
+                            Zakladatel a vizionář QRdokladu. Více než 10 let zkušeností 
+                            v oblasti fintech a podnikového software.
+                        </p>
+                        <div class="team-social">
+                            <a href="#" class="text-muted me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" class="text-muted"><i class="bi bi-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,17 +251,22 @@
             <div class="col-lg-4 col-md-6">
                 <div class="team-card">
                     <div class="team-avatar">
-                        <i class="bi bi-person-circle"></i>
+                        <div class="avatar-placeholder bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person text-primary" style="font-size: 3rem;"></i>
+                        </div>
                     </div>
-                    <h5>Jana Svobodová</h5>
-                    <p class="role">CTO & Tech Lead</p>
-                    <p class="bio">
-                        Technologická nadšenkyně, která dbá na to, aby QRdoklad fungoval 
-                        rychle, bezpečně a spolehlivě 24/7.
-                    </p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                    <div class="team-info">
+                        <h5>Marie Svobodová</h5>
+                        <p class="team-role text-primary">CTO</p>
+                        <p class="team-description">
+                            Technická vedoucí s vášní pro clean code a uživatelský zážitek. 
+                            Specialistka na cloud architekturu a bezpečnost.
+                        </p>
+                        <div class="team-social">
+                            <a href="#" class="text-muted me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="bi bi-github"></i></a>
+                            <a href="#" class="text-muted"><i class="bi bi-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -168,158 +274,119 @@
             <div class="col-lg-4 col-md-6">
                 <div class="team-card">
                     <div class="team-avatar">
-                        <i class="bi bi-person-circle"></i>
+                        <div class="avatar-placeholder bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person text-primary" style="font-size: 3rem;"></i>
+                        </div>
                     </div>
-                    <h5>Tomáš Dvořák</h5>
-                    <p class="role">Head of Customer Success</p>
-                    <p class="bio">
-                        Zodpovídá za spokojenost našich zákazníků. Věří, že nejlepší produkt 
-                        je ten, který skutečně pomáhá lidem.
+                    <div class="team-info">
+                        <h5>Pavel Dvořák</h5>
+                        <p class="team-role text-primary">Head of Customer Success</p>
+                        <p class="team-description">
+                            Stará se o spokojenost našich zákazníků a řídí tým podpory. 
+                            Věří, že každý problém má řešení.
+                        </p>
+                        <div class="team-social">
+                            <a href="#" class="text-muted me-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" class="text-muted"><i class="bi bi-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div class="join-team-cta p-4 bg-primary bg-opacity-10 rounded">
+                    <h4 class="text-primary mb-3">Chcete se k nám přidat?</h4>
+                    <p class="mb-3">
+                        Hledáme talentované lidi, kteří chtějí měnit svět technologií. 
+                        Podívejte se na naše otevřené pozice.
                     </p>
-                    <div class="team-social">
-                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-envelope"></i></a>
-                    </div>
+                    <a href="#" class="btn btn-primary">
+                        <i class="bi bi-briefcase me-2"></i>
+                        Zobrazit volné pozice
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Naše hodnoty -->
-<section class="values-section py-5">
+<!-- Kontakt a lokace -->
+<section class="location-section py-5 bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Naše hodnoty</h2>
-                <p class="section-subtitle">
-                    Principy, kterými se řídíme při vývoji a provozu QRdokladu
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="section-title">Kde nás najdete</h2>
+                <p class="section-subtitle text-muted mb-4">
+                    Jsme česká společnost s kořeny v Hradci Králové
                 </p>
-            </div>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="bi bi-rocket-takeoff"></i>
+                
+                <div class="location-info">
+                    <div class="contact-item d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-geo-alt text-primary"></i>
+                        </div>
+                        <div>
+                            <h6>Adresa</h6>
+                            <p class="text-muted mb-0">
+                                Librantice 167<br>
+                                503 46 Librantice<br>
+                                Česká republika
+                            </p>
+                        </div>
                     </div>
-                    <h5>Inovace</h5>
-                    <p>Neustále hledáme nové způsoby, jak zjednodušit a zrychlit fakturaci.</p>
+                    
+                    <div class="contact-item d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-telephone text-primary"></i>
+                        </div>
+                        <div>
+                            <h6>Telefon</h6>
+                            <p class="text-muted mb-0">
+                                <a href="tel:+420703985390" class="text-decoration-none">
+                                    +420 703 985 390
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-envelope text-primary"></i>
+                        </div>
+                        <div>
+                            <h6>E-mail</h6>
+                            <p class="text-muted mb-0">
+                                <a href="mailto:info@qrdoklad.cz" class="text-decoration-none">
+                                    info@qrdoklad.cz
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item d-flex align-items-start">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-clock text-primary"></i>
+                        </div>
+                        <div>
+                            <h6>Pracovní doba</h6>
+                            <p class="text-muted mb-0">
+                                Pondělí - Pátek: 9:00 - 17:00<br>
+                                Sobota - Neděle: Zavřeno
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="col-lg-3 col-md-6">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="bi bi-people"></i>
-                    </div>
-                    <h5>Zákazník na prvním místě</h5>
-                    <p>Každé rozhodnutí děláme s ohledem na to, co je nejlepší pro naše uživatele.</p>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="bi bi-transparency"></i>
-                    </div>
-                    <h5>Transparentnost</h5>
-                    <p>Žádné skryté poplatky, jasný ceník a otevřená komunikace.</p>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6">
-                <div class="value-card">
-                    <div class="value-icon">
-                        <i class="bi bi-award"></i>
-                    </div>
-                    <h5>Kvalita</h5>
-                    <p>Preferujeme kvalitu před kvantitou ve všem, co děláme.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Časová osa -->
-<section class="timeline-section py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Naše cesta</h2>
-                <p class="section-subtitle">
-                    Jak se QRdoklad vyvíjel od nápadu k realitě
-                </p>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker">
-                            <i class="bi bi-lightbulb"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h5>Leden 2024 - Nápad</h5>
-                            <p>
-                                Zakladatel Martin bojoval s komplikovaným fakturačním systémem 
-                                ve své firmě. Rozhodl se vytvořit něco lepšího.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-marker">
-                            <i class="bi bi-code-slash"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h5>Březen 2024 - První prototyp</h5>
-                            <p>
-                                Tým začal pracovat na MVP s básickou funkcionalitou 
-                                pro vystavování faktur s QR platbami.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-marker">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h5>Červen 2024 - Beta testování</h5>
-                            <p>
-                                50 beta testerů pomohlo vyladit systém a identifikovat 
-                                nejdůležitější funkce pro první verzi.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-marker">
-                            <i class="bi bi-rocket"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h5>Září 2024 - Oficiální spuštění</h5>
-                            <p>
-                                QRdoklad oficiálně vstoupil na trh s kompletní sadou 
-                                funkcí pro malé a střední podniky.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-marker">
-                            <i class="bi bi-trophy"></i>
-                        </div>
-                        <div class="timeline-content">
-                            <h5>Prosinec 2024 - První milník</h5>
-                            <p>
-                                Překročili jsme hranici 1000 aktivních uživatelů 
-                                a 50 000 vystavených faktur.
-                            </p>
-                        </div>
+            <div class="col-lg-6">
+                <div class="map-placeholder bg-light border rounded d-flex align-items-center justify-content-center" style="height: 400px;">
+                    <div class="text-center text-muted">
+                        <i class="bi bi-map" style="font-size: 4rem; opacity: 0.3;"></i>
+                        <p class="mt-3">Zde bude interaktivní mapa</p>
+                        <small>Google Maps integrace</small>
                     </div>
                 </div>
             </div>
@@ -327,83 +394,56 @@
     </div>
 </section>
 
-<!-- Kontakt tým -->
-<section class="team-contact py-5">
+<!-- CTA Section -->
+<section class="cta-section text-white text-center">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                <div class="contact-card bg-white p-4 p-md-5 rounded-3 shadow text-center">
-                    <h3 class="text-primary mb-3">Chcete se k nám připojit?</h3>
-                    <p class="mb-4">
-                        Hledáme talentované lidi, kteří chtějí pomoci změnit způsob, 
-                        jakým čeští podnikatelé spravují své finance.
-                    </p>
-                    
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-4">
-                            <div class="job-highlight">
-                                <i class="bi bi-house-heart"></i>
-                                <h6>Práce z domova</h6>
-                                <p class="small mb-0">Flexibilní pracovní doba</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="job-highlight">
-                                <i class="bi bi-graph-up-arrow"></i>
-                                <h6>Růst s firmou</h6>
-                                <p class="small mb-0">Možnost podílet se na úspěchu</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="job-highlight">
-                                <i class="bi bi-people"></i>
-                                <h6>Skvělý tým</h6>
-                                <p class="small mb-0">Příjemná pracovní atmosféra</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-buttons">
-                        <a href="mailto:kariera@qrdoklad.cz" class="btn btn-primary btn-lg me-3">
-                            <i class="bi bi-envelope me-2"></i>
-                            Napište nám
-                        </a>
-                        <a n:href="Landing:kontakt" class="btn btn-outline-primary btn-lg">
-                            <i class="bi bi-chat-dots me-2"></i>
-                            Více informací
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA sekce -->
-<section class="cta-section py-5 bg-primary text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="cta-title">Připojte se k naší komunitě</h2>
-                <p class="cta-subtitle">
-                    Stanete se součástí rostoucí komunity podnikatelů, kteří si zjednodušili 
-                    fakturaci s QRdokladem.
+                <h2 class="cta-title text-dark">Připraveni začít s QRdokladem?</h2>
+                <p class="cta-subtitle text-dark">
+                    Připojte se k více než 1000 spokojeným podnikatelům, 
+                    kteří již používají QRdoklad pro svou fakturaci.
                 </p>
-                <div class="cta-buttons">
-                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-light btn-lg me-3" target="_blank" rel="noopener">
-                        <i class="bi bi-rocket-takeoff me-2"></i>
-                        Začít zdarma
+                
+                <div class="cta-buttons d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-dark btn-lg">
+                        <i class="bi bi-rocket me-2"></i>
+                        Vyzkoušet 30 dní zdarma
                     </a>
-                    <a n:href="Landing:kontakt" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-chat-dots me-2"></i>
-                        Kontaktovat nás
+                    <a n:href="Landing:kontakt" class="btn btn-outline-dark btn-lg">
+                        <i class="bi bi-calendar me-2"></i>
+                        Naplánovat demo
                     </a>
                 </div>
                 
+                <div class="cta-features row g-3 justify-content-center mt-4">
+                    <div class="col-auto">
+                        <span class="cta-feature text-dark">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Bez závazků
+                        </span>
+                    </div>
+                    <div class="col-auto">
+                        <span class="cta-feature text-dark">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Platební karta není potřeba
+                        </span>
+                    </div>
+                    <div class="col-auto">
+                        <span class="cta-feature text-dark">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Aktivace do 2 minut
+                        </span>
+                    </div>
+                </div>
+                
                 <div class="guarantee-info mt-4">
-                    <p class="mb-0">
-                        <i class="bi bi-shield-check me-2"></i>
-                        30 dní zdarma • Bez závazků • Česká podpora
+                    <p class="small text-dark mb-1">
+                        <i class="bi bi-shield-check me-1"></i>
+                        <strong>30denní záruka vrácení peněz</strong>
+                    </p>
+                    <p class="small text-dark opacity-75">
+                        Pokud nebudete spokojeni, vrátíme vám všechny peníze. Bez otázek.
                     </p>
                 </div>
             </div>

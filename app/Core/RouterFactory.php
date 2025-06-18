@@ -20,17 +20,26 @@ final class RouterFactory
         $router->addRoute('terms', 'Landing:termsRedirect');
         $router->addRoute('about', 'Landing:aboutRedirect');
         
-        // Landing page routes
+        // Hlavní Landing page routes
         $router->addRoute('', 'Landing:default');
         $router->addRoute('funkce', 'Landing:funkce');
         $router->addRoute('cenik', 'Landing:cenik');
         $router->addRoute('kontakt', 'Landing:kontakt');
         
-        // Obsahové stránky
+        // Obsahové a právní stránky
         $router->addRoute('ochrana-osobnich-udaju', 'Landing:privacy');
         $router->addRoute('obchodni-podminky', 'Landing:terms');
         $router->addRoute('faq', 'Landing:faq');
         $router->addRoute('o-nas', 'Landing:about');
+        
+        // Podpůrné stránky
+        $router->addRoute('status', 'Landing:status');
+        $router->addRoute('napoveda', 'Landing:help');
+        $router->addRoute('blog', 'Landing:blog');
+        
+        // API a dokumentace (pro budoucí použití)
+        $router->addRoute('api', 'Landing:api');
+        $router->addRoute('dokumentace', 'Landing:docs');
         
         // Fallback route
         $router->addRoute('<presenter>/<action>[/<id>]', 'Landing:default');
