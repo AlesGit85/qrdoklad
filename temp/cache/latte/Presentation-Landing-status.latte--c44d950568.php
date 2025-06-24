@@ -1,9 +1,61 @@
-{extends '../@layout.latte'}
+<?php
 
-{block title}Status systému - QRdoklad{/block}
+declare(strict_types=1);
 
-{block content}
+use Latte\Runtime as LR;
 
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/status.latte */
+final class Template_c44d950568 extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/status.latte';
+
+	public const Blocks = [
+		['title' => 'blockTitle', 'content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		echo "\n";
+		$this->renderBlock('title', get_defined_vars()) /* line 3 */;
+		echo '
+
+';
+		$this->renderBlock('content', get_defined_vars()) /* line 5 */;
+	}
+
+
+	public function prepare(): array
+	{
+		extract($this->params);
+
+		$this->parentName = '../@layout.latte';
+		return get_defined_vars();
+	}
+
+
+	/** {block title} on line 3 */
+	public function blockTitle(array $ʟ_args): void
+	{
+		echo 'Status systému - QRdoklad';
+	}
+
+
+	/** {block content} on line 5 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce -->
 <section class="hero-section py-5">
     <div class="container">
@@ -170,7 +222,9 @@
                             Všechny systémy fungují stabilně a spolehlivě.
                         </p>
                         <small class="text-muted">
-                            Poslední kontrola: {date('d.m.Y H:i')}
+                            Poslední kontrola: ';
+		echo LR\Filters::escapeHtmlText(date('d.m.Y H:i')) /* line 173 */;
+		echo '
                         </small>
                     </div>
                 </div>
@@ -286,11 +340,15 @@
                     Kontaktujte nás a vyřešíme to společně.
                 </p>
                 <div class="cta-buttons">
-                    <a n:href="Landing:kontakt" class="btn btn-light btn-lg me-3">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 289 */;
+		echo '" class="btn btn-light btn-lg me-3">
                         <i class="bi bi-headset me-2"></i>
                         Technická podpora
                     </a>
-                    <a n:href="Landing:help" class="btn btn-outline-light btn-lg">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 293 */;
+		echo '" class="btn btn-outline-light btn-lg">
                         <i class="bi bi-book me-2"></i>
                         Nápověda
                     </a>
@@ -300,4 +358,6 @@
     </div>
 </section>
 
-{/block}
+';
+	}
+}

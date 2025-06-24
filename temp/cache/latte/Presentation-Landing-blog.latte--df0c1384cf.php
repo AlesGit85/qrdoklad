@@ -10,7 +10,7 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
 	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/blog.latte';
 
 	public const Blocks = [
-		['content' => 'blockContent'],
+		['title' => 'blockTitle', 'content' => 'blockContent'],
 	];
 
 
@@ -23,11 +23,32 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
 			return;
 		}
 
-		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+		echo "\n";
+		$this->renderBlock('title', get_defined_vars()) /* line 3 */;
+		echo '
+
+';
+		$this->renderBlock('content', get_defined_vars()) /* line 5 */;
 	}
 
 
-	/** {block content} on line 1 */
+	public function prepare(): array
+	{
+		extract($this->params);
+
+		$this->parentName = '../@layout.latte';
+		return get_defined_vars();
+	}
+
+
+	/** {block title} on line 3 */
+	public function blockTitle(array $ʟ_args): void
+	{
+		echo 'Blog - QRdoklad';
+	}
+
+
+	/** {block content} on line 5 */
 	public function blockContent(array $ʟ_args): void
 	{
 		extract($this->params);
@@ -36,18 +57,18 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
 
 		echo '
 <!-- Hero sekce -->
-<section class="hero-section d-flex align-items-center">
+<section class="hero-section py-5">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center min-vh-50 py-5">
             <div class="col-lg-8 mx-auto text-center">
-                <h1 class="hero-title text-white mb-4">
-                    QRdoklad Blog
+                <h1 class="hero-title">
+                    QRdoklad <span class="text-primary">Blog</span>
                 </h1>
-                <p class="hero-subtitle text-light mb-4">
+                <p class="hero-subtitle">
                     Novinky ze světa fakturace, podnikání a digitalizace. 
                     Tipy, triky a nejlepší praktiky pro vaše podnikání.
                 </p>
-                <div class="hero-badges">
+                <div class="hero-badges mt-4">
                     <span class="badge bg-primary me-2">
                         <i class="bi bi-calendar-week me-1"></i>
                         Nové články každý týden
@@ -127,29 +148,26 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
                         </div>
                     </div>
                     
-                    <!-- Newsletter signup -->
-                    <div class="newsletter-signup p-4 bg-primary bg-opacity-10 rounded">
-                        <h5 class="text-primary mb-3">Buďte první, kdo se dozví o novém obsahu</h5>
+                    <!-- Newsletter přihlášení -->
+                    <div class="newsletter-signup bg-light p-4 rounded">
+                        <h5 class="text-primary mb-3">Nechte se informovat o novinkách</h5>
                         <p class="text-muted mb-4">
-                            Přihlaste se k odběru newsletteru a dostávejte novinky přímo do e-mailu
+                            Jako první se dozvíte o spuštění blogu a nových článcích
                         </p>
-                        
-                        <div class="newsletter-form">
-                            <div class="row g-3 justify-content-center">
-                                <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Váš e-mail">
-                                </div>
-                                <div class="col-auto">
-                                    <button class="btn btn-primary">
-                                        <i class="bi bi-envelope me-2"></i>
-                                        Přihlásit se
-                                    </button>
-                                </div>
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-md-8">
+                                <input type="email" class="form-control" placeholder="Váš e-mail" aria-label="Email pro newsletter">
                             </div>
-                            <p class="small text-muted mt-3 mb-0">
-                                Žádný spam, pouze užitečný obsah. Odhlásit se můžete kdykoli.
-                            </p>
+                            <div class="col-auto">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="bi bi-envelope me-2"></i>
+                                    Přihlásit se
+                                </button>
+                            </div>
                         </div>
+                        <small class="text-muted d-block mt-2">
+                            Odhlásit se můžete kdykoli.
+                        </small>
                     </div>
                 </div>
             </div>
@@ -171,7 +189,7 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
                             <h6>FAQ</h6>
                             <p class="text-muted mb-3">Odpovědi na nejčastější otázky o QRdokladu</p>
                             <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 138 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 139 */;
 		echo '" class="btn btn-outline-primary">
                                 Procházet FAQ
                             </a>
@@ -184,7 +202,7 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
                             <h6>Nápověda</h6>
                             <p class="text-muted mb-3">Kompletní dokumentace a návody</p>
                             <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 149 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 150 */;
 		echo '" class="btn btn-outline-primary">
                                 Otevřít nápovědu
                             </a>
@@ -197,7 +215,7 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
                             <h6>Kontakt</h6>
                             <p class="text-muted mb-3">Máte otázky? Napište nám</p>
                             <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 160 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 161 */;
 		echo '" class="btn btn-outline-primary">
                                 Kontaktovat nás
                             </a>
@@ -238,8 +256,65 @@ final class Template_df0c1384cf extends Latte\Runtime\Template
     </div>
 </section>
 
+<!-- CTA sekce -->
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="cta-title">Připraveni začít s QRdokladem?</h2>
+                <p class="cta-subtitle">
+                    Připojte se k více než 1000 spokojeným podnikatelům, 
+                    kteří již používají QRdoklad pro svou fakturaci.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-light btn-lg me-3">
+                        <i class="bi bi-rocket me-2"></i>
+                        Vyzkoušet 30 dní zdarma
+                    </a>
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 217 */;
+		echo '" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-calendar me-2"></i>
+                        Naplánovat demo
+                    </a>
+                </div>
+                
+                <div class="cta-features row g-3 justify-content-center mt-4">
+                    <div class="col-auto">
+                        <span class="cta-feature">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Bez závazků
+                        </span>
+                    </div>
+                    <div class="col-auto">
+                        <span class="cta-feature">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Platební karta není potřeba
+                        </span>
+                    </div>
+                    <div class="col-auto">
+                        <span class="cta-feature">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Aktivace do 2 minut
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="guarantee-info mt-4">
+                    <p class="small mb-1">
+                        <i class="bi bi-shield-check me-1"></i>
+                        <strong>30denní záruka vrácení peněz</strong>
+                    </p>
+                    <p class="small opacity-75">
+                        Pokud nebudete spokojeni, vrátíme vám všechny peníze. Bez otázek.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 ';
-		$this->createTemplate('../@global/cta-section.latte', $this->params, 'include')->renderToContentType('html') /* line 200 */;
-		echo "\n";
 	}
 }

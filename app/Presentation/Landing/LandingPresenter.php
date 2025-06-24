@@ -196,7 +196,7 @@ class LandingPresenter extends Presenter
     }
 
     /**
-     * FAQ data
+     * FAQ data - kompletní struktura s opravenými klíči
      */
     private function getFaqData(): array
     {
@@ -209,71 +209,66 @@ class LandingPresenter extends Presenter
                         'answer' => 'QRdoklad je moderní cloudový fakturační systém určený pro české podnikatele. Umožňuje rychlé vystavování faktur s QR platbami, automatické vyhledávání v ARES a kompletní správu klientů.'
                     ],
                     [
-                        'question' => 'Je QRdoklad vhodný pro mou firmu?',
-                        'answer' => 'QRdoklad je navržen pro všechny velikosti firem - od OSVČ až po větší společnosti. Nabízíme různé balíčky podle počtu faktur a potřeb vašeho podnikání.'
+                        'question' => 'Je QRdoklad vhodný pro můj typ podnikání?',
+                        'answer' => 'QRdoklad je navržen pro všechny typy podnikání - od OSVČ přes malé firmy až po větší společnosti. Systém se přizpůsobí vašim potřebám díky flexibilnímu nastavení.'
                     ],
                     [
-                        'question' => 'Jak rychle si mohu zprovoznit QRdoklad?',
-                        'answer' => 'Registrace a základní nastavení zabere jen několik minut. První fakturu můžete vystavit během 5 minut od registrace. Pomůžeme vám s importem dat z jiných systémů.'
+                        'question' => 'Mohu si QRdoklad vyzkoušet zdarma?',
+                        'answer' => 'Ano! Nabízíme 30denní zkušební období zdarma bez jakýchkoli závazků. Nemusíte zadávat platební údaje a můžete službu kdykoli zrušit.'
                     ],
                     [
-                        'question' => 'Potřebuji nějaký speciální software?',
-                        'answer' => 'Ne, QRdoklad funguje přímo v prohlížeči. Stačí internetové připojení a moderní prohlížeč (Chrome, Firefox, Safari, Edge).'
+                        'question' => 'Jak rychle mohu začít používat QRdoklad?',
+                        'answer' => 'Registrace a základní nastavení zabere jen pár minut. Svou první fakturu můžete vystavit během 5 minut od registrace. Pomůžeme vám s importem dat ze starého systému.'
                     ]
                 ]
             ],
-            'pricing' => [
-                'title' => 'Ceny a platba',
+            'billing' => [
+                'title' => 'Platby a účetnictví',
                 'questions' => [
                     [
-                        'question' => 'Jaké jsou možnosti platby?',
-                        'answer' => 'Přijímáme platby kartou (Visa, Mastercard), bankovním převodem a QR platbami. Pro firemní zákazníky nabízíme také fakturaci na firmu.'
+                        'question' => 'Jak fungují QR platby na fakturách?',
+                        'answer' => 'QR platby umožňují vašim zákazníkům zaplatit fakturu pouhým naskenováním QR kódu mobilním bankovnictvím. Všechny údaje se automaticky vyplní a platba je okamžitá.'
                     ],
                     [
-                        'question' => 'Můžu změnit tarif kdykoli?',
-                        'answer' => 'Ano, tarif můžete změnit kdykoli z vašeho účtu. Při upgradu se rozdíl doplatí poměrně, při downgradu se rozdíl započte do dalšího období.'
+                        'question' => 'Jsou faktury z QRdokladu právně platné?',
+                        'answer' => 'Ano, všechny faktury vystavené v QRdokladu splňují požadavky českého práva a jsou plně právně platné. Systém automaticky kontroluje povinné náležitosti faktur.'
                     ],
                     [
-                        'question' => 'Co zahrnuje zkušební doba?',
-                        'answer' => '30denní zkušební doba zahrnuje plný přístup ke všem funkcím vybraného balíčku. Není potřeba uvádět platební údaje a můžete kdykoli zrušit bez poplatků.'
+                        'question' => 'Mohu propojit QRdoklad s mým účetním systémem?',
+                        'answer' => 'Ano, QRdoklad nabízí export dat do nejčastěji používaných účetních programů jako Pohoda, Flex, Money S3 a dalších. Data můžete exportovat v různých formátech.'
                     ],
                     [
-                        'question' => 'Nabízíte slevy pro neziskové organizace?',
-                        'answer' => 'Ano, registrované neziskové organizace mají nárok na 50% slevu z měsíčního poplatku. Kontaktujte nás pro více informací.'
+                        'question' => 'Jak se řeší DPH a daňové povinnosti?',
+                        'answer' => 'Systém automaticky počítá DPH podle platných sazeb, podporuje režim plátce i neplátce DPH, OSS a další daňové režimy. Generuje potřebné reporty pro daňové přiznání.'
+                    ],
+                    [
+                        'question' => 'Mohu vystavovat faktury v cizích měnách?',
+                        'answer' => 'Ano, QRdoklad podporuje více než 50 světových měn s automatickým přepočtem kurzů České národní banky. Můžete nastavit vlastní kurzy nebo používat aktuální.'
                     ]
                 ]
             ],
             'technical' => [
-                'title' => 'Technické dotazy',
+                'title' => 'Technická podpora',
                 'questions' => [
                     [
-                        'question' => 'Jak bezpečná jsou moje data?',
-                        'answer' => 'Vaše data jsou chráněna SSL šifrováním, pravidelně zálohována a uložena na serverech v EU. Dodržujeme všechny požadavky GDPR a ISO 27001.'
+                        'question' => 'Je QRdoklad bezpečný?',
+                        'answer' => 'Ano, všechna data jsou šifrována SSL protokolem, pravidelně zálohována a uložena na serverech v EU. Systém je v souladu s GDPR a prochází pravidelnými bezpečnostními audity.'
                     ],
                     [
-                        'question' => 'Mohu exportovat svá data?',
-                        'answer' => 'Ano, kdykoliv můžete exportovat všechny své faktury, klienty a ostatní data ve formátech PDF, Excel nebo CSV. Data zůstávají vždy vaše.'
+                        'question' => 'Funguje QRdoklad na mobilních zařízeních?',
+                        'answer' => 'Ano, QRdoklad je plně responzivní a funguje na všech zařízeních - počítačích, tabletech i mobilních telefonech. Máme také mobilní aplikaci pro iOS a Android.'
                     ],
                     [
-                        'question' => 'Funguje QRdoklad na mobilu?',
-                        'answer' => 'Ano, QRdoklad je plně responzivní a funguje perfektně na všech zařízeních - telefonech, tabletech i počítačích. Připravujeme také mobilní aplikaci.'
+                        'question' => 'Co když budu potřebovat pomoc?',
+                        'answer' => 'Nabízíme komplexní podporu prostřednictvím e-mailu, telefonu, chatu a rozsáhlé dokumentace. Odpovídáme do 24 hodin, často i rychleji.'
                     ],
                     [
-                        'question' => 'Jak funguje integrace s ARES?',
-                        'answer' => 'Stačí zadat IČO a systém automaticky doplní všechny firemní údaje včetně adresy, názvu společnosti a ověření plátcovství DPH. Data jsou vždy aktuální.'
-                    ]
-                ]
-            ],
-            'support' => [
-                'title' => 'Podpora a pomoc',
-                'questions' => [
-                    [
-                        'question' => 'Jak rychlo odpovídáte na dotazy?',
-                        'answer' => 'Na všechny dotazy odpovídáme do 24 hodin v pracovní dny. Urgent problémy řešíme okamžitě. Máme také rozsáhlou dokumentaci a návody.'
+                        'question' => 'Mohu importovat data z jiného systému?',
+                        'answer' => 'Ano, pomůžeme vám s přenosem dat ze stávajícího systému. Podporujeme import ze standardních formátů (CSV, Excel) i z populárních fakturačních systémů.'
                     ],
                     [
-                        'question' => 'Pomůžete s migrací z jiného systému?',
-                        'answer' => 'Ano, pomůžeme vám bezplatně převést data z většiny fakturačních systémů. Zajistíme hladký přechod bez ztráty dat nebo přerušení práce.'
+                        'question' => 'Jaké jsou systémové požadavky?',
+                        'answer' => 'QRdoklad funguje v libovolném moderním webovém prohlížeči (Chrome, Firefox, Safari, Edge). Není potřeba instalovat žádný software - vše běží online.'
                     ],
                     [
                         'question' => 'Nabízíte školení?',
@@ -282,6 +277,31 @@ class LandingPresenter extends Presenter
                     [
                         'question' => 'Co když najdu chybu v systému?',
                         'answer' => 'Chyby řešíme s nejvyšší prioritou. Nahlaste problém přes podporu a dostanete okamžitou odpověď. Za nahlášení kritických chyb poskytujeme odměny.'
+                    ]
+                ]
+            ],
+            'pricing' => [
+                'title' => 'Ceny a balíčky',
+                'questions' => [
+                    [
+                        'question' => 'Kolik stojí QRdoklad?',
+                        'answer' => 'Nabízíme tři balíčky: Starter od 299 Kč/měsíc, Business od 599 Kč/měsíc a Enterprise s individuální cenou. Všechny ceny jsou uvedeny včetně DPH.'
+                    ],
+                    [
+                        'question' => 'Jsou v cenách nějaké skryté poplatky?',
+                        'answer' => 'Ne, všechny ceny jsou transparentní a finální. Neúčtujeme žádné poplatky za nastavení, transakce nebo překročení limitů. Platíte jen měsíční paušál.'
+                    ],
+                    [
+                        'question' => 'Mohu změnit balíček během používání?',
+                        'answer' => 'Ano, balíček můžete kdykoliv změnit nahoru i dolů. Změna se projeví v dalším fakturačním období. Případný přeplatek vám vrátíme.'
+                    ],
+                    [
+                        'question' => 'Nabízíte slevy pro roční platby?',
+                        'answer' => 'Ano, při roční platbě získáte slevu 20% z celkové částky. Platba se účtuje předem za celý rok s možností změny balíčku.'
+                    ],
+                    [
+                        'question' => 'Co se stane, když přestanu platit?',
+                        'answer' => 'Váš účet přejde do režimu pouze pro čtení - můžete si stáhnout svá data, ale nebudete moci vystavovat nové faktury. Data uchováváme 90 dní.'
                     ]
                 ]
             ]

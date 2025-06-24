@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Latte\Runtime as LR;
 
-/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/@layout.latte */
-final class Template_7c09b9fe68 extends Latte\Runtime\Template
+/** source: D:\_coding\nette\qrdoklad\app\Presentation/@layout.latte */
+final class Template_ab4446634a extends Latte\Runtime\Template
 {
-	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/@layout.latte';
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation/@layout.latte';
 
 
 	public function main(array $ʟ_args): void
@@ -101,20 +101,28 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
 		echo '">
     
     <!-- Strukturovaná data - Organization -->
-    <script type="application/ld+json">';
-		echo LR\Filters::convertJSToHtmlRawText($organizationSchema) /* line 33 */;
-		echo '</script>
-    
+';
+		if (isset($organizationSchema)) /* line 33 */ {
+			echo '    <script type="application/ld+json">';
+			echo LR\Filters::convertJSToHtmlRawText($organizationSchema) /* line 34 */;
+			echo '</script>
+';
+		}
+		echo '    
     <!-- Strukturovaná data - Breadcrumbs -->
-    <script type="application/ld+json">';
-		echo LR\Filters::convertJSToHtmlRawText($structuredData) /* line 36 */;
-		echo '</script>
-    
+';
+		if (isset($structuredData)) /* line 38 */ {
+			echo '    <script type="application/ld+json">';
+			echo LR\Filters::convertJSToHtmlRawText($structuredData) /* line 39 */;
+			echo '</script>
+';
+		}
+		echo '    
     <!-- Strukturovaná data - Page Specific -->
 ';
-		if (isset($pageSchema)) /* line 39 */ {
+		if (isset($pageSchema)) /* line 43 */ {
 			echo '    <script type="application/ld+json">';
-			echo LR\Filters::convertJSToHtmlRawText($pageSchema) /* line 40 */;
+			echo LR\Filters::convertJSToHtmlRawText($pageSchema) /* line 44 */;
 			echo '</script>
 ';
 		}
@@ -128,50 +136,28 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
     
     <!-- Vlastní CSS -->
     <link rel="stylesheet" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 51 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 55 */;
 		echo '/css/landing.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 54 */;
-		echo '/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 55 */;
-		echo '/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 56 */;
-		echo '/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 57 */;
-		echo '/apple-touch-icon.png">
-    <link rel="manifest" href="';
 		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 58 */;
-		echo '/site.webmanifest">
-    
-    <!-- Security Headers (můžeš přidat do .htaccess později) -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+		echo '/favicon.ico">
 </head>
 
 <body>
-    <!-- Skip to main content pro accessibility -->
-    <a href="#main-content" class="visually-hidden-focusable">Přeskočit na hlavní obsah</a>
-    
     <!-- Navigace -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" role="navigation" aria-label="Hlavní navigace">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 74 */;
-		echo '" class="navbar-brand" aria-label="QRdoklad - Domovská stránka">
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 65 */;
+		echo '" class="navbar-brand">
                 <img src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 75 */;
-		echo '/images/logo.svg" alt="QRdoklad logo" height="40" width="auto" class="d-inline-block align-text-top">
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 66 */;
+		echo '/images/logo.svg" alt="QRdoklad" height="40" class="d-inline-block align-text-top">
             </a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Otevřít navigační menu">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -179,88 +165,64 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 86 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:default')) /* line 76 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'default' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 86 */;
-		echo ' 
-                           ';
-		if ($presenter->action === 'default') /* line 87 */ {
-			echo 'aria-current="page"';
-		}
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'default' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 76 */;
 		echo '>
-                            <i class="bi bi-house-fill" aria-hidden="true"></i> Domů
+                            <i class="bi bi-house-fill"></i> Domů
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 92 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 81 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'funkce' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 92 */;
-		echo '
-                           ';
-		if ($presenter->action === 'funkce') /* line 93 */ {
-			echo 'aria-current="page"';
-		}
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'funkce' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 81 */;
 		echo '>
-                            <i class="bi bi-gear-wide-connected" aria-hidden="true"></i> Funkce
+                            <i class="bi bi-gear-fill"></i> Funkce
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 98 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 86 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'cenik' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 98 */;
-		echo '
-                           ';
-		if ($presenter->action === 'cenik') /* line 99 */ {
-			echo 'aria-current="page"';
-		}
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'cenik' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 86 */;
 		echo '>
-                            <i class="bi bi-currency-euro" aria-hidden="true"></i> Ceník
+                            <i class="bi bi-cash"></i> Ceník
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 104 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 91 */;
 		echo '"';
-		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'kontakt' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 104 */;
-		echo '
-                           ';
-		if ($presenter->action === 'kontakt') /* line 105 */ {
-			echo 'aria-current="page"';
-		}
+		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'kontakt' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 91 */;
 		echo '>
-                            <i class="bi bi-envelope-fill" aria-hidden="true"></i> Kontakt
+                            <i class="bi bi-envelope-fill"></i> Kontakt
                         </a>
                     </li>
                 </ul>
                 
-                <div class="d-flex">
-                    <a href="#" class="btn btn-outline-primary me-2">Přihlášení</a>
-                    <a href="#" class="btn btn-primary">Vyzkoušet zdarma</a>
+                <div class="navbar-nav">
+                    <a href="https://app.qrdoklad.cz" class="btn btn-outline-primary me-2">Přihlášení</a>
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary">Vyzkoušet zdarma</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hlavní obsah -->
-    <main id="main-content">
+    <main>
 ';
-		$this->renderBlock('content', [], 'html') /* line 121 */;
+		$this->renderBlock('content', [], 'html') /* line 107 */;
 		echo '    </main>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-light">
+    <!-- Patička -->
+    <footer class="footer bg-dark text-light py-5">
         <div class="container">
             <div class="row">
-                <!-- Logo a popis -->
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <img src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 130 */;
-		echo '/images/logo.svg" alt="QRdoklad logo" height="50" class="mb-3">
+                <div class="col-lg-4 mb-4">
                     <h5 class="text-primary mb-3">QRdoklad</h5>
-                    <p class="text-light-50 mb-3">
-                        Moderní fakturační systém s QR platbami pro české podnikatele. 
+                    <p class="mb-3">
+                        Moderní fakturační systém pro vaše podnikání.
                         Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.
                     </p>
                     <div class="social-links" role="list" aria-label="Sociální sítě">
@@ -285,10 +247,10 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 157 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 141 */;
 		echo '" class="text-light-50" title="✅ Hotové">Funkce</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 158 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 142 */;
 		echo '" class="text-light-50" title="✅ Hotové">Ceník</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -303,16 +265,16 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 171 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 155 */;
 		echo '" class="text-light-50" title="✅ Hotové">Nápověda</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 172 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 156 */;
 		echo '" class="text-light-50" title="✅ Hotové">Kontakt</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 173 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 157 */;
 		echo '" class="text-light-50" title="✅ Hotové">FAQ</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 174 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 158 */;
 		echo '" class="text-light-50" title="✅ Hotové">Status</a></li>
                     </ul>
                 </div>
@@ -323,10 +285,10 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- 🔄 PŘIPRAVENÉ V ROUTERU -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 183 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 167 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Obchodní podmínky</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 184 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 168 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Ochrana osobních údajů</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -340,10 +302,10 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 196 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 180 */;
 		echo '" class="text-light-50" title="✅ Hotové">O nás</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 197 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 181 */;
 		echo '" class="text-light-50" title="✅ Hotové">Blog</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -358,7 +320,7 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <p class="mb-0 text-light-50">&copy; ';
-		echo LR\Filters::escapeHtmlText(date('Y')) /* line 210 */;
+		echo LR\Filters::escapeHtmlText(date('Y')) /* line 194 */;
 		echo ' QRdoklad. Všechna práva vyhrazena.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
@@ -375,7 +337,7 @@ final class Template_7c09b9fe68 extends Latte\Runtime\Template
     
     <!-- QRdoklad JS - vše v jednom souboru -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 225 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 209 */;
 		echo '/js/landing.js"></script>
 </body>
 </html>';

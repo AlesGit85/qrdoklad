@@ -1,9 +1,61 @@
-{extends '../@layout.latte'}
+<?php
 
-{block title}Nápověda a dokumentace - QRdoklad{/block}
+declare(strict_types=1);
 
-{block content}
+use Latte\Runtime as LR;
 
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/help.latte */
+final class Template_c86552de1e extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/help.latte';
+
+	public const Blocks = [
+		['title' => 'blockTitle', 'content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		echo "\n";
+		$this->renderBlock('title', get_defined_vars()) /* line 3 */;
+		echo '
+
+';
+		$this->renderBlock('content', get_defined_vars()) /* line 5 */;
+	}
+
+
+	public function prepare(): array
+	{
+		extract($this->params);
+
+		$this->parentName = '../@layout.latte';
+		return get_defined_vars();
+	}
+
+
+	/** {block title} on line 3 */
+	public function blockTitle(array $ʟ_args): void
+	{
+		echo 'Nápověda a dokumentace - QRdoklad';
+	}
+
+
+	/** {block content} on line 5 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce -->
 <section class="hero-section py-5">
     <div class="container">
@@ -301,11 +353,15 @@
                     Náš tým podpory je tu pro vás 24/7. Kontaktujte nás a rádi vám pomůžeme.
                 </p>
                 <div class="cta-buttons">
-                    <a n:href="Landing:kontakt" class="btn btn-light btn-lg me-3">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 304 */;
+		echo '" class="btn btn-light btn-lg me-3">
                         <i class="bi bi-envelope me-2"></i>
                         Kontaktovat podporu
                     </a>
-                    <a n:href="Landing:faq" class="btn btn-outline-light btn-lg">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 308 */;
+		echo '" class="btn btn-outline-light btn-lg">
                         <i class="bi bi-question-circle me-2"></i>
                         Procházet FAQ
                     </a>
@@ -315,4 +371,6 @@
     </div>
 </section>
 
-{/block}
+';
+	}
+}

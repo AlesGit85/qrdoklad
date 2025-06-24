@@ -3,8 +3,46 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{ifset title}{include title|striptags} | {/ifset}QRdoklad - Moderní fakturační systém</title>
-    <meta name="description" content="{$metaDescription ?? 'QRdoklad - Moderní fakturační systém pro vaše podnikání'}">
+    
+    <!-- SEO Meta -->
+    <title>{ifset $pageTitle}{$pageTitle}{else}QRdoklad - Moderní fakturační systém{/ifset}</title>
+    <meta name="description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!{/ifset}">
+    <meta name="keywords" content="{ifset $metaKeywords}{$metaKeywords}{else}fakturační systém, QR platby, ARES, fakturace, účetnictví{/ifset}">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="QRdoklad">
+    
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="{ifset $pageTitle}{$pageTitle}{else}QRdoklad - Moderní fakturační systém{/ifset}">
+    <meta property="og:description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!{/ifset}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{$currentUrl}">
+    <meta property="og:image" content="{$baseUrl}images/og-image.jpg">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:site_name" content="QRdoklad">
+    
+    <!-- Twitter Meta -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{ifset $pageTitle}{$pageTitle}{else}QRdoklad - Moderní fakturační systém{/ifset}">
+    <meta name="twitter:description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!{/ifset}">
+    <meta name="twitter:image" content="{$baseUrl}images/og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{$currentUrl}">
+    
+    <!-- Strukturovaná data - Organization -->
+    {ifset $organizationSchema}
+    <script type="application/ld+json">{$organizationSchema|noescape}</script>
+    {/ifset}
+    
+    <!-- Strukturovaná data - Breadcrumbs -->
+    {ifset $structuredData}
+    <script type="application/ld+json">{$structuredData|noescape}</script>
+    {/ifset}
+    
+    <!-- Strukturovaná data - Page Specific -->
+    {ifset $pageSchema}
+    <script type="application/ld+json">{$pageSchema|noescape}</script>
+    {/ifset}
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -46,7 +84,7 @@
                     </li>
                     <li class="nav-item">
                         <a n:href="Landing:cenik" n:class="nav-link, $presenter->action === 'cenik' ? active">
-                            <i class="bi bi-currency-euro"></i> Ceník
+                            <i class="bi bi-cash"></i> Ceník
                         </a>
                     </li>
                     <li class="nav-item">
@@ -75,51 +113,76 @@
             <div class="row">
                 <div class="col-lg-4 mb-4">
                     <h5 class="text-primary mb-3">QRdoklad</h5>
-                    <p class="mb-3">Moderní fakturační systém pro vaše podnikání. Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.</p>
-                    <div class="social-links">
-                        <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="text-light"><i class="bi bi-youtube"></i></a>
+                    <p class="mb-3">
+                        Moderní fakturační systém pro vaše podnikání.
+                        Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.
+                    </p>
+                    <div class="social-links" role="list" aria-label="Sociální sítě">
+                        <a href="#" class="text-light me-3" aria-label="Facebook" rel="noopener" target="_blank" title="Připravujeme">
+                            <i class="bi bi-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-light me-3" aria-label="Twitter" rel="noopener" target="_blank" title="Připravujeme">
+                            <i class="bi bi-twitter-x" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-light me-3" aria-label="LinkedIn" rel="noopener" target="_blank" title="Připravujeme">
+                            <i class="bi bi-linkedin" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="text-light" aria-label="YouTube" rel="noopener" target="_blank" title="Připravujeme">
+                            <i class="bi bi-youtube" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
                 
+                <!-- Produkt -->
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="text-primary mb-3">Produkt</h6>
                     <ul class="list-unstyled">
-                        <li><a n:href="Landing:funkce" class="text-light-50">Funkce</a></li>
-                        <li><a n:href="Landing:cenik" class="text-light-50">Ceník</a></li>
-                        <li><a href="#" class="text-light-50">API dokumentace</a></li>
-                        <li><a href="#" class="text-light-50">Changelog</a></li>
+                        <!-- ✅ HOTOVÉ STRÁNKY -->
+                        <li><a n:href="Landing:funkce" class="text-light-50" title="✅ Hotové">Funkce</a></li>
+                        <li><a n:href="Landing:cenik" class="text-light-50" title="✅ Hotové">Ceník</a></li>
+                        
+                        <!-- 🚧 PŘIPRAVUJEME -->
+                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">API dokumentace</a></li>
+                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">Changelog</a></li>
                     </ul>
                 </div>
                 
+                <!-- Podpora -->
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="text-primary mb-3">Podpora</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light-50">Nápověda</a></li>
-                        <li><a n:href="Landing:kontakt" class="text-light-50">Kontakt</a></li>
-                        <li><a href="#" class="text-light-50">FAQ</a></li>
-                        <li><a href="#" class="text-light-50">Status</a></li>
+                        <!-- ✅ HOTOVÉ STRÁNKY -->
+                        <li><a n:href="Landing:help" class="text-light-50" title="✅ Hotové">Nápověda</a></li>
+                        <li><a n:href="Landing:kontakt" class="text-light-50" title="✅ Hotové">Kontakt</a></li>
+                        <li><a n:href="Landing:faq" class="text-light-50" title="✅ Hotové">FAQ</a></li>
+                        <li><a n:href="Landing:status" class="text-light-50" title="✅ Hotové">Status</a></li>
                     </ul>
                 </div>
                 
+                <!-- Právní -->
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="text-primary mb-3">Právní</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light-50">Podmínky použití</a></li>
-                        <li><a href="#" class="text-light-50">Ochrana soukromí</a></li>
-                        <li><a href="#" class="text-light-50">GDPR</a></li>
+                        <!-- 🔄 PŘIPRAVENÉ V ROUTERU -->
+                        <li><a n:href="Landing:terms" class="text-light-50" title="🔄 Připraveno v routeru">Obchodní podmínky</a></li>
+                        <li><a n:href="Landing:privacy" class="text-light-50" title="🔄 Připraveno v routeru">Ochrana osobních údajů</a></li>
+                        
+                        <!-- 🚧 PŘIPRAVUJEME -->
+                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">GDPR</a></li>
                     </ul>
                 </div>
                 
+                <!-- Společnost -->
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="text-primary mb-3">Společnost</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light-50">O nás</a></li>
-                        <li><a href="#" class="text-light-50">Tým</a></li>
-                        <li><a href="#" class="text-light-50">Kariéra</a></li>
-                        <li><a href="#" class="text-light-50">Blog</a></li>
+                        <!-- ✅ HOTOVÉ STRÁNKY -->
+                        <li><a n:href="Landing:about" class="text-light-50" title="✅ Hotové">O nás</a></li>
+                        <li><a n:href="Landing:blog" class="text-light-50" title="✅ Hotové">Blog</a></li>
+                        
+                        <!-- 🚧 PŘIPRAVUJEME -->
+                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">Tým</a></li>
+                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">Kariéra</a></li>
                     </ul>
                 </div>
             </div>
@@ -132,7 +195,7 @@
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0 text-light-50">
-                        Vyvinuto s <i class="bi bi-heart-fill text-danger"></i> v České republice od <a href="https://allimedia.cz" target="_blank">Allimedia.cz</a>.
+                        Vyvinuto s <i class="bi bi-heart-fill text-danger"></i> v České republice od <a href="https://allimedia.cz" target="_blank" class="text-light-50">Allimedia.cz</a>.
                     </p>
                 </div>
             </div>
