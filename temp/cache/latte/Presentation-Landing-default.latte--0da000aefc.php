@@ -38,63 +38,78 @@ final class Template_0da000aefc extends Latte\Runtime\Template
 <!-- Hero sekce -->
 <section class="hero-section">
     <div class="container">
-        <div class="row align-items-center min-vh-100 py-5">
+        <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
                     <h1 class="hero-title">
                         Moderní fakturační systém 
-                        <span class="text-primary">pro vaše podnikání</span>
+                        <span class="text-primary">s QR platbami</span>
                     </h1>
                     <p class="hero-subtitle">
-                        Vystavujte faktury rychle a profesionálně s QR platbami, 
-                        automatickým ARES vyhledáváním a pokročilými funkcemi pro efektivní správu financí.
+                        Vystavujte faktury rychle a jednoduše. Vaši klienti zaplatí pouhým nascanováním QR kódu. 
+                        Automatické ARES vyhledávání a pokročilé funkce pro všechny podnikatele.
                     </p>
+                    
                     <div class="hero-buttons">
                         <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary btn-lg me-3">
-                            <i class="bi bi-rocket-takeoff me-2"></i>
+                            <i class="bi bi-rocket me-2"></i>
                             Vyzkoušet zdarma
                         </a>
                         <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 22 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 23 */;
 		echo '" class="btn btn-outline-primary btn-lg">
                             <i class="bi bi-play-circle me-2"></i>
-                            Zobrazit demo
+                            Zobrazit funkce
                         </a>
                     </div>
-                    <div class="hero-features">
-                        <div class="feature-item">
-                            <i class="bi bi-check-circle-fill text-primary"></i>
-                            <span>30 dní zdarma</span>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="2000">0</div>
+                            <div class="stat-label">Spokojených klientů</div>
                         </div>
-                        <div class="feature-item">
-                            <i class="bi bi-check-circle-fill text-primary"></i>
-                            <span>Bez závazků</span>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="50000">0</div>
+                            <div class="stat-label">Vystavených faktur</div>
                         </div>
-                        <div class="feature-item">
-                            <i class="bi bi-check-circle-fill text-primary"></i>
-                            <span>Česká podpora</span>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="247">247</div>
+                            <div class="stat-label">% rychlost vystavení</div>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="col-lg-6">
                 <div class="hero-image">
                     <div class="floating-card invoice-card">
                         <div class="card-header">
-                            <h6 class="mb-0">Faktura #2024-001</h6>
+                            <h6 class="mb-0">Faktura #2025060013</h6>
                             <span class="badge bg-success">Zaplaceno</span>
                         </div>
-                        <div class="card-body">
-                            <div class="invoice-total">45 890 Kč</div>
+                        <div class="invoice-total">65 840 Kč</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted">Splatnost</small><br>
+                                <strong>29.06.2025</strong>
+                            </div>
                             <div class="qr-code-placeholder"></div>
                         </div>
                     </div>
+                    
                     <div class="floating-card stats-card">
-                        <div class="stat-item">
-                            <i class="bi bi-graph-up text-primary"></i>
-                            <div>
-                                <div class="stat-number">+247%</div>
-                                <div class="stat-label">Rychlost vystavení</div>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <h3 class="text-primary">16</h3>
+                                    <p>Celkem faktur</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <h3 class="text-success">6</h3>
+                                    <p>Zaplaceno</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -163,75 +178,152 @@ final class Template_0da000aefc extends Latte\Runtime\Template
                         <i class="bi bi-graph-up"></i>
                     </div>
                     <h4>Přehledy a reporty</h4>
-                    <p>Kompletní přehled o vašich příjmech, výdajích a DPH. Vše na jednom místě.</p>
+                    <p>Kompletní přehled o vašich příjmech, výdajích a DPH. Jednoduché reporty pro účetnictví.</p>
                 </div>
             </div>
             
             <div class="col-lg-4 col-md-6">
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="bi bi-phone"></i>
+                        <i class="bi bi-people"></i>
                     </div>
-                    <h4>Mobilní aplikace</h4>
-                    <p>Spravujte faktury kdykoli a kdekoli. Plně responzivní design pro všechna zařízení.</p>
+                    <h4>Správa klientů</h4>
+                    <p>Uchovávejte všechny kontakty na jednom místě. Automatické vyplňování údajů z ARES.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Funkce sekce -->
-<section class="features-section py-5 bg-light">
+<!-- NOVÁ SEKCE: Ukázka systému -->
+<section class="system-preview-section py-5 bg-light">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-4">
-                <h2 class="section-title">Kompletní řešení pro vaši administrativu</h2>
-                <p class="section-subtitle mb-4">
-                    Vše co potřebujete pro efektivní správu faktur a klientů na jednom místě
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">Podívejte se, jak QRdoklad funguje</h2>
+                <p class="section-subtitle">
+                    Prohlédněte si skutečné rozhraní systému a přesvědčte se o jeho jednoduchosti
                 </p>
-                
-                <div class="feature-list">
-                    <div class="feature-list-item">
-                        <i class="bi bi-check-circle-fill text-primary"></i>
-                        <div>
-                            <h5>Správa klientů</h5>
-                            <p>Uchovávejte všechny informace o vašich klientech strukturovaně</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-list-item">
-                        <i class="bi bi-check-circle-fill text-primary"></i>
-                        <div>
-                            <h5>Vlastní šablony</h5>
-                            <p>Přizpůsobte si faktury podle vašich potřeb a firemního stylu</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-list-item">
-                        <i class="bi bi-check-circle-fill text-primary"></i>
-                        <div>
-                            <h5>Automatické připomínky</h5>
-                            <p>Systém pošle připomínky o splatných fakturách automaticky</p>
+            </div>
+        </div>
+        
+        <!-- Hlavní ukázka - Dashboard -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="system-preview-main">
+                    <div class="preview-image-container">
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 178 */;
+		echo '/images/qrdoklad-dashboard.webp" 
+                             alt="QRdoklad Dashboard - Přehled systému" 
+                             class="img-fluid rounded shadow-lg preview-image">
+                        <div class="preview-overlay">
+                            <div class="preview-content">
+                                <h4 class="text-white mb-3">
+                                    <i class="bi bi-speedometer2 me-2"></i>
+                                    Přehledný dashboard
+                                </h4>
+                                <p class="text-white-50 mb-0">
+                                    Vše důležité na jednom místě - statistiky, blížící se splatnosti a rychlé akce
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 182 */;
-		echo '" class="btn btn-primary btn-lg mt-3">
-                    <i class="bi bi-arrow-right me-2"></i>
-                    Zobrazit všechny funkce
-                </a>
+            </div>
+        </div>
+        
+        <!-- Galerie dalších screenshotů -->
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="system-preview-card">
+                    <div class="preview-image-container">
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 202 */;
+		echo '/images/qrdoklad-invoices.webp" 
+                             alt="QRdoklad Faktury - Seznam všech faktur" 
+                             class="img-fluid rounded preview-image">
+                        <div class="preview-overlay">
+                            <div class="preview-content">
+                                <h5 class="text-white mb-2">
+                                    <i class="bi bi-file-earmark-text me-2"></i>
+                                    Správa faktur
+                                </h5>
+                                <p class="text-white-50 small mb-0">
+                                    Přehled všech faktur s možností filtrování podle stavu
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="col-lg-6">
-                <div class="features-visual">
-                    <div class="dashboard-preview">
-                        <!-- Zde by byl screenshot dashboardu -->
-                        <div class="preview-placeholder">
-                            <i class="bi bi-graph-up-arrow"></i>
-                            <p>Dashboard náhled</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="system-preview-card">
+                    <div class="preview-image-container">
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 223 */;
+		echo '/images/qrdoklad-clients.webp" 
+                             alt="QRdoklad Klienti - Správa kontaktů" 
+                             class="img-fluid rounded preview-image">
+                        <div class="preview-overlay">
+                            <div class="preview-content">
+                                <h5 class="text-white mb-2">
+                                    <i class="bi bi-people me-2"></i>
+                                    Seznam klientů
+                                </h5>
+                                <p class="text-white-50 small mb-0">
+                                    Všechny kontakty na jednom místě s ARES integrací
+                                </p>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="system-preview-card">
+                    <div class="preview-image-container">
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 244 */;
+		echo '/images/qrdoklad-invoice_detail.webp" 
+                             alt="QRdoklad Detail faktury - Kompletní informace" 
+                             class="img-fluid rounded preview-image">
+                        <div class="preview-overlay">
+                            <div class="preview-content">
+                                <h5 class="text-white mb-2">
+                                    <i class="bi bi-file-earmark-check me-2"></i>
+                                    Detail faktury
+                                </h5>
+                                <p class="text-white-50 small mb-0">
+                                    Kompletní detail s možností stažení PDF
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA v rámci sekce -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="system-preview-cta">
+                    <h3 class="mb-3">Přesvědčili jsme vás?</h3>
+                    <p class="text-muted mb-4">
+                        Vyzkoušejte QRdoklad zdarma po dobu 30 dní. Bez závazků, bez platební karty.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary btn-lg me-3">
+                            <i class="bi bi-rocket me-2"></i>
+                            Začít zdarma
+                        </a>
+                        <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 276 */;
+		echo '" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-list-check me-2"></i>
+                            Všechny funkce
+                        </a>
                     </div>
                 </div>
             </div>
@@ -310,15 +402,15 @@ final class Template_0da000aefc extends Latte\Runtime\Template
                         <i class="bi bi-star-fill"></i>
                     </div>
                     <p class="testimonial-text">
-                        "Přechod z konkurence byl hračka. Export, import a během hodiny jsem měl vše nastavené."
+                        "Přechod z Excelu byl hračka. Automatické ARES vyhledávání šetří spoustu času při vystavování faktur."
                     </p>
                     <div class="testimonial-author">
                         <div class="author-avatar">
                             <i class="bi bi-person-fill"></i>
                         </div>
                         <div>
-                            <h6>Tomáš Dvořák</h6>
-                            <small>Účetní firma</small>
+                            <h6>Petr Dvořák</h6>
+                            <small>Stavební firma</small>
                         </div>
                     </div>
                 </div>
@@ -332,45 +424,22 @@ final class Template_0da000aefc extends Latte\Runtime\Template
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="cta-title">Začněte ještě dnes</h2>
+                <h2 class="cta-title">Začněte už dnes</h2>
                 <p class="cta-subtitle">
-                    Připojte se k tisícům spokojených podnikatelů, kteří už používají QRdoklad. 
-                    Prvních 30 dní máte zdarma!
+                    Připojte se k tisícům spokojených podnikatelů, kteří si zjednodušili fakturaci 
+                    s QRdokladem. Žádné závazky, žádné skryté poplatky.
                 </p>
                 <div class="cta-buttons">
                     <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-light btn-lg me-3">
-                        <i class="bi bi-rocket-takeoff me-2"></i>
-                        Vyzkoušet zdarma
+                        <i class="bi bi-rocket me-2"></i>
+                        Vyzkoušet 30 dní zdarma
                     </a>
                     <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 306 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 390 */;
 		echo '" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-chat-dots me-2"></i>
-                        Máte otázky?
+                        <i class="bi bi-envelope me-2"></i>
+                        Kontaktovat nás
                     </a>
-                </div>
-                
-                <div class="cta-features mt-4">
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <div class="cta-feature">
-                                <i class="bi bi-check-circle-fill me-2"></i>
-                                <span>Bez platební karty</span>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="cta-feature">
-                                <i class="bi bi-check-circle-fill me-2"></i>
-                                <span>Zrušitelné kdykoli</span>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <div class="cta-feature">
-                                <i class="bi bi-check-circle-fill me-2"></i>
-                                <span>Aktivace za 2 minuty</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

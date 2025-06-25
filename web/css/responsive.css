@@ -41,6 +41,53 @@
         text-align: center;
     }
     
+    /* System Preview Section - NOVÉ RESPONSIVE STYLY */
+    .system-preview-section {
+        padding: 3rem 0 !important;
+    }
+    
+    .preview-overlay {
+        opacity: 1;
+        background: linear-gradient(
+            135deg,
+            rgba(177, 210, 53, 0.95) 0%,
+            rgba(149, 177, 31, 0.95) 100%
+        );
+    }
+    
+    .preview-content {
+        transform: translateY(0);
+    }
+    
+    .preview-content h4 {
+        font-size: 1.25rem;
+    }
+    
+    .preview-content h5 {
+        font-size: 1rem;
+    }
+    
+    .preview-content p {
+        font-size: 0.9rem;
+    }
+    
+    .system-preview-card .preview-image-container {
+        height: 200px;
+    }
+    
+    .system-preview-cta {
+        padding: 2rem 1.5rem;
+    }
+    
+    .system-preview-cta .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .system-preview-cta .cta-buttons .btn {
+        width: 100%;
+    }
+    
     /* General */
     .section-title {
         font-size: 2rem;
@@ -224,6 +271,27 @@
     
     .hero-section {
         padding: 3rem 0;
+    }
+    
+    /* System Preview Mobile - NOVÉ STYLY */
+    .system-preview-main {
+        margin-bottom: 2rem;
+    }
+    
+    .preview-content h4 {
+        font-size: 1.1rem;
+    }
+    
+    .preview-content p {
+        font-size: 0.85rem;
+    }
+    
+    .system-preview-card .preview-image-container {
+        height: 180px;
+    }
+    
+    .system-preview-cta h3 {
+        font-size: 1.5rem;
     }
     
     /* General */
@@ -427,6 +495,19 @@
     .container {
         max-width: 1320px;
     }
+    
+    /* System Preview na velkých obrazovkách */
+    .system-preview-main {
+        margin-bottom: 4rem;
+    }
+    
+    .system-preview-card .preview-image-container {
+        height: 320px;
+    }
+    
+    .system-preview-cta {
+        padding: 3rem;
+    }
 }
 
 /* Print styles */
@@ -436,7 +517,8 @@
     .cta-section,
     .hero-buttons,
     .contact-form-card,
-    .quick-actions-card {
+    .quick-actions-card,
+    .system-preview-section {
         display: none !important;
     }
     
@@ -458,6 +540,12 @@
         border: 1px solid #ddd;
         break-inside: avoid;
     }
+    
+    .preview-image-container {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+        box-shadow: none !important;
+    }
 }
 
 /* High contrast mode */
@@ -473,6 +561,14 @@
     .form-control {
         border: 2px solid var(--dark-color);
     }
+    
+    .preview-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(177, 210, 53, 0.95) 0%,
+            rgba(149, 177, 31, 0.95) 100%
+        ) !important;
+    }
 }
 
 /* Reduced motion */
@@ -485,5 +581,17 @@
     
     .floating-card {
         animation: none;
+    }
+    
+    .preview-image-container:hover {
+        transform: none;
+    }
+    
+    .preview-content {
+        transform: none !important;
+    }
+    
+    .preview-overlay {
+        opacity: 1;
     }
 }

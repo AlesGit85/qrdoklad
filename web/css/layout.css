@@ -180,60 +180,467 @@
     }
 }
 
-/* Hero Section */
+/* NOVÁ HERO SECTION - Opravená s obrázkem v pozadí */
 .hero-section {
-    background: linear-gradient(135deg, rgba(177, 210, 53, 0.1) 0%, rgba(149, 177, 31, 0.05) 100%);
+    padding: 80px 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
     position: relative;
     overflow: hidden;
 }
 
+/* Levá část - světle zelené pozadí */
 .hero-section::before {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    width: 60%;
+    left: 0;
+    width: 50%;
     height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><linearGradient id="a" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23B1D235;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%2395B11F;stop-opacity:0.05"/></linearGradient></defs><path d="M0,0 Q500,200 1000,0 L1000,1000 L0,1000 Z" fill="url(%23a)"/></svg>') no-repeat center;
-    background-size: cover;
+    background: #f7faec;
+    z-index: -2;
+}
+
+/* Pravá část - obrázek jako pozadí */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: url('../images/qrdoklad-dashboard.webp') center center/cover no-repeat;
+    opacity: 0.15;
     z-index: -1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
 }
 
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.1;
     margin-bottom: 1.5rem;
     color: var(--dark-color);
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     color: var(--gray-color);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     line-height: 1.6;
+    max-width: 90%;
 }
 
 .hero-buttons {
-    margin-bottom: 2rem;
-}
-
-.hero-features {
+    margin-bottom: 3rem;
     display: flex;
+    gap: 1rem;
     flex-wrap: wrap;
-    gap: 1.5rem;
 }
 
-.feature-item {
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.hero-stats .stat-item {
+    padding: 0;
+    text-align: left;
+    gap: 0;
+    flex-direction: column;
+}
+
+.hero-stats .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.hero-stats .stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+    margin-top: 0.25rem;
+}
+
+/* OPRAVENÉ PLOVOUCÍ KARTY */
+.hero-image {
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+    z-index: 2;
+}
+
+.floating-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(177, 210, 53, 0.2);
+    z-index: 4;
+}
+
+.invoice-card {
+    width: 300px;
+    top: 10%;
+    right: 5%;
+    padding: 24px;
+}
+
+.stats-card {
+    width: 220px;
+    bottom: 15%;
+    left: 8%;
+    padding: 20px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-header h6 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.invoice-total {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
+.qr-code-placeholder {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-weight: 500;
-    color: var(--gray-color);
+    justify-content: center;
+    color: var(--dark-color);
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-align: center;
+    line-height: 1;
 }
 
-.feature-item i {
+.qr-code-placeholder::after {
+    content: 'QR\AKÓD';
+    white-space: pre;
+}
+
+.stats-card .row {
+    margin: 0;
+}
+
+.stats-card .col-6 {
+    padding: 0 8px;
+}
+
+.stats-card .stat-item {
+    text-align: center;
+    padding: 0;
+}
+
+.stats-card .stat-item h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    line-height: 1;
+}
+
+.stats-card .stat-item p {
+    color: var(--gray-color);
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Splatnost info v invoice-card */
+.invoice-card .d-flex {
+    align-items: center;
+}
+
+.invoice-card .d-flex > div:first-child {
+    flex: 1;
+}
+
+.invoice-card small {
+    display: block;
+    color: var(--gray-color);
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.invoice-card strong {
+    color: var(--dark-color);
+    font-size: 0.95rem;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-15px) rotate(0.5deg);
+    }
+    66% {
+        transform: translateY(-8px) rotate(-0.5deg);
+    }
+}
+
+.floating-card:nth-child(2) {
+    animation-delay: -2s;
+}
+
+.floating-card:nth-child(3) {
+    animation-delay: -4s;
+}
+
+/* Hero responsive */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .invoice-card {
+        width: 280px;
+        right: 2%;
+    }
+    
+    .stats-card {
+        width: 200px;
+        left: 5%;
+    }
+}
+
+@media (max-width: 991px) {
+    .hero-section::before,
+    .hero-section::after {
+        width: 100%;
+    }
+    
+    .hero-section::after {
+        opacity: 0.08;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .hero-subtitle {
+        max-width: 100%;
+    }
+    
+    .floating-card {
+        position: relative;
+        margin: 20px auto;
+        display: block;
+        animation: none;
+    }
+    
+    .hero-image {
+        text-align: center;
+        margin-top: 3rem;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        text-align: center;
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    
+    .hero-stats {
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .hero-stats .stat-item {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+    
+    .hero-title {
+        font-size: 1.9rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .floating-card {
+        margin: 15px auto;
+    }
+    
+    .invoice-card,
+    .stats-card {
+        width: 280px;
+        padding: 20px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+}
+
+/* Ostatní layout styly zůstávají stejné... */
+
+/* Benefits Layout */
+.benefits-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.benefit-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    height: 100%;
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--dark-color);
+    font-size: 2rem;
+}
+
+.benefit-card h4 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.benefit-card p {
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Testimonials Layout */
+.testimonials-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.testimonial-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    height: 100%;
+    transition: var(--transition);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-rating {
+    margin-bottom: 1rem;
+}
+
+.testimonial-rating i {
+    color: #ffc107;
     font-size: 1.1rem;
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: var(--gray-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-color);
+    font-size: 1.5rem;
+}
+
+.testimonial-author h6 {
+    margin: 0 0 0.25rem 0;
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.testimonial-author small {
+    color: var(--gray-color);
 }
 
 /* Footer */
