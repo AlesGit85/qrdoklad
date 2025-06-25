@@ -187,7 +187,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 		echo '"';
 		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'cenik' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 86 */;
 		echo '>
-                            <i class="bi bi-cash"></i> Ceník
+                            <i class="bi bi-currency-euro"></i> Ceník
                         </a>
                     </li>
                     <li class="nav-item">
@@ -201,28 +201,35 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     </li>
                 </ul>
                 
-                <div class="navbar-nav">
-                    <a href="https://app.qrdoklad.cz" class="btn btn-outline-primary me-2">Přihlášení</a>
-                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary">Vyzkoušet zdarma</a>
+                <div class="d-flex">
+                    <a href="https://app.qrdoklad.cz/login" class="btn btn-outline-light me-2" target="_blank">
+                        <i class="bi bi-box-arrow-in-right"></i> Přihlášení
+                    </a>
+                    <a href="https://app.qrdoklad.cz/register" class="btn btn-primary" target="_blank">
+                        <i class="bi bi-rocket-takeoff"></i> Zkusit zdarma
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
-
-    <!-- Hlavní obsah -->
-    <main>
+    
+    <!-- Hlavní obsah stránky -->
+    <main role="main">
 ';
-		$this->renderBlock('content', [], 'html') /* line 107 */;
+		$this->renderBlock('content', [], 'html') /* line 111 */;
 		echo '    </main>
-
-    <!-- Patička -->
-    <footer class="footer bg-dark text-light py-5">
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
         <div class="container">
             <div class="row">
+                <!-- Logo a popis -->
                 <div class="col-lg-4 mb-4">
-                    <h5 class="text-primary mb-3">QRdoklad</h5>
-                    <p class="mb-3">
-                        Moderní fakturační systém pro vaše podnikání.
+                    <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 120 */;
+		echo '/images/logo.svg" alt="QRdoklad" height="50" class="mb-3">
+                    <p class="text-light-75 mb-3">
+                        Moderní fakturační systém s QR platbami speciálně navržený pro české firmy.
                         Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.
                     </p>
                     <div class="social-links" role="list" aria-label="Sociální sítě">
@@ -247,10 +254,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 141 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 146 */;
 		echo '" class="text-light-50" title="✅ Hotové">Funkce</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 142 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 147 */;
 		echo '" class="text-light-50" title="✅ Hotové">Ceník</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -265,16 +272,16 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 155 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 160 */;
 		echo '" class="text-light-50" title="✅ Hotové">Nápověda</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 156 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 161 */;
 		echo '" class="text-light-50" title="✅ Hotové">Kontakt</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 157 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 162 */;
 		echo '" class="text-light-50" title="✅ Hotové">FAQ</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 158 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 163 */;
 		echo '" class="text-light-50" title="✅ Hotové">Status</a></li>
                     </ul>
                 </div>
@@ -285,10 +292,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- 🔄 PŘIPRAVENÉ V ROUTERU -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 167 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 172 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Obchodní podmínky</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 168 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 173 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Ochrana osobních údajů</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -302,10 +309,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 180 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 185 */;
 		echo '" class="text-light-50" title="✅ Hotové">O nás</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 181 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 186 */;
 		echo '" class="text-light-50" title="✅ Hotové">Blog</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -320,7 +327,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <p class="mb-0 text-light-50">&copy; ';
-		echo LR\Filters::escapeHtmlText(date('Y')) /* line 194 */;
+		echo LR\Filters::escapeHtmlText(date('Y')) /* line 199 */;
 		echo ' QRdoklad. Všechna práva vyhrazena.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
@@ -335,9 +342,32 @@ final class Template_ab4446634a extends Latte\Runtime\Template
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- QRdoklad JS - vše v jednom souboru -->
+    <!-- QRdoklad JS - modulární struktura -->
+    <!-- 📝 POZNÁMKA: Pořadí načítání je důležité! -->
+    
+    <!-- 1. Nejdříve utility moduly (loading states, notifikace, analytics) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 209 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 217 */;
+		echo '/js/utilities.js"></script>
+    
+    <!-- 2. UI efekty (scroll animace, navbar, smooth scrolling) -->
+    <script src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 220 */;
+		echo '/js/ui-effects.js"></script>
+    
+    <!-- 3. Pricing funkce (toggle, kalkulačka) -->
+    <script src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 223 */;
+		echo '/js/pricing.js"></script>
+    
+    <!-- 4. Formulářové funkce (kontakt, validace) -->
+    <script src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 226 */;
+		echo '/js/form-handler.js"></script>
+    
+    <!-- 5. Nakonec hlavní inicializační soubor -->
+    <script src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 229 */;
 		echo '/js/landing.js"></script>
 </body>
 </html>';
