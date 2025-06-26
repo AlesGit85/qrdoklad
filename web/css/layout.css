@@ -96,6 +96,37 @@
     font-weight: 600;
     border: 2px solid transparent;
     transition: var(--transition);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+}
+
+/* Specifické pravidlo pro odkazy s třídou btn v navbaru */
+.navbar .btn,
+.navbar-nav .btn,
+.navbar .btn-outline-light,
+.navbar .btn-primary,
+nav .btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+}
+
+/* Ikony v tlačítkách navbaru */
+.navbar .btn i,
+.navbar-nav .btn i,
+nav .btn i {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: middle !important;
+    line-height: 1 !important;
 }
 
 .navbar-nav .btn-outline-primary {
@@ -815,16 +846,28 @@
     color: #28a745 !important;  /* Zelená pro "Zaplaceno" */
 }
 
-/* P elementy - text pod čísly */
+/* P elementy - text pod čísly - OPRAVENO PRO VS CODE */
 .floating-card.stats-card .stat-item p {
     color: var(--gray-color) !important;
     margin: 0 !important;
-    font-size: 0.7rem !important;    /* Velmi malý text */
+    font-size: 0.7rem !important;
     font-weight: 500 !important;
     line-height: 1.1 !important;
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
     hyphens: auto !important;
+    /* STANDARDNÍ text truncation vlastnosti */
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    /* MODERNÍ multi-line truncation */
+    display: -webkit-box !important;
+    display: block !important; /* Fallback pro starší prohlížeče */
+    line-clamp: 2 !important; /* Standardní CSS vlastnost */
+    -webkit-line-clamp: 2 !important; /* Webkit prefix */
+    -webkit-box-orient: vertical !important;
+    /* FALLBACK pro starší prohlížeče */
+    white-space: normal !important;
 }
 
 /* Responzivní - mobil */
@@ -847,15 +890,6 @@
 .stats-card .g-2 > * {
     padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
     padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
-}
-
-/* Pokud se stále text nevejde - zkrátíme ho CSS */
-.floating-card.stats-card .stat-item p {
-    max-width: 100% !important;
-    overflow: hidden !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;  /* Max 2 řádky */
-    -webkit-box-orient: vertical !important;
 }
 
 /* OPRAVA MOBILE PADDING PRO HERO SEKCI */
@@ -931,5 +965,117 @@
     .hero-section {
         padding: 90px 0 30px !important;   /* Na landscape méně prostoru aby se vešlo více */
         min-height: auto !important;
+    }
+}
+
+/* OPRAVA - Zrušení duplicitní fajfky v feature-benefits seznamech */
+.feature-benefits li::before {
+    content: none !important;  /* Zruší CSS fajfku */
+}
+
+.feature-benefits li {
+    padding: 0.5rem 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    color: var(--gray-color) !important;
+}
+
+.feature-benefits li i {
+    margin-right: 0.75rem !important;  /* Mezera za ikonou */
+    font-size: 1.1rem !important;
+}
+
+/* OPRAVA - Zrušení duplicitních fajfek i v dalších seznamech */
+.feature-list li::before,
+.pricing-features li::before,
+.list-unstyled li::before {
+    content: none !important;  /* Zruší CSS fajfky v cenících a dalších */
+}
+
+.feature-list li,
+.pricing-features li {
+    padding: 0.75rem 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    color: var(--gray-color) !important;
+}
+
+.feature-list li i,
+.pricing-features li i {
+    margin-right: 0.75rem !important;  /* Mezera za ikonou */
+    font-size: 1.1rem !important;
+}
+
+/* FOOTER - Mobilní vycentrování */
+@media (max-width: 768px) {
+    .footer {
+        text-align: center !important;
+    }
+    
+    .footer .row {
+        justify-content: center !important;
+    }
+    
+    .footer .col-md-6,
+    .footer .col-md-3,
+    .footer .col-12,
+    .footer div[class*="col"] {
+        text-align: center !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .footer h5,
+    .footer h6 {
+        text-align: center !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .footer ul {
+        text-align: center !important;
+        margin: 0 auto !important;
+        display: inline-block !important;
+        padding-left: 0 !important;
+        list-style: none !important;
+    }
+    
+    .footer ul li {
+        text-align: center !important;
+    }
+    
+    .footer ul li a {
+        text-align: center !important;
+        display: block !important;
+    }
+    
+    .footer p {
+        text-align: center !important;
+        margin: 0 auto !important;
+        max-width: 90% !important;
+    }
+    
+    .social-links {
+        text-align: center !important;
+        justify-content: center !important;
+        display: flex !important;
+        gap: 10px !important;
+        flex-wrap: wrap !important;
+    }
+    
+    /* Extra silná pravidla pro Bootstrap override */
+    footer,
+    footer *,
+    .footer,
+    .footer * {
+        text-align: center !important;
+    }
+    
+    footer .container,
+    .footer .container {
+        text-align: center !important;
+    }
+    
+    footer .row > div,
+    .footer .row > div {
+        text-align: center !important;
     }
 }
