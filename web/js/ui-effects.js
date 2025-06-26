@@ -488,6 +488,311 @@ const Notifications = {
 
 /*
 ==================================
+LIGHTBOX MODULE - NOVÝ
+==================================
+*/
+const LightboxModule = {
+    overlay: null,
+    images: [],
+    currentIndex: 0,
+    isOpen: false,
+    
+    init() {
+        console.log('LightboxModule - Inicializace začíná');
+        this.findImages();
+        if (this.images.length > 0) {
+            this.createLightboxHTML();
+            this.bindEvents();
+        }
+        console.log('LightboxModule - nalezeno obrázků:', this.images.length);
+    },
+
+    findImages() {
+        // Najdeme všechny preview kontejnery v sekci ukázka systému
+        const containers = document.querySelectorAll('.preview-image-container');
+        this.images = [];
+        
+        containers.forEach((container, index) => {
+            const img = container.querySelector('.preview-image');
+            const titleElement = container.querySelector('.preview-content h4, .preview-content h5');
+            const descElement = container.querySelector('.preview-content p');
+            
+            if (img && img.src) {
+                this.images.push({
+                    src: img.src,
+                    alt: img.alt || '',
+                    title: titleElement ? titleElement.textContent.trim() : '',
+                    description: descElement ? descElement.textContent.trim() : '',
+                    element: container
+                });
+                
+                // Přidáme click listener
+                container.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.openLightbox(index);
+                });
+                
+                // Přidáme tabindex pro accessibility
+                container.setAttribute('tabindex', '0');
+                container.setAttribute('role', 'button');
+                container.setAttribute('aria-label', `Zobrazit obrázek: ${img.alt || 'Ukázka systému'}`);
+                
+                // Keyboard support pro jednotlivé obrázky
+                container.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.openLightbox(index);
+                    }
+                });
+            }
+        });
+        
+        console.log('LightboxModule - zpracované obrázky:', this.images);
+    },
+
+    createLightboxHTML() {
+        // Vytvoříme lightbox HTML strukturu
+        this.overlay = document.createElement('div');
+        this.overlay.className = 'lightbox-overlay';
+        this.overlay.innerHTML = `
+            <div class="lightbox-container">
+                <img class="lightbox-image" alt="" />
+                <div class="lightbox-caption">
+                    <h4 class="lightbox-title"></h4>
+                    <p class="lightbox-description"></p>
+                </div>
+                <button class="lightbox-close" aria-label="Zavřít lightbox">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                <button class="lightbox-nav prev" aria-label="Předchozí obrázek">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="lightbox-nav next" aria-label="Následující obrázek">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+                <div class="lightbox-counter"></div>
+                <div class="lightbox-loading" style="display: none;"></div>
+            </div>
+        `;
+        
+        document.body.appendChild(this.overlay);
+        
+        // Cachujeme elementy pro rychlejší přístup
+        this.elements = {
+            container: this.overlay.querySelector('.lightbox-container'),
+            image: this.overlay.querySelector('.lightbox-image'),
+            title: this.overlay.querySelector('.lightbox-title'),
+            description: this.overlay.querySelector('.lightbox-description'),
+            caption: this.overlay.querySelector('.lightbox-caption'),
+            closeBtn: this.overlay.querySelector('.lightbox-close'),
+            prevBtn: this.overlay.querySelector('.lightbox-nav.prev'),
+            nextBtn: this.overlay.querySelector('.lightbox-nav.next'),
+            counter: this.overlay.querySelector('.lightbox-counter'),
+            loading: this.overlay.querySelector('.lightbox-loading')
+        };
+    },
+
+    bindEvents() {
+        // Zavření lightboxu
+        this.elements.closeBtn.addEventListener('click', () => this.closeLightbox());
+        
+        // Klik mimo obrázek zavře lightbox
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.closeLightbox();
+            }
+        });
+        
+        // Navigace
+        this.elements.prevBtn.addEventListener('click', () => this.showPrevious());
+        this.elements.nextBtn.addEventListener('click', () => this.showNext());
+        
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (!this.isOpen) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    this.closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    this.showPrevious();
+                    break;
+                case 'ArrowRight':
+                    this.showNext();
+                    break;
+            }
+        });
+        
+        // Touch/swipe support pro mobily
+        let startX = 0;
+        let endX = 0;
+        
+        this.overlay.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+        
+        this.overlay.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > 50) { // Minimální vzdálenost pro swipe
+                if (diff > 0) {
+                    this.showNext(); // Swipe doleva = další
+                } else {
+                    this.showPrevious(); // Swipe doprava = předchozí
+                }
+            }
+        });
+    },
+
+    openLightbox(index) {
+        if (!this.images.length || index < 0 || index >= this.images.length) return;
+        
+        this.currentIndex = index;
+        this.isOpen = true;
+        
+        // Zablokujeme scrollování stránky
+        document.body.style.overflow = 'hidden';
+        
+        // Zobrazíme loading
+        this.showLoading();
+        
+        // Načteme obrázek
+        this.loadImage(this.images[index]);
+        
+        // Zobrazíme lightbox
+        this.overlay.classList.add('active');
+        
+        // Focus na zavírací tlačítko pro accessibility
+        setTimeout(() => {
+            this.elements.closeBtn.focus();
+        }, 300);
+        
+        // Analytics tracking (pokud existuje)
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackEvent('lightbox_open', 'interaction', `image_${index}`);
+        }
+        
+        console.log('LightboxModule - otevřen lightbox pro obrázek:', index);
+    },
+
+    closeLightbox() {
+        if (!this.isOpen) return;
+        
+        this.isOpen = false;
+        this.overlay.classList.remove('active');
+        
+        // Obnovíme scrollování
+        document.body.style.overflow = '';
+        
+        // Vrátíme focus na původní element
+        if (this.images[this.currentIndex] && this.images[this.currentIndex].element) {
+            this.images[this.currentIndex].element.focus();
+        }
+        
+        console.log('LightboxModule - lightbox zavřen');
+    },
+
+    showPrevious() {
+        if (!this.isOpen || this.images.length <= 1) return;
+        
+        this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.images.length - 1;
+        this.showLoading();
+        this.loadImage(this.images[this.currentIndex]);
+        
+        console.log('LightboxModule - předchozí obrázek:', this.currentIndex);
+    },
+
+    showNext() {
+        if (!this.isOpen || this.images.length <= 1) return;
+        
+        this.currentIndex = this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0;
+        this.showLoading();
+        this.loadImage(this.images[this.currentIndex]);
+        
+        console.log('LightboxModule - následující obrázek:', this.currentIndex);
+    },
+
+    showLoading() {
+        this.elements.loading.style.display = 'block';
+        this.elements.image.style.opacity = '0.5';
+    },
+
+    hideLoading() {
+        this.elements.loading.style.display = 'none';
+        this.elements.image.style.opacity = '1';
+    },
+
+    loadImage(imageData) {
+        // Vytvoříme nový Image objekt pro preloading
+        const img = new Image();
+        
+        img.onload = () => {
+            // Obrázek se načetl úspěšně
+            this.elements.image.src = imageData.src;
+            this.elements.image.alt = imageData.alt;
+            
+            // Aktualizujeme caption
+            this.elements.title.textContent = imageData.title;
+            this.elements.description.textContent = imageData.description;
+            
+            // Skryjeme/zobrazíme caption podle obsahu
+            if (imageData.title || imageData.description) {
+                this.elements.caption.style.display = 'block';
+            } else {
+                this.elements.caption.style.display = 'none';
+            }
+            
+            // Aktualizujeme počítadlo
+            this.updateCounter();
+            
+            // Aktualizujeme navigační tlačítka
+            this.updateNavigation();
+            
+            // Skryjeme loading
+            this.hideLoading();
+        };
+        
+        img.onerror = () => {
+            console.error('LightboxModule - chyba při načítání obrázku:', imageData.src);
+            this.hideLoading();
+            
+            // Zobrazíme error placeholder
+            this.elements.title.textContent = 'Chyba při načítání';
+            this.elements.description.textContent = 'Obrázek se nepodařilo načíst.';
+            this.elements.caption.style.display = 'block';
+        };
+        
+        // Spustíme načítání
+        img.src = imageData.src;
+    },
+
+    updateCounter() {
+        this.elements.counter.textContent = `${this.currentIndex + 1} / ${this.images.length}`;
+        
+        // Skryjeme počítadlo pokud je jen jeden obrázek
+        if (this.images.length <= 1) {
+            this.elements.counter.style.display = 'none';
+        } else {
+            this.elements.counter.style.display = 'block';
+        }
+    },
+
+    updateNavigation() {
+        // Zobrazíme/skryjeme navigační tlačítka
+        if (this.images.length <= 1) {
+            this.elements.prevBtn.classList.remove('visible');
+            this.elements.nextBtn.classList.remove('visible');
+        } else {
+            this.elements.prevBtn.classList.add('visible');
+            this.elements.nextBtn.classList.add('visible');
+        }
+    }
+};
+
+/*
+==================================
 SCROLL EFFECTS MODULE
 ==================================
 */
@@ -797,6 +1102,9 @@ const UIEffects = {
         console.log('UIEffects - spouštím Notifications');
         Notifications.init();
         
+        console.log('UIEffects - spouštím LightboxModule'); // NOVÉ
+        LightboxModule.init();
+        
         console.log('UIEffects - spouštím ScrollEffects');
         ScrollEffects.init();
         
@@ -857,5 +1165,5 @@ const UIEffects = {
 
 // Export pro možné použití v jiných souborech
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { UIEffects, LoadingStates, Notifications, ScrollEffects, NavbarEffects, SmoothScrolling };
+    module.exports = { UIEffects, LoadingStates, Notifications, LightboxModule, ScrollEffects, NavbarEffects, SmoothScrolling };
 }

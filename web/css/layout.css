@@ -857,3 +857,79 @@
     -webkit-line-clamp: 2 !important;  /* Max 2 řádky */
     -webkit-box-orient: vertical !important;
 }
+
+/* OPRAVA MOBILE PADDING PRO HERO SEKCI */
+
+/* Tablet a menší */
+@media (max-width: 991px) {
+    .hero-section {
+        padding: 100px 0 60px !important;  /* Více prostoru nahoře na tabletu */
+    }
+}
+
+/* Mobil - větší telefony */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 110px 0 50px !important;  /* Ještě více prostoru na mobilu */
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.2rem;  /* Menší mezera pod titulkem */
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;    /* Menší mezera pod podtitulkem */
+    }
+}
+
+/* Malé mobily */
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 120px 0 40px !important;  /* Nejvíce prostoru na malých mobilech */
+        min-height: auto !important;       /* Zrušíme min-height na mobilu */
+    }
+    
+    .hero-title {
+        font-size: 1.9rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-buttons {
+        margin-bottom: 2rem;    /* Menší mezera pod tlačítky */
+    }
+    
+    .hero-stats {
+        margin-top: 1.5rem;     /* Menší mezera nad statistikami */
+    }
+}
+
+/* Extra malé mobily (iPhone SE, atd.) */
+@media (max-width: 375px) {
+    .hero-section {
+        padding: 130px 0 30px !important;  /* Ještě více prostoru na velmi malých mobilech */
+    }
+    
+    .hero-title {
+        font-size: 1.7rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
+/* Landscape orientace na mobilu */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-section {
+        padding: 90px 0 30px !important;   /* Na landscape méně prostoru aby se vešlo více */
+        min-height: auto !important;
+    }
+}
