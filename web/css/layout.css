@@ -182,8 +182,8 @@
 
 /* NOVÁ HERO SECTION - Opravená s obrázkem v pozadí */
 .hero-section {
-    padding: 80px 0;
-    min-height: 80vh;
+    padding: 120px 0 80px;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     position: relative;
@@ -211,7 +211,7 @@
     width: 50%;
     height: 100%;
     background: url('../images/qrdoklad-dashboard.webp') center center/cover no-repeat;
-    opacity: 0.15;
+    opacity: 0.35;
     z-index: -1;
 }
 
@@ -294,8 +294,9 @@
     padding: 24px;
 }
 
+/* OPRAVENÁ STATS-CARD - rozumná šířka a lepší styling */
 .stats-card {
-    width: 220px;
+    width: 250px;          /* OPRAVENO - z 580px na rozumných 250px */
     bottom: 15%;
     left: 8%;
     padding: 20px;
@@ -350,8 +351,9 @@
     white-space: pre;
 }
 
+/* DOPLNĚNÉ STYLY PRO STATS-CARD */
 .stats-card .row {
-    margin: 0;
+    margin: 0 -8px;
 }
 
 .stats-card .col-6 {
@@ -360,21 +362,33 @@
 
 .stats-card .stat-item {
     text-align: center;
-    padding: 0;
+    padding: 8px 4px;
 }
 
 .stats-card .stat-item h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
     line-height: 1;
+    color: var(--primary-color);
 }
 
 .stats-card .stat-item p {
     color: var(--gray-color);
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
+    line-height: 1.2;
+    word-wrap: break-word;
+}
+
+/* Specifické barvy pro jednotlivé statistiky */
+.stats-card .stat-item:first-child h3 {
+    color: var(--gray-color);  /* Celkem faktur - šedá */
+}
+
+.stats-card .stat-item:last-child h3 {
+    color: #28a745;            /* Zaplaceno - zelená */
 }
 
 /* Splatnost info v invoice-card */
@@ -418,7 +432,7 @@
     animation-delay: -4s;
 }
 
-/* Hero responsive */
+/* Hero responsive - OPRAVENO */
 @media (max-width: 1200px) {
     .hero-title {
         font-size: 3rem;
@@ -430,7 +444,7 @@
     }
     
     .stats-card {
-        width: 200px;
+        width: 230px;         /* OPRAVENO - místo 250px */
         left: 5%;
     }
 }
@@ -469,6 +483,20 @@
         justify-content: center;
         text-align: center;
         gap: 3rem;
+    }
+    
+    /* Na mobilu větší karty s více prostorem */
+    .stats-card {
+        width: 280px;         /* Na mobilu větší */
+        padding: 20px;
+    }
+    
+    .stats-card .stat-item h3 {
+        font-size: 2rem;     /* Na mobilu větší čísla */
+    }
+    
+    .stats-card .stat-item p {
+        font-size: 0.9rem;   /* Na mobilu větší text */
     }
 }
 
@@ -742,4 +770,90 @@
 
 .guarantee-info p {
     font-size: 0.95rem;
+}
+
+/* PŘESNÁ OPRAVA PODLE HTML STRUKTURY */
+
+/* Hlavní stats karta */
+.floating-card.stats-card {
+    width: 280px !important;
+    bottom: 15% !important;
+    left: 8% !important;
+    padding: 24px !important;
+}
+
+/* Řádek s g-2 třídou */
+.floating-card.stats-card .row.g-2 {
+    margin: 0 -8px !important;
+}
+
+/* Sloupce */
+.floating-card.stats-card .col-6 {
+    padding: 0 8px !important;
+}
+
+/* Stat položky */
+.floating-card.stats-card .stat-item {
+    text-align: center !important;
+    padding: 8px 4px !important;
+}
+
+/* H3 elementy - všechny */
+.floating-card.stats-card .stat-item h3 {
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.7rem !important;
+    line-height: 1 !important;
+}
+
+/* Specifické barvy pro H3 s text-primary a text-success */
+.floating-card.stats-card .stat-item h3.text-primary {
+    color: #6c757d !important;  /* Šedá pro "Celkem faktur" */
+}
+
+.floating-card.stats-card .stat-item h3.text-success {
+    color: #28a745 !important;  /* Zelená pro "Zaplaceno" */
+}
+
+/* P elementy - text pod čísly */
+.floating-card.stats-card .stat-item p {
+    color: var(--gray-color) !important;
+    margin: 0 !important;
+    font-size: 0.7rem !important;    /* Velmi malý text */
+    font-weight: 500 !important;
+    line-height: 1.1 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+}
+
+/* Responzivní - mobil */
+@media (max-width: 991px) {
+    .floating-card.stats-card {
+        width: 300px !important;
+        padding: 25px !important;
+    }
+    
+    .floating-card.stats-card .stat-item h3 {
+        font-size: 1.8rem !important;
+    }
+    
+    .floating-card.stats-card .stat-item p {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* Fallback pro Bootstrap gutter systém */
+.stats-card .g-2 > * {
+    padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+    padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+}
+
+/* Pokud se stále text nevejde - zkrátíme ho CSS */
+.floating-card.stats-card .stat-item p {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;  /* Max 2 řádky */
+    -webkit-box-orient: vertical !important;
 }
