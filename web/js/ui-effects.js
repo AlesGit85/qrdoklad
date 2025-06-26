@@ -1,115 +1,861 @@
 /**
- * QRdoklad UI Effects Module - TESTOVACÍ VERZE
- * Jednoduchý test pro debugování
+ * QRdoklad UI Effects
+ * Všechny UI efekty, animace, loading stavy a notifikace
  */
 
-console.log('🚀 UI-EFFECTS.JS SE NAČÍTÁ...');
+/*
+==================================
+LOADING STATES MODULE
+==================================
+*/
+const LoadingStates = {
+    init() {
+        this.addLoadingStyles();
+        this.bindCTAButtons();
+    },
 
-// Testujeme, jestli se vůbec spustí
-try {
-    console.log('✅ UI-effects.js úspěšně načten');
+    show(element, text = 'Načítání...') {
+        if (!element) return;
+        element.disabled = true;
+        element.dataset.originalText = element.textContent || element.value;
+        element.dataset.originalClass = element.className;
+        
+        if (element.tagName === 'INPUT') {
+            element.value = text;
+        } else {
+            element.innerHTML = `<i class="bi bi-arrow-clockwise spin me-2"></i>${text}`;
+        }
+        
+        element.classList.add('loading');
+    },
     
-    // Globální objekt pro UI efekty
-    window.UIEffects = {
-        ScrollEffects: {},
-        NavbarEffects: {},
-        SmoothScrolling: {}
-    };
+    hide(element) {
+        if (!element) return;
+        element.disabled = false;
+        
+        if (element.tagName === 'INPUT') {
+            element.value = element.dataset.originalText;
+        } else {
+            element.innerHTML = element.dataset.originalText;
+        }
+        
+        element.classList.remove('loading');
+    },
+
+    success(element, text = 'Hotovo!', duration = 2000) {
+        if (!element) return;
+        element.disabled = false;
+        element.classList.remove('loading');
+        element.classList.add('success');
+        
+        if (element.tagName === 'INPUT') {
+            element.value = text;
+        } else {
+            element.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>${text}`;
+        }
+        
+        setTimeout(() => {
+            element.classList.remove('success');
+            if (element.tagName === 'INPUT') {
+                element.value = element.dataset.originalText;
+            } else {
+                element.innerHTML = element.dataset.originalText;
+            }
+        }, duration);
+    },
+
+    addLoadingStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .spin {
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            .loading {
+                opacity: 0.8;
+                cursor: not-allowed;
+                transition: all 0.3s ease;
+                background-color: #95B11F !important;
+                border-color: #95B11F !important;
+                color: #212529 !important;
+            }
+            
+            .success {
+                background-color: #B1D235 !important;
+                border-color: #B1D235 !important;
+                color: #212529 !important;
+                transition: all 0.3s ease;
+            }
+            
+            .btn:disabled {
+                opacity: 0.7;
+            }
+            
+            .page-transition {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .page-transition.loaded {
+                opacity: 1;
+            }
+            
+            /* ÚPLNÉ ODSTRANĚNÍ MODRÉ BARVY Z TLAČÍTEK */
+            .btn-primary,
+            .btn-primary:hover,
+            .btn-primary:focus,
+            .btn-primary:active,
+            .btn-primary.active,
+            .btn-primary:not(:disabled):not(.disabled):active,
+            .btn-primary:not(:disabled):not(.disabled).active {
+                background-color: #B1D235 !important;
+                border-color: #B1D235 !important;
+                color: #212529 !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+            
+            .btn-primary:hover {
+                background-color: #95B11F !important;
+                border-color: #95B11F !important;
+                color: #ffffff !important;
+                transform: translateY(-2px);
+            }
+            
+            .btn-primary:focus,
+            .btn-primary.focus {
+                background-color: #B1D235 !important;
+                border-color: #B1D235 !important;
+                color: #212529 !important;
+                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.5) !important;
+            }
+            
+            .btn-primary:active,
+            .btn-primary.active {
+                background-color: #95B11F !important;
+                border-color: #95B11F !important;
+                color: #ffffff !important;
+            }
+            
+            .btn-outline-primary,
+            .btn-outline-primary:hover,
+            .btn-outline-primary:focus,
+            .btn-outline-primary:active,
+            .btn-outline-primary.active {
+                color: #B1D235 !important;
+                border-color: #B1D235 !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+            
+            .btn-outline-primary:hover {
+                background-color: #B1D235 !important;
+                border-color: #B1D235 !important;
+                color: #212529 !important;
+                transform: translateY(-2px);
+            }
+            
+            .btn-outline-primary:focus,
+            .btn-outline-primary.focus {
+                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.5) !important;
+            }
+            
+            .btn-outline-primary:active,
+            .btn-outline-primary.active {
+                background-color: #95B11F !important;
+                border-color: #95B11F !important;
+                color: #ffffff !important;
+            }
+            
+            /* Form kontroly - oprava focus stavů */
+            .form-control:focus {
+                border-color: #B1D235 !important;
+                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25) !important;
+                outline: none !important;
+            }
+            
+            .form-control.is-valid {
+                border-color: #B1D235 !important;
+                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25) !important;
+            }
+            
+            .form-control.is-invalid {
+                border-color: #dc3545 !important;
+                box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+            }
+            
+            .form-check-input:checked {
+                background-color: #B1D235 !important;
+                border-color: #B1D235 !important;
+            }
+            
+            .form-check-input:focus {
+                border-color: #B1D235 !important;
+                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25) !important;
+            }
+            
+            /* Range slider styly */
+            .form-range:focus {
+                outline: none !important;
+                box-shadow: none !important;
+            }
+            
+            .form-range::-webkit-slider-thumb {
+                background: #B1D235 !important;
+                border: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            
+            .form-range::-webkit-slider-thumb:hover {
+                background: #95B11F !important;
+                transform: scale(1.1);
+            }
+            
+            .form-range::-moz-range-thumb {
+                background: #B1D235 !important;
+                border: none;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            
+            .form-range::-moz-range-thumb:hover {
+                background: #95B11F !important;
+                transform: scale(1.1);
+            }
+            
+            .form-range::-webkit-slider-track {
+                background: #f8f9fa;
+                border-radius: 10px;
+                height: 6px;
+            }
+            
+            .form-range::-moz-range-track {
+                background: #f8f9fa;
+                border-radius: 10px;
+                height: 6px;
+                border: none;
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    bindCTAButtons() {
+        // Všechna CTA tlačítka
+        document.querySelectorAll('a[href*="app.qrdoklad.cz"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                this.show(button, 'Přesměrování...');
+                
+                // Pokud Analytics existuje, použijeme je
+                if (typeof Analytics !== 'undefined') {
+                    Analytics.trackCTAClick(button.textContent.trim(), window.location.pathname);
+                }
+                
+                // Pustíme přesměrování po krátké pauze pro lepší UX
+                setTimeout(() => {
+                    window.open(button.href, '_blank');
+                    this.hide(button);
+                }, 800);
+                
+                e.preventDefault();
+            });
+        });
+    }
+};
+
+/*
+==================================
+NOTIFICATIONS MODULE
+==================================
+*/
+const Notifications = {
+    container: null,
     
-    // VELMI JEDNODUCHÝ ScrollEffects
-    window.UIEffects.ScrollEffects = {
-        init() {
-            console.log('📦 ScrollEffects - INIT SPUŠTĚN');
+    init() {
+        this.createContainer();
+        this.addNotificationStyles();
+    },
+
+    createContainer() {
+        this.container = document.createElement('div');
+        this.container.id = 'notifications-container';
+        this.container.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 420px;
+            pointer-events: none;
+        `;
+        document.body.appendChild(this.container);
+    },
+
+    addNotificationStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            /* VÝRAZNÉ NOTIFIKACE - dobře viditelné */
+            .notification-custom {
+                pointer-events: auto;
+                border: none !important;
+                border-radius: 16px !important;
+                font-weight: 600 !important;
+                font-size: 1rem !important;
+                padding: 20px 24px !important;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+                backdrop-filter: blur(10px) !important;
+                border-left: 5px solid transparent !important;
+                animation: slideInFromRight 0.4s ease-out !important;
+                margin-bottom: 16px !important;
+                min-height: 80px !important;
+                display: flex !important;
+                align-items: center !important;
+            }
             
-            // Najdeme navbar
-            const navbar = document.querySelector('.navbar');
-            console.log('🧭 Navbar nalezen:', navbar ? 'ANO' : 'NE');
+            .notification-custom.alert-success {
+                background: linear-gradient(135deg, #B1D235, #95B11F) !important;
+                color: #212529 !important;
+                border-left-color: #95B11F !important;
+            }
             
-            if (navbar) {
-                // Nastavíme počáteční stav
-                const initialScrollY = window.scrollY;
-                console.log('🎯 Počáteční scroll pozice:', initialScrollY);
-                
-                // Testujeme, zda scroll listener vůbec funguje
-                let scrollCount = 0;
-                
-                // VELMI JEDNODUCHÝ scroll listener - méně logů
-                const handleScroll = function() {
-                    scrollCount++;
-                    const scrollY = window.scrollY;
+            .notification-custom.alert-danger {
+                background: linear-gradient(135deg, #dc3545, #b02a37) !important;
+                color: #ffffff !important;
+                border-left-color: #b02a37 !important;
+            }
+            
+            .notification-custom.alert-warning {
+                background: linear-gradient(135deg, #ffc107, #e0a800) !important;
+                color: #212529 !important;
+                border-left-color: #e0a800 !important;
+            }
+            
+            .notification-custom.alert-info {
+                background: linear-gradient(135deg, #6c757d, #5a6268) !important;
+                color: #ffffff !important;
+                border-left-color: #5a6268 !important;
+            }
+            
+            .notification-custom .btn-close {
+                filter: none !important;
+                opacity: 0.8 !important;
+                font-size: 1.2rem !important;
+                padding: 8px !important;
+                margin: -8px -8px -8px auto !important;
+            }
+            
+            .notification-custom .btn-close:hover {
+                opacity: 1 !important;
+                transform: scale(1.1) !important;
+            }
+            
+            .notification-custom i {
+                font-size: 1.4rem !important;
+                margin-right: 12px !important;
+                flex-shrink: 0;
+            }
+            
+            .notification-custom .notification-content {
+                flex-grow: 1;
+                line-height: 1.4;
+            }
+            
+            @keyframes slideInFromRight {
+                0% {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutToRight {
+                0% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+            
+            .notification-custom.removing {
+                animation: slideOutToRight 0.3s ease-in !important;
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    show(message, type = 'info', duration = 5000) {
+        const notification = document.createElement('div');
+        const id = 'notification-' + Date.now();
+        
+        const icons = {
+            success: 'bi-check-circle-fill',
+            error: 'bi-exclamation-triangle-fill',
+            warning: 'bi-exclamation-triangle-fill',
+            info: 'bi-info-circle-fill'
+        };
+        
+        // Přemapování danger na error pro konzistenci
+        const alertType = type === 'error' ? 'danger' : type;
+        
+        notification.id = id;
+        notification.className = `alert alert-${alertType} alert-dismissible fade show notification-custom`;
+        
+        notification.innerHTML = `
+            <i class="bi ${icons[type]}"></i>
+            <div class="notification-content">${message}</div>
+            <button type="button" class="btn-close" onclick="Notifications.remove('${id}')"></button>
+        `;
+        
+        this.container.appendChild(notification);
+        
+        // Auto remove
+        if (duration > 0) {
+            setTimeout(() => this.remove(id), duration);
+        }
+        
+        // Sound effect pro success (optional)
+        if (type === 'success') {
+            this.playNotificationSound();
+        }
+        
+        return id;
+    },
+
+    remove(id) {
+        const notification = document.getElementById(id);
+        if (notification) {
+            notification.classList.add('removing');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+    },
+
+    success(message, duration = 6000) {
+        return this.show(message, 'success', duration);
+    },
+
+    error(message, duration = 8000) {
+        return this.show(message, 'error', duration);
+    },
+
+    warning(message, duration = 6000) {
+        return this.show(message, 'warning', duration);
+    },
+
+    info(message, duration = 5000) {
+        return this.show(message, 'info', duration);
+    },
+
+    playNotificationSound() {
+        // Jednoduchý audio feedback (opcional)
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+        } catch (e) {
+            // Audio není podporováno, nevadí
+        }
+    }
+};
+
+/*
+==================================
+SCROLL EFFECTS MODULE
+==================================
+*/
+const ScrollEffects = {
+    observer: null,
+    
+    init() {
+        console.log('ScrollEffects - Inicializace začíná');
+        this.initScrollAnimations();
+        this.initCounterAnimations();
+        this.initParallaxEffects();
+        this.addScrollAnimationStyles();
+        console.log('ScrollEffects - Inicializace dokončena');
+    },
+
+    initScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
                     
-                    // Logujeme jen změny stavu, ne pozici
-                    if (scrollY > 100) {
-                        if (!navbar.classList.contains('navbar-scrolled')) {
-                            navbar.classList.add('navbar-scrolled');
-                            console.log('🎨 Navbar → tmavší');
-                        }
-                    } else {
-                        if (navbar.classList.contains('navbar-scrolled')) {
-                            navbar.classList.remove('navbar-scrolled');
-                            console.log('🎨 Navbar → černý');
+                    // Track element visibility - pouze pokud Analytics existuje
+                    if (typeof Analytics !== 'undefined') {
+                        const elementClass = entry.target.className;
+                        if (elementClass.includes('pricing-card')) {
+                            Analytics.trackEvent('element_view', 'engagement', 'pricing_card');
                         }
                     }
-                };
-                
-                // Přidáme event listener
-                window.addEventListener('scroll', handleScroll);
-                
-                // Test - zkusíme scroll listener spustit ručně po 2 sekundách
-                setTimeout(() => {
-                    console.log('🧪 Testování scroll listeneru...');
-                    window.scrollTo({ top: 150, behavior: 'smooth' });
-                }, 2000);
-                
-                console.log('✅ Scroll listener připojen k navbar (jednoduchá verze)');
+                }
+            });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll(
+            '.benefit-card, .testimonial-card, .feature-list-item, .section-title, .section-subtitle, .feature-detail-card, .pricing-card, .advanced-feature-card, .contact-info-card'
+        );
+        
+        animatedElements.forEach((el, index) => {
+            el.classList.add('animate-on-scroll');
+            el.style.transitionDelay = `${index * 0.1}s`;
+            this.observer.observe(el);
+        });
+    },
+
+    initCounterAnimations() {
+        const counters = document.querySelectorAll('.counter');
+        if (counters.length === 0) return;
+        
+        const observerOptions = { threshold: 0.5 };
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateCounter(entry.target);
+                    
+                    // Track pouze pokud Analytics existuje
+                    if (typeof Analytics !== 'undefined') {
+                        Analytics.trackEvent('counter_view', 'engagement', 'animated_counter');
+                    }
+                    
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        counters.forEach(counter => counterObserver.observe(counter));
+    },
+
+    initParallaxEffects() {
+        const parallaxElements = document.querySelectorAll('.floating-card');
+        
+        if (parallaxElements.length === 0) return;
+        
+        window.addEventListener('scroll', this.throttle(() => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            parallaxElements.forEach(element => {
+                element.style.transform = `translateY(${rate}px)`;
+            });
+        }, 16));
+    },
+
+    animateCounter(counter) {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                counter.textContent = target.toLocaleString('cs-CZ');
+                clearInterval(timer);
+            } else {
+                counter.textContent = Math.floor(current).toLocaleString('cs-CZ');
+            }
+        }, 16);
+    },
+
+    addScrollAnimationStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .animate-on-scroll {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s ease;
+            }
+            .animate-on-scroll.animate-in {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            /* Staggered animations */
+            .animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+            .animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+            .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+            .animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
+            .animate-on-scroll:nth-child(5) { transition-delay: 0.5s; }
+            .animate-on-scroll:nth-child(6) { transition-delay: 0.6s; }
+        `;
+        document.head.appendChild(style);
+    },
+
+    // Pomocná funkce throttle (abychom nemuseli záviset na Utils)
+    throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
             }
         }
-    };
-    
-    // VELMI JEDNODUCHÝ NavbarEffects
-    window.UIEffects.NavbarEffects = {
-        init() {
-            console.log('📦 NavbarEffects - INIT SPUŠTĚN');
-        }
-    };
-    
-    // VELMI JEDNODUCHÝ SmoothScrolling
-    window.UIEffects.SmoothScrolling = {
-        init() {
-            console.log('📦 SmoothScrolling - INIT SPUŠTĚN');
-        }
-    };
-    
-    console.log('✅ Všechny UIEffects moduly vytvořeny');
-    
-} catch (error) {
-    console.error('❌ CHYBA v ui-effects.js:', error);
-}
+    }
+};
 
-// Přidáme CSS styly pro navbar
-(function addNavbarStyles() {
-    if (document.getElementById('navbar-styles')) return;
+/*
+==================================
+NAVBAR EFFECTS MODULE
+==================================
+*/
+const NavbarEffects = {
+    navbar: null,
+    lastScrollTop: 0,
+    isScrollingDown: false,
     
-    const style = document.createElement('style');
-    style.id = 'navbar-styles';
-    style.textContent = `
-        .navbar {
-            transition: all 0.3s ease !important;
-            background-color: #212529 !important;
-            backdrop-filter: blur(10px) !important;
-        }
+    init() {
+        this.navbar = document.querySelector('.navbar');
+        if (!this.navbar) return;
+        this.initScrollEffects();
+        this.initMobileMenu();
+    },
+
+    initScrollEffects() {
+        const scrollHandler = this.throttle(() => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            this.isScrollingDown = scrollTop > this.lastScrollTop;
+            
+            // Background opacity based on scroll
+            if (scrollTop > 50) {
+                this.navbar.classList.add('scrolled');
+                this.navbar.style.background = 'rgba(0, 0, 0, 0.98)';
+                this.navbar.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.7)';
+                this.navbar.style.backdropFilter = 'blur(25px)';
+            } else {
+                this.navbar.classList.remove('scrolled');
+                this.navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                this.navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
+                this.navbar.style.backdropFilter = 'blur(20px)';
+            }
+            
+            // Hide/show navbar on mobile when scrolling
+            if (window.innerWidth <= 768) {
+                if (this.isScrollingDown && scrollTop > 200) {
+                    this.navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    this.navbar.style.transform = 'translateY(0)';
+                }
+            }
+            
+            this.lastScrollTop = scrollTop;
+        }, 16);
         
-        .navbar.navbar-scrolled {
-            background-color: #2c3034 !important;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3) !important;
-        }
+        window.addEventListener('scroll', scrollHandler);
+        scrollHandler(); // Initial call
+    },
+
+    initMobileMenu() {
+        const toggleButton = this.navbar.querySelector('.navbar-toggler');
+        const navbarCollapse = this.navbar.querySelector('.navbar-collapse');
         
-        /* Ještě silnější pravidla pro jistotu */
-        .navbar.navbar-scrolled.navbar-scrolled {
-            background: #2c3034 !important;
-            background-color: #2c3034 !important;
+        if (!toggleButton || !navbarCollapse) return;
+        
+        // Close mobile menu when clicking on links
+        navbarCollapse.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 991) {
+                    // Pokud Bootstrap je dostupný
+                    if (typeof bootstrap !== 'undefined') {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                            toggle: false
+                        });
+                        bsCollapse.hide();
+                    }
+                }
+            });
+        });
+        
+        // Track mobile menu usage - pouze pokud Analytics existuje
+        toggleButton.addEventListener('click', () => {
+            if (typeof Analytics !== 'undefined') {
+                Analytics.trackEvent('mobile_menu_toggle', 'navigation', 'hamburger');
+            }
+        });
+    },
+
+    // Pomocná funkce throttle
+    throttle(func, limit) {
+        let inThrottle;
+        return function() {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
         }
-    `;
-    document.head.appendChild(style);
-    console.log('✅ Navbar CSS styly přidány s vysokou prioritou');
-})();
+    }
+};
+
+/*
+==================================
+SMOOTH SCROLLING MODULE
+==================================
+*/
+const SmoothScrolling = {
+    init() {
+        this.bindAnchorLinks();
+        this.initPageTransitions();
+    },
+
+    bindAnchorLinks() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // navbar height
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Track pouze pokud Analytics existuje
+                    if (typeof Analytics !== 'undefined') {
+                        Analytics.trackEvent('anchor_click', 'navigation', this.getAttribute('href'));
+                    }
+                }
+            });
+        });
+    },
+
+    initPageTransitions() {
+        // Add page transition effect
+        document.body.classList.add('page-transition');
+        
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+        
+        // Smooth transitions for internal navigation
+        document.querySelectorAll('a[href^="/"], a[n\\:href]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.href && this.href !== window.location.href) {
+                    document.body.classList.remove('loaded');
+                    setTimeout(() => {
+                        window.location.href = this.href;
+                    }, 150);
+                    e.preventDefault();
+                }
+            });
+        });
+    }
+};
+
+/*
+==================================
+INIT FUNCTION PRO UI EFFECTS
+==================================
+*/
+const UIEffects = {
+    init() {
+        console.log('UIEffects - Inicializace začíná');
+        
+        // Inicializace všech UI modulů s detailním debug
+        console.log('UIEffects - spouštím LoadingStates');
+        LoadingStates.init();
+        
+        console.log('UIEffects - spouštím Notifications');
+        Notifications.init();
+        
+        console.log('UIEffects - spouštím ScrollEffects');
+        ScrollEffects.init();
+        
+        console.log('UIEffects - spouštím NavbarEffects');
+        NavbarEffects.init();
+        
+        console.log('UIEffects - spouštím SmoothScrolling');
+        SmoothScrolling.init();
+        
+        // NOUZOVÉ ŘEŠENÍ PRO POČÍTADLA
+        console.log('UIEffects - spouštím nouzové řešení počítadel');
+        setTimeout(() => {
+            const statNumbers = document.querySelectorAll('[data-target]');
+            console.log('UIEffects - nalezeno počítadel:', statNumbers.length);
+            
+            // Nejdříve nastavíme všechna počítadla na 0 pro konzistentní start
+            statNumbers.forEach((counter) => {
+                counter.textContent = '0';
+            });
+            
+            // Pak je za chvilku animujeme
+            setTimeout(() => {
+                statNumbers.forEach((counter, index) => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    console.log(`UIEffects - animuji počítadlo ${index} z 0 do ${target}`);
+                    
+                    if (target && !counter.dataset.animated) {
+                        counter.dataset.animated = 'true';
+                        this.animateCounterDirect(counter, target);
+                    }
+                });
+            }, 300); // Krátká pauza aby uživatel viděl, že se všechny nastavily na 0
+        }, 1000);
+        
+        console.log('UIEffects - Inicializace dokončena');
+    },
+    
+    // Přímá animace počítadel (vždy od 0)
+    animateCounterDirect(counter, target) {
+        console.log(`UIEffects - animuji počítadlo od 0 do ${target}`);
+        
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                counter.textContent = target.toLocaleString('cs-CZ');
+                clearInterval(timer);
+                console.log(`UIEffects - počítadlo dokončeno: ${target}`);
+            } else {
+                counter.textContent = Math.floor(current).toLocaleString('cs-CZ');
+            }
+        }, 16);
+    }
+};
+
+// Export pro možné použití v jiných souborech
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { UIEffects, LoadingStates, Notifications, ScrollEffects, NavbarEffects, SmoothScrolling };
+}

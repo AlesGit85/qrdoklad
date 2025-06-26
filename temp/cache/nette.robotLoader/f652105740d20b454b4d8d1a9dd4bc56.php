@@ -46,9 +46,11 @@ return array (
   1 => 
   array (
     'null' => 1,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingTemplate' => 3,
     'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 1,
+    'App\\Presentation\\Landing\\LandingCenikTemplate' => 2,
+    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 1,
   ),
   2 => 
   array (

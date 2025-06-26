@@ -73,7 +73,7 @@ final class Template_0da000aefc extends Latte\Runtime\Template
                             <div class="stat-label">Vystavených faktur</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" data-target="247">247</div>
+                            <div class="stat-number" data-target="247">0</div>
                             <div class="stat-label">% rychlost vystavení</div>
                         </div>
                     </div>

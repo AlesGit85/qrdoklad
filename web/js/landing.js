@@ -21,34 +21,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (window.Utilities.Notifications) window.Utilities.Notifications.init();
             if (window.Utilities.Analytics) window.Utilities.Analytics.init();
         } else {
-            console.warn('⚠️ Utilities modul nenalezen');
+            console.log('ℹ️ Utilities modul není dostupný (bude v dalším kroku)');
         }
         
-        // 2. UI efekty (scroll, navbar, smooth scrolling)
-        if (window.UIEffects) {
+        // 2. UI efekty (scroll, navbar, smooth scrolling) - UPRAVENO v kroku 1!
+        if (typeof UIEffects !== 'undefined') {
             console.log('✅ Inicializuji UIEffects moduly...');
-            if (window.UIEffects.ScrollEffects) window.UIEffects.ScrollEffects.init();
-            if (window.UIEffects.NavbarEffects) window.UIEffects.NavbarEffects.init();
-            if (window.UIEffects.SmoothScrolling) window.UIEffects.SmoothScrolling.init();
+            UIEffects.init();
         } else {
             console.warn('⚠️ UIEffects modul nenalezen');
         }
         
-        // 3. Pricing funkcionalita (pouze pokud existuje a je na stránce)
-        if (window.PricingModule && (document.getElementById('priceToggle') || document.querySelector('.savings-calculator'))) {
+        // 3. Pricing funkcionalita - UPRAVENO v kroku 3!
+        if (typeof PricingModule !== 'undefined') {
             console.log('✅ Inicializuji PricingModule...');
-            if (window.PricingModule.PricingToggle) window.PricingModule.PricingToggle.init();
-            if (window.PricingModule.SavingsCalculator) window.PricingModule.SavingsCalculator.init();
-        } else if (!window.PricingModule) {
-            console.log('ℹ️ PricingModule není dostupný (bude v dalším kroku)');
+            PricingModule.init();
+        } else {
+            console.log('ℹ️ PricingModule není dostupný');
         }
         
-        // 4. Formuláře (pouze pokud existuje a je na stránce)
-        if (window.FormHandler && document.querySelector('#contactForm')) {
+        // 4. Formuláře - UPRAVENO v kroku 2!
+        if (typeof FormHandler !== 'undefined') {
             console.log('✅ Inicializuji FormHandler...');
-            if (window.FormHandler.ContactForm) window.FormHandler.ContactForm.init();
-        } else if (!window.FormHandler) {
-            console.log('ℹ️ FormHandler není dostupný (bude v dalším kroku)');
+            FormHandler.init();
+        } else {
+            console.log('ℹ️ FormHandler není dostupný');
         }
         
         console.log('🎉 QRdoklad Landing Page - inicializace dokončena');

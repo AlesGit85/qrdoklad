@@ -1,6 +1,6 @@
 /**
  * QRdoklad Pricing Module
- * Obsahuje: Pricing Toggle, Savings Calculator
+ * Obsahuje: Pricing Toggle, Savings Calculator s pokročilými ROI výpočty
  * 
  * Barvy projektu:
  * - Primární: #B1D235
@@ -9,569 +9,478 @@
  * - Černá: #212529
  */
 
-console.log('🚀 PRICING.JS SE NAČÍTÁ...');
-
-// Globální objekt pro pricing moduly
-window.PricingModule = {
-    createFallbackDisplay() {
-        // Zkusíme najít kontejner kalkulátoru
-        const sliderContainer = this.slider.closest('.calculator, .savings-calculator, .card, .col');
-        
-        if (sliderContainer) {
-            // Vytvoříme div pro výsledky
-            const resultsDiv = document.createElement('div');
-            resultsDiv.className = 'calculator-results mt-3 p-3 bg-light rounded';
-            resultsDiv.innerHTML = `
-                <h6 class="text-center mb-2">💰 Vaše úspory</h6>
-                <div class="row text-center">
-                    <div class="col-6">
-                        <div class="savings-result">
-                            <strong id="fallback-monthly">-- Kč</strong>
-                            <br><small class="text-muted">měsíčně</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="savings-result">
-                            <strong id="fallback-annual">-- Kč</strong>
-                            <br><small class="text-muted">ročně</small>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Přidáme výsledky za slider
-            sliderContainer.appendChild(resultsDiv);
-            
-            // Aktualizujeme reference
-            this.monthlyResult = document.getElementById('fallback-monthly');
-            this.annualResult = document.getElementById('fallback-annual');
-            
-            console.log('✅ Fallback zobrazení výsledků vytvořeno');
-        } else {
-            console.log('⚠️ Nepodařilo se najít kontejner pro fallback zobrazení');
-        }
-    },
-    
-    // Zpětná kompatibilita - stará metoda
-    calculateSavings(invoiceCount) {
-        const result = this.calculateAdvancedSavings({
-            invoiceCount: invoiceCount,
-            timePerInvoice: 15, // výchozí hodnota
-            hourlyRate: 800     // výchozí hodnota
-        });
-        
-        return {
-            monthly: result.monthly,
-            annual: result.annual
-        };
-    },
-    
-    PricingToggle: {},
-    SavingsCalculator: {}
-};
-
 /*
 ==================================
 PRICING TOGGLE MODULE
 ==================================
 */
-window.PricingModule.PricingToggle = {
+const PricingToggle = {
     toggle: null,
     monthlyPrices: null,
     annualPrices: null,
     annualNotes: null,
     
     init() {
-        console.log('📦 PricingToggle modul inicializován');
+        console.log('PricingToggle - hledám toggle...');
         
         this.toggle = document.getElementById('priceToggle');
         if (!this.toggle) {
-            console.log('ℹ️ Pricing toggle nenalezen na této stránce');
+            console.log('PricingToggle - toggle nenalezen na této stránce');
             return;
         }
         
-        console.log('✅ Pricing toggle nalezen, inicializuji...');
+        console.log('PricingToggle - toggle nalezen, inicializuji...');
         
         this.monthlyPrices = document.querySelectorAll('.monthly-price');
         this.annualPrices = document.querySelectorAll('.annual-price');
         this.annualNotes = document.querySelectorAll('.annual-note');
         
-        console.log(`📊 Nalezeno: ${this.monthlyPrices.length} měsíčních cen, ${this.annualPrices.length} ročních cen`);
+        console.log(`PricingToggle - nalezeno: ${this.monthlyPrices.length} měsíčních cen, ${this.annualPrices.length} ročních cen`);
         
         this.toggle.addEventListener('change', () => {
-            console.log('🔄 Pricing toggle změněn na:', this.toggle.checked ? 'roční' : 'měsíční');
+            console.log('PricingToggle - změna na:', this.toggle.checked ? 'roční' : 'měsíční');
             this.togglePrices();
-            
-            // Track pricing toggle
-            if (window.Utilities?.Analytics?.trackPricingInteraction) {
-                window.Utilities.Analytics.trackPricingInteraction(this.toggle.checked);
-            }
+            this.trackToggle();
         });
         
-        // Nastavíme počáteční stav
+        // Inicializace podle aktuálního stavu
         this.togglePrices();
+        
+        console.log('PricingToggle - inicializace dokončena');
     },
-    
+
     togglePrices() {
         const isAnnual = this.toggle.checked;
-        console.log('💰 Přepínám ceny na:', isAnnual ? 'roční' : 'měsíční');
-        
-        // Přepneme viditelnost cen
-        this.monthlyPrices.forEach(price => {
-            price.style.display = isAnnual ? 'none' : 'block';
-        });
-        
-        this.annualPrices.forEach(price => {
-            price.style.display = isAnnual ? 'block' : 'none';
-        });
-        
-        // Zobrazíme/skryjeme poznámky o roční slevě
-        this.annualNotes.forEach(note => {
-            note.style.display = isAnnual ? 'block' : 'none';
-        });
         
         // Animace při přepnutí
-        this.animatePriceCards();
-    },
-    
-    animatePriceCards() {
-        const pricingCards = document.querySelectorAll('.pricing-card, .card');
-        pricingCards.forEach((card, index) => {
-            card.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                card.style.transform = 'scale(1)';
-            }, 50 + index * 30);
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.style.transform = 'scale(0.95)';
+            card.style.opacity = '0.7';
         });
+        
+        setTimeout(() => {
+            // Přepneme viditelnost cen
+            this.monthlyPrices.forEach(price => {
+                price.style.display = isAnnual ? 'none' : 'inline';
+            });
+            
+            this.annualPrices.forEach(price => {
+                price.style.display = isAnnual ? 'inline' : 'none';
+            });
+            
+            // Zobrazíme/skryjeme poznámky o roční slevě
+            this.annualNotes.forEach(note => {
+                note.style.display = isAnnual ? 'block' : 'none';
+            });
+            
+            // Vratime animaci
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.style.transform = 'scale(1)';
+                card.style.opacity = '1';
+            });
+        }, 150);
+    },
+
+    trackToggle() {
+        // Tracking pouze pokud Analytics existuje
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackPricingInteraction(
+                this.toggle.checked ? 'annual_view' : 'monthly_view'
+            );
+        } else {
+            console.log('📊 Pricing Toggle:', this.toggle.checked ? 'roční' : 'měsíční');
+        }
     }
 };
 
 /*
 ==================================
-SAVINGS CALCULATOR MODULE
+SAVINGS CALCULATOR MODULE s ROI
 ==================================
 */
-window.PricingModule.SavingsCalculator = {
-    slider: null,
-    displayValue: null,
-    monthlyResult: null,
-    annualResult: null,
+const SavingsCalculator = {
+    sliders: {},
+    valueDisplays: {},
+    resultElements: {},
+    hasInteracted: false,
     
     init() {
-        console.log('📦 SavingsCalculator modul inicializován');
+        console.log('SavingsCalculator - hledám kalkulačku...');
         
-        // Hledáme všechny slidery na stránce
-        console.log('🔍 Hledám všechny slidery kalkulačky...');
-        
-        // ID všech sliderou z debug výpisu
-        const sliderIds = {
-            invoiceCount: 'invoiceCount',      // Počet faktur měsíčně
-            timePerInvoice: 'timePerInvoice',  // Čas na jednu fakturu (minuty)
-            hourlyRate: 'hourlyRate'           // Hodinová sazba (Kč)
-        };
-        
-        this.sliders = {};
-        
-        // Najdeme všechny slidery
-        Object.keys(sliderIds).forEach(key => {
-            const slider = document.getElementById(sliderIds[key]);
-            if (slider) {
-                this.sliders[key] = slider;
-                console.log(`✅ Slider '${key}' nalezen s ID: ${sliderIds[key]}`);
-            } else {
-                console.log(`❌ Slider '${key}' s ID '${sliderIds[key]}' nenalezen`);
-            }
-        });
-        
-        // Kontrolujeme, zda máme alespoň jeden slider
-        const foundSliders = Object.keys(this.sliders);
-        if (foundSliders.length === 0) {
-            console.log('ℹ️ Žádné slidery kalkulačky nenalezeny na této stránce');
+        // Hledáme hlavní slider kalkulačky
+        this.sliders.invoiceCount = document.getElementById('invoiceCount');
+        if (!this.sliders.invoiceCount) {
+            console.log('SavingsCalculator - kalkulačka nenalezena na této stránce');
             return;
         }
         
-        console.log(`✅ Nalezeno ${foundSliders.length} sliderou: ${foundSliders.join(', ')}`);
+        console.log('SavingsCalculator - kalkulačka nalezena, inicializuji...');
+        this.initElements();
+        this.bindEvents();
+        this.updateCalculator();
+        this.addCalculatorStyles();
         
-        // Pro zpětnou kompatibilitu - nastavíme hlavní slider
-        this.slider = this.sliders.invoiceCount || Object.values(this.sliders)[0];
-        
-        // Hledáme result elementy - pokud neexistují, vytvoříme je
-        this.findOrCreateResultElements();
-        
-        // Přidáme event listenery na všechny slidery
-        Object.keys(this.sliders).forEach(key => {
-            const slider = this.sliders[key];
-            
-            slider.addEventListener('input', () => {
-                console.log(`🎛️ ${key}: ${slider.value}`);
-                this.updateSliderDisplay(key, slider.value);
-                this.updateCalculation();
-            });
-            
-            slider.addEventListener('change', () => {
-                this.trackCalculatorUsage();
-            });
-            
-            console.log(`✅ Event listenery připojeny k slideru '${key}'`);
-            
-            // Inicializujeme zobrazení pro tento slider hned
-            this.updateSliderDisplay(key, slider.value);
-        });
-        
-        // Počáteční výpočet
-        this.updateCalculation();
-        
-        console.log('✅ Kalkulátor je připraven k použití!');
-        
-        // Oznámíme uživateli úspěch
-        setTimeout(() => {
-            if (window.Utilities?.Notifications?.success) {
-                const foundElements = [
-                    this.monthlyResult && 'finanční úspory',
-                    this.annualResult && 'roční úspory', 
-                    this.timeSavedElement && 'ušetřený čas',
-                    this.roiTimeElement && 'návratnost investice'
-                ].filter(Boolean).join(', ');
-                
-                window.Utilities.Notifications.success(
-                    `Kalkulátor úspěšně integrován do designu! Aktualizuje: ${foundElements}.`,
-                    5000
-                );
-            }
-        }, 1000);
+        console.log('SavingsCalculator - inicializace dokončena');
     },
-    
-    findOrCreateResultElements() {
-        console.log('🔍 Hledám původní result elementy v designu...');
+
+    initElements() {
+        // Všechny slidery
+        this.sliders.timePerInvoice = document.getElementById('timePerInvoice');
+        this.sliders.hourlyRate = document.getElementById('hourlyRate');
         
-        // Hledáme původní elementy podle skutečných ID z HTML
-        const resultElements = {
-            timeSaved: document.getElementById('timeSaved'),           // "8 hodin"
-            moneySaved: document.getElementById('moneySaved'),         // "6 400 Kč" 
-            yearlySavings: document.getElementById('yearlySavings'),   // "76 800 Kč"
-            roiTime: document.getElementById('roiTime')               // "1 týden"
-        };
+        // Zobrazovače hodnot
+        this.valueDisplays.invoiceCount = document.getElementById('invoiceCountValue');
+        this.valueDisplays.timePerInvoice = document.getElementById('timePerInvoiceValue');
+        this.valueDisplays.hourlyRate = document.getElementById('hourlyRateValue');
         
-        // Logujeme co jsme našli s detailnějšími informacemi
-        Object.keys(resultElements).forEach(key => {
-            const element = resultElements[key];
-            if (element) {
-                console.log(`✅ Nalezen původní result element: #${key} (obsahuje: "${element.textContent.trim()}", tag: ${element.tagName})`);
-            } else {
-                console.log(`❌ Result element #${key} nenalezen`);
-                
-                // Debug - zkusíme najít podobné elementy
-                const similarElements = document.querySelectorAll(`[id*="${key}"], [class*="${key}"], [id*="roi"], [class*="roi"]`);
-                if (similarElements.length > 0) {
-                    console.log(`🔍 Podobné elementy pro ${key}:`, Array.from(similarElements).map(el => `#${el.id || 'no-id'}.${el.className || 'no-class'}`));
-                }
+        // Výsledkové elementy - rozšířené o ROI
+        this.resultElements.timeSaved = document.getElementById('timeSaved');
+        this.resultElements.moneySaved = document.getElementById('moneySaved');
+        this.resultElements.yearlySavings = document.getElementById('yearlySavings');
+        this.resultElements.roiTime = document.getElementById('roiTime');
+        this.resultElements.roiPercentage = document.getElementById('roiPercentage');
+        this.resultElements.paybackPeriod = document.getElementById('paybackPeriod');
+        this.resultElements.breakEvenPoint = document.getElementById('breakEvenPoint');
+        
+        console.log('SavingsCalculator - elementy:', {
+            sliders: Object.keys(this.sliders).filter(key => this.sliders[key]),
+            displays: Object.keys(this.valueDisplays).filter(key => this.valueDisplays[key]),
+            results: Object.keys(this.resultElements).filter(key => this.resultElements[key])
+        });
+    },
+
+    bindEvents() {
+        Object.values(this.sliders).forEach(slider => {
+            if (slider) {
+                slider.addEventListener('input', () => {
+                    if (!this.hasInteracted) {
+                        this.trackCalculatorUse();
+                        this.hasInteracted = true;
+                    }
+                    
+                    this.updateCalculator();
+                });
             }
         });
-        
-        // Nastavíme reference pro hlavní výpočty
-        this.monthlyResult = resultElements.moneySaved;
-        this.annualResult = resultElements.yearlySavings;
-        this.timeSavedElement = resultElements.timeSaved;
-        this.roiTimeElement = resultElements.roiTime;
-        
-        console.log('📦 Result elementy nastaveny:');
-        console.log('  - Monthly result (moneySaved):', this.monthlyResult ? '✅ nalezen' : '❌ nenalezen');
-        console.log('  - Annual result (yearlySavings):', this.annualResult ? '✅ nalezen' : '❌ nenalezen');
-        console.log('  - Time saved element:', this.timeSavedElement ? '✅ nalezen' : '❌ nenalezen');
-        console.log('  - ROI element:', this.roiTimeElement ? '✅ nalezen' : '❌ nenalezen');
     },
-    
-    updateSliderDisplay(sliderKey, value) {
-        const slider = this.sliders[sliderKey];
-        if (!slider) return;
-        
-        // Pokusíme se najít původní display elementy
-        const displayElement = this.findOriginalDisplayElement(slider, sliderKey, value);
-        
-        if (displayElement) {
-            // Aktualizujeme původní element - pouze číslo bez jednotek
-            const oldValue = displayElement.textContent;
-            displayElement.textContent = value;
-            console.log(`✅ Aktualizován původní element '${sliderKey}': '${oldValue}' → '${value}'`);
-        } else {
-            console.log(`❌ Nepodařilo se najít display element pro '${sliderKey}'`);
-        }
+
+    updateCalculator() {
+        const values = this.getSliderValues();
+        this.updateDisplayedValues(values);
+        const calculations = this.performAdvancedCalculations(values);
+        this.updateResults(calculations);
+        this.animateResults();
     },
-    
-    findOriginalDisplayElement(slider, sliderKey, currentValue) {
-        // Hledáme podle skutečných ID z HTML struktury
-        const specificSelectors = [
-            `#${sliderKey}Value`,           // invoiceCountValue, timePerInvoiceValue, hourlyRateValue
-            `#${sliderKey}Display`,
-            `#${sliderKey}-value`,
-            `#${sliderKey}-display`
-        ];
-        
-        for (let selector of specificSelectors) {
-            const element = document.querySelector(selector);
-            if (element) {
-                console.log(`✅ Nalezen původní display element pro '${sliderKey}': ${selector}`);
-                return element;
-            }
-        }
-        
-        console.log(`⚠️ Původní display element pro '${sliderKey}' nenalezen. Hledal jsem: ${specificSelectors.join(', ')}`);
-        return null;
-    },
-    
-    updateCalculation() {
-        // Získáme hodnoty ze všech sliderou
-        const values = {
-            invoiceCount: this.sliders.invoiceCount ? parseInt(this.sliders.invoiceCount.value) : 20,
+
+    getSliderValues() {
+        return {
+            invoiceCount: parseInt(this.sliders.invoiceCount.value),
             timePerInvoice: this.sliders.timePerInvoice ? parseInt(this.sliders.timePerInvoice.value) : 15,
             hourlyRate: this.sliders.hourlyRate ? parseInt(this.sliders.hourlyRate.value) : 800
         };
-        
-        console.log(`🧮 Aktualizuji kalkulačku:`, values);
-        
-        // Výpočet úspor založený na všech parametrech
-        const savings = this.calculateAdvancedSavings(values);
-        
-        // Aktualizujeme zobrazené úspory
-        if (this.monthlyResult) {
-            this.monthlyResult.textContent = `${savings.monthly.toLocaleString('cs-CZ')} Kč`;
-            console.log(`💰 Monthly result aktualizován: ${savings.monthly} Kč`);
-        }
-        
-        if (this.annualResult) {
-            this.annualResult.textContent = `${savings.annual.toLocaleString('cs-CZ')} Kč`;
-            console.log(`💰 Annual result aktualizován: ${savings.annual} Kč`);
-        }
-        
-        // Console výsledky pro debug - zkrácené
-        console.log('%c💰 KALKULÁTOR ÚSPOR 💰', 'color: #B1D235; font-weight: bold; font-size: 14px;');
-        console.log(`%c📊 ${values.invoiceCount} faktur × ${values.timePerInvoice} min × ${values.hourlyRate} Kč/hod`, 'color: #6c757d;');
-        console.log(`%c💵 Měsíčně: ${savings.monthly.toLocaleString('cs-CZ')} Kč | Ročně: ${savings.annual.toLocaleString('cs-CZ')} Kč`, 'color: #95B11F; font-weight: bold;');
-        console.log('%c' + '─'.repeat(50), 'color: #B1D235;');
     },
-    
-    calculateAdvancedSavings(values) {
-        const { invoiceCount, timePerInvoice, hourlyRate } = values;
+
+    updateDisplayedValues(values) {
+        if (this.valueDisplays.invoiceCount) {
+            this.valueDisplays.invoiceCount.textContent = values.invoiceCount;
+        }
+        if (this.valueDisplays.timePerInvoice) {
+            this.valueDisplays.timePerInvoice.textContent = values.timePerInvoice;
+        }
+        if (this.valueDisplays.hourlyRate) {
+            this.valueDisplays.hourlyRate.textContent = values.hourlyRate.toLocaleString('cs-CZ') + ' Kč';
+        }
+    },
+
+    performAdvancedCalculations(values) {
+        // Základní kalkulace
+        const currentTimePerMonth = values.invoiceCount * values.timePerInvoice;
+        const qrdokladTimePerInvoice = 2; // QRdoklad ušetří na 2 minuty
+        const newTimePerMonth = values.invoiceCount * qrdokladTimePerInvoice;
+        const timeSavedMinutes = currentTimePerMonth - newTimePerMonth;
+        const timeSavedHours = Math.round(timeSavedMinutes / 60 * 10) / 10;
         
-        console.log(`🧮 DEBUG - Vstupní hodnoty:`, values);
+        // Finanční kalkulace
+        const moneySavedPerMonth = (timeSavedMinutes / 60) * values.hourlyRate;
+        const monthlySubscription = 599; // Cena QRdoklad
+        const netSavingsPerMonth = moneySavedPerMonth - monthlySubscription;
+        const yearlySavings = netSavingsPerMonth * 12;
         
-        // Náklady konkurence (simulace založená na průzkumu trhu)
-        const competitorMonthlyFee = 800;           // Vyšší paušál konkurence
-        const competitorTransactionFee = 5;         // Poplatek za fakturu
-        const competitorExtraTimeMinutes = Math.max(10, timePerInvoice * 0.5); // Konkurence je výrazně pomalejší
+        // POKROČILÉ ROI VÝPOČTY
+        const initialInvestment = monthlySubscription; // První platba
+        const monthlyROI = (netSavingsPerMonth / monthlySubscription) * 100;
+        const yearlyROI = (yearlySavings / (monthlySubscription * 12)) * 100;
         
-        console.log(`⚡ Konkurence je pomalejší o: ${competitorExtraTimeMinutes.toFixed(1)} minut na fakturu`);
+        // Payback period (doba návratnosti)
+        const paybackDays = Math.ceil(monthlySubscription / (moneySavedPerMonth / 30));
+        const paybackWeeks = Math.ceil(paybackDays / 7);
+        const paybackMonths = Math.ceil(paybackDays / 30);
         
-        // Náklady QRdoklad  
-        const ourMonthlyFee = 599;                  // Náš Business balíček
-        const ourTransactionFee = 0;                // Bez transakčních poplatků
+        // Break-even point
+        const dailySavings = moneySavedPerMonth / 30;
+        const dailyCost = monthlySubscription / 30;
+        const breakEvenDays = Math.ceil(monthlySubscription / dailySavings);
         
-        // Výpočet času v hodinách
-        const competitorTimePerInvoice = (timePerInvoice + competitorExtraTimeMinutes) / 60; // v hodinách
-        const ourTimePerInvoice = timePerInvoice / 60; // v hodinách
-        
-        console.log(`⏱️ DEBUG - Časy:
-        - Náš čas na fakturu: ${timePerInvoice} min = ${ourTimePerInvoice.toFixed(3)} hod
-        - Konkurence čas na fakturu: ${timePerInvoice + competitorExtraTimeMinutes} min = ${competitorTimePerInvoice.toFixed(3)} hod
-        - Rozdíl času: ${competitorExtraTimeMinutes} min = ${(competitorExtraTimeMinutes/60).toFixed(3)} hod`);
-        
-        // Výpočet časových nákladů
-        const competitorTimeCost = invoiceCount * competitorTimePerInvoice * hourlyRate;
-        const ourTimeCost = invoiceCount * ourTimePerInvoice * hourlyRate;
-        const timeSavings = competitorTimeCost - ourTimeCost;
-        
-        console.log(`💰 DEBUG - Časové náklady:
-        - Konkurence časové náklady: ${invoiceCount} × ${competitorTimePerInvoice.toFixed(3)} × ${hourlyRate} = ${competitorTimeCost.toFixed(0)} Kč
-        - Naše časové náklady: ${invoiceCount} × ${ourTimePerInvoice.toFixed(3)} × ${hourlyRate} = ${ourTimeCost.toFixed(0)} Kč
-        - Úspora z času: ${timeSavings.toFixed(0)} Kč`);
-        
-        // Celkové měsíční náklady
-        const competitorTotal = 
-            competitorMonthlyFee + 
-            (invoiceCount * competitorTransactionFee) + 
-            competitorTimeCost;
-            
-        const ourTotal = 
-            ourMonthlyFee + 
-            (invoiceCount * ourTransactionFee) + 
-            ourTimeCost;
-        
-        // Úspory
-        const monthlySavings = Math.max(0, competitorTotal - ourTotal);
-        const annualSavings = monthlySavings * 12;
-        
-        // Čas ušetřený měsíčně (v hodinách)
-        const timeSavedPerInvoice = (competitorExtraTimeMinutes / 60); // hodiny na fakturu
-        const timeSavedMonthly = invoiceCount * timeSavedPerInvoice; // celkem hodin měsíčně
-        
-        console.log(`💡 DEBUG - Celkový výpočet úspor:
-        📊 Konkurence celkem: ${competitorTotal.toFixed(0)} Kč
-           - Paušál: ${competitorMonthlyFee} Kč
-           - Transakce: ${invoiceCount * competitorTransactionFee} Kč 
-           - Čas: ${competitorTimeCost.toFixed(0)} Kč
-        
-        🎯 QRdoklad celkem: ${ourTotal.toFixed(0)} Kč
-           - Paušál: ${ourMonthlyFee} Kč
-           - Transakce: ${ourTransactionFee} Kč
-           - Čas: ${ourTimeCost.toFixed(0)} Kč
-           
-        💰 Celková úspora: ${monthlySavings.toFixed(0)} Kč/měsíc
-        ⏱️ Úspora jen z času: ${timeSavings.toFixed(0)} Kč/měsíc
-        ⏰ Čas ušetřený: ${timeSavedMonthly.toFixed(1)} hodin/měsíc`);
+        // Kumulativní úspory po roce
+        const cumulativeYearlySavings = (moneySavedPerMonth * 12) - (monthlySubscription * 12);
         
         return {
-            monthly: Math.round(monthlySavings),
-            annual: Math.round(annualSavings),
-            timeSavedHours: Math.round(timeSavedMonthly * 10) / 10 // zaokrouhlíme na 1 desetinné místo
+            // Základní metriky
+            timeSavedHours,
+            netSavingsPerMonth,
+            yearlySavings,
+            moneySavedPerMonth,
+            
+            // ROI metriky
+            monthlyROI,
+            yearlyROI,
+            paybackDays,
+            paybackWeeks,
+            paybackMonths,
+            breakEvenDays,
+            cumulativeYearlySavings,
+            
+            // Pro debug
+            currentTimePerMonth,
+            newTimePerMonth,
+            timeSavedMinutes,
+            monthlySubscription
         };
     },
-    
-    trackCalculatorUsage() {
-        // Získáme hodnoty ze všech sliderou pro tracking
-        const values = {
-            invoiceCount: this.sliders.invoiceCount ? parseInt(this.sliders.invoiceCount.value) : 0,
-            timePerInvoice: this.sliders.timePerInvoice ? parseInt(this.sliders.timePerInvoice.value) : 0,
-            hourlyRate: this.sliders.hourlyRate ? parseInt(this.sliders.hourlyRate.value) : 0
-        };
-        
-        const savings = this.calculateAdvancedSavings(values);
-        
-        if (window.Utilities?.Analytics?.trackCalculatorUsage) {
-            window.Utilities.Analytics.trackCalculatorUsage(values.invoiceCount, savings.annual);
+
+    updateResults(calculations) {
+        // Základní výsledky
+        if (this.resultElements.timeSaved) {
+            this.resultElements.timeSaved.textContent = calculations.timeSavedHours + ' hodin';
         }
         
-        // Rozšířené tracking pro analytics
-        if (window.Utilities?.Analytics?.trackEvent) {
-            window.Utilities.Analytics.trackEvent('advanced_calculator_usage', 'pricing', 
-                `${values.invoiceCount}faktur_${values.timePerInvoice}min_${values.hourlyRate}kc`, 
-                savings.annual);
+        if (this.resultElements.moneySaved) {
+            this.resultElements.moneySaved.textContent = Math.round(calculations.netSavingsPerMonth).toLocaleString('cs-CZ') + ' Kč';
         }
         
-        console.log(`📊 Trackuji použití kalkulačky:`, values, `→ ${savings.annual} Kč úspor ročně`);
+        if (this.resultElements.yearlySavings) {
+            this.resultElements.yearlySavings.textContent = Math.round(calculations.yearlySavings).toLocaleString('cs-CZ') + ' Kč';
+        }
+        
+        // ROI ELEMENTY - nové!
+        if (this.resultElements.roiTime) {
+            this.updateROITime(calculations);
+        }
+        
+        if (this.resultElements.roiPercentage) {
+            this.resultElements.roiPercentage.textContent = Math.round(calculations.yearlyROI) + '%';
+        }
+        
+        if (this.resultElements.paybackPeriod) {
+            this.updatePaybackPeriod(calculations);
+        }
+        
+        if (this.resultElements.breakEvenPoint) {
+            this.resultElements.breakEvenPoint.textContent = calculations.breakEvenDays + ' dní';
+        }
+    },
+
+    updateROITime(calculations) {
+        if (calculations.paybackDays <= 7) {
+            this.resultElements.roiTime.textContent = calculations.paybackDays + ' dní';
+            this.resultElements.roiTime.className = 'roi-excellent';
+        } else if (calculations.paybackDays <= 30) {
+            this.resultElements.roiTime.textContent = calculations.paybackWeeks + ' týdny';
+            this.resultElements.roiTime.className = 'roi-good';
+        } else if (calculations.paybackDays <= 90) {
+            this.resultElements.roiTime.textContent = calculations.paybackMonths + ' měsíce';
+            this.resultElements.roiTime.className = 'roi-ok';
+        } else {
+            this.resultElements.roiTime.textContent = calculations.paybackMonths + ' měsíců';
+            this.resultElements.roiTime.className = 'roi-slow';
+        }
+    },
+
+    updatePaybackPeriod(calculations) {
+        let text = '';
+        let className = '';
+        
+        if (calculations.paybackDays <= 14) {
+            text = `${calculations.paybackDays} dní - Výborné!`;
+            className = 'payback-excellent';
+        } else if (calculations.paybackDays <= 60) {
+            text = `${calculations.paybackWeeks} týdnů - Velmi dobré`;
+            className = 'payback-good';
+        } else {
+            text = `${calculations.paybackMonths} měsíců - Přijatelné`;
+            className = 'payback-ok';
+        }
+        
+        this.resultElements.paybackPeriod.textContent = text;
+        this.resultElements.paybackPeriod.className = className;
+    },
+
+    animateResults() {
+        // Animace při změně hodnot - použijeme zelenou barvu
+        document.querySelectorAll('.savings-value, .roi-value').forEach(element => {
+            element.style.transform = 'scale(1.05)';
+            element.style.color = '#B1D235';
+            
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+                element.style.color = '';
+            }, 200);
+        });
+    },
+
+    addCalculatorStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            /* ROI indikátory */
+            .roi-excellent {
+                color: #B1D235 !important;
+                font-weight: 700;
+                text-shadow: 0 1px 3px rgba(177, 210, 53, 0.3);
+            }
+            
+            .roi-good {
+                color: #95B11F !important;
+                font-weight: 600;
+            }
+            
+            .roi-ok {
+                color: #6c757d !important;
+                font-weight: 500;
+            }
+            
+            .roi-slow {
+                color: #ffc107 !important;
+                font-weight: 500;
+            }
+            
+            /* Payback period indikátory */
+            .payback-excellent {
+                color: #B1D235 !important;
+                font-weight: 700;
+                background: linear-gradient(135deg, rgba(177, 210, 53, 0.1), rgba(149, 177, 31, 0.1));
+                padding: 4px 8px;
+                border-radius: 6px;
+                border-left: 3px solid #B1D235;
+            }
+            
+            .payback-good {
+                color: #95B11F !important;
+                font-weight: 600;
+                background: rgba(149, 177, 31, 0.1);
+                padding: 4px 8px;
+                border-radius: 6px;
+                border-left: 3px solid #95B11F;
+            }
+            
+            .payback-ok {
+                color: #6c757d !important;
+                font-weight: 500;
+                background: rgba(108, 117, 125, 0.1);
+                padding: 4px 8px;
+                border-radius: 6px;
+                border-left: 3px solid #6c757d;
+            }
+            
+            /* Savings animace */
+            .savings-value, .roi-value {
+                transition: all 0.3s ease;
+                font-weight: 600;
+            }
+            
+            /* Range slider vylepšení */
+            .form-range::-webkit-slider-thumb {
+                background: linear-gradient(135deg, #B1D235, #95B11F) !important;
+                border: 3px solid white !important;
+                box-shadow: 0 2px 8px rgba(177, 210, 53, 0.3) !important;
+                height: 24px !important;
+                width: 24px !important;
+                transition: all 0.2s ease !important;
+            }
+            
+            .form-range::-webkit-slider-thumb:hover {
+                transform: scale(1.1) !important;
+                box-shadow: 0 4px 12px rgba(177, 210, 53, 0.5) !important;
+            }
+            
+            .form-range::-moz-range-thumb {
+                background: linear-gradient(135deg, #B1D235, #95B11F) !important;
+                border: 3px solid white !important;
+                box-shadow: 0 2px 8px rgba(177, 210, 53, 0.3) !important;
+                height: 24px !important;
+                width: 24px !important;
+            }
+            
+            /* Calculator container styling */
+            .savings-calculator {
+                background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+                border: 1px solid rgba(177, 210, 53, 0.2);
+                border-radius: 16px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .calculator-result {
+                background: linear-gradient(135deg, #B1D235, #95B11F);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 12px;
+                text-align: center;
+                margin-top: 1rem;
+            }
+            
+            /* ROI badge styling */
+            .roi-badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                border-radius: 50px;
+                font-size: 0.875rem;
+                font-weight: 600;
+                margin-left: 0.5rem;
+            }
+            
+            .roi-badge.excellent {
+                background: linear-gradient(135deg, #B1D235, #95B11F);
+                color: #212529;
+            }
+            
+            .roi-badge.good {
+                background: #95B11F;
+                color: white;
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    trackCalculatorUse() {
+        // Tracking pouze pokud Analytics existuje
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackCalculatorUse();
+        } else {
+            console.log('📊 Calculator použit');
+        }
     }
 };
 
-// Přidáme CSS styly pro pricing funkce
-(function addPricingStyles() {
-    if (document.getElementById('pricing-styles')) return;
-    
-    const style = document.createElement('style');
-    style.id = 'pricing-styles';
-    style.textContent = `
-        /* Pricing toggle animation */
-        .pricing-card {
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+/*
+==================================
+PRICING MODULE MAIN
+==================================
+*/
+const PricingModule = {
+    init() {
+        console.log('PricingModule - Inicializace začíná');
         
-        .pricing-card:hover {
-            transform: translateY(-5px) !important;
-        }
+        // Inicializace pricing toggle
+        PricingToggle.init();
         
-        /* Price display transitions */
-        .monthly-price,
-        .annual-price {
-            transition: opacity 0.3s ease;
-        }
+        // Inicializace savings calculator
+        SavingsCalculator.init();
         
-        /* Range slider styling */
-        .form-range {
-            -webkit-appearance: none;
-            background: transparent;
-            cursor: pointer;
-        }
-        
-        .form-range::-webkit-slider-track {
-            background: #f8f9fa;
-            height: 8px;
-            border-radius: 10px;
-            border: none;
-        }
-        
-        .form-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            background: linear-gradient(135deg, #B1D235, #95B11F);
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 3px solid white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
-        }
-        
-        .form-range::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(177, 210, 53, 0.4);
-        }
-        
-        .form-range::-moz-range-track {
-            background: #f8f9fa;
-            height: 8px;
-            border-radius: 10px;
-            border: none;
-        }
-        
-        .form-range::-moz-range-thumb {
-            background: linear-gradient(135deg, #B1D235, #95B11F);
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 3px solid white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            border: none;
-        }
-        
-        .form-range::-moz-range-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(177, 210, 53, 0.4);
-        }
-        
-        /* Savings display animation */
-        .savings-result {
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: #95B11F;
-        }
-        
-        /* Toggle switch styling */
-        .form-check-input:checked {
-            background-color: #B1D235;
-            border-color: #B1D235;
-        }
-        
-        .form-check-input:focus {
-            border-color: #95B11F;
-            outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(177, 210, 53, 0.25);
-        }
-        
-        /* Annual savings badge */
-        .annual-note {
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Calculator section styling */
-        .savings-calculator {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid rgba(177, 210, 53, 0.1);
-        }
-        
-        .calculator-result {
-            background: linear-gradient(135deg, #B1D235, #95B11F);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-    `;
-    document.head.appendChild(style);
-})();
+        console.log('PricingModule - Inicializace dokončena');
+    }
+};
 
-console.log('✅ PricingModule načten - PricingToggle, SavingsCalculator');
+// Export pro možné použití v jiných souborech
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { PricingModule, PricingToggle, SavingsCalculator };
+}
