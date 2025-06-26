@@ -181,16 +181,21 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                                     <input class="form-check-input" type="checkbox" id="privacy" required>
                                     <label class="form-check-label" for="privacy">
                                         Souhlasím se <a href="#" target="_blank">zpracováním osobních údajů</a> 
-                                        pro účely vyřízení tohoto dotazu. *
+                                        pro účely vyřízení tohoto dotazu.
                                     </label>
                                 </div>
                             </div>
                             
                             <div class="col-12">
                                 <div class="form-submit">
-                                    ';
-		echo Nette\Bridges\FormsLatte\Runtime::item('send', $this->global)->getControl()->addAttributes(['class' => 'btn btn-primary btn-lg']) /* line 122 */;
+                                    <div class="submit-buttons">
+                                        ';
+		echo Nette\Bridges\FormsLatte\Runtime::item('send', $this->global)->getControl()->addAttributes(['class' => 'btn btn-primary btn-lg me-3']) /* line 123 */;
 		echo '
+                                        <button type="button" class="btn btn-outline-secondary btn-lg" id="clearForm">
+                                            <i class="bi bi-arrow-clockwise me-2"></i>Vyčistit formulář
+                                        </button>
+                                    </div>
                                     <p class="submit-info">
                                         <i class="bi bi-shield-check me-1"></i>
                                         Vaše údaje jsou chráněny SSL šifrováním
@@ -199,7 +204,7 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                             </div>
                         </div>
                     ';
-		echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd(array_pop($this->global->formsStack)) /* line 130 */;
+		echo Nette\Bridges\FormsLatte\Runtime::renderFormEnd(array_pop($this->global->formsStack)) /* line 135 */;
 
 		echo '
                 </div>
@@ -233,7 +238,7 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                             <h5>Telefon</h5>
                             <p>
                                 <a href="tel:+420703985390">+420 703 985 390</a><br>
-                                <small>Po-Pá: 8:00-17:00</small>
+                                Po-Pá: 8:00-17:00
                             </p>
                         </div>
                     </div>
@@ -246,20 +251,20 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                             <h5>E-mail</h5>
                             <p>
                                 <a href="mailto:info@qrdoklad.cz">info@qrdoklad.cz</a><br>
-                                <a href="mailto:podpora@qrdoklad.cz">podpora@qrdoklad.cz</a>
+                                Odpovídáme do 24 hodin
                             </p>
                         </div>
                     </div>
                     
                     <div class="contact-info-item">
                         <div class="contact-icon">
-                            <i class="bi bi-chat-dots-fill"></i>
+                            <i class="bi bi-clock-fill"></i>
                         </div>
                         <div class="contact-details">
-                            <h5>Online chat</h5>
+                            <h5>Podpora</h5>
                             <p>
-                                Dostupný v aplikaci<br>
-                                <small>Po-Pá: 8:00-17:00</small>
+                                Pondělí - Pátek<br>
+                                8:00 - 17:00
                             </p>
                         </div>
                     </div>
@@ -268,88 +273,95 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                 <!-- Rychlé akce -->
                 <div class="quick-actions-card">
                     <h4>Rychlé akce</h4>
-                    
-                    <a href="https://app.qrdoklad.cz/sign/up" class="quick-action-btn">
-                        <i class="bi bi-rocket-takeoff"></i>
-                        <div>
-                            <h6>Vyzkoušet zdarma</h6>
-                            <small>30 dní bez omezení</small>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="quick-action-btn">
-                        <i class="bi bi-play-circle"></i>
-                        <div>
-                            <h6>Rezervovat demo</h6>
-                            <small>Osobní prezentace online</small>
-                        </div>
-                    </a>
-                    
-                    <a href="#" class="quick-action-btn">
-                        <i class="bi bi-file-earmark-text"></i>
-                        <div>
-                            <h6>Stáhnout materiály</h6>
-                            <small>Prezentace a manuály</small>
-                        </div>
-                    </a>
+                    <div class="d-grid gap-2">
+                        <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary">
+                            <i class="bi bi-person-plus me-2"></i>Zaregistrovat se
+                        </a>
+                        <a href="https://app.qrdoklad.cz/sign/in" class="btn btn-outline-primary">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Přihlásit se
+                        </a>
+                        <a href="/cenik" class="btn btn-outline-secondary">
+                            <i class="bi bi-currency-exchange me-2"></i>Zobrazit ceník
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FAQ pro kontakt -->
-<section class="contact-faq-section py-5 bg-light">
+<!-- FAQ sekce pro kontakt -->
+<section class="faq-section py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto text-center mb-5">
-                <h2 class="section-title">Nejčastější dotazy</h2>
-                <p class="section-subtitle">
-                    Odpovědi na otázky, které nám pokládáte nejčastěji
-                </p>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="faq-item">
-                            <div class="faq-icon">
-                                <i class="bi bi-clock"></i>
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <h2 class="section-title">Často kladené otázky</h2>
+                    <p class="section-subtitle">
+                        Nejčastější otázky týkající se kontaktu a podpory
+                    </p>
+                </div>
+                
+                <div class="accordion faq-accordion" id="contactFaq">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Jak rychle odpovídáte na dotazy?
+                            </button>
+                        </h3>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                <p>Na e-mailové dotazy odpovídáme nejpozději do 24 hodin v pracovní dny. 
+                                Většinou však stihneme odpovědět již do několika hodin.</p>
+                                <p>Pro urgentní záležitosti doporučujeme telefonický kontakt v pracovní době.</p>
                             </div>
-                            <h5>Jak rychle dostanu odpověď?</h5>
-                            <p>Na e-maily odpovídáme do 24 hodin, telefonicky jsme k dispozici okamžitě v pracovní době.</p>
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
-                        <div class="faq-item">
-                            <div class="faq-icon">
-                                <i class="bi bi-calendar-check"></i>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Je možné domluvit si osobní schůzku?
+                            </button>
+                        </h3>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                <p>Ano, osobní schůzky jsou možné. Kontaktujte nás telefonicky nebo e-mailem 
+                                a domluvíme si vhodný termín a místo setkání.</p>
+                                <p>Nabízíme také online demo přes videohovor, které je často rychlejší a stejně efektivní.</p>
                             </div>
-                            <h5>Můžu si domluvit osobní schůzku?</h5>
-                            <p>Ano, osobní schůzky jsou možné po předchozí domluvě v našich pražských kancelářích.</p>
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
-                        <div class="faq-item">
-                            <div class="faq-icon">
-                                <i class="bi bi-headset"></i>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Poskytujete technickou podporu?
+                            </button>
+                        </h3>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                <p>Ano, poskytujeme kompletní technickou podporu všem našim klientům. 
+                                Podpora je dostupná e-mailem a telefonicky v pracovní době.</p>
+                                <p>Pro Business a Enterprise plány je navíc dostupná prioritní podpora 
+                                s rychlejší odezvou.</p>
                             </div>
-                            <h5>Jaká je dostupnost podpory?</h5>
-                            <p>Základní podpora je dostupná Po-Pá 8:00-17:00. Business zákazníci mají prioritní podporu.</p>
                         </div>
                     </div>
                     
-                    <div class="col-md-6">
-                        <div class="faq-item">
-                            <div class="faq-icon">
-                                <i class="bi bi-shield-check"></i>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Můžu si nechat předvést systém?
+                            </button>
+                        </h3>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
+                            <div class="accordion-body">
+                                <p>Samozřejmě! Rádi vám předvedeme všechny funkce QRdokladu. 
+                                Můžete si vybrat ze 30denní zkušební verze nebo si domluvit osobní demo.</p>
+                                <p>Demo trvá obvykle 15-20 minut a ukážeme vám konkrétně funkce, 
+                                které vás nejvíce zajímají.</p>
                             </div>
-                            <h5>Jsou moje údaje v bezpečí?</h5>
-                            <p>Ano, všechny údaje jsou chráněny SSL šifrováním a zpracovávány v souladu s GDPR.</p>
                         </div>
                     </div>
                 </div>
@@ -359,30 +371,27 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
 </section>
 
 <!-- CTA sekce -->
-<section class="cta-section py-5 bg-primary text-white">
+<section class="cta-section py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="cta-title">Neváhejte nás kontaktovat</h2>
-                <p class="cta-subtitle">
-                    Jsme tu pro vás a rádi odpovíme na všechny vaše otázky. 
-                    Nebo si rovnou vyzkoušejte QRdoklad zdarma.
+                <h2 class="cta-title text-dark">
+                    Připraveni začít s QRdokladem?
+                </h2>
+                <p class="cta-subtitle text-dark mb-4">
+                    Vyzkoušejte si všechny funkce zdarma po dobu 30 dní
                 </p>
                 <div class="cta-buttons">
-                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-light btn-lg me-3">
-                        <i class="bi bi-rocket-takeoff me-2"></i>
-                        Začít zdarma
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-dark btn-lg me-3">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Začít zdarma
                     </a>
-                    <a href="tel:+420123456789" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-telephone me-2"></i>
-                        Zavolat nyní
+                    <a href="/cenik" class="btn btn-outline-dark btn-lg">
+                        Zobrazit ceník
                     </a>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-';
+</section>';
 	}
 }

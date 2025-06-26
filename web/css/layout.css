@@ -1079,3 +1079,48 @@ nav .btn i {
         text-align: center !important;
     }
 }
+
+/* KONTAKTNÍ FORMULÁŘ - styly pro tlačítka Odeslat a Vyčistit */
+.form-submit {
+    text-align: center !important;
+}
+
+.submit-buttons {
+    display: flex !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 1rem !important;
+}
+
+.submit-buttons .btn {
+    min-width: 180px !important;
+    font-weight: 600 !important;
+}
+
+/* Tlačítko Vyčistit - outline styl */
+.submit-buttons .btn-outline-secondary {
+    border-color: var(--gray-color) !important;
+    color: var(--gray-color) !important;
+}
+
+.submit-buttons .btn-outline-secondary:hover {
+    background-color: var(--gray-color) !important;
+    border-color: var(--gray-color) !important;
+    color: var(--white) !important;
+}
+
+/* Responzivní tlačítka na mobilu */
+@media (max-width: 576px) {
+    .submit-buttons {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .submit-buttons .btn {
+        width: 100% !important;
+        min-width: auto !important;
+        margin: 0 !important;
+    }
+}
