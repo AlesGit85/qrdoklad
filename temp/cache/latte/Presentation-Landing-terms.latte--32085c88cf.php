@@ -1,5 +1,40 @@
-{block content}
+<?php
 
+declare(strict_types=1);
+
+use Latte\Runtime as LR;
+
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/terms.latte */
+final class Template_32085c88cf extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/terms.latte';
+
+	public const Blocks = [
+		['content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+	}
+
+
+	/** {block content} on line 1 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce pro obchodní podmínky -->
 <section class="hero-section py-5">
     <div class="container">
@@ -14,7 +49,9 @@
                 </p>
                 <p class="text-muted">
                     <i class="bi bi-calendar-check me-2"></i>
-                    Poslední aktualizace: {date('j. n. Y')}
+                    Poslední aktualizace: ';
+		echo LR\Filters::escapeHtmlText(date('j. n. Y')) /* line 17 */;
+		echo '
                 </p>
             </div>
         </div>
@@ -279,7 +316,9 @@
                         <li class="list-group-item"><strong>Právo:</strong> Česká republika</li>
                         <li class="list-group-item"><strong>Spory:</strong> Věcně příslušný soud v ČR</li>
                         <li class="list-group-item"><strong>Oddělitelnost:</strong> Neplatnost části neovlivní celé podmínky</li>
-                        <li class="list-group-item"><strong>Účinnost:</strong> Od {date('j. n. Y')}</li>
+                        <li class="list-group-item"><strong>Účinnost:</strong> Od ';
+		echo LR\Filters::escapeHtmlText(date('j. n. Y')) /* line 282 */;
+		echo '</li>
                     </ul>
 
                     <div class="contact-section mt-5 p-4 bg-primary bg-opacity-10 rounded">
@@ -289,7 +328,9 @@
                                 Pokud máte jakékoliv dotazy k těmto obchodním podmínkám, 
                                 neváhejte nás kontaktovat.
                             </p>
-                            <a n:href="Landing:kontakt" class="btn btn-primary">
+                            <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 292 */;
+		echo '" class="btn btn-primary">
                                 <i class="bi bi-chat-dots me-2"></i>
                                 Kontaktovat nás
                             </a>
@@ -301,4 +342,6 @@
     </div>
 </section>
 
-{/block}
+';
+	}
+}

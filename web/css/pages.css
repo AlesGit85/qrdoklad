@@ -1303,3 +1303,11 @@
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
+
+/* Přidat do pages.css - oprava barvy textu v pokročilých funkcích */
+.advanced-feature-card p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 0;
+}

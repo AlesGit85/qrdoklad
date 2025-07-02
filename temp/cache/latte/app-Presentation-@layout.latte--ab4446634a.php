@@ -37,7 +37,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 		if (isset($metaDescription)) /* line 9 */ {
 			echo LR\Filters::escapeHtmlAttr($metaDescription) /* line 9 */;
 		} else /* line 9 */ {
-			echo 'Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!';
+			echo 'Profesionální fakturační systém s QR platbami pro české firmy. Registrace zdarma!';
 		}
 		echo '">
     <meta name="keywords" content="';
@@ -62,7 +62,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 		if (isset($metaDescription)) /* line 16 */ {
 			echo LR\Filters::escapeHtmlAttr($metaDescription) /* line 16 */;
 		} else /* line 16 */ {
-			echo 'Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!';
+			echo 'Profesionální fakturační systém s QR platbami pro české firmy. Registrace zdarma!';
 		}
 		echo '">
     <meta property="og:type" content="website">
@@ -88,7 +88,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 		if (isset($metaDescription)) /* line 26 */ {
 			echo LR\Filters::escapeHtmlAttr($metaDescription) /* line 26 */;
 		} else /* line 26 */ {
-			echo 'Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!';
+			echo 'Profesionální fakturační systém s QR platbami pro české firmy. Registrace zdarma!';
 		}
 		echo '">
     <meta name="twitter:image" content="';
@@ -187,7 +187,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 		echo '"';
 		echo ($ʟ_tmp = array_filter(['nav-link', $presenter->action === 'cenik' ? 'active' : null])) ? ' class="' . LR\Filters::escapeHtmlAttr(implode(" ", array_unique($ʟ_tmp))) . '"' : "" /* line 86 */;
 		echo '>
-                            <i class="bi bi-currency-euro"></i> Ceník
+                            <i class="bi bi-currency-dollar"></i> Ceník
                         </a>
                     </li>
                     <li class="nav-item">
@@ -201,49 +201,51 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     </li>
                 </ul>
                 
-                <div class="d-flex">
-                    <a href="https://app.qrdoklad.cz/login" class="btn btn-outline-light me-2" target="_blank">
-                        <i class="bi bi-box-arrow-in-right"></i> Přihlášení
+                <div class="navbar-nav">
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary me-2">
+                        <i class="bi bi-rocket"></i> Registrace
                     </a>
-                    <a href="https://app.qrdoklad.cz/register" class="btn btn-primary" target="_blank">
-                        <i class="bi bi-rocket-takeoff"></i> Zkusit zdarma
+                    <a href="https://app.qrdoklad.cz/sign/in" class="btn btn-outline-light">
+                        <i class="bi bi-box-arrow-in-right"></i> Přihlášení
                     </a>
                 </div>
             </div>
         </div>
     </nav>
-    
-    <!-- Hlavní obsah stránky -->
-    <main role="main">
+
+    <!-- Hlavní obsah -->
+    <main>
 ';
 		$this->renderBlock('content', [], 'html') /* line 111 */;
 		echo '    </main>
-    
+
     <!-- Footer -->
-    <footer class="bg-dark text-light py-5">
+    <footer class="footer bg-dark text-light py-5">
         <div class="container">
             <div class="row">
-                <!-- Logo a popis -->
                 <div class="col-lg-4 mb-4">
-                    <img src="';
+                    <div class="footer-brand mb-4">
+                        <img src="';
 		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 120 */;
-		echo '/images/logo.svg" alt="QRdoklad" height="50" class="mb-3">
-                    <p class="text-light-75 mb-3">
-                        Moderní fakturační systém s QR platbami speciálně navržený pro české firmy.
-                        Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.
-                    </p>
-                    <div class="social-links" role="list" aria-label="Sociální sítě">
-                        <a href="#" class="text-light me-3" aria-label="Facebook" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-facebook" aria-hidden="true"></i>
+		echo '/images/logo.svg" alt="QRdoklad" height="40" class="mb-3">
+                        <p class="text-light-50">
+                            Moderní fakturační systém s QR platbami pro české podnikatele. 
+                            Základní funkce navždy zdarma.
+                        </p>
+                    </div>
+                    
+                    <div class="footer-social">
+                        <a href="#" class="social-link me-3" title="Facebook">
+                            <i class="bi bi-facebook"></i>
                         </a>
-                        <a href="#" class="text-light me-3" aria-label="Twitter" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-twitter-x" aria-hidden="true"></i>
+                        <a href="#" class="social-link me-3" title="Twitter">
+                            <i class="bi bi-twitter"></i>
                         </a>
-                        <a href="#" class="text-light me-3" aria-label="LinkedIn" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-linkedin" aria-hidden="true"></i>
+                        <a href="#" class="social-link me-3" title="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
                         </a>
-                        <a href="#" class="text-light" aria-label="YouTube" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-youtube" aria-hidden="true"></i>
+                        <a href="#" class="social-link" title="YouTube">
+                            <i class="bi bi-youtube"></i>
                         </a>
                     </div>
                 </div>
@@ -254,10 +256,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 146 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 148 */;
 		echo '" class="text-light-50" title="✅ Hotové">Funkce</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 147 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 149 */;
 		echo '" class="text-light-50" title="✅ Hotové">Ceník</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -272,16 +274,16 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 160 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 162 */;
 		echo '" class="text-light-50" title="✅ Hotové">Nápověda</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 161 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 163 */;
 		echo '" class="text-light-50" title="✅ Hotové">Kontakt</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 162 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 164 */;
 		echo '" class="text-light-50" title="✅ Hotové">FAQ</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 163 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 165 */;
 		echo '" class="text-light-50" title="✅ Hotové">Status</a></li>
                     </ul>
                 </div>
@@ -292,10 +294,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- 🔄 PŘIPRAVENÉ V ROUTERU -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 172 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 174 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Obchodní podmínky</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 173 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 175 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Ochrana osobních údajů</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -309,10 +311,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 185 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 187 */;
 		echo '" class="text-light-50" title="✅ Hotové">O nás</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 186 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 188 */;
 		echo '" class="text-light-50" title="✅ Hotové">Blog</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -327,7 +329,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <p class="mb-0 text-light-50">&copy; ';
-		echo LR\Filters::escapeHtmlText(date('Y')) /* line 199 */;
+		echo LR\Filters::escapeHtmlText(date('Y')) /* line 201 */;
 		echo ' QRdoklad. Všechna práva vyhrazena.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
@@ -347,27 +349,27 @@ final class Template_ab4446634a extends Latte\Runtime\Template
     
     <!-- 1. Nejdříve utility moduly (loading states, notifikace, analytics) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 217 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 219 */;
 		echo '/js/utilities.js"></script>
     
     <!-- 2. UI efekty (scroll animace, navbar, smooth scrolling) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 220 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 222 */;
 		echo '/js/ui-effects.js"></script>
     
     <!-- 3. Pricing funkce (toggle, kalkulačka) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 223 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 225 */;
 		echo '/js/pricing.js"></script>
     
     <!-- 4. Formulářové funkce (kontakt, validace) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 226 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 228 */;
 		echo '/js/form-handler.js"></script>
     
     <!-- 5. Nakonec hlavní inicializační soubor -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 229 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 231 */;
 		echo '/js/landing.js"></script>
 </body>
 </html>';

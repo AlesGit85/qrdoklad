@@ -371,21 +371,23 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
 </section>
 
 <!-- CTA sekce -->
-<section class="cta-section py-5">
+<section class="cta-section py-5 bg-primary text-white">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="cta-title text-dark">
+                <h2 class="cta-title text-white">
                     Připraveni začít s QRdokladem?
                 </h2>
-                <p class="cta-subtitle text-dark mb-4">
-                    Vyzkoušejte si všechny funkce zdarma po dobu 30 dní
+                <p class="cta-subtitle text-white mb-4">
+                    Registrace je zdarma a zabere jen pár minut. Žádné závazky, žádné platební karty.
                 </p>
                 <div class="cta-buttons">
-                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-dark btn-lg me-3">
-                        <i class="bi bi-rocket-takeoff me-2"></i>Začít zdarma
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-white btn-lg me-3">
+                        <i class="bi bi-rocket-takeoff me-2"></i>Registrace zdarma
                     </a>
-                    <a href="/cenik" class="btn btn-outline-dark btn-lg">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 314 */;
+		echo '" class="btn btn-outline-light btn-lg">
                         Zobrazit ceník
                     </a>
                 </div>

@@ -12,7 +12,7 @@ class LandingPresenter extends Presenter
     public function startup(): void
     {
         parent::startup();
-        
+
         // Ensure session is started properly
         if (!$this->getSession()->isStarted()) {
             $this->getSession()->start();
@@ -22,11 +22,11 @@ class LandingPresenter extends Presenter
     public function beforeRender(): void
     {
         parent::beforeRender();
-        
+
         // Základní URL a SEO data
         $baseUrl = $this->getHttpRequest()->getUrl()->getBaseUrl();
         $currentUrl = $this->getHttpRequest()->getUrl()->getAbsoluteUrl();
-        
+
         // Nastavení základních template proměnných
         $this->template->baseUrl = $baseUrl;
         $this->template->currentUrl = $currentUrl;
@@ -40,9 +40,9 @@ class LandingPresenter extends Presenter
     public function renderDefault(): void
     {
         $this->template->pageTitle = 'QRdoklad - Moderní fakturační systém s QR platbami';
-        $this->template->metaDescription = 'Profesionální fakturační systém s QR platbami, automatickým ARES vyhledáváním a pokročilými funkcemi pro české firmy. Zkuste 30 dní zdarma!';
+        $this->template->metaDescription = 'Profesionální fakturační systém s QR platbami, automatickým ARES vyhledáváním a pokročilými funkcemi pro české firmy. Registrace zdarma!';
         $this->template->metaKeywords = 'fakturační systém, QR platby, ARES, fakturace, účetnictví, podnikání, Česká republika';
-        
+
         // Strukturovaná data pro homepage
         $this->template->pageSchema = $this->generateHomepageSchema();
     }
@@ -55,7 +55,7 @@ class LandingPresenter extends Presenter
         $this->template->pageTitle = 'Funkce QRdokladu - Kompletní přehled možností';
         $this->template->metaDescription = 'Kompletní přehled všech funkcí fakturačního systému QRdoklad. QR platby, ARES integrace, vlastní šablony, automatické připomínky a mnoho dalšího.';
         $this->template->metaKeywords = 'funkce, QR platby, ARES integrace, šablony faktur, automatické připomínky, správa klientů';
-        
+
         // Strukturovaná data pro funkce
         $this->template->pageSchema = $this->generateFeaturesSchema();
     }
@@ -66,9 +66,9 @@ class LandingPresenter extends Presenter
     public function renderCenik(): void
     {
         $this->template->pageTitle = 'Ceník QRdoklad - Transparentní ceny bez skrytých poplatků';
-        $this->template->metaDescription = 'Transparentní ceník fakturačního systému QRdoklad. Starter od 299 Kč, Business od 599 Kč. 30 dní zdarma, bez závazků, zrušitelné kdykoli.';
-        $this->template->metaKeywords = 'ceník, ceny, balíčky, starter, business, enterprise, fakturační systém';
-        
+        $this->template->metaDescription = 'Transparentní ceník fakturačního systému QRdoklad. Základní funkce zdarma navždy + jednorázové moduly podle potřeby. Registrace zdarma bez závazků.';
+        $this->template->metaKeywords = 'ceník, ceny, moduly, zdarma navždy, jednorázové platby, fakturační systém';
+
         // Strukturovaná data pro ceník
         $this->template->pageSchema = $this->generatePricingSchema();
     }
@@ -81,7 +81,7 @@ class LandingPresenter extends Presenter
         $this->template->pageTitle = 'Kontakt - QRdoklad | Jsme tu pro vás';
         $this->template->metaDescription = 'Kontaktujte nás ohledně fakturačního systému QRdoklad. Telefon +420 703 985 390, email info@qrdoklad.cz. Odpovídáme do 24 hodin.';
         $this->template->metaKeywords = 'kontakt, podpora, telefon, email, pomoc, dotazy';
-        
+
         // Strukturovaná data pro kontakt
         $this->template->pageSchema = $this->generateContactSchema();
     }
@@ -130,7 +130,7 @@ class LandingPresenter extends Presenter
         $this->template->pageTitle = 'FAQ - Často kladené otázky | QRdoklad';
         $this->template->metaDescription = 'Odpovědi na nejčastější otázky o fakturačním systému QRdoklad. Najděte rychlé odpovědi na vaše dotazy.';
         $this->template->metaKeywords = 'FAQ, často kladené otázky, nápověda, pomoc, dotazy';
-        
+
         // FAQ data
         $this->template->faqData = $this->getFaqData();
     }
@@ -190,7 +190,7 @@ class LandingPresenter extends Presenter
     {
         $baseUrl = $this->getHttpRequest()->getUrl()->getBaseUrl();
         $xml = $this->generateSitemap($baseUrl);
-        
+
         $this->getHttpResponse()->setContentType('application/xml', 'utf-8');
         $this->sendResponse(new \Nette\Application\Responses\TextResponse($xml));
     }
@@ -322,7 +322,7 @@ class LandingPresenter extends Presenter
             ],
             [
                 'loc' => $baseUrl . 'funkce',
-                'changefreq' => 'monthly', 
+                'changefreq' => 'monthly',
                 'priority' => '0.8',
                 'lastmod' => date('Y-m-d')
             ],
@@ -366,7 +366,7 @@ class LandingPresenter extends Presenter
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-        
+
         foreach ($urls as $url) {
             $xml .= '  <url>' . "\n";
             $xml .= '    <loc>' . htmlspecialchars($url['loc']) . '</loc>' . "\n";
@@ -375,9 +375,9 @@ class LandingPresenter extends Presenter
             $xml .= '    <priority>' . $url['priority'] . '</priority>' . "\n";
             $xml .= '  </url>' . "\n";
         }
-        
+
         $xml .= '</urlset>';
-        
+
         return $xml;
     }
 
@@ -563,14 +563,14 @@ class LandingPresenter extends Presenter
         if ($action !== 'default') {
             $pageNames = [
                 'funkce' => 'Funkce',
-                'cenik' => 'Ceník', 
+                'cenik' => 'Ceník',
                 'kontakt' => 'Kontakt',
                 'privacy' => 'Ochrana osobních údajů',
                 'terms' => 'Obchodní podmínky',
                 'faq' => 'FAQ',
                 'about' => 'O nás'
             ];
-            
+
             $breadcrumbs['itemListElement'][] = [
                 '@type' => 'ListItem',
                 'position' => 2,
@@ -635,7 +635,7 @@ class LandingPresenter extends Presenter
     {
         // Zde by byl kód pro odeslání e-mailu
         // Pro demo jen přesměrujeme s flash zprávou
-        
+
         $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
         $this->redirect('this');
     }

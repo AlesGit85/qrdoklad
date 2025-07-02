@@ -6,14 +6,14 @@
     
     <!-- SEO Meta -->
     <title>{ifset $pageTitle}{$pageTitle}{else}QRdoklad - Moderní fakturační systém{/ifset}</title>
-    <meta name="description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!{/ifset}">
+    <meta name="description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Registrace zdarma!{/ifset}">
     <meta name="keywords" content="{ifset $metaKeywords}{$metaKeywords}{else}fakturační systém, QR platby, ARES, fakturace, účetnictví{/ifset}">
     <meta name="robots" content="index, follow">
     <meta name="author" content="QRdoklad">
     
     <!-- Open Graph Meta -->
     <meta property="og:title" content="{ifset $pageTitle}{$pageTitle}{else}QRdoklad - Moderní fakturační systém{/ifset}">
-    <meta property="og:description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!{/ifset}">
+    <meta property="og:description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Registrace zdarma!{/ifset}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{$currentUrl}">
     <meta property="og:image" content="{$baseUrl}images/og-image.jpg">
@@ -23,7 +23,7 @@
     <!-- Twitter Meta -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{ifset $pageTitle}{$pageTitle}{else}QRdoklad - Moderní fakturační systém{/ifset}">
-    <meta name="twitter:description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Zkuste 30 dní zdarma!{/ifset}">
+    <meta name="twitter:description" content="{ifset $metaDescription}{$metaDescription}{else}Profesionální fakturační systém s QR platbami pro české firmy. Registrace zdarma!{/ifset}">
     <meta name="twitter:image" content="{$baseUrl}images/og-image.jpg">
     
     <!-- Canonical URL -->
@@ -84,7 +84,7 @@
                     </li>
                     <li class="nav-item">
                         <a n:href="Landing:cenik" n:class="nav-link, $presenter->action === 'cenik' ? active">
-                            <i class="bi bi-currency-euro"></i> Ceník
+                            <i class="bi bi-currency-dollar"></i> Ceník
                         </a>
                     </li>
                     <li class="nav-item">
@@ -94,46 +94,48 @@
                     </li>
                 </ul>
                 
-                <div class="d-flex">
-                    <a href="https://app.qrdoklad.cz/login" class="btn btn-outline-light me-2" target="_blank">
-                        <i class="bi bi-box-arrow-in-right"></i> Přihlášení
+                <div class="navbar-nav">
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary me-2">
+                        <i class="bi bi-rocket"></i> Registrace
                     </a>
-                    <a href="https://app.qrdoklad.cz/register" class="btn btn-primary" target="_blank">
-                        <i class="bi bi-rocket-takeoff"></i> Zkusit zdarma
+                    <a href="https://app.qrdoklad.cz/sign/in" class="btn btn-outline-light">
+                        <i class="bi bi-box-arrow-in-right"></i> Přihlášení
                     </a>
                 </div>
             </div>
         </div>
     </nav>
-    
-    <!-- Hlavní obsah stránky -->
-    <main role="main">
+
+    <!-- Hlavní obsah -->
+    <main>
         {include content}
     </main>
-    
+
     <!-- Footer -->
-    <footer class="bg-dark text-light py-5">
+    <footer class="footer bg-dark text-light py-5">
         <div class="container">
             <div class="row">
-                <!-- Logo a popis -->
                 <div class="col-lg-4 mb-4">
-                    <img src="{$basePath}/images/logo.svg" alt="QRdoklad" height="50" class="mb-3">
-                    <p class="text-light-75 mb-3">
-                        Moderní fakturační systém s QR platbami speciálně navržený pro české firmy.
-                        Jednoduché, rychlé a spolehlivé řešení pro všechny velikosti firem.
-                    </p>
-                    <div class="social-links" role="list" aria-label="Sociální sítě">
-                        <a href="#" class="text-light me-3" aria-label="Facebook" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-facebook" aria-hidden="true"></i>
+                    <div class="footer-brand mb-4">
+                        <img src="{$basePath}/images/logo.svg" alt="QRdoklad" height="40" class="mb-3">
+                        <p class="text-light-50">
+                            Moderní fakturační systém s QR platbami pro české podnikatele. 
+                            Základní funkce navždy zdarma.
+                        </p>
+                    </div>
+                    
+                    <div class="footer-social">
+                        <a href="#" class="social-link me-3" title="Facebook">
+                            <i class="bi bi-facebook"></i>
                         </a>
-                        <a href="#" class="text-light me-3" aria-label="Twitter" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-twitter-x" aria-hidden="true"></i>
+                        <a href="#" class="social-link me-3" title="Twitter">
+                            <i class="bi bi-twitter"></i>
                         </a>
-                        <a href="#" class="text-light me-3" aria-label="LinkedIn" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-linkedin" aria-hidden="true"></i>
+                        <a href="#" class="social-link me-3" title="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
                         </a>
-                        <a href="#" class="text-light" aria-label="YouTube" rel="noopener" target="_blank" title="Připravujeme">
-                            <i class="bi bi-youtube" aria-hidden="true"></i>
+                        <a href="#" class="social-link" title="YouTube">
+                            <i class="bi bi-youtube"></i>
                         </a>
                     </div>
                 </div>

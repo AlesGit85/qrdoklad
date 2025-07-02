@@ -282,13 +282,13 @@ final class Template_38ef1a149b extends Latte\Runtime\Template
             <div class="col-lg-8 mx-auto text-center">
                 <h2 class="cta-title">Připraveni začít?</h2>
                 <p class="cta-subtitle">
-                    Vyzkoušejte všechny funkce QRdokladu zdarma po dobu 30 dní. 
+                    Registrace je zdarma a všechny základní funkce máte navždy bez poplatků. 
                     Bez platební karty, bez závazků.
                 </p>
                 <div class="cta-buttons">
                     <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-light btn-lg me-3">
                         <i class="bi bi-rocket-takeoff me-2"></i>
-                        Začít zdarma
+                        Registrace zdarma
                     </a>
                     <a href="';
 		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 258 */;
