@@ -251,7 +251,7 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                             <h5>E-mail</h5>
                             <p>
                                 <a href="mailto:info@qrdoklad.cz">info@qrdoklad.cz</a><br>
-                                Odpovídáme do 24 hodin
+                                Odpovídáme do 24 hodin během pracovních dnů. O víkendu a ve svátky odpovídáme následující pracovní den. 
                             </p>
                         </div>
                     </div>
@@ -343,8 +343,8 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                             <div class="accordion-body">
                                 <p>Ano, poskytujeme kompletní technickou podporu všem našim klientům. 
                                 Podpora je dostupná e-mailem a telefonicky v pracovní době.</p>
-                                <p>Pro Business a Enterprise plány je navíc dostupná prioritní podpora 
-                                s rychlejší odezvou.</p>
+                                <p>Pro uživatele pokročilých modulů nabízíme navíc prioritní podporu 
+                                s rychlejší odezvou a individuální konzultace.</p>
                             </div>
                         </div>
                     </div>
@@ -358,7 +358,7 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
                             <div class="accordion-body">
                                 <p>Samozřejmě! Rádi vám předvedeme všechny funkce QRdokladu. 
-                                Můžete si vybrat ze 30denní zkušební verze nebo si domluvit osobní demo.</p>
+                                Můžete začít rovnou zdarma nebo si domluvit osobní demo prezentaci.</p>
                                 <p>Demo trvá obvykle 15-20 minut a ukážeme vám konkrétně funkce, 
                                 které vás nejvíce zajímají.</p>
                             </div>
