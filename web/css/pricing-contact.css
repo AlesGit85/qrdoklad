@@ -1259,3 +1259,143 @@ label[for="privacy"] a:hover {
     color: var(--secondary-color) !important;
     text-decoration: underline !important;
 }
+
+/* ===========================
+   CTA SEKCE - SILNÁ OPRAVA TLAČÍTEK 
+   ========================== */
+
+/* KRITICKÁ OPRAVA: Specifické selektory pro přepsání font-weight */
+.cta-section {
+    background-color: var(--primary-color) !important;
+}
+
+.cta-section .cta-title {
+    color: var(--white) !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+}
+
+.cta-section .cta-subtitle {
+    color: var(--white) !important;
+    opacity: 0.9 !important;
+    margin-bottom: 2rem !important;
+}
+
+/* NEJSILNĚJŠÍ OVERRIDE: Specifické selektory pro tlačítka */
+.cta-section .cta-buttons .btn,
+.cta-section .cta-buttons .btn-light,
+.cta-section .cta-buttons .btn-outline-light,
+section.cta-section .btn,
+section.cta-section .btn-light,
+section.cta-section .btn-outline-light {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 2px solid transparent !important;
+}
+
+/* Bílé tlačítko - DVOJITÝ OVERRIDE */
+.cta-section .btn-light,
+.cta-section .cta-buttons .btn-light,
+section.cta-section .btn-light {
+    background-color: var(--white) !important;
+    border-color: var(--white) !important;
+    color: var(--primary-color) !important;
+    font-weight: 400 !important;
+}
+
+.cta-section .btn-light:hover,
+.cta-section .cta-buttons .btn-light:hover,
+section.cta-section .btn-light:hover {
+    background-color: var(--light-gray) !important;
+    border-color: var(--light-gray) !important;
+    color: var(--primary-color) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    font-weight: 400 !important;
+}
+
+/* Outline tlačítko - DVOJITÝ OVERRIDE */
+.cta-section .btn-outline-light,
+.cta-section .cta-buttons .btn-outline-light,
+section.cta-section .btn-outline-light {
+    background-color: transparent !important;
+    border: 2px solid var(--white) !important;
+    color: var(--white) !important;
+    font-weight: 400 !important;
+}
+
+.cta-section .btn-outline-light:hover,
+.cta-section .cta-buttons .btn-outline-light:hover,
+section.cta-section .btn-outline-light:hover {
+    background-color: var(--white) !important;
+    border-color: var(--white) !important;
+    color: var(--primary-color) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2) !important;
+    font-weight: 400 !important;
+}
+
+/* Ikony v tlačítkách */
+.cta-section .cta-buttons .btn i,
+.cta-section .btn i,
+section.cta-section .btn i {
+    font-size: 18px !important;
+    margin-right: 0.5rem !important;
+}
+
+/* EXTRA SPECIFICKÉ OVERRIDY PRO JISTOTU */
+.cta-section .cta-buttons .btn-light,
+.cta-section .cta-buttons .btn-outline-light {
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: normal !important;
+}
+
+/* Responzivní úpravy pro mobilní zařízení */
+@media (max-width: 768px) {
+    .cta-section .cta-buttons {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+    }
+    
+    .cta-section .cta-buttons .btn,
+    .cta-section .btn {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 !important;
+        font-size: 18px !important;
+        padding: 0.875rem 1.5rem !important;
+        font-weight: 400 !important;
+    }
+    
+    .cta-section .cta-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .cta-section .cta-subtitle {
+        font-size: 1rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .cta-section .cta-buttons .btn,
+    .cta-section .btn {
+        font-size: 16px !important;
+        padding: 0.75rem 1.25rem !important;
+        font-weight: 400 !important;
+    }
+    
+    .cta-section .cta-buttons .btn i,
+    .cta-section .btn i {
+        font-size: 16px !important;
+    }
+}

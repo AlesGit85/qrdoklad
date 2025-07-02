@@ -515,83 +515,53 @@ class LandingPresenter extends Presenter
     /**
      * Zpracování kontaktního formuláře
      */
+    /**
+     * Zpracování kontaktního formuláře - OPRAVENO
+     */
     public function contactFormSucceeded(Form $form, \stdClass $values): void
     {
-        // Debug - ověříme, že se metoda volá
-        error_log("=== CONTACT FORM DEBUG ===");
-        error_log("contactFormSucceeded() byla zavolána!");
-        error_log("Přijaté hodnoty: " . print_r($values, true));
-        
+        // Příprava zprávy pro log
+        $message = "=== NOVÁ ZPRÁVA Z KONTAKTNÍHO FORMULÁŘE ===\n";
+        $message .= "Datum: " . date('d.m.Y H:i:s') . "\n";
+        $message .= "Jméno: " . $values->name . "\n";
+        $message .= "E-mail: " . $values->email . "\n";
+        $message .= "Firma: " . ($values->company ?: 'neuvedeno') . "\n";
+        $message .= "Telefon: " . ($values->phone ?: 'neuvedeno') . "\n";
+        $message .= "Předmět: " . $values->subject . "\n";
+        $message .= "Zpráva: " . $values->message . "\n";
+        $message .= "Souhlas: " . ($values->privacy ? 'ANO' : 'NE') . "\n";
+        $message .= "==========================================\n\n";
+
+        // Pokus o logování
+        $logged = false;
+
         try {
-            // Pro lokální vývoj jen flash zpráva
-            // Zde by bylo normálně odesílání e-mailu
-            
-            $message = "=== NOVÁ ZPRÁVA Z KONTAKTNÍHO FORMULÁŘE ===\n";
-            $message .= "Datum: " . date('d.m.Y H:i:s') . "\n";
-            $message .= "Jméno: " . $values->name . "\n";
-            $message .= "E-mail: " . $values->email . "\n";
-            $message .= "Firma: " . ($values->company ?: 'neuvedeno') . "\n";
-            $message .= "Telefon: " . ($values->phone ?: 'neuvedeno') . "\n";
-            $message .= "Předmět: " . $values->subject . "\n";
-            $message .= "Zpráva: " . $values->message . "\n";
-            $message .= "Souhlas: " . ($values->privacy ? 'ANO' : 'NE') . "\n";
-            $message .= "==========================================\n\n";
-            
-            // Pokus o různé způsoby logování
-            $logged = false;
-            
+            // Tracy log
+            \Tracy\Debugger::log($message, 'contact-form');
+            $logged = true;
+        } catch (\Exception $e) {
+            // Fallback logování
             try {
-                // Tracy log
-                \Tracy\Debugger::log($message, 'contact-form');
+                $logFile = __DIR__ . '/../../../temp/contact-form.log';
+                file_put_contents($logFile, $message, FILE_APPEND | LOCK_EX);
                 $logged = true;
-                error_log("Tracy log: ÚSPĚCH");
-            } catch (\Exception $e) {
-                error_log("Tracy log: CHYBA - " . $e->getMessage());
-            }
-            
-            if (!$logged) {
+            } catch (\Exception $e2) {
                 try {
-                    // Fallback - file_put_contents do temp
-                    $logFile = __DIR__ . '/../../../temp/contact-form.log';
-                    file_put_contents($logFile, $message, FILE_APPEND | LOCK_EX);
-                    error_log("File log: ÚSPĚCH - " . $logFile);
-                    $logged = true;
-                } catch (\Exception $e) {
-                    error_log("File log: CHYBA - " . $e->getMessage());
-                }
-            }
-            
-            if (!$logged) {
-                try {
-                    // Fallback - do www
                     $logFile = __DIR__ . '/../../../www/contact-form.log';
                     file_put_contents($logFile, $message, FILE_APPEND | LOCK_EX);
-                    error_log("WWW log: ÚSPĚCH - " . $logFile);
                     $logged = true;
-                } catch (\Exception $e) {
-                    error_log("WWW log: CHYBA - " . $e->getMessage());
+                } catch (\Exception $e3) {
+                    // Pokud se nepodařilo nic, zalogujeme alespoň chybu
+                    error_log("KRITICKÁ CHYBA: Nepodařilo se zalogovat zprávu z kontaktního formuláře!");
                 }
             }
-            
-            // Pro debug - vypíšeme cestu k logu
-            $logPath = \Tracy\Debugger::$logDirectory ?? (__DIR__ . '/../../../temp');
-            
-            $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
-            
-            if ($logged) {
-                $this->flashMessage('✅ DEBUG: Zpráva byla zalogována', 'info');
-            } else {
-                $this->flashMessage('❌ DEBUG: Log se nepodařilo uložit', 'warning');
-            }
-            
-            $this->flashMessage('📁 DEBUG: Tracy log dir: ' . $logPath, 'info');
-            $this->redirect('this');
-            
-        } catch (\Exception $e) {
-            error_log("CHYBA v contactFormSucceeded: " . $e->getMessage());
-            \Tracy\Debugger::log($e);
-            $this->flashMessage('Omlouváme se, došlo k chybě při odesílání zprávy. Zkuste to prosím znovu nebo nás kontaktujte telefonicky.', 'error');
         }
+
+        // Úspěšná zpráva pro uživatele
+        $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
+
+        // Redirect
+        $this->redirect('this');
     }
 
     /**

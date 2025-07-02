@@ -52,6 +52,31 @@
                         Pro rychlejší odpověď nás můžete kontaktovat přímo telefonicky.
                     </p>
                     
+                    {* NOVĚ PŘIDANÉ: Zobrazení flash zpráv *}
+                    {if $flashes}
+                        <div class="flash-messages mb-4">
+                            {foreach $flashes as $flash}
+                                <div class="alert alert-{$flash->type === 'success' ? 'success' : ($flash->type === 'error' ? 'danger' : $flash->type)} alert-dismissible fade show" role="alert">
+                                    <div class="d-flex align-items-start">
+                                        {if $flash->type === 'success'}
+                                            <i class="bi bi-check-circle-fill me-2 flex-shrink-0 mt-1"></i>
+                                        {elseif $flash->type === 'error'}
+                                            <i class="bi bi-exclamation-triangle-fill me-2 flex-shrink-0 mt-1"></i>
+                                        {elseif $flash->type === 'info'}
+                                            <i class="bi bi-info-circle-fill me-2 flex-shrink-0 mt-1"></i>
+                                        {elseif $flash->type === 'warning'}
+                                            <i class="bi bi-exclamation-circle-fill me-2 flex-shrink-0 mt-1"></i>
+                                        {/if}
+                                        <div class="flex-grow-1">
+                                            {$flash->message|noescape}
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Zavřít"></button>
+                                </div>
+                            {/foreach}
+                        </div>
+                    {/if}
+                    
                     {form contactForm class => 'contact-form'}
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -97,6 +122,10 @@
                                     {label message class => 'form-label'}Vaše zpráva *{/label}
                                     {input message class => 'form-control', placeholder => 'Popište nám svůj dotaz nebo požadavek...'}
                                     <div class="invalid-feedback"></div>
+                                    {* NOVĚ PŘIDANÉ: Character counter *}
+                                    <div class="form-text">
+                                        <span id="messageCounter">0</span> / 1000 znaků
+                                    </div>
                                 </div>
                             </div>
                             
@@ -106,6 +135,7 @@
                                     <label class="form-check-label" for="privacy">
                                         Souhlasím se <a n:href="Landing:privacy" target="_blank">zpracováním osobních údajů</a> 
                                         pro účely vyřízení tohoto dotazu.
+                                        <span class="text-danger">*</span>
                                     </label>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -184,7 +214,7 @@
                             <h5>Online podpora</h5>
                             <p>
                                 <a href="#" class="contact-link">Chat podpora</a><br>
-                                <small class="text-muted">Po-Pá: 8:00-17:00</small>
+                                <small class="text-muted">Po-Pá: 9:00-16:00</small>
                             </p>
                         </div>
                     </div>
@@ -248,9 +278,9 @@
                         </h3>
                         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
                             <div class="accordion-body">
-                                <p>Ano, osobní schůzky jsou možné. Kontaktujte nás telefonicky nebo e-mailem 
-                                a domluvíme si vhodný termín a místo setkání.</p>
-                                <p>Nabízíme také online demo přes videohovor, které je často rychlejší a stejně efektivní.</p>
+                                <p>Ano, osobní schůzky jsou možné po předchozí domluvě. 
+                                Kontaktujte nás telefonicky nebo e-mailem a domluvíme si termín, který vám vyhovuje.</p>
+                                <p>Naše kancelář se nachází v Libranticích u Semil.</p>
                             </div>
                         </div>
                     </div>
@@ -258,15 +288,14 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                Poskytujete technickou podporu?
+                                Nabízíte technickou podporu?
                             </button>
                         </h3>
                         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
                             <div class="accordion-body">
-                                <p>Ano, poskytujeme kompletní technickou podporu všem našim klientům. 
-                                Podpora je dostupná e-mailem a telefonicky v pracovní době.</p>
-                                <p>Pro uživatele pokročilých modulů nabízíme navíc prioritní podporu 
-                                s rychlejší odezvou a individuální konzultace.</p>
+                                <p>Ano, poskytujeme plnou technickou podporu všem našim zákazníkům. 
+                                Pomůžeme vám s nastavením systému, importem dat i řešením technických problémů.</p>
+                                <p>Základní podpora je zdarma, rozšířená podpora je dostupná v placených balíčcích.</p>
                             </div>
                         </div>
                     </div>
@@ -274,14 +303,14 @@
                     <div class="accordion-item">
                         <h3 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                                Můžu si nechat předvést systém?
+                                Můžu vás kontaktovat o víkendu?
                             </button>
                         </h3>
                         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#contactFaq">
                             <div class="accordion-body">
-                                <p>Samozřejmě! Nabízíme bezplatné online demo pro všechny zájemce. 
-                                Stačí se ozvat a domluvíme si vhodný termín.</p>
-                                <p>Demo trvá přibližně 30 minut a ukážeme vám všechny klíčové funkce systému.</p>
+                                <p>E-maily můžete zasílat kdykoli, odpovídáme i o víkendech. 
+                                Telefonická podpora je dostupná pouze v pracovní dny od 8:00 do 17:00.</p>
+                                <p>Pro urgentní případy o víkendu použijte e-mailový kontakt s označením "URGENTNÍ".</p>
                             </div>
                         </div>
                     </div>
@@ -291,24 +320,21 @@
     </div>
 </section>
 
-<!-- CTA sekce -->
-<section class="cta-section py-5 bg-primary text-white">
+{* CTA sekce *}
+<section class="cta-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="cta-title">Připraveni začít s QRdokladem?</h2>
-                <p class="cta-subtitle">
-                    Připojte se k více než 1000 spokojeným podnikatelům, 
-                    kteří již používají QRdoklad pro svou fakturaci.
-                </p>
-                <div class="cta-buttons">
-                    <a href="#" class="btn btn-light btn-lg me-3">
-                        <i class="bi bi-person-plus me-2"></i>
-                        Začít zdarma
-                    </a>
-                    <a n:href="Landing:cenik" class="btn btn-outline-light btn-lg">
-                        <i class="bi bi-eye me-2"></i>
-                        Zobrazit ceník
+        <div class="cta-card">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="cta-title">Připraveni začít s QRdoklad?</h2>
+                    <p class="cta-subtitle">
+                        Založte si účet zdarma a vyzkoušejte všechny funkce. 
+                        Žádné závazky, zrušit můžete kdykoli.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-primary btn-lg">
+                        <i class="bi bi-rocket"></i> Registrace zdarma
                     </a>
                 </div>
             </div>

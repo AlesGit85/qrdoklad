@@ -38,26 +38,29 @@ const ContactForm = {
     fields: {},
     submitButton: null,
     clearButton: null,
-    
+
     init() {
         console.log('ContactForm - hledám formulář...');
-        
+
         // Hledáme formulář podle různých možných selektorů
-        this.form = document.querySelector('.contact-form') || 
-                   document.querySelector('#contactForm') || 
-                   document.querySelector('form[data-form="contact"]');
-        
+        this.form = document.querySelector('.contact-form') ||
+            document.querySelector('#contactForm') ||
+            document.querySelector('form[data-form="contact"]');
+
         if (!this.form) {
             console.log('ContactForm - formulář nenalezen na této stránce');
             return;
         }
-        
+
         console.log('ContactForm - formulář nalezen, inicializuji...');
         this.initFields();
         this.bindEvents();
         this.initAutoSave();
         this.addFormStyles();
-        
+
+        // NOVÉ: Vyčištění formuláře při úspěšném odeslání
+        this.checkForSuccessMessage();
+
         console.log('ContactForm - inicializace dokončena');
     },
 
@@ -72,10 +75,10 @@ const ContactForm = {
             message: this.form.querySelector('textarea[name="message"], textarea[name="zprava"]'),
             privacy: this.form.querySelector('#privacy, input[name="privacy"], input[name="souhlas"]')
         };
-        
+
         this.submitButton = this.form.querySelector('input[type="submit"], button[type="submit"]');
         this.clearButton = document.getElementById('clearForm');
-        
+
         console.log('ContactForm - nalezená pole:', {
             name: !!this.fields.name,
             email: !!this.fields.email,
@@ -90,11 +93,11 @@ const ContactForm = {
     },
 
     bindEvents() {
-        // Submit událost
+        // Submit událost - OPRAVENO: Nyní povolit skutečné odeslání
         if (this.submitButton) {
             this.form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleSubmit();
+                e.preventDefault(); // Zabrání výchozímu odeslání
+                this.handleSubmit(e); // Nejdříve validace
             });
         }
 
@@ -120,13 +123,103 @@ const ContactForm = {
                 this.validateField('privacy');
             });
         }
+
+        // Character counter pro zprávu
+        if (this.fields.message) {
+            this.initCharacterCounter();
+        }
+    },
+
+    // OPRAVENO: Nyní skutečně odešle formulář po validaci
+    handleSubmit(originalEvent) {
+        console.log('ContactForm - pokus o odeslání formuláře');
+        this.trackEvent('form_submit_attempt', 'contact', 'contact_form');
+
+        // Nejdříve frontend validace
+        if (!this.validateForm()) {
+            this.trackEvent('form_submit_error', 'contact', 'validation_failed');
+            this.showNotification(
+                '❌ Prosím opravte chyby ve formuláři před odesláním',
+                'error',
+                5000
+            );
+            return false; // Zabrání odeslání
+        }
+
+        // Pokud je validace OK, zobrazíme loading a odešleme skutečně
+        this.showLoading(this.submitButton, 'Odesílám zprávu...');
+        this.trackEvent('form_submit_success', 'contact', 'contact_form');
+
+        // Vyčištění auto-save dat (formulář se odešle)
+        this.clearAutoSaveData();
+
+        // Nyní skutečně odešleme formulář přes Nette
+        // Odstraníme event listener, aby se zabránilo nekonečné smyčce
+        this.form.removeEventListener('submit', arguments.callee);
+
+        // Odešleme formulář normálně
+        setTimeout(() => {
+            this.form.submit();
+        }, 500); // Krátké zpoždění pro zobrazení loading stavu
+
+        return true;
+    },
+
+    // Character counter pro textarea
+    initCharacterCounter() {
+        const messageField = this.fields.message;
+        const maxLength = 1000;
+
+        // Najdeme nebo vytvoříme counter element
+        let counter = messageField.parentNode.querySelector('.character-counter');
+        if (!counter) {
+            // Pokusíme se najít pomocí ID
+            counter = document.getElementById('messageCounter');
+            if (!counter) {
+                // Vytvoříme nový counter
+                counter = document.createElement('div');
+                counter.className = 'form-text character-counter';
+                counter.id = 'messageCounter';
+                messageField.parentNode.appendChild(counter);
+            }
+        }
+
+        // Inicializace hodnoty
+        this.updateCharacterCounter();
+
+        // Event listener
+        messageField.addEventListener('input', () => {
+            this.updateCharacterCounter();
+        });
+    },
+
+    updateCharacterCounter() {
+        const messageField = this.fields.message;
+        const counter = document.getElementById('messageCounter') ||
+            messageField.parentNode.querySelector('.character-counter');
+
+        if (!counter || !messageField) return;
+
+        const currentLength = messageField.value.length;
+        const maxLength = 1000;
+
+        counter.innerHTML = `<span class="current-count">${currentLength}</span> / ${maxLength} znaků`;
+
+        // Barevné označení podle délky
+        if (currentLength > maxLength * 0.9) {
+            counter.style.color = '#dc3545'; // Červená
+        } else if (currentLength > maxLength * 0.7) {
+            counter.style.color = '#fd7e14'; // Oranžová
+        } else {
+            counter.style.color = '#6c757d'; // Šedá
+        }
     },
 
     // NOVÁ funkce - Vyčištění formuláře s potvrzením
     handleClearForm() {
         // Kontrola, zda jsou nějaká data vyplněná
         const hasData = this.hasAnyData();
-        
+
         if (!hasData) {
             this.showNotification(
                 'ℹ️ Formulář je již prázdný',
@@ -152,7 +245,7 @@ const ContactForm = {
     hasAnyData() {
         return Object.entries(this.fields).some(([name, field]) => {
             if (!field) return false;
-            
+
             if (name === 'privacy') {
                 return field.checked;
             } else if (field.type === 'select-one') {
@@ -167,11 +260,11 @@ const ContactForm = {
     clearFormData() {
         // Reset formuláře
         this.form.reset();
-        
+
         // Vyčištění všech polí individuálně (pro jistotu)
         Object.entries(this.fields).forEach(([name, field]) => {
             if (!field) return;
-            
+
             if (name === 'privacy') {
                 field.checked = false;
             } else if (field.type === 'select-one') {
@@ -186,12 +279,8 @@ const ContactForm = {
             input.classList.remove('is-valid', 'is-invalid');
         });
 
-        // Reset character counteru (pokud existuje)
-        const counter = this.form.querySelector('.character-counter');
-        if (counter && this.fields.message) {
-            counter.textContent = '0/1000 znaků';
-            counter.style.color = '#6c757d';
-        }
+        // Reset character counteru
+        this.updateCharacterCounter();
 
         // Vyčištění auto-save dat z localStorage
         this.clearAutoSaveData();
@@ -212,66 +301,7 @@ const ContactForm = {
         }
     },
 
-    initAutoSave() {
-        // Načtení uložených dat
-        this.loadSavedData();
-        
-        // Auto-save při změnách
-        Object.entries(this.fields).forEach(([name, field]) => {
-            if (field) {
-                field.addEventListener('input', () => {
-                    setTimeout(() => this.saveFormData(), 500);
-                });
-                field.addEventListener('change', () => {
-                    this.saveFormData();
-                });
-            }
-        });
-    },
-
-    loadSavedData() {
-        try {
-            const saved = localStorage.getItem('qrdoklad_contact_form_v2');
-            if (!saved) return;
-            
-            const data = JSON.parse(saved);
-            
-            Object.entries(data).forEach(([name, value]) => {
-                const field = this.fields[name];
-                if (field && value !== null && value !== undefined) {
-                    if (name === 'privacy') {
-                        field.checked = value;
-                    } else {
-                        field.value = value;
-                    }
-                }
-            });
-            
-            console.log('ContactForm - načtena uložená data');
-        } catch (e) {
-            console.log('Chyba při načítání auto-save dat:', e);
-        }
-    },
-
-    saveFormData() {
-        try {
-            const data = {};
-            Object.entries(this.fields).forEach(([name, field]) => {
-                if (field) {
-                    if (name === 'privacy') {
-                        data[name] = field.checked;
-                    } else {
-                        data[name] = field.value;
-                    }
-                }
-            });
-            
-            localStorage.setItem('qrdoklad_contact_form_v2', JSON.stringify(data));
-        } catch (e) {
-            console.log('Chyba při ukládání auto-save dat:', e);
-        }
-    },
-
+    // Validace jednotlivých polí
     validateField(fieldName) {
         const field = this.fields[fieldName];
         if (!field) return true;
@@ -279,46 +309,48 @@ const ContactForm = {
         let isValid = true;
         let errorMessage = '';
 
-        // Resetování předchozích chyb
+        // Vyčištění předchozích stavů
         this.clearFieldError(fieldName);
 
-        // Validace podle typu pole
         switch (fieldName) {
             case 'name':
                 if (!field.value.trim()) {
                     isValid = false;
-                    errorMessage = 'Jméno je povinné';
+                    errorMessage = 'Vyplňte prosím jméno a příjmení';
                 } else if (field.value.trim().length < 2) {
                     isValid = false;
                     errorMessage = 'Jméno musí mít alespoň 2 znaky';
+                } else if (field.value.trim().length > 100) {
+                    isValid = false;
+                    errorMessage = 'Jméno je příliš dlouhé (max. 100 znaků)';
                 }
                 break;
 
             case 'email':
                 if (!field.value.trim()) {
                     isValid = false;
-                    errorMessage = 'E-mail je povinný';
-                } else if (!FormUtils.validateEmail(field.value)) {
+                    errorMessage = 'Vyplňte prosím e-mailovou adresu';
+                } else if (!FormUtils.validateEmail(field.value.trim())) {
                     isValid = false;
-                    errorMessage = 'Neplatný formát e-mailu';
+                    errorMessage = 'Zadejte prosím platnou e-mailovou adresu';
                 }
                 break;
 
             case 'company':
-                // Volitelné pole - validace pouze pokud je vyplněné
-                if (field.value.trim() && field.value.trim().length < 2) {
+                // Volitelné pole - validace jen pokud je vyplněné
+                if (field.value.trim() && field.value.trim().length > 100) {
                     isValid = false;
-                    errorMessage = 'Název firmy musí mít alespoň 2 znaky';
+                    errorMessage = 'Název firmy je příliš dlouhý (max. 100 znaků)';
                 }
                 break;
 
             case 'phone':
-                // Volitelné pole - validace pouze pokud je vyplněné
+                // Volitelné pole - validace jen pokud je vyplněné
                 if (field.value.trim()) {
-                    const phoneRegex = /^(\+420\s?)?[0-9\s]{9,15}$/;
-                    if (!phoneRegex.test(field.value.trim())) {
+                    const cleaned = field.value.replace(/\D/g, '');
+                    if (cleaned.length < 9 || cleaned.length > 15) {
                         isValid = false;
-                        errorMessage = 'Neplatný formát telefonu';
+                        errorMessage = 'Zadejte prosím platné telefonní číslo';
                     }
                 }
                 break;
@@ -326,20 +358,20 @@ const ContactForm = {
             case 'subject':
                 if (!field.value) {
                     isValid = false;
-                    errorMessage = 'Vyberte předmět dotazu';
+                    errorMessage = 'Vyberte prosím předmět dotazu';
                 }
                 break;
 
             case 'message':
                 if (!field.value.trim()) {
                     isValid = false;
-                    errorMessage = 'Zpráva je povinná';
+                    errorMessage = 'Napište prosím svou zprávu';
                 } else if (field.value.trim().length < 10) {
                     isValid = false;
-                    errorMessage = 'Zpráva musí mít alespoň 10 znaků';
-                } else if (field.value.length > 1000) {
+                    errorMessage = 'Zpráva je příliš krátká (min. 10 znaků)';
+                } else if (field.value.trim().length > 1000) {
                     isValid = false;
-                    errorMessage = 'Zpráva je příliš dlouhá (max 1000 znaků)';
+                    errorMessage = 'Zpráva je příliš dlouhá (max. 1000 znaků)';
                 }
                 break;
 
@@ -351,11 +383,10 @@ const ContactForm = {
                 break;
         }
 
-        // Zobrazení chyby nebo úspěchu
-        if (!isValid) {
-            this.showFieldError(fieldName, errorMessage);
-        } else {
+        if (isValid) {
             this.showFieldSuccess(fieldName);
+        } else {
+            this.showFieldError(fieldName, errorMessage);
         }
 
         return isValid;
@@ -391,7 +422,7 @@ const ContactForm = {
 
     validateForm() {
         console.log('ContactForm - validace celého formuláře');
-        
+
         let isValid = true;
         const errors = [];
 
@@ -418,7 +449,7 @@ const ContactForm = {
         // Kontrola souhlasu s GDPR
         if (this.fields.privacy && !this.fields.privacy.checked) {
             this.showNotification(
-                '⚠️ Prosím potvrďte souhlas se zpracováním osobních údajů', 
+                '⚠️ Prosím potvrďte souhlas se zpracováním osobních údajů',
                 'error',
                 6000
             );
@@ -438,92 +469,70 @@ const ContactForm = {
         return isValid;
     },
 
-    handleSubmit() {
-        console.log('ContactForm - pokus o odeslání formuláře');
-        this.trackEvent('form_submit_attempt', 'contact', 'contact_form');
+    // Auto-save funkcionality
+    initAutoSave() {
+        // Načtení uložených dat
+        this.loadSavedData();
 
-        if (!this.validateForm()) {
-            this.trackEvent('form_submit_error', 'contact', 'validation_failed');
-            this.showNotification(
-                '❌ Prosím opravte chyby ve formuláři před odesláním', 
-                'error',
-                5000
-            );
-            return;
-        }
-
-        // Zobrazení loading stavu
-        this.showLoading(this.submitButton, 'Odesílám zprávu...');
-
-        // Příprava dat pro odeslání
-        const formData = this.getFormData();
-
-        // Simulace odeslání (později nahradíme skutečným API)
-        setTimeout(() => {
-            this.simulateFormSubmission(formData);
-        }, 2000);
-    },
-
-    getFormData() {
-        const data = {};
+        // Auto-save při změnách
         Object.entries(this.fields).forEach(([name, field]) => {
-            if (field && name !== 'privacy') {
-                data[name] = field.value.trim();
+            if (field) {
+                field.addEventListener('input', () => {
+                    setTimeout(() => this.saveFormData(), 500);
+                });
+                field.addEventListener('change', () => {
+                    this.saveFormData();
+                });
             }
         });
-
-        data.privacy_consent = this.fields.privacy ? this.fields.privacy.checked : false;
-        data.submitted_at = new Date().toISOString();
-        data.user_agent = navigator.userAgent;
-        data.page_url = window.location.href;
-
-        return data;
     },
 
-    simulateFormSubmission(formData) {
-        // Simulace úspěšného odeslání
-        console.log('ContactForm - odeslaná data:', formData);
+    loadSavedData() {
+        try {
+            const saved = localStorage.getItem('qrdoklad_contact_form_v2');
+            if (!saved) return;
 
-        this.showLoadingSuccess(this.submitButton, 'Zpráva odeslána!');
-        this.trackEvent('form_submit_success', 'contact', 'contact_form');
+            const data = JSON.parse(saved);
 
-        // Výrazná success notifikace
-        this.showNotification(
-            `🎉 <strong>Děkujeme za vaši zprávu!</strong><br>Ozveme se vám do 24 hodin na e-mail <strong>${formData.email}</strong>`,
-            'success',
-            8000
-        );
+            Object.entries(data).forEach(([name, value]) => {
+                const field = this.fields[name];
+                if (field && value !== null && value !== undefined) {
+                    if (name === 'privacy') {
+                        field.checked = value;
+                    } else {
+                        field.value = value;
+                    }
+                }
+            });
 
-        // Vyčištění auto-save dat
-        this.clearAutoSaveData();
-
-        // Reset formuláře po úspěchu
-        setTimeout(() => {
-            this.resetForm();
-        }, 3000);
-    },
-
-    resetForm() {
-        this.form.reset();
-
-        // Odstranění validation stavů
-        this.form.querySelectorAll('.form-control').forEach(input => {
-            input.classList.remove('is-valid', 'is-invalid');
-        });
-
-        // Odstranění character counteru
-        const counter = this.form.querySelector('.character-counter');
-        if (counter && this.fields.message) {
-            counter.textContent = '0/1000 znaků';
-            counter.style.color = '#6c757d';
+            console.log('ContactForm - načtena uložená data');
+        } catch (e) {
+            console.log('Chyba při načítání auto-save dat:', e);
         }
+    },
 
-        console.log('ContactForm - formulář resetován');
+    saveFormData() {
+        try {
+            const data = {};
+            Object.entries(this.fields).forEach(([name, field]) => {
+                if (field) {
+                    if (name === 'privacy') {
+                        data[name] = field.checked;
+                    } else {
+                        data[name] = field.value;
+                    }
+                }
+            });
+
+            localStorage.setItem('qrdoklad_contact_form_v2', JSON.stringify(data));
+        } catch (e) {
+            console.log('Chyba při ukládání auto-save dat:', e);
+        }
     },
 
     // Notifikace a UI efekty
     showNotification(message, type = 'info', duration = 5000) {
-        // Jednoduchá notifikace - později lze nahradit toast knihovnou
+        // Jednoduchá notifikace
         const notification = document.createElement('div');
         notification.className = `alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show position-fixed`;
         notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
@@ -553,28 +562,6 @@ const ContactForm = {
         }
 
         element.classList.add('loading');
-    },
-
-    showLoadingSuccess(element, text = 'Hotovo!', duration = 2000) {
-        if (!element) return;
-        element.disabled = false;
-        element.classList.remove('loading');
-        element.classList.add('success');
-
-        if (element.tagName === 'INPUT') {
-            element.value = text;
-        } else {
-            element.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>${text}`;
-        }
-
-        setTimeout(() => {
-            element.classList.remove('success');
-            if (element.tagName === 'INPUT') {
-                element.value = element.dataset.originalText;
-            } else {
-                element.innerHTML = element.dataset.originalText;
-            }
-        }, duration);
     },
 
     trackEvent(action, category, label) {
@@ -622,6 +609,15 @@ const ContactForm = {
                 margin-bottom: 1rem;
             }
             
+            .character-counter {
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            }
+            
+            .current-count {
+                font-weight: 600;
+            }
+            
             @media (max-width: 576px) {
                 .submit-buttons {
                     flex-direction: column;
@@ -634,6 +630,20 @@ const ContactForm = {
             }
         `;
         document.head.appendChild(style);
+    },
+
+    // Kontrola úspěšné zprávy a vyčištění formuláře
+    checkForSuccessMessage() {
+        // Kontrola existence úspěšné flash zprávy
+        const successAlert = document.querySelector('.alert-success');
+        if (successAlert) {
+            console.log('ContactForm - detekována úspěšná flash zpráva, čistím formulář...');
+
+            // Vyčištění formuláře po úspěšném odeslání (tichý režim)
+            setTimeout(() => {
+                this.clearFormData();
+            }, 1000); // Krátké zpoždění pro lepší UX
+        }
     }
 };
 
