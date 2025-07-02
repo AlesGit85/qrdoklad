@@ -1,5 +1,40 @@
-{block content}
+<?php
 
+declare(strict_types=1);
+
+use Latte\Runtime as LR;
+
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/default.latte */
+final class Template_0da000aefc extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/default.latte';
+
+	public const Blocks = [
+		['content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+	}
+
+
+	/** {block content} on line 1 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce -->
 <section class="hero-section">
     <div class="container">
@@ -20,7 +55,9 @@
                             <i class="bi bi-rocket me-2"></i>
                             Začít zdarma
                         </a>
-                        <a n:href="Landing:funkce" class="btn btn-outline-primary btn-lg">
+                        <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 23 */;
+		echo '" class="btn btn-outline-primary btn-lg">
                             <i class="bi bi-play-circle me-2"></i>
                             Zobrazit funkce
                         </a>
@@ -174,7 +211,9 @@
             <div class="col-12">
                 <div class="system-preview-main mb-5">
                     <div class="preview-image-container">
-                        <img src="{$basePath}/images/qrdoklad-dashboard.webp" 
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 177 */;
+		echo '/images/qrdoklad-dashboard.webp" 
                              alt="QRdoklad Dashboard - Přehled systému" 
                              class="img-fluid rounded preview-image"
                              loading="lazy">
@@ -199,7 +238,9 @@
             <div class="col-lg-4 col-md-6">
                 <div class="system-preview-card">
                     <div class="preview-image-container">
-                        <img src="{$basePath}/images/qrdoklad-invoices.webp" 
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 202 */;
+		echo '/images/qrdoklad-invoices.webp" 
                              alt="QRdoklad Faktury - Seznam všech faktur" 
                              class="img-fluid rounded preview-image">
                         <div class="preview-overlay">
@@ -220,7 +261,9 @@
             <div class="col-lg-4 col-md-6">
                 <div class="system-preview-card">
                     <div class="preview-image-container">
-                        <img src="{$basePath}/images/qrdoklad-clients.webp" 
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 223 */;
+		echo '/images/qrdoklad-clients.webp" 
                              alt="QRdoklad Klienti - Správa kontaktů" 
                              class="img-fluid rounded preview-image">
                         <div class="preview-overlay">
@@ -241,7 +284,9 @@
             <div class="col-lg-4 col-md-6">
                 <div class="system-preview-card">
                     <div class="preview-image-container">
-                        <img src="{$basePath}/images/qrdoklad-invoice-detail.webp" 
+                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 244 */;
+		echo '/images/qrdoklad-invoice-detail.webp" 
                              alt="QRdoklad Detail faktury s QR kódem" 
                              class="img-fluid rounded preview-image">
                         <div class="preview-overlay">
@@ -272,7 +317,9 @@
                             <i class="bi bi-rocket me-2"></i>
                             Registrace zdarma
                         </a>
-                        <a n:href="Landing:funkce" class="btn btn-outline-primary btn-lg">
+                        <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:funkce')) /* line 275 */;
+		echo '" class="btn btn-outline-primary btn-lg">
                             <i class="bi bi-list-check me-2"></i>
                             Zobrazit všechny funkce
                         </a>
@@ -392,7 +439,9 @@
                     <a href="https://app.qrdoklad.cz/sign/up" class="btn btn-white btn-lg me-3">
                         <i class="bi bi-rocket-takeoff me-2"></i>Registrace zdarma
                     </a>
-                    <a n:href="Landing:kontakt" class="btn btn-outline-light btn-lg">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 395 */;
+		echo '" class="btn btn-outline-light btn-lg">
                         Máte otázky?
                     </a>
                 </div>
@@ -401,4 +450,6 @@
     </div>
 </section>
 
-{/block}
+';
+	}
+}

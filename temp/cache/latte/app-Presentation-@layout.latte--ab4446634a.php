@@ -371,6 +371,12 @@ final class Template_ab4446634a extends Latte\Runtime\Template
     <script src="';
 		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 231 */;
 		echo '/js/landing.js"></script>
+
+    <!-- Scroll to Top tlačítko -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top" title="Zpět nahoru">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+    
 </body>
 </html>';
 	}

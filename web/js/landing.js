@@ -135,3 +135,90 @@ window.QRDoklad = {
 
 // Debug informace
 console.log('🚀 QRdoklad Landing v' + window.QRDoklad.version + ' načten');
+
+/*
+==================================
+SCROLL TO TOP FUNKČNOST
+==================================
+*/
+
+const ScrollToTop = {
+    button: null,
+    threshold: 300, // Po kolika pixelech se tlačítko zobrazí
+    
+    init() {
+        this.button = document.getElementById('scrollToTop');
+        
+        if (!this.button) {
+            console.log('ScrollToTop - tlačítko nenalezeno');
+            return;
+        }
+        
+        console.log('ScrollToTop - inicializace...');
+        this.bindEvents();
+        this.checkScroll(); // Počáteční kontrola
+    },
+    
+    bindEvents() {
+        // Scroll událost pro zobrazení/skrytí tlačítka (throttled)
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(() => {
+                this.checkScroll();
+            }, 10);
+        });
+        
+        // Click událost pro scroll nahoru
+        this.button.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.scrollToTop();
+        });
+    },
+    
+    checkScroll() {
+        const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrolled > this.threshold) {
+            this.showButton();
+        } else {
+            this.hideButton();
+        }
+    },
+    
+    showButton() {
+        this.button.classList.add('show');
+    },
+    
+    hideButton() {
+        this.button.classList.remove('show');
+    },
+    
+    scrollToTop() {
+        // Smooth scroll nahoru
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Analytics tracking (pokud je GA k dispozici)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'scroll_to_top', {
+                event_category: 'UI',
+                event_label: 'scroll_to_top_click'
+            });
+        }
+        
+        console.log('ScrollToTop - scrollování nahoru');
+    }
+};
+
+// Přidáme inicializaci scroll to top do stávajícího DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (stávající kód zůstává) ...
+    
+    // Inicializace scroll to top
+    ScrollToTop.init();
+});
