@@ -371,6 +371,146 @@ final class Template_f64c1da45e extends Latte\Runtime\Template
     </div>
 </section>
 
+<!-- Modulová kalkulačka -->
+<section class="modules-calculator py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title">Kolik za moduly zaplatíte?</h2>
+                <p class="section-subtitle">
+                    Vyberte si moduly podle svých potřeb a porovnejte úspory oproti klasickým předplatným
+                </p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="calculator-card">
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="calculator-modules">
+                                <h4>Vyberte potřebné moduly</h4>
+                                
+                                <div class="module-option">
+                                    <label class="module-checkbox">
+                                        <input type="checkbox" name="modules" value="990" data-name="Email modul">
+                                        <span class="checkmark"></span>
+                                        <div class="module-info">
+                                            <h6>Email modul</h6>
+                                            <p class="text-muted">Automatické odesílání faktur</p>
+                                            <span class="module-price">990 Kč</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="module-option">
+                                    <label class="module-checkbox">
+                                        <input type="checkbox" name="modules" value="1490" data-name="Automatické připomínky">
+                                        <span class="checkmark"></span>
+                                        <div class="module-info">
+                                            <h6>Automatické připomínky</h6>
+                                            <p class="text-muted">Inteligentní systém upomínek</p>
+                                            <span class="module-price">1 490 Kč</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="module-option">
+                                    <label class="module-checkbox">
+                                        <input type="checkbox" name="modules" value="1990" data-name="Finanční přehledy">
+                                        <span class="checkmark"></span>
+                                        <div class="module-info">
+                                            <h6>Finanční přehledy</h6>
+                                            <p class="text-muted">Pokročilé reporty a analýzy</p>
+                                            <span class="module-price">1 990 Kč</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="module-option">
+                                    <label class="module-checkbox">
+                                        <input type="checkbox" name="modules" value="2490" data-name="Automatické párování">
+                                        <span class="checkmark"></span>
+                                        <div class="module-info">
+                                            <h6>Automatické párování</h6>
+                                            <p class="text-muted">Párování plateb s fakturami</p>
+                                            <span class="module-price">2 490 Kč</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="module-option">
+                                    <label class="module-checkbox">
+                                        <input type="checkbox" name="modules" value="3990" data-name="API přístup">
+                                        <span class="checkmark"></span>
+                                        <div class="module-info">
+                                            <h6>API přístup</h6>
+                                            <p class="text-muted">Integrace s vlastními systémy</p>
+                                            <span class="module-price">3 990 Kč</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                
+                                <div class="module-option">
+                                    <label class="module-checkbox">
+                                        <input type="checkbox" name="modules" value="1990" data-name="Premium podpora">
+                                        <span class="checkmark"></span>
+                                        <div class="module-info">
+                                            <h6>Premium podpora</h6>
+                                            <p class="text-muted">Prioritní podpora a školení</p>
+                                            <span class="module-price">1 990 Kč</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="calculator-results">
+                                <h4>Vaše úspora s QRdoklad</h4>
+                                
+                                <div class="result-item">
+                                    <span class="result-label">Vybrané moduly:</span>
+                                    <span class="result-value" id="selectedModules">Žádné</span>
+                                </div>
+                                
+                                <div class="result-item total">
+                                    <span class="result-label">Celková cena (jednorázově):</span>
+                                    <span class="result-value highlight" id="totalPrice">0 Kč</span>
+                                </div>
+                                
+                                <div class="comparison-section mt-4">
+                                    <h5>Porovnání s konkurencí</h5>
+                                    <div class="result-item">
+                                        <span class="result-label">Konkurence za rok:</span>
+                                        <span class="result-value competitor" id="competitorYear">0 Kč</span>
+                                    </div>
+                                    
+                                    <div class="result-item">
+                                        <span class="result-label">Konkurence za 3 roky:</span>
+                                        <span class="result-value competitor" id="competitorThreeYears">0 Kč</span>
+                                    </div>
+                                    
+                                    <div class="result-item roi">
+                                        <span class="result-label">Vaše úspora za 3 roky:</span>
+                                        <span class="result-value savings" id="totalSavings">0 Kč</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="roi-info mt-4" id="roiInfo" style="display: none;">
+                                    <h6>💰 Návratnost investice</h6>
+                                    <p id="roiText">Moduly se vám vrátí během <strong id="roiMonths">0</strong> měsíců.</p>
+                                    <p>Po tomto období máte všechny funkce <strong>zcela zdarma</strong>!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- FAQ sekce -->
 <section class="faq-section py-5 bg-light">
     <div class="container">
@@ -477,7 +617,7 @@ final class Template_f64c1da45e extends Latte\Runtime\Template
                         <i class="bi bi-rocket-takeoff me-2"></i>Začít zdarma
                     </a>
                     <a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 444 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 584 */;
 		echo '" class="btn btn-outline-light btn-lg">
                         Máte otázky?
                     </a>
@@ -485,6 +625,8 @@ final class Template_f64c1da45e extends Latte\Runtime\Template
             </div>
         </div>
     </div>
-</section>';
+</section>
+
+';
 	}
 }

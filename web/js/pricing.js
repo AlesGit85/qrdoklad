@@ -484,3 +484,206 @@ const PricingModule = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { PricingModule, PricingToggle, SavingsCalculator };
 }
+
+/*
+==================================
+MODULOVÁ KALKULAČKA
+==================================
+*/
+const ModuleCalculator = {
+    checkboxes: [],
+    resultElements: {},
+    
+    // Průměrné ceny konkurence za rok (odhadované)
+    competitorPricing: {
+        email: 2400,        // 200 Kč/měsíc * 12
+        reminders: 3600,    // 300 Kč/měsíc * 12  
+        reports: 4800,      // 400 Kč/měsíc * 12
+        payments: 6000,     // 500 Kč/měsíc * 12
+        api: 9600,          // 800 Kč/měsíc * 12
+        support: 3600       // 300 Kč/měsíc * 12
+    },
+    
+    init() {
+        console.log('ModuleCalculator - hledám kalkulačku...');
+        
+        this.checkboxes = document.querySelectorAll('input[name="modules"]');
+        if (this.checkboxes.length === 0) {
+            console.log('ModuleCalculator - kalkulačka nenalezena na této stránce');
+            return;
+        }
+        
+        console.log('ModuleCalculator - kalkulačka nalezena, inicializuji...');
+        this.initElements();
+        this.bindEvents();
+        this.updateResults();
+        
+        console.log('ModuleCalculator - inicializace dokončena');
+    },
+
+    initElements() {
+        this.resultElements = {
+            selectedModules: document.getElementById('selectedModules'),
+            totalPrice: document.getElementById('totalPrice'),
+            competitorYear: document.getElementById('competitorYear'),
+            competitorThreeYears: document.getElementById('competitorThreeYears'),
+            totalSavings: document.getElementById('totalSavings'),
+            roiInfo: document.getElementById('roiInfo'),
+            roiText: document.getElementById('roiText'),
+            roiMonths: document.getElementById('roiMonths')
+        };
+        
+        console.log('ModuleCalculator - elementy inicializovány:', {
+            checkboxes: this.checkboxes.length,
+            elements: Object.keys(this.resultElements).filter(key => this.resultElements[key]).length
+        });
+    },
+
+    bindEvents() {
+        this.checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                this.updateResults();
+                this.trackSelection();
+            });
+        });
+    },
+
+    updateResults() {
+        const selected = this.getSelectedModules();
+        const totalPrice = this.calculateTotalPrice(selected);
+        const competitorCosts = this.calculateCompetitorCosts(selected);
+        
+        this.updateDisplay(selected, totalPrice, competitorCosts);
+    },
+
+    getSelectedModules() {
+        const selected = [];
+        this.checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                selected.push({
+                    name: checkbox.dataset.name,
+                    price: parseInt(checkbox.value),
+                    type: this.getModuleType(checkbox.dataset.name)
+                });
+            }
+        });
+        return selected;
+    },
+
+    getModuleType(name) {
+        const types = {
+            'Email modul': 'email',
+            'Automatické připomínky': 'reminders',
+            'Finanční přehledy': 'reports',
+            'Automatické párování': 'payments',
+            'API přístup': 'api',
+            'Premium podpora': 'support'
+        };
+        return types[name] || 'other';
+    },
+
+    calculateTotalPrice(selected) {
+        return selected.reduce((total, module) => total + module.price, 0);
+    },
+
+    calculateCompetitorCosts(selected) {
+        let yearCost = 0;
+        
+        selected.forEach(module => {
+            if (this.competitorPricing[module.type]) {
+                yearCost += this.competitorPricing[module.type];
+            }
+        });
+        
+        return {
+            year: yearCost,
+            threeYears: yearCost * 3
+        };
+    },
+
+    updateDisplay(selected, totalPrice, competitorCosts) {
+        // Vybrané moduly
+        if (selected.length === 0) {
+            this.resultElements.selectedModules.textContent = 'Žádné';
+        } else {
+            this.resultElements.selectedModules.textContent = selected.map(m => m.name).join(', ');
+        }
+        
+        // Celková cena
+        this.resultElements.totalPrice.textContent = this.formatPrice(totalPrice);
+        
+        // Konkurence
+        this.resultElements.competitorYear.textContent = this.formatPrice(competitorCosts.year);
+        this.resultElements.competitorThreeYears.textContent = this.formatPrice(competitorCosts.threeYears);
+        
+        // Úspory
+        const savings = competitorCosts.threeYears - totalPrice;
+        this.resultElements.totalSavings.textContent = this.formatPrice(savings);
+        
+        // ROI info
+        if (totalPrice > 0 && competitorCosts.year > 0) {
+            const roiMonths = Math.ceil((totalPrice / competitorCosts.year) * 12);
+            
+            this.resultElements.roiMonths.textContent = roiMonths;
+            this.resultElements.roiInfo.style.display = 'block';
+            
+            // Změna textu podle ROI
+            if (roiMonths <= 12) {
+                this.resultElements.roiText.innerHTML = 
+                    `Moduly se vám vrátí během <strong>${roiMonths}</strong> měsíců.`;
+            } else {
+                const years = Math.floor(roiMonths / 12);
+                const months = roiMonths % 12;
+                this.resultElements.roiText.innerHTML = 
+                    `Moduly se vám vrátí během <strong>${years} ${years === 1 ? 'roku' : 'let'}${months > 0 ? ` a ${months} měsíců` : ''}</strong>.`;
+            }
+        } else {
+            this.resultElements.roiInfo.style.display = 'none';
+        }
+        
+        // Změna stylu podle výsledku
+        this.updateSavingsColor(savings);
+    },
+
+    updateSavingsColor(savings) {
+        const savingsElement = this.resultElements.totalSavings;
+        
+        if (savings > 0) {
+            savingsElement.style.color = '#28a745';
+            savingsElement.parentElement.style.backgroundColor = 'rgba(40, 167, 69, 0.1)';
+        } else if (savings < 0) {
+            savingsElement.style.color = '#dc3545';
+            savingsElement.parentElement.style.backgroundColor = 'rgba(220, 53, 69, 0.1)';
+        } else {
+            savingsElement.style.color = '#6c757d';
+            savingsElement.parentElement.style.backgroundColor = 'transparent';
+        }
+    },
+
+    formatPrice(price) {
+        if (price === 0) return '0 Kč';
+        return new Intl.NumberFormat('cs-CZ', {
+            style: 'currency',
+            currency: 'CZK',
+            minimumFractionDigits: 0
+        }).format(price);
+    },
+
+    trackSelection() {
+        if (typeof Analytics !== 'undefined') {
+            const selected = this.getSelectedModules();
+            const totalPrice = this.calculateTotalPrice(selected);
+            
+            Analytics.trackEvent('module_calculator', 'pricing', 
+                `modules_selected_${selected.length}`, totalPrice);
+        } else {
+            console.log('📊 Module Calculator: moduly vybrány, celkem:', this.calculateTotalPrice(this.getSelectedModules()), 'Kč');
+        }
+    }
+};
+
+// Přidat do inicializace v pricing.js
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existující inicializace
+    ModuleCalculator.init();
+});

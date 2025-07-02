@@ -614,6 +614,223 @@
     color: var(--dark-color) !important;
 }
 
+/* MODULOVÁ KALKULAČKA */
+.modules-calculator {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.calculator-modules h4,
+.calculator-results h4 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.module-option {
+    margin-bottom: 1rem;
+}
+
+.module-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.module-checkbox:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.2);
+}
+
+.module-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #dee2e6;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.module-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.module-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--dark-color);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.module-info {
+    flex: 1;
+}
+
+.module-info h6 {
+    margin: 0 0 0.25rem 0;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.module-info p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.module-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.module-checkbox input[type="checkbox"]:checked ~ .module-info .module-price {
+    color: var(--secondary-color);
+}
+
+.calculator-results {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item.total {
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    background: rgba(177, 210, 53, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.result-item.roi {
+    background: rgba(40, 167, 69, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+}
+
+.result-label {
+    font-weight: 500;
+    color: var(--gray-color);
+}
+
+.result-value {
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.result-value.highlight {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.result-value.competitor {
+    color: #dc3545;
+}
+
+.result-value.savings {
+    color: #28a745;
+    font-size: 1.2rem;
+}
+
+.comparison-section h5 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.roi-info {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.1), rgba(149, 177, 31, 0.1));
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid rgba(177, 210, 53, 0.3);
+}
+
+.roi-info h6 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.roi-info p {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+/* Responzivní úpravy kalkulačky */
+@media (max-width: 768px) {
+    .calculator-modules,
+    .calculator-results {
+        margin-bottom: 2rem;
+    }
+    
+    .module-checkbox {
+        padding: 0.75rem;
+    }
+    
+    .calculator-results {
+        padding: 1.5rem;
+    }
+    
+    .result-value.highlight {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modules-calculator {
+        padding: 60px 0;
+    }
+    
+    .module-checkbox {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .checkmark {
+        margin: 0 auto;
+    }
+    
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}
+
 /* Hero highlight pro zdarma funkce - kompaktní moderní design */
 .hero-highlight {
     background: linear-gradient(135deg, rgba(177, 210, 53, 0.08), rgba(149, 177, 31, 0.12));
