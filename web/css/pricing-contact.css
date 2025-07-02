@@ -1123,3 +1123,139 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
 }
+
+/* Checkbox styly s barvami projektu */
+.contact-form .form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all 0.15s ease-in-out;
+}
+
+.contact-form .form-check-input:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25);
+}
+
+.contact-form .form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.contact-form .form-check-input:checked:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(149, 177, 31, 0.25);
+}
+
+/* Label styly */
+.contact-form .form-check-label {
+    color: var(--gray-color) !important;
+    line-height: 1.5;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+/* Odkaz v checkboxu - barvy projektu */
+.contact-form .form-check-label a,
+.form-check-label a {
+    color: var(--primary-color) !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.contact-form .form-check-label a:hover,
+.form-check-label a:hover {
+    color: var(--secondary-color) !important;
+    text-decoration: underline !important;
+}
+
+.contact-form .form-check-label a:focus,
+.form-check-label a:focus {
+    color: var(--secondary-color) !important;
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Obecné opravy pro všechny odkazy v kontaktních sekcích */
+.contact-section a,
+.contact-info-card a,
+.quick-actions-card a {
+    color: var(--primary-color) !important;
+    text-decoration: none;
+}
+
+.contact-section a:hover,
+.contact-info-card a:hover,
+.quick-actions-card a:hover {
+    color: var(--secondary-color) !important;
+    text-decoration: underline;
+}
+
+/* Oprava pro Bootstrap override */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+/* Specifické opravy pro kontaktní formulář */
+.contact-form-card a {
+    color: var(--primary-color) !important;
+}
+
+.contact-form-card a:hover {
+    color: var(--secondary-color) !important;
+}
+
+/* Nette formulář - checkbox specifické opravy */
+input[type="checkbox"][name="privacy"] {
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+input[type="checkbox"][name="privacy"]:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
+}
+
+label[for="privacy"] {
+    color: var(--gray-color) !important;
+    margin-left: 0.5rem !important;
+    cursor: pointer !important;
+}
+
+label[for="privacy"] a {
+    color: var(--primary-color) !important;
+    font-weight: 500 !important;
+}
+
+label[for="privacy"] a:hover {
+    color: var(--secondary-color) !important;
+}
+
+/* Obecná oprava pro všechny odkazy na stránce */
+.contact-section .form-check a,
+.contact-faq-section a,
+.quick-actions-card a {
+    color: var(--primary-color) !important;
+    text-decoration: none !important;
+}
+
+.contact-section .form-check a:hover,
+.contact-faq-section a:hover,
+.quick-actions-card a:hover {
+    color: var(--secondary-color) !important;
+    text-decoration: underline !important;
+}

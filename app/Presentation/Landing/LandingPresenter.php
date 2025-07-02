@@ -196,7 +196,7 @@ class LandingPresenter extends Presenter
     }
 
     /**
-     * FAQ data - kompletní struktura s opravenými klíči
+     * FAQ data - kompletní struktura
      */
     private function getFaqData(): array
     {
@@ -248,27 +248,32 @@ class LandingPresenter extends Presenter
                 ]
             ],
             'technical' => [
-                'title' => 'Technická podpora',
+                'title' => 'Technické otázky',
                 'questions' => [
                     [
-                        'question' => 'Je QRdoklad bezpečný?',
-                        'answer' => 'Ano, všechna data jsou šifrována SSL protokolem, pravidelně zálohována a uložena na serverech v EU. Systém je v souladu s GDPR a prochází pravidelnými bezpečnostními audity.'
+                        'question' => 'Je systém bezpečný?',
+                        'answer' => 'Ano, používáme nejmodernější zabezpečení včetně SSL šifrování, 2FA autentifikace a pravidelných bezpečnostních auditů. Data jsou zálohována denně a uložena v certifikovaných datacentrech.'
                     ],
                     [
-                        'question' => 'Funguje QRdoklad na mobilních zařízeních?',
-                        'answer' => 'Ano, QRdoklad je plně responzivní a funguje na všech zařízeních - počítačích, tabletech i mobilních telefonech. Máme také mobilní aplikaci pro iOS a Android.'
+                        'question' => 'Můžu přistupovat k QRdokladu z mobilu?',
+                        'answer' => 'Ano, QRdoklad je plně responzivní a funguje na všech zařízeních. Navíc připravujeme mobilní aplikace pro iOS a Android s pokročilými funkcemi.'
                     ],
                     [
-                        'question' => 'Co když budu potřebovat pomoc?',
-                        'answer' => 'Nabízíme komplexní podporu prostřednictvím e-mailu, telefonu, chatu a rozsáhlé dokumentace. Odpovídáme do 24 hodin, často i rychleji.'
+                        'question' => 'Jak probíhá záloha mých dat?',
+                        'answer' => 'Vaše data jsou automaticky zálohována každý den na několik různých lokací. Můžete si také kdykoliv exportovat kompletní zálohu všech vašich dat.'
                     ],
                     [
-                        'question' => 'Mohu importovat data z jiného systému?',
-                        'answer' => 'Ano, pomůžeme vám s přenosem dat ze stávajícího systému. Podporujeme import ze standardních formátů (CSV, Excel) i z populárních fakturačních systémů.'
-                    ],
+                        'question' => 'Nabízíte API pro vývojáře?',
+                        'answer' => 'Ano, poskytujeme REST API pro integraci s dalšími systémy. API dokumentace je dostupná pro registrované uživatele a obsahuje příklady použití.'
+                    ]
+                ]
+            ],
+            'support' => [
+                'title' => 'Podpora a služby',
+                'questions' => [
                     [
-                        'question' => 'Jaké jsou systémové požadavky?',
-                        'answer' => 'QRdoklad funguje v libovolném moderním webovém prohlížeči (Chrome, Firefox, Safari, Edge). Není potřeba instalovat žádný software - vše běží online.'
+                        'question' => 'Jak vás mohu kontaktovat, když budu potřebovat pomoc?',
+                        'answer' => 'Podporu poskytujeme přes telefon, email, chat a ticketový systém. Telefonická podpora je dostupná Po-Pá 8:00-17:00, písemná podpora 24/7.'
                     ],
                     [
                         'question' => 'Nabízíte školení?',
@@ -393,21 +398,15 @@ class LandingPresenter extends Presenter
             'alternateName' => 'QRdoklad',
             'url' => $baseUrl,
             'logo' => $baseUrl . 'images/logo.svg',
-            'description' => 'Moderní cloudový fakturační systém s QR platbami pro české podnikatele',
-            'foundingDate' => '2024',
-            'founders' => [
-                [
-                    '@type' => 'Person',
-                    'name' => 'Jan Novák'
-                ]
-            ],
+            'description' => 'Moderní fakturační systém s QR platbami pro české podnikatele',
+            'foundingDate' => '2023',
             'contactPoint' => [
                 '@type' => 'ContactPoint',
                 'telephone' => '+420703985390',
-                'email' => 'info@qrdoklad.cz',
                 'contactType' => 'customer service',
+                'email' => 'info@qrdoklad.cz',
                 'availableLanguage' => 'Czech',
-                'areaServed' => 'CZ'
+                'hoursAvailable' => 'Mo-Fr 08:00-17:00'
             ],
             'address' => [
                 '@type' => 'PostalAddress',
@@ -415,125 +414,6 @@ class LandingPresenter extends Presenter
                 'addressLocality' => 'Librantice',
                 'postalCode' => '503 46',
                 'addressCountry' => 'CZ'
-            ],
-            'sameAs' => [
-                'https://www.facebook.com/qrdoklad',
-                'https://www.linkedin.com/company/qrdoklad',
-                'https://twitter.com/qrdoklad'
-            ]
-        ];
-
-        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * Generuje strukturovaná data pro homepage
-     */
-    private function generateHomepageSchema(): string
-    {
-        $data = [
-            '@context' => 'https://schema.org',
-            '@type' => 'WebSite',
-            'name' => 'QRdoklad',
-            'url' => $this->getHttpRequest()->getUrl()->getBaseUrl(),
-            'description' => 'Moderní fakturační systém s QR platbami pro české firmy',
-            'potentialAction' => [
-                '@type' => 'SearchAction',
-                'target' => $this->getHttpRequest()->getUrl()->getBaseUrl() . '?q={search_term_string}',
-                'query-input' => 'required name=search_term_string'
-            ]
-        ];
-
-        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * Generuje schema pro funkce
-     */
-    private function generateFeaturesSchema(): string
-    {
-        $data = [
-            '@context' => 'https://schema.org',
-            '@type' => 'SoftwareApplication',
-            'name' => 'QRdoklad',
-            'applicationCategory' => 'BusinessApplication',
-            'operatingSystem' => 'Web Browser',
-            'offers' => [
-                '@type' => 'Offer',
-                'price' => '299',
-                'priceCurrency' => 'CZK',
-                'priceSpecification' => [
-                    '@type' => 'RecurringPriceSpecification',
-                    'frequency' => 'Monthly'
-                ]
-            ],
-            'featureList' => [
-                'QR platby na fakturách',
-                'ARES automatické vyhledávání',
-                'Správa klientů',
-                'Vlastní šablony faktur',
-                'Automatické připomínky',
-                'Export do PDF',
-                'Mobilní aplikace'
-            ]
-        ];
-
-        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * Generuje schema pro ceník
-     */
-    private function generatePricingSchema(): string
-    {
-        $data = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Product',
-            'name' => 'QRdoklad Fakturační systém',
-            'description' => 'Cloudový fakturační systém s QR platbami',
-            'offers' => [
-                [
-                    '@type' => 'Offer',
-                    'name' => 'Starter',
-                    'price' => '299',
-                    'priceCurrency' => 'CZK',
-                    'billingIncrement' => 'P1M',
-                    'description' => 'Základní balíček pro malé firmy'
-                ],
-                [
-                    '@type' => 'Offer',
-                    'name' => 'Business',
-                    'price' => '599',
-                    'priceCurrency' => 'CZK',
-                    'billingIncrement' => 'P1M',
-                    'description' => 'Pokročilý balíček pro rostoucí firmy'
-                ]
-            ]
-        ];
-
-        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * Generuje schema pro kontakt
-     */
-    private function generateContactSchema(): string
-    {
-        $data = [
-            '@context' => 'https://schema.org',
-            '@type' => 'ContactPage',
-            'mainEntity' => [
-                '@type' => 'Organization',
-                'name' => 'QRdoklad',
-                'telephone' => '+420703985390',
-                'email' => 'info@qrdoklad.cz',
-                'address' => [
-                    '@type' => 'PostalAddress',
-                    'streetAddress' => 'Librantice 167',
-                    'addressLocality' => 'Librantice',
-                    'postalCode' => '503 46',
-                    'addressCountry' => 'CZ'
-                ]
             ]
         ];
 
@@ -583,7 +463,7 @@ class LandingPresenter extends Presenter
     }
 
     /**
-     * Kontaktní formulář
+     * KONTAKTNÍ FORMULÁŘ - OPRAVENO
      */
     protected function createComponentContactForm(): Form
     {
@@ -603,13 +483,14 @@ class LandingPresenter extends Presenter
         $form->addText('phone', 'Telefon:')
             ->setHtmlAttribute('placeholder', '+420 123 456 789');
 
+        // OPRAVENO: Odstraněno "Enterprise řešení" z roletky
         $form->addSelect('subject', 'Předmět:', [
-            'general' => 'Obecný dotaz',
+            '' => 'Vyberte předmět dotazu',
+            'pricing' => 'Dotaz k ceníku',
+            'features' => 'Dotaz k funkcím',
             'technical' => 'Technická podpora',
-            'billing' => 'Fakturace a platby',
             'demo' => 'Požadavek na demo',
-            'partnership' => 'Partnerství',
-            'other' => 'Jiné'
+            'other' => 'Ostatní'
         ])->setRequired('Vyberte předmět zprávy');
 
         $form->addTextArea('message', 'Zpráva:')
@@ -617,8 +498,11 @@ class LandingPresenter extends Presenter
             ->setHtmlAttribute('placeholder', 'Popište nám svůj dotaz nebo požadavek...')
             ->setHtmlAttribute('rows', 5);
 
-        $form->addCheckbox('gdpr', 'Souhlasím se zpracováním osobních údajů podle GDPR')
-            ->setRequired('Musíte souhlasit se zpracováním osobních údajů');
+        // OPRAVENO: Checkbox s odkazem na privacy policy  
+        $form->addCheckbox('privacy')
+            ->setRequired('Musíte souhlasit se zpracováním osobních údajů')
+            ->setHtmlAttribute('data-bs-toggle', 'tooltip')
+            ->setHtmlAttribute('title', 'Přečtěte si naše zásady ochrany osobních údajů');
 
         $form->addSubmit('send', 'Odeslat zprávu')
             ->setHtmlAttribute('class', 'btn btn-primary btn-lg');
@@ -633,10 +517,175 @@ class LandingPresenter extends Presenter
      */
     public function contactFormSucceeded(Form $form, \stdClass $values): void
     {
-        // Zde by byl kód pro odeslání e-mailu
-        // Pro demo jen přesměrujeme s flash zprávou
+        // Debug - ověříme, že se metoda volá
+        error_log("=== CONTACT FORM DEBUG ===");
+        error_log("contactFormSucceeded() byla zavolána!");
+        error_log("Přijaté hodnoty: " . print_r($values, true));
+        
+        try {
+            // Pro lokální vývoj jen flash zpráva
+            // Zde by bylo normálně odesílání e-mailu
+            
+            $message = "=== NOVÁ ZPRÁVA Z KONTAKTNÍHO FORMULÁŘE ===\n";
+            $message .= "Datum: " . date('d.m.Y H:i:s') . "\n";
+            $message .= "Jméno: " . $values->name . "\n";
+            $message .= "E-mail: " . $values->email . "\n";
+            $message .= "Firma: " . ($values->company ?: 'neuvedeno') . "\n";
+            $message .= "Telefon: " . ($values->phone ?: 'neuvedeno') . "\n";
+            $message .= "Předmět: " . $values->subject . "\n";
+            $message .= "Zpráva: " . $values->message . "\n";
+            $message .= "Souhlas: " . ($values->privacy ? 'ANO' : 'NE') . "\n";
+            $message .= "==========================================\n\n";
+            
+            // Pokus o různé způsoby logování
+            $logged = false;
+            
+            try {
+                // Tracy log
+                \Tracy\Debugger::log($message, 'contact-form');
+                $logged = true;
+                error_log("Tracy log: ÚSPĚCH");
+            } catch (\Exception $e) {
+                error_log("Tracy log: CHYBA - " . $e->getMessage());
+            }
+            
+            if (!$logged) {
+                try {
+                    // Fallback - file_put_contents do temp
+                    $logFile = __DIR__ . '/../../../temp/contact-form.log';
+                    file_put_contents($logFile, $message, FILE_APPEND | LOCK_EX);
+                    error_log("File log: ÚSPĚCH - " . $logFile);
+                    $logged = true;
+                } catch (\Exception $e) {
+                    error_log("File log: CHYBA - " . $e->getMessage());
+                }
+            }
+            
+            if (!$logged) {
+                try {
+                    // Fallback - do www
+                    $logFile = __DIR__ . '/../../../www/contact-form.log';
+                    file_put_contents($logFile, $message, FILE_APPEND | LOCK_EX);
+                    error_log("WWW log: ÚSPĚCH - " . $logFile);
+                    $logged = true;
+                } catch (\Exception $e) {
+                    error_log("WWW log: CHYBA - " . $e->getMessage());
+                }
+            }
+            
+            // Pro debug - vypíšeme cestu k logu
+            $logPath = \Tracy\Debugger::$logDirectory ?? (__DIR__ . '/../../../temp');
+            
+            $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
+            
+            if ($logged) {
+                $this->flashMessage('✅ DEBUG: Zpráva byla zalogována', 'info');
+            } else {
+                $this->flashMessage('❌ DEBUG: Log se nepodařilo uložit', 'warning');
+            }
+            
+            $this->flashMessage('📁 DEBUG: Tracy log dir: ' . $logPath, 'info');
+            $this->redirect('this');
+            
+        } catch (\Exception $e) {
+            error_log("CHYBA v contactFormSucceeded: " . $e->getMessage());
+            \Tracy\Debugger::log($e);
+            $this->flashMessage('Omlouváme se, došlo k chybě při odesílání zprávy. Zkuste to prosím znovu nebo nás kontaktujte telefonicky.', 'error');
+        }
+    }
 
-        $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
-        $this->redirect('this');
+    /**
+     * Generuje homepage schema
+     */
+    private function generateHomepageSchema(): string
+    {
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => 'QRdoklad',
+            'url' => $this->getHttpRequest()->getUrl()->getBaseUrl(),
+            'description' => 'Moderní fakturační systém s QR platbami',
+            'potentialAction' => [
+                '@type' => 'SearchAction',
+                'target' => $this->getHttpRequest()->getUrl()->getBaseUrl() . 'search?q={search_term_string}',
+                'query-input' => 'required name=search_term_string'
+            ]
+        ];
+
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * Generuje features schema
+     */
+    private function generateFeaturesSchema(): string
+    {
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ItemList',
+            'name' => 'Funkce QRdoklad',
+            'description' => 'Kompletní přehled funkcí fakturačního systému',
+            'numberOfItems' => 10,
+            'itemListElement' => [
+                [
+                    '@type' => 'ListItem',
+                    'position' => 1,
+                    'name' => 'QR platby',
+                    'description' => 'Rychlé platby skenováním QR kódu'
+                ],
+                [
+                    '@type' => 'ListItem',
+                    'position' => 2,
+                    'name' => 'ARES integrace',
+                    'description' => 'Automatické vyhledávání firemních údajů'
+                ]
+            ]
+        ];
+
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * Generuje pricing schema
+     */
+    private function generatePricingSchema(): string
+    {
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => 'QRdoklad',
+            'description' => 'Fakturační systém s QR platbami',
+            'offers' => [
+                [
+                    '@type' => 'Offer',
+                    'name' => 'Starter',
+                    'price' => '299',
+                    'priceCurrency' => 'CZK',
+                    'priceSpecification' => [
+                        '@type' => 'UnitPriceSpecification',
+                        'price' => '299',
+                        'priceCurrency' => 'CZK',
+                        'unitText' => 'měsíc'
+                    ]
+                ]
+            ]
+        ];
+
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * Generuje contact schema
+     */
+    private function generateContactSchema(): string
+    {
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ContactPage',
+            'name' => 'Kontakt - QRdoklad',
+            'description' => 'Kontaktní informace pro QRdoklad'
+        ];
+
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 }

@@ -35,7 +35,7 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1751442473,
+      1 => 1751455312,
     ),
     'App\\Security\\SecurityMiddleware' => 
     array (
@@ -45,14 +45,9 @@ return array (
   ),
   1 => 
   array (
-    'null' => 2,
-    'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 3,
+    'null' => 1,
     'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingTermsTemplate' => 2,
-    'App\\Presentation\\Landing\\LandingPrivacyTemplate' => 2,
+    'App\\Presentation\\Landing\\LandingTemplate' => 3,
   ),
   2 => 
   array (
