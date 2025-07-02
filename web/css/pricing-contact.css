@@ -563,3 +563,346 @@
     color: var(--gray-color);
     line-height: 1.5;
 }
+
+/* ZDARMA SEKCE - Zelený styl podle Business balíčku */
+.free-plan-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.pricing-card.featured-plan.border-primary {
+    border-color: var(--primary-color) !important;
+    background: var(--white);
+    position: relative;
+    transform: none; /* Zrušíme scale efekt pro free plan */
+}
+
+.pricing-card.featured-plan .popular-badge.bg-primary {
+    background: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+}
+
+.pricing-card .plan-name.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .price.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .period.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .price-note.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .feature-list i.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .trial-info.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* Oprava váhy písma u tlačítka - stejně jako na funkcích */
+.pricing-card .btn-primary {
+    font-weight: 400 !important;
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+}
+
+/* Hero highlight pro zdarma funkce - kompaktní moderní design */
+.hero-highlight {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.08), rgba(149, 177, 31, 0.12));
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.1), transparent 70%);
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.highlight-header {
+    position: relative;
+    z-index: 1;
+}
+
+.highlight-title {
+    color: var(--dark-color);
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.hero-highlight .row {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-highlight .quick-contact-item {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(177, 210, 53, 0.2);
+    transition: all 0.3s ease;
+}
+
+.hero-highlight .quick-contact-item:hover {
+    background: var(--white);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(177, 210, 53, 0.2);
+}
+
+/* MODULY SEKCE - Styl podle funkcí */
+.modules-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.module-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+.module-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+.module-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.module-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--white);
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.3);
+}
+
+.module-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.module-description {
+    color: var(--gray-color);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.module-features {
+    margin-bottom: 2rem;
+}
+
+.module-features .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-features .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.module-features .feature-list i {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.module-footer {
+    margin-top: auto;
+    text-align: center;
+}
+
+.module-price {
+    margin-bottom: 1rem;
+}
+
+.module-price .price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+}
+
+.module-price .price-note {
+    color: var(--gray-color);
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+.module-footer .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.module-footer .btn-outline-primary:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+/* Balíčkové nabídky */
+.package-offers {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.05), rgba(149, 177, 31, 0.05));
+    border: 2px solid rgba(177, 210, 53, 0.2);
+}
+
+.package-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.package-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.package-card h5 {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.package-card .text-success {
+    font-weight: 600;
+}
+
+/* Responzivní úpravy pro moduly */
+@media (max-width: 768px) {
+    .module-card {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .module-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .module-name {
+        font-size: 1.2rem;
+    }
+    
+    .module-price .price {
+        font-size: 1.6rem;
+    }
+    
+    .package-offers {
+        margin-top: 3rem;
+    }
+    
+    .package-card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modules-section {
+        padding: 60px 0;
+    }
+    
+    .module-card {
+        padding: 1.25rem;
+    }
+    
+    .module-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+    
+    .module-name {
+        font-size: 1.1rem;
+    }
+    
+    .module-features .feature-list li {
+        font-size: 0.85rem;
+    }
+    
+    .module-price .price {
+        font-size: 1.4rem;
+    }
+}
+
+/* CTA sekce upravená pro zdarma koncept */
+.cta-section.bg-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+}
+
+.cta-section .btn-white,
+.cta-section .btn-light {
+    background: var(--white);
+    color: var(--dark-color);
+    border: none;
+    font-weight: 400 !important; /* Oprava váhy písma */
+    padding: 12px 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.cta-section .btn-white:hover,
+.cta-section .btn-light:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.cta-section .btn-outline-light {
+    border: 2px solid var(--white);
+    color: var(--white);
+    font-weight: 400 !important; /* Oprava váhy písma */
+    padding: 10px 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.cta-section .btn-outline-light:hover {
+    background: var(--white);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
