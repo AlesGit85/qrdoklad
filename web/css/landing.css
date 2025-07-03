@@ -27,7 +27,8 @@
 @import url('pricing.css');         /* NOVÝ - cenové styly */
 @import url('lightbox.css');        /* Lightbox galerie */
 @import url('pages.css');           /* VYČIŠTĚNO - jen FAQ, Status, Help */
-@import url('pricing-contact.css'); /* Zůstává prozatím - postupně rozdělíme */
+@import url('contact.css');         /* kontaktní formuláře a styly */
+@import url('modules.css');         /* modulové karty, balíčky, kalkulačka */
 
 /* Import responsive stylů (pouze jednou) */
 @import url('responsive.css');

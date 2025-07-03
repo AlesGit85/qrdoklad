@@ -1,9 +1,13 @@
 /**
  * QRdoklad CTA Styles
  * Call-to-Action sekce a související prvky
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
  */
 
-/* CTA Section */
+/* ============================
+   CTA SECTION ZÁKLADNÍ STYLY
+   ========================== */
+
 .cta-section {
     padding: 80px 0;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
@@ -50,50 +54,146 @@
     flex-wrap: wrap;
 }
 
-/* CTA tlačítka - vyčištěné styly */
-.cta-section .btn {
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 0.75rem 2rem;
+/* ============================
+   CTA TLAČÍTKA - SILNÉ OVERRIDES
+   ========================== */
+
+/* KRITICKÉ OVERRIDES pro přepsání Bootstrap stylů */
+.cta-section .cta-title {
+    color: var(--white) !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+}
+
+.cta-section .cta-subtitle {
+    color: var(--white) !important;
+    opacity: 0.9 !important;
+    margin-bottom: 2rem !important;
+}
+
+/* NEJSILNĚJŠÍ OVERRIDE: Specifické selektory pro tlačítka */
+.cta-section .cta-buttons .btn,
+.cta-section .cta-buttons .btn-light,
+.cta-section .cta-buttons .btn-outline-light,
+section.cta-section .btn,
+section.cta-section .btn-light,
+section.cta-section .btn-outline-light {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    padding: 0.75rem 2rem !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 2px solid transparent !important;
+}
+
+/* Bílé tlačítko - TROJITÝ OVERRIDE */
+.cta-section .btn-light,
+.cta-section .cta-buttons .btn-light,
+section.cta-section .btn-light {
+    background-color: var(--white) !important;
+    border-color: var(--white) !important;
+    color: var(--primary-color) !important;
+    font-weight: 400 !important;
+}
+
+.cta-section .btn-light:hover,
+.cta-section .cta-buttons .btn-light:hover,
+section.cta-section .btn-light:hover {
+    background-color: var(--light-gray) !important;
+    border-color: var(--light-gray) !important;
+    color: var(--primary-color) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    font-weight: 400 !important;
+}
+
+/* Outline tlačítko - TROJITÝ OVERRIDE */
+.cta-section .btn-outline-light,
+.cta-section .cta-buttons .btn-outline-light,
+section.cta-section .btn-outline-light {
+    background-color: transparent !important;
+    border: 2px solid var(--white) !important;
+    color: var(--white) !important;
+    font-weight: 400 !important;
+}
+
+.cta-section .btn-outline-light:hover,
+.cta-section .cta-buttons .btn-outline-light:hover,
+section.cta-section .btn-outline-light:hover {
+    background-color: var(--white) !important;
+    border-color: var(--white) !important;
+    color: var(--primary-color) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2) !important;
+    font-weight: 400 !important;
+}
+
+/* Ikony v tlačítkách */
+.cta-section .cta-buttons .btn i,
+.cta-section .btn i,
+section.cta-section .btn i {
+    font-size: 18px !important;
+    margin-right: 0.5rem !important;
+}
+
+/* EXTRA SPECIFICKÉ OVERRIDES PRO JISTOTU */
+.cta-section .cta-buttons .btn-light,
+.cta-section .cta-buttons .btn-outline-light {
+    font-family: inherit !important;
+    font-weight: 400 !important;
+    letter-spacing: normal !important;
+}
+
+/* ============================
+   CTA ZDARMA KONCEPT STYLY
+   ========================== */
+
+/* CTA sekce upravená pro zdarma koncept */
+.cta-section.bg-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+}
+
+.cta-section .btn-white,
+.cta-section .btn-light {
+    background: var(--white);
+    color: var(--dark-color);
+    border: none;
+    font-weight: 400 !important;
+    padding: 12px 30px;
     border-radius: 8px;
     transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid transparent;
-    min-width: 200px;
 }
 
-/* Bílé tlačítko */
-.cta-section .btn-light {
-    background-color: var(--white);
-    border-color: var(--white);
-    color: var(--dark-color);
-}
-
+.cta-section .btn-white:hover,
 .cta-section .btn-light:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.9);
-    color: var(--dark-color);
+    background: #f8f9fa;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Outline tlačítko */
 .cta-section .btn-outline-light {
-    background-color: transparent;
-    border-color: var(--white);
+    border: 2px solid var(--white);
     color: var(--white);
+    font-weight: 400 !important;
+    padding: 10px 30px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .cta-section .btn-outline-light:hover {
-    background-color: var(--white);
-    border-color: var(--white);
-    color: var(--dark-color);
+    background: var(--white);
+    color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
 }
+
+/* ============================
+   CTA FEATURES A DODATKY
+   ========================== */
 
 /* CTA features list */
 .cta-features {
@@ -133,7 +233,11 @@
     margin-right: 0.5rem;
 }
 
-/* CTA section responsive */
+/* ============================
+   RESPONSIVE STYLY
+   ========================== */
+
+/* Responzivní úpravy pro mobilní zařízení */
 @media (max-width: 768px) {
     .cta-section {
         padding: 60px 0;
@@ -157,6 +261,32 @@
         max-width: 300px;
         margin-bottom: 1rem;
         min-width: auto;
+    }
+    
+    /* Silné overrides pro mobile */
+    .cta-section .cta-buttons {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: center !important;
+    }
+    
+    .cta-section .cta-buttons .btn,
+    .cta-section .btn {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 !important;
+        font-size: 18px !important;
+        padding: 0.875rem 1.5rem !important;
+        font-weight: 400 !important;
+    }
+    
+    .cta-section .cta-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .cta-section .cta-subtitle {
+        font-size: 1rem !important;
     }
     
     .cta-features {
@@ -191,6 +321,19 @@
     .cta-section .btn {
         font-size: 1rem;
         padding: 0.7rem 1.5rem;
+    }
+    
+    /* Silné overrides pro small mobile */
+    .cta-section .cta-buttons .btn,
+    .cta-section .btn {
+        font-size: 16px !important;
+        padding: 0.75rem 1.25rem !important;
+        font-weight: 400 !important;
+    }
+    
+    .cta-section .cta-buttons .btn i,
+    .cta-section .btn i {
+        font-size: 16px !important;
     }
     
     .cta-feature {

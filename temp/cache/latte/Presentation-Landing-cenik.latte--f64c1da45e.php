@@ -51,7 +51,7 @@ final class Template_f64c1da45e extends Latte\Runtime\Template
                     <div class="highlight-header text-center mb-3">
                         <h5 class="highlight-title">Co máte zdarma navždy</h5>
                     </div>
-                    <div class="row g-3">
+                    <div class="row g-1">
                         <div class="col-md-6">
                             <div class="quick-contact-item">
                                 <i class="bi bi-file-earmark-text-fill"></i>

@@ -1,0 +1,437 @@
+/**
+ * QRdoklad Modules Styles
+ * Styly pro modulové karty a modulovou kalkulačku
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   MODULES SECTION
+   ========================== */
+
+.modules-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.module-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+.module-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+.module-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.module-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: var(--white);
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.3);
+}
+
+.module-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.module-description {
+    color: var(--gray-color);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.module-features {
+    margin-bottom: 2rem;
+}
+
+.module-features .feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.module-features .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.module-features .feature-list i {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.module-footer {
+    margin-top: auto;
+    text-align: center;
+}
+
+.module-price {
+    margin-bottom: 1rem;
+}
+
+.module-price .price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+}
+
+.module-price .price-note {
+    color: var(--gray-color);
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+
+.module-footer .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.module-footer .btn-outline-primary:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+/* ============================
+   PACKAGE OFFERS
+   ========================== */
+
+.package-offers {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.05), rgba(149, 177, 31, 0.05));
+    border: 2px solid rgba(177, 210, 53, 0.2);
+}
+
+.package-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.package-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.package-card h5 {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.package-card .text-success {
+    font-weight: 600;
+}
+
+/* ============================
+   MODULOVÁ KALKULAČKA
+   ========================== */
+
+.modules-calculator {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.calculator-modules h4,
+.calculator-results h4 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.module-option {
+    margin-bottom: 1rem;
+}
+
+.module-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.module-checkbox:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.2);
+}
+
+.module-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #dee2e6;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.module-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.module-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--dark-color);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.module-info {
+    flex: 1;
+}
+
+.module-info h6 {
+    margin: 0 0 0.25rem 0;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.module-info p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.module-price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.module-checkbox input[type="checkbox"]:checked ~ .module-info .module-price {
+    color: var(--secondary-color);
+}
+
+.calculator-results {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    height: fit-content;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item.total {
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    background: rgba(177, 210, 53, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.result-item.roi {
+    background: rgba(40, 167, 69, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+}
+
+.result-label {
+    font-weight: 500;
+    color: var(--gray-color);
+}
+
+.result-value {
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.result-value.highlight {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+}
+
+.result-value.competitor {
+    color: #dc3545;
+}
+
+.result-value.savings {
+    color: #28a745;
+    font-size: 1.2rem;
+}
+
+.comparison-section h5 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.roi-info {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.1), rgba(149, 177, 31, 0.1));
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid rgba(177, 210, 53, 0.3);
+}
+
+.roi-info h6 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.roi-info p {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+/* ============================
+   RESPONSIVE STYLY
+   ========================== */
+
+@media (max-width: 768px) {
+    .modules-section {
+        padding: 60px 0;
+    }
+    
+    .module-card {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .module-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .module-name {
+        font-size: 1.2rem;
+    }
+    
+    .module-price .price {
+        font-size: 1.6rem;
+    }
+    
+    .package-offers {
+        margin-top: 3rem;
+    }
+    
+    .package-card {
+        margin-bottom: 1rem;
+    }
+    
+    /* Kalkulačka responsive */
+    .calculator-modules,
+    .calculator-results {
+        margin-bottom: 2rem;
+    }
+    
+    .module-checkbox {
+        padding: 0.75rem;
+    }
+    
+    .calculator-results {
+        padding: 1.5rem;
+    }
+    
+    .result-value.highlight {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .modules-section {
+        padding: 60px 0;
+    }
+    
+    .module-card {
+        padding: 1.25rem;
+    }
+    
+    .module-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+    
+    .module-name {
+        font-size: 1.1rem;
+    }
+    
+    .module-features .feature-list li {
+        font-size: 0.85rem;
+    }
+    
+    .module-price .price {
+        font-size: 1.4rem;
+    }
+    
+    /* Kalkulačka mobile */
+    .modules-calculator {
+        padding: 60px 0;
+    }
+    
+    .module-checkbox {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .checkmark {
+        margin: 0 auto;
+    }
+    
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}

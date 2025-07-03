@@ -1,0 +1,469 @@
+/**
+ * QRdoklad Contact Styles
+ * Styly pro kontaktní formuláře, kontaktní informace a rychlé akce
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   CONTACT QUICK INFO
+   ========================== */
+
+.contact-quick-info {
+    margin-top: 2rem;
+}
+
+.quick-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    padding: 12px 20px;
+    border-radius: 25px;
+    box-shadow: var(--shadow);
+    font-weight: 500;
+    color: var(--gray-color);
+    margin-bottom: 1.5rem;
+}
+
+.quick-contact-item i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* ============================
+   CONTACT SECTION
+   ========================== */
+
+.contact-section {
+    padding: 80px 0;
+}
+
+.contact-form-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 3rem;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.form-subtitle {
+    color: var(--gray-color);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form .form-check {
+    margin: 1.5rem 0;
+}
+
+.form-submit {
+    text-align: center;
+}
+
+.submit-info {
+    margin-top: 1rem;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+/* ============================
+   CONTACT INFO CARD
+   ========================== */
+
+.contact-info-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    height: fit-content;
+}
+
+.contact-info-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+}
+
+.contact-info-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.contact-details h5 {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-details p {
+    color: var(--gray-color);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contact-details a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+/* ============================
+   QUICK ACTIONS CARD
+   ========================== */
+
+.quick-actions-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.quick-actions-card h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 1.5rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 2px solid var(--light-gray);
+    text-decoration: none;
+    color: var(--gray-color);
+    transition: var(--transition);
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.quick-action-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(177, 210, 53, 0.05);
+    color: var(--dark-color);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.quick-action-btn i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.quick-action-btn h6 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.quick-action-btn small {
+    color: var(--gray-color);
+}
+
+/* ============================
+   MAP SECTION
+   ========================== */
+
+.map-section {
+    padding: 80px 0;
+}
+
+.map-container {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: var(--white);
+}
+
+.map-placeholder {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-color);
+    text-align: center;
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.map-placeholder h4 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.map-placeholder p {
+    margin-bottom: 1.5rem;
+}
+
+/* ============================
+   CONTACT FAQ
+   ========================== */
+
+.contact-faq-section {
+    padding: 80px 0;
+}
+
+.faq-item {
+    text-align: center;
+    padding: 2rem;
+}
+
+.faq-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.faq-item h5 {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.faq-item p {
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+/* ============================
+   CHECKBOX A FORMULÁŘ STYLY
+   ========================== */
+
+/* Checkbox styly s barvami projektu */
+.contact-form .form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all 0.15s ease-in-out;
+}
+
+.contact-form .form-check-input:focus {
+    border-color: var(--primary-color);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25);
+}
+
+.contact-form .form-check-input:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.contact-form .form-check-input:checked:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(149, 177, 31, 0.25);
+}
+
+/* Label styly */
+.contact-form .form-check-label {
+    color: var(--gray-color) !important;
+    line-height: 1.5;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+/* Odkaz v checkboxu - barvy projektu */
+.contact-form .form-check-label a,
+.form-check-label a {
+    color: var(--primary-color) !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.contact-form .form-check-label a:hover,
+.form-check-label a:hover {
+    color: var(--secondary-color) !important;
+    text-decoration: underline !important;
+}
+
+.contact-form .form-check-label a:focus,
+.form-check-label a:focus {
+    color: var(--secondary-color) !important;
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Obecné opravy pro všechny odkazy v kontaktních sekcích */
+.contact-section a,
+.contact-info-card a,
+.quick-actions-card a {
+    color: var(--primary-color) !important;
+    text-decoration: none;
+}
+
+.contact-section a:hover,
+.contact-info-card a:hover,
+.quick-actions-card a:hover {
+    color: var(--secondary-color) !important;
+    text-decoration: underline;
+}
+
+/* Specifické opravy pro kontaktní formulář */
+.contact-form-card a {
+    color: var(--primary-color) !important;
+}
+
+.contact-form-card a:hover {
+    color: var(--secondary-color) !important;
+}
+
+/* Nette formulář - checkbox specifické opravy */
+input[type="checkbox"][name="privacy"] {
+    width: 20px !important;
+    height: 20px !important;
+    border: 2px solid #dee2e6 !important;
+    border-radius: 4px !important;
+    background-color: #fff !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+input[type="checkbox"][name="privacy"]:checked {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* ============================
+   RESPONSIVE STYLY
+   ========================== */
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 60px 0;
+    }
+    
+    .contact-form-card {
+        padding: 2rem;
+    }
+    
+    .contact-info-card {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .quick-actions-card {
+        padding: 1.5rem;
+    }
+    
+    .form-title {
+        font-size: 1.5rem;
+    }
+    
+    .contact-faq-section {
+        padding: 60px 0;
+    }
+    
+    .faq-item {
+        padding: 1.5rem;
+    }
+    
+    .map-section {
+        padding: 60px 0;
+    }
+    
+    .map-placeholder {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-form-card {
+        padding: 1.5rem;
+    }
+    
+    .contact-info-card {
+        padding: 1.5rem;
+    }
+    
+    .quick-actions-card {
+        padding: 1rem;
+    }
+    
+    .form-title {
+        font-size: 1.3rem;
+    }
+    
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .faq-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+    }
+    
+    .quick-contact-item {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .quick-action-btn {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+    
+    .map-placeholder {
+        height: 250px;
+    }
+    
+    .map-placeholder i {
+        font-size: 3rem;
+    }
+}

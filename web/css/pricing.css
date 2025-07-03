@@ -258,6 +258,106 @@
 }
 
 /* ============================
+   SAVINGS CALCULATOR
+   ========================== */
+
+.savings-calculator {
+    padding: 80px 0;
+}
+
+.calculator-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 3rem;
+}
+
+.calculator-inputs h4,
+.calculator-results h4 {
+    color: var(--dark-color);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 2rem;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    color: var(--dark-color);
+    margin-bottom: 8px;
+}
+
+.form-range {
+    margin-bottom: 8px;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: var(--primary-color);
+    border: none;
+    height: 20px;
+    width: 20px;
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--primary-color);
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+.input-group span {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.savings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.savings-item:last-child {
+    border-bottom: none;
+}
+
+.savings-label {
+    font-weight: 500;
+    color: var(--gray-color);
+}
+
+.savings-value {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.savings-value.highlight {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.roi-info {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.roi-info p {
+    margin: 0;
+    color: var(--gray-color);
+}
+
+/* ============================
    PACKAGE OFFERS
    ========================== */
 
@@ -323,6 +423,34 @@
     .package-card {
         margin-bottom: 1rem;
     }
+    
+    /* Savings Calculator responsive */
+    .savings-calculator {
+        padding: 60px 0;
+    }
+    
+    .calculator-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .calculator-inputs,
+    .calculator-results {
+        margin-bottom: 2rem;
+    }
+    
+    .savings-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .savings-value {
+        font-size: 1.5rem;
+    }
+    
+    .savings-value.highlight {
+        font-size: 1.8rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -357,5 +485,15 @@
     
     .free-plan-section {
         padding: 40px 0;
+    }
+    
+    /* Savings Calculator mobile */
+    .calculator-card {
+        padding: 1.5rem;
+    }
+    
+    .calculator-inputs h4,
+    .calculator-results h4 {
+        font-size: 1.25rem;
     }
 }
