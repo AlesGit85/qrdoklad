@@ -1,0 +1,164 @@
+/**
+ * QRdoklad Features Page Styles
+ * Specifické styly pro stránku funkcí (/funkce)
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   FEATURES DETAIL SECTION
+   ========================== */
+
+.features-detail-section {
+    padding: 80px 0;
+}
+
+.feature-detail-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    height: 100%;
+    transition: var(--transition);
+}
+
+.feature-detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon-large {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+    font-size: 3rem;
+}
+
+.feature-icon-large i {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.feature-detail-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+.feature-description {
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.feature-benefits {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-benefits li {
+    padding: 0.75rem 0;    /* Zvětšeno z 0.5rem na 0.75rem */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gray-color);
+}
+
+/* Odstraněno - používáme Bootstrap ikony místo CSS fajfek */
+
+/* ============================
+   ADVANCED FEATURES SECTION
+   ========================== */
+
+.advanced-features-section {
+    background: #f8f9fa;
+}
+
+.advanced-feature-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: var(--transition);
+    border: 1px solid #e9ecef;
+}
+
+.advanced-feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.advanced-feature-card p {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--white);
+    font-size: 1.5rem;
+}
+
+/* ============================
+   PROCESS SECTION
+   ========================== */
+
+.process-section {
+    background: var(--white);
+}
+
+.process-step {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--dark-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 auto 1.5rem;
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.process-step h4,
+.process-step h5 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+.process-step p {
+    color: var(--gray-color);
+    font-size: 0.95rem;
+}

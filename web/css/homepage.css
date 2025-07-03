@@ -1,0 +1,280 @@
+/**
+ * QRdoklad Homepage Styles
+ * Specifické styly pro domovskou stránku
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   HERO IMAGE & FLOATING CARDS
+   ========================== */
+
+.hero-image {
+    position: relative;
+    height: 500px;
+}
+
+.floating-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    animation: float 6s ease-in-out infinite;
+}
+
+.invoice-card {
+    width: 280px;
+    top: 20%;
+    right: 10%;
+    padding: 20px;
+}
+
+.stats-card {
+    width: 200px;
+    bottom: 20%;
+    left: 10%;
+    padding: 15px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.invoice-total {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.qr-code-placeholder {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 8px;
+    margin-left: auto;
+}
+
+/* Float animace */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.floating-card:nth-child(2) {
+    animation-delay: -3s;
+}
+
+/* ============================
+   STATS KOMPONENTY
+   ========================== */
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+    padding: 1rem;
+}
+
+.stat-item i {
+    font-size: 2rem;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+}
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+    color: var(--gray-color);
+    margin: 0;
+    font-weight: 500;
+}
+
+/* ============================
+   SYSTEM PREVIEW SECTION
+   ========================== */
+
+.system-preview-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.system-preview-main {
+    margin-bottom: 3rem;
+}
+
+.preview-image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.preview-image-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+.preview-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+.preview-image[src] {
+    background: none;
+    animation: none;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.preview-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(177, 210, 53, 0.9) 0%,
+        rgba(149, 177, 31, 0.9) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding: 2rem;
+}
+
+.preview-image-container:hover .preview-overlay {
+    opacity: 1;
+}
+
+.preview-image-container:hover .preview-image {
+    transform: scale(1.05);
+}
+
+.preview-content {
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.preview-image-container:hover .preview-content {
+    transform: translateY(0);
+}
+
+.preview-content h4,
+.preview-content h5 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.preview-content p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Lightbox ikona v overlay */
+.preview-content::after {
+    content: '\F52A'; /* Bootstrap icon bi-search */
+    font-family: "bootstrap-icons";
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.preview-image-container:hover .preview-content::after {
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+/* System Preview Cards */
+.system-preview-card {
+    height: 100%;
+}
+
+.system-preview-card .preview-image-container {
+    height: 280px;
+}
+
+.system-preview-card .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.system-preview-card .preview-content h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.system-preview-card .preview-content p {
+    font-size: 0.85rem;
+}
+
+/* System Preview CTA */
+.system-preview-cta {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+.system-preview-cta h3 {
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.system-preview-cta .cta-buttons .btn {
+    padding: 0.75rem 2rem;
+    font-weight: 500;
+}
+
+/* Focus States pro Accessibility */
+.preview-image-container:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+.preview-image-container:focus .preview-overlay {
+    opacity: 1;
+}
+
+.preview-image-container:focus .preview-content {
+    transform: translateY(0);
+}
+
+/* POZNÁMKA: Lightbox styly jsou nyní v samostatném lightbox.css souboru */

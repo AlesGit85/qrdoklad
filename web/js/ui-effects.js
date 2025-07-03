@@ -371,7 +371,7 @@ const LightboxModule = {
         this.findImages();
         if (this.images.length > 0) {
             this.createLightboxHTML();
-            this.bindEvents();
+            this.bindLightboxEvents();
         }
         console.log('LightboxModule - nalezeno obrázků:', this.images.length);
     },

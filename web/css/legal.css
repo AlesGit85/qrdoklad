@@ -1,0 +1,96 @@
+/**
+ * QRdoklad Legal Pages Styles
+ * Specifické styly pro právní stránky (privacy, terms)
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   LEGAL CONTENT SECTION
+   ========================== */
+
+.legal-content-section {
+    background: #ffffff;
+}
+
+.legal-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--dark-color);
+}
+
+.legal-content h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.legal-content h2:first-child {
+    margin-top: 0;
+}
+
+/* ============================
+   LEGAL COMPONENTS
+   ========================== */
+
+.company-info {
+    border-left: 4px solid var(--primary-color);
+}
+
+.data-card, 
+.basis-card, 
+.rights-card, 
+.provision-card {
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.data-card:hover, 
+.basis-card:hover, 
+.rights-card:hover, 
+.provision-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.retention-table table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.security-item {
+    transition: all 0.3s ease;
+}
+
+.security-item:hover {
+    transform: translateY(-5px);
+}
+
+.contact-section {
+    border-left: 4px solid var(--primary-color);
+    background: rgba(177, 210, 53, 0.1) !important;
+}
+
+.contact-section .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: var(--dark-color) !important;    /* Tmavý text na zeleném pozadí */
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.contact-section .btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    color: var(--white) !important;         /* Bílý text při hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(177, 210, 53, 0.3);
+}
+
+.contact-section .btn-primary i {
+    font-size: 1.1rem;
+}

@@ -20,7 +20,12 @@
 @import url('layout.css');
 
 /* Import specifických stránek a funkcí */
-@import url('pages.css');
+@import url('homepage.css');        /* Homepage specifické styly */
+@import url('features.css');        /* Funkce stránka styly */
+@import url('legal.css');           /* Právní stránky styly */
+@import url('about.css');           /* Stránka O nás styly */
+@import url('lightbox.css');        /* Lightbox galerie */
+@import url('pages.css');           /* VYČIŠTĚNO - jen FAQ, Status, Help */
 @import url('pricing-contact.css');
 
 /* Import responsive stylů (pouze jednou) */
