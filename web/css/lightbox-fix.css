@@ -1,0 +1,247 @@
+/**
+ * QRdoklad Lightbox Fix
+ * Oprava pozicování lightbox galerie
+ */
+
+/* HLAVNÍ LIGHTBOX OVERLAY - nejvyšší priorita */
+.lightbox-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(5px) !important;
+    z-index: 100000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+.lightbox-overlay.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* LIGHTBOX CONTAINER - centrovaný obsah */
+.lightbox-container {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: scale(0.8) translateY(20px) !important;
+    transition: all 0.3s ease !important;
+}
+
+.lightbox-overlay.active .lightbox-container {
+    transform: scale(1) translateY(0) !important;
+}
+
+/* LIGHTBOX OBRÁZEK */
+.lightbox-image {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: calc(100vh - 140px) !important;
+    object-fit: contain !important;
+    border-radius: 12px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+    background: #ffffff !important;
+    transition: opacity 0.3s ease !important;
+    display: block !important;
+}
+
+/* LIGHTBOX CAPTION - pod obrázkem */
+.lightbox-caption {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    padding: 1rem 2rem !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    z-index: 100001 !important;
+    max-width: 80vw !important;
+}
+
+.lightbox-caption h4 {
+    color: #212529 !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+    font-size: 1.2rem !important;
+}
+
+.lightbox-caption p {
+    color: #6c757d !important;
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+}
+
+/* ZAVÍRACÍ TLAČÍTKO - vpravo nahoře */
+.lightbox-close {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: #212529 !important;
+    font-size: 1.5rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    z-index: 100001 !important;
+}
+
+.lightbox-close:hover {
+    background: #B1D235 !important;
+    color: #ffffff !important;
+    transform: scale(1.1) !important;
+}
+
+/* NAVIGAČNÍ TLAČÍTKA - po stranách */
+.lightbox-nav {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 60px !important;
+    height: 60px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: #212529 !important;
+    font-size: 1.5rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    z-index: 100001 !important;
+}
+
+.lightbox-nav.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.lightbox-nav:hover {
+    background: #B1D235 !important;
+    color: #ffffff !important;
+    transform: translateY(-50%) scale(1.1) !important;
+}
+
+.lightbox-nav.prev {
+    left: 20px !important;
+}
+
+.lightbox-nav.next {
+    right: 20px !important;
+}
+
+/* POČÍTADLO - dole uprostřed */
+.lightbox-counter {
+    position: absolute !important;
+    bottom: 80px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 20px !important;
+    color: #212529 !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    z-index: 100001 !important;
+}
+
+/* LOADING SPINNER */
+.lightbox-loading {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    display: none !important;
+    z-index: 100001 !important;
+}
+
+.lightbox-loading .spinner {
+    width: 50px !important;
+    height: 50px !important;
+    border: 3px solid rgba(255, 255, 255, 0.3) !important;
+    border-top: 3px solid #B1D235 !important;
+    border-radius: 50% !important;
+    animation: lightbox-spin 1s linear infinite !important;
+}
+
+@keyframes lightbox-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE - MOBILE */
+@media (max-width: 768px) {
+    .lightbox-container {
+        max-width: 95vw !important;
+        max-height: 95vh !important;
+        padding: 10px !important;
+    }
+    
+    .lightbox-image {
+        max-height: calc(100vh - 100px) !important;
+    }
+    
+    .lightbox-close {
+        top: 10px !important;
+        right: 10px !important;
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1.3rem !important;
+    }
+    
+    .lightbox-nav {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.3rem !important;
+    }
+    
+    .lightbox-nav.prev {
+        left: 10px !important;
+    }
+    
+    .lightbox-nav.next {
+        right: 10px !important;
+    }
+    
+    .lightbox-caption {
+        bottom: 10px !important;
+        max-width: 90vw !important;
+        padding: 0.75rem 1.5rem !important;
+    }
+    
+    .lightbox-counter {
+        bottom: 70px !important;
+        font-size: 0.8rem !important;
+        padding: 0.4rem 0.8rem !important;
+    }
+}
