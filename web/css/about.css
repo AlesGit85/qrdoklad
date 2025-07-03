@@ -5,18 +5,346 @@
  */
 
 /* ============================
-   MISSION IMAGE
+   CREATOR SECTION - Aleš/Allimedia
    ========================== */
 
+.creator-section {
+    background: var(--white);
+}
+
+.creator-content h2 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.creator-content h3 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.creator-content p {
+    color: var(--gray-color);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.creator-contact {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.creator-contact .d-flex {
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.creator-contact i {
+    font-size: 1.1rem;
+}
+
+/* ============================
+   CREATOR PHOTO CARD - Vizitka
+   ========================== */
+
+.creator-photo-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    height: 400px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.creator-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 5%;
+}
+
+.creator-photo-card .photo-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--white);
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 2rem 1.5rem 1.5rem;
+    color: var(--white);
+}
+
+.overlay-content h5 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.overlay-content p {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.overlay-content small {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================
+   STORY SECTION - Proč QRdoklad vznikl
+   ========================== */
+
+.why-section {
+    background: var(--light-gray);
+}
+
+.story-card {
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.story-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+    color: var(--white) !important;
+}
+
+.story-icon i {
+    color: var(--white) !important;
+}
+
+.story-card h5 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.story-card p {
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================
+   WORK SECTION - Co dělám
+   ========================== */
+
+.work-section {
+    background: var(--white);
+}
+
+.work-visual-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    position: relative;
+    overflow: hidden;
+}
+
+.work-visual-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.work-visual-card .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--white) !important;
+}
+
+.work-visual-card .card-icon i {
+    color: var(--white) !important;
+}
+
+.work-visual-card h4 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.work-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.work-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: var(--gray-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.work-list li:last-child {
+    border-bottom: none;
+}
+
+.work-list li i {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ============================
+   APPROACH POINTS - Osobní přístup
+   ========================== */
+
+.approach-points {
+    margin-top: 2rem;
+}
+
+.approach-point {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(177, 210, 53, 0.05);
+    border-radius: 12px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.approach-point:last-child {
+    margin-bottom: 0;
+}
+
+.point-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white) !important;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.point-icon i {
+    color: var(--white) !important;
+}
+
+.point-content h6 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.point-content p {
+    color: var(--gray-color);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================
+   VALUES SECTION - Moje hodnoty
+   ========================== */
+
+.values-section {
+    background: var(--light-gray);
+}
+
+.value-card {
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.value-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.8rem;
+    color: var(--white) !important;
+}
+
+.value-icon i {
+    color: var(--white) !important;
+}
+
+.value-card h5 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================
+   PŮVODNÍ STYLY (zachované pro kompatibilitu)
+   ========================== */
+
+/* Mission image */
 .mission-image .image-placeholder {
     height: 400px;
     border: 2px dashed rgba(177, 210, 53, 0.3);
 }
 
-/* ============================
-   TIMELINE SECTION
-   ========================== */
-
+/* Timeline section */
 .timeline {
     position: relative;
     padding: 2rem 0;
@@ -89,10 +417,7 @@
     line-height: 1.6;
 }
 
-/* ============================
-   TEAM SECTION
-   ========================== */
-
+/* Team section */
 .team-member {
     text-align: center;
     margin-bottom: 2rem;
@@ -128,4 +453,50 @@
     color: var(--gray-color);
     font-size: 0.95rem;
     line-height: 1.6;
+}
+
+/* ============================
+   RESPONSIVE DESIGN
+   ========================== */
+
+@media (max-width: 768px) {
+    .creator-photo-card {
+        height: 300px;
+        margin-bottom: 2rem;
+    }
+    
+    .creator-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 20%;
+    }
+    
+    .creator-photo-card .photo-placeholder {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    
+    .overlay-content h5 {
+        font-size: 1.2rem;
+    }
+    
+    .work-visual-card {
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .approach-point {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .story-icon,
+    .value-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
 }

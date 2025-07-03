@@ -1,9 +1,61 @@
-{extends '../@layout.latte'}
+<?php
 
-{block title}O QRdokladu - QRdoklad.cz | od Allimedia.cz{/block}
+declare(strict_types=1);
 
-{block content}
+use Latte\Runtime as LR;
 
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/about.latte */
+final class Template_fe11ac0df3 extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/about.latte';
+
+	public const Blocks = [
+		['title' => 'blockTitle', 'content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		echo "\n";
+		$this->renderBlock('title', get_defined_vars()) /* line 3 */;
+		echo '
+
+';
+		$this->renderBlock('content', get_defined_vars()) /* line 5 */;
+	}
+
+
+	public function prepare(): array
+	{
+		extract($this->params);
+
+		$this->parentName = '../@layout.latte';
+		return get_defined_vars();
+	}
+
+
+	/** {block title} on line 3 */
+	public function blockTitle(array $ʟ_args): void
+	{
+		echo 'O QRdokladu - QRdoklad.cz | od Allimedia.cz';
+	}
+
+
+	/** {block content} on line 5 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <div class="about-page">
 
 <!-- Hero sekce -->
@@ -96,7 +148,9 @@
             
             <div class="col-lg-6">
                 <div class="creator-photo-card">
-                    <img src="{$baseUrl}images/ales-qrdoklad.webp" alt="Aleš Zita - zakladatel Allimedia.cz" class="creator-photo">
+                    <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($baseUrl)) /* line 99 */;
+		echo 'images/ales-qrdoklad.webp" alt="Aleš Zita - zakladatel Allimedia.cz" class="creator-photo">
                     <div class="photo-overlay">
                         <div class="overlay-content text-white text-center">
                             <h5>Aleš Zita</h5>
@@ -305,7 +359,9 @@
                 </p>
                 
                 <div class="cta-buttons">
-                    <a href="{link Landing:kontakt}" class="btn btn-light btn-lg me-3">
+                    <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 308 */;
+		echo '" class="btn btn-light btn-lg me-3">
                         <i class="bi bi-envelope me-2"></i>Napište mi
                     </a>
                     <a href="https://qrdoklad.cz" class="btn btn-outline-light btn-lg">
@@ -319,4 +375,6 @@
 
 </div>
 
-{/block}
+';
+	}
+}

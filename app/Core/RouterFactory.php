@@ -30,7 +30,7 @@ final class RouterFactory
         $router->addRoute('ochrana-osobnich-udaju', 'Landing:privacy');
         $router->addRoute('obchodni-podminky', 'Landing:terms');
         $router->addRoute('faq', 'Landing:faq');
-        $router->addRoute('o-nas', 'Landing:about');
+        $router->addRoute('o-qrdokladu', 'Landing:about');
         
         // Podpůrné stránky
         $router->addRoute('status', 'Landing:status');

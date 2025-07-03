@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Latte\Runtime as LR;
 
-/** source: D:\_coding\nette\qrdoklad\app\Presentation/@layout.latte */
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\@layout.latte */
 final class Template_ab4446634a extends Latte\Runtime\Template
 {
-	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation/@layout.latte';
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\@layout.latte';
 
 
 	public function main(array $ʟ_args): void
@@ -312,7 +312,7 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
 		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 187 */;
-		echo '" class="text-light-50" title="✅ Hotové">O nás</a></li>
+		echo '" class="text-light-50" title="✅ Hotové">O QRdokladu</a></li>
                         <li><a href="';
 		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 188 */;
 		echo '" class="text-light-50" title="✅ Hotové">Blog</a></li>
