@@ -1,0 +1,334 @@
+/**
+ * QRdoklad Hero Styles
+ * Hero sekce, floating cards a animace
+ */
+
+/* HERO SECTION - Opravená s obrázkem v pozadí */
+.hero-section {
+    padding: 120px 0 80px;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Levá část - světle zelené pozadí */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: #f7faec;
+    z-index: -2;
+}
+
+/* Pravá část - obrázek jako pozadí */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: url('../images/qrdoklad-dashboard.webp') center center/cover no-repeat;
+    opacity: 0.35;
+    z-index: -1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--gray-color);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    max-width: 90%;
+}
+
+.hero-buttons {
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.hero-stats .stat-item {
+    padding: 0;
+    text-align: left;
+    gap: 0;
+    flex-direction: column;
+}
+
+.hero-stats .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.hero-stats .stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-color);
+    margin-top: 0.25rem;
+}
+
+/* PLOVOUCÍ KARTY */
+.hero-image {
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+    z-index: 2;
+}
+
+.floating-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(177, 210, 53, 0.2);
+    z-index: 4;
+}
+
+/* Float animace */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.invoice-card {
+    width: 300px;
+    top: 10%;
+    right: 5%;
+    padding: 24px;
+}
+
+/* STATS CARD - optimalizovaná */
+.stats-card {
+    width: 250px;
+    bottom: 15%;
+    left: 8%;
+    padding: 20px;
+}
+
+.floating-card:nth-child(2) {
+    animation-delay: -2s;
+}
+
+.floating-card:nth-child(3) {
+    animation-delay: -4s;
+}
+
+/* Stats card specifické styly */
+.floating-card.stats-card {
+    width: 280px !important;
+    bottom: 15% !important;
+    left: 8% !important;
+    padding: 24px !important;
+}
+
+.floating-card.stats-card .row.g-2 {
+    margin: 0 -8px !important;
+}
+
+.floating-card.stats-card .col-6 {
+    padding: 0 8px !important;
+}
+
+.floating-card.stats-card .stat-item {
+    text-align: center !important;
+    padding: 8px 4px !important;
+}
+
+.floating-card.stats-card .stat-item h3 {
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.7rem !important;
+    line-height: 1 !important;
+}
+
+.floating-card.stats-card .stat-item h3.text-primary {
+    color: #6c757d !important;
+}
+
+.floating-card.stats-card .stat-item h3.text-success {
+    color: #28a745 !important;
+}
+
+.floating-card.stats-card .stat-item p {
+    color: var(--gray-color) !important;
+    margin: 0 !important;
+    font-size: 0.7rem !important;
+    font-weight: 500 !important;
+    line-height: 1.1 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    line-clamp: 2 !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    white-space: normal !important;
+}
+
+/* Hero responsive */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .invoice-card {
+        width: 280px;
+        right: 2%;
+    }
+    
+    .stats-card {
+        width: 230px;
+        left: 5%;
+    }
+}
+
+@media (max-width: 991px) {
+    .hero-section::before,
+    .hero-section::after {
+        width: 100%;
+    }
+    
+    .hero-section::after {
+        opacity: 0.08;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .hero-subtitle {
+        max-width: 100%;
+    }
+    
+    .floating-card {
+        position: relative;
+        margin: 20px auto;
+        display: block;
+        animation: none;
+    }
+    
+    .hero-image {
+        text-align: center;
+        margin-top: 3rem;
+    }
+    
+    .hero-stats {
+        justify-content: center;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    .floating-card.stats-card {
+        width: 300px !important;
+        padding: 25px !important;
+    }
+    
+    .floating-card.stats-card .stat-item h3 {
+        font-size: 1.8rem !important;
+    }
+    
+    .floating-card.stats-card .stat-item p {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 110px 0 50px !important;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    
+    .hero-stats {
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+    
+    .hero-stats .stat-item {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 120px 0 40px !important;
+        min-height: auto !important;
+    }
+    
+    .hero-title {
+        font-size: 1.9rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .floating-card {
+        margin: 15px auto;
+    }
+    
+    .invoice-card,
+    .stats-card {
+        width: 280px;
+        padding: 20px;
+    }
+    
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+}

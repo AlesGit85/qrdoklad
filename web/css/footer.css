@@ -1,0 +1,183 @@
+/**
+ * QRdoklad Footer Styles
+ * Footer, social links a company info
+ */
+
+/* FOOTER STYLES */
+.footer {
+    background: linear-gradient(135deg, var(--dark-color), #1a1d21);
+    color: var(--light-gray);
+    padding: 60px 0 40px;
+    margin-top: 0;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.footer h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.footer .list-unstyled li {
+    margin-bottom: 0.75rem;
+}
+
+.footer .list-unstyled a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.footer .list-unstyled a:hover {
+    color: var(--white);
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+/* Footer social links */
+.footer-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.footer .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(177, 210, 53, 0.1);
+    border-radius: 12px;
+    color: var(--primary-color) !important;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.footer .social-link:hover {
+    background: var(--primary-color);
+    color: var(--dark-color) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(177, 210, 53, 0.3);
+}
+
+/* Footer logo a company info */
+.footer-brand {
+    margin-bottom: 1.5rem;
+}
+
+.footer-brand img {
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.footer-description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 300px;
+}
+
+/* Footer bottom border */
+.footer hr {
+    border-color: rgba(255, 255, 255, 0.1);
+    margin: 2rem 0 1.5rem;
+}
+
+.footer .row.align-items-center p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer .row.align-items-center a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer .row.align-items-center a:hover {
+    color: var(--primary-color);
+}
+
+/* Status indikátory v footer */
+.footer .opacity-50 {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.footer .opacity-50:hover {
+    padding-left: 0;
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Footer responsive */
+@media (max-width: 768px) {
+    .footer {
+        padding: 40px 0 30px;
+    }
+    
+    .footer h6 {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .footer .list-unstyled a {
+        font-size: 0.9rem;
+    }
+    
+    .footer-social {
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    
+    .footer .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .footer .row.align-items-center {
+        text-align: center;
+    }
+    
+    .footer .row.align-items-center .col-md-6 {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer {
+        padding: 30px 0 20px;
+    }
+    
+    .footer .container .row > div {
+        margin-bottom: 2rem;
+    }
+    
+    .footer-description {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    .footer-brand {
+        text-align: center;
+    }
+    
+    .footer hr {
+        margin: 1.5rem 0 1rem;
+    }
+}

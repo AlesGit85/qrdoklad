@@ -1,0 +1,154 @@
+/**
+ * QRdoklad Navbar Styles
+ * Navigation, mobile menu a logo efekty
+ */
+
+/* Navigation - Úplně černý design */
+.navbar {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--white) !important;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+.navbar-brand img {
+    filter: brightness(1);
+    transition: var(--transition);
+}
+
+/* Hover efekt - zelený glow pro bílé logo */
+.navbar-brand img:hover {
+    filter: drop-shadow(0 0 10px var(--primary-color)) brightness(1.1);
+    transform: scale(1.05);
+}
+
+/* Navigation Links s hover a active efekty */
+.nav-link {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85) !important;
+    margin: 0 4px;
+    padding: 12px 20px !important;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+}
+
+/* Hover efekt - zvětšení, bílý text a rozsvícená ikona */
+.nav-link:hover {
+    transform: scale(1.05);
+    color: var(--white) !important;
+}
+
+.nav-link:hover i {
+    filter: drop-shadow(0 0 8px var(--primary-color)) brightness(1.3);
+    color: var(--primary-color);
+}
+
+/* Active efekt - zelené podtržení jen pod textem a zelená ikona */
+.nav-link.active {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 45px;
+    right: 20px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.nav-link.active i {
+    color: var(--primary-color);
+}
+
+/* Tlačítka v navbaru s hover efekty */
+.navbar-nav .btn {
+    margin: 0 4px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    line-height: 1 !important;
+    vertical-align: middle !important;
+}
+
+/* Specifické pravidlo pro odkazy s třídou btn v navbaru */
+.navbar-nav a.btn {
+    text-decoration: none !important;
+}
+
+/* Registrace tlačítko */
+.navbar-nav .btn-outline-primary {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-nav .btn-outline-primary:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--dark-color);
+    text-decoration: none;
+}
+
+/* Login tlačítko */
+.navbar-nav .btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--dark-color);
+}
+
+.navbar-nav .btn-primary:hover {
+    background: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* Mobile navbar responsive */
+@media (max-width: 991px) {
+    .navbar-nav .btn {
+        margin: 8px 0;
+        width: 100%;
+    }
+    
+    /* Ostřejší logo na mobilu */
+    .navbar-brand img {
+        height: 36px;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+    }
+}

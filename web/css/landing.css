@@ -1,14 +1,29 @@
 /**
  * QRdoklad Landing Page Styles
  * Hlavní CSS soubor který importuje všechny moduly
+ * 
+ * NOVÁ MODULÁRNÍ STRUKTURA:
+ * - Rozdělený layout.css na logické celky
+ * - Lepší organizace a údržba
+ * - Menší soubory pro rychlejší orientaci
  */
 
-/* Import všech CSS modulů */
+/* Import základních stylů */
 @import url('base.css');
 @import url('components.css');
+
+/* Import nově rozdělených layout stylů */
+@import url('navbar.css');
+@import url('hero.css');
+@import url('footer.css');
+@import url('cta.css');
 @import url('layout.css');
+
+/* Import specifických stránek a funkcí */
 @import url('pages.css');
 @import url('pricing-contact.css');
+
+/* Import responsive stylů (pouze jednou) */
 @import url('responsive.css');
 
 /* Scroll efekty animace */
@@ -23,6 +38,7 @@
     transform: translateY(0);
 }
 
+/* Staggered animace pro různé elementy */
 .benefit-card.animate-on-scroll {
     transition-delay: 0.1s;
 }

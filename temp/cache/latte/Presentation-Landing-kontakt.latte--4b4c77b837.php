@@ -256,7 +256,7 @@ final class Template_4b4c77b837 extends Latte\Runtime\Template
 		echo Nette\Bridges\FormsLatte\Runtime::item('send', $this->global)->getControl()->addAttributes(['class' => 'btn btn-primary btn-lg me-3']) /* line 147 */;
 		echo '
                                         <button type="button" class="btn btn-outline-secondary btn-lg" id="clearForm">
-                                            <i class="bi bi-arrow-clockwise me-2"></i>Vyčistit formulář
+                                            <i class="bi bi-trash me-2"></i>Vyčistit formulář
                                         </button>
                                     </div>
                                     <p class="submit-info">
