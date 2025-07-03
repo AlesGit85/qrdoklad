@@ -1,0 +1,361 @@
+/**
+ * QRdoklad Pricing Styles
+ * Specifické styly pro ceník a cenové balíčky
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   PRICING TOGGLE
+   ========================== */
+
+.pricing-toggle {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--white);
+    padding: 8px;
+    border-radius: 50px;
+    box-shadow: var(--shadow);
+}
+
+.toggle-label {
+    font-weight: 500;
+    color: var(--gray-color);
+    font-size: 0.95rem;
+}
+
+.price-toggle {
+    position: relative;
+}
+
+.toggle-input {
+    display: none;
+}
+
+.toggle-label-switch {
+    display: block;
+    width: 50px;
+    height: 25px;
+    background: var(--light-gray);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.toggle-label-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-input:checked + .toggle-label-switch {
+    background: var(--primary-color);
+}
+
+.toggle-input:checked + .toggle-label-switch::after {
+    transform: translateX(25px);
+}
+
+.discount-badge {
+    background: var(--primary-color);
+    color: var(--dark-color);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* ============================
+   PRICING CARDS
+   ========================== */
+
+.pricing-section {
+    padding: 80px 0;
+}
+
+.pricing-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 2.5rem 2rem;
+    height: 100%;
+    position: relative;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card.featured-plan {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(177, 210, 53, 0.2);
+}
+
+.pricing-card.featured-plan:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: var(--dark-color);
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.plan-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.plan-description {
+    color: var(--gray-color);
+    margin-bottom: 1.5rem;
+}
+
+.price-display {
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+.period {
+    font-size: 1.1rem;
+    color: var(--gray-color);
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+.price-note {
+    color: var(--gray-color);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.pricing-features {
+    margin-bottom: 2rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: var(--gray-color);
+    line-height: 1.5;
+}
+
+.feature-list i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.pricing-footer {
+    text-align: center;
+}
+
+.trial-info {
+    margin-top: 1rem;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
+/* ============================
+   FREE PLAN SECTION
+   ========================== */
+
+.free-plan-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.pricing-card.featured-plan.border-primary {
+    border-color: var(--primary-color) !important;
+    background: var(--white);
+    position: relative;
+    transform: none; /* Zrušíme scale efekt pro free plan */
+}
+
+.pricing-card.featured-plan .popular-badge.bg-primary {
+    background: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+}
+
+.pricing-card .plan-name.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .price.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .period.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .price-note.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .feature-list i.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.pricing-card .trial-info.text-primary {
+    color: var(--primary-color) !important;
+}
+
+/* Oprava váhy písma u tlačítka */
+.pricing-card .btn-primary {
+    font-weight: 400 !important;
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--dark-color) !important;
+}
+
+/* ============================
+   PACKAGE OFFERS
+   ========================== */
+
+.package-offers {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.05), rgba(149, 177, 31, 0.05));
+    border: 2px solid rgba(177, 210, 53, 0.2);
+}
+
+.package-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.package-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.package-card h5 {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.package-card .text-success {
+    font-weight: 600;
+}
+
+/* ============================
+   PRICING RESPONSIVE
+   ========================== */
+
+@media (max-width: 768px) {
+    .pricing-section {
+        padding: 60px 0;
+    }
+    
+    .pricing-card {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .pricing-card.featured-plan {
+        transform: none;
+        margin-bottom: 2rem;
+    }
+    
+    .pricing-card.featured-plan:hover {
+        transform: translateY(-5px);
+    }
+    
+    .plan-name {
+        font-size: 1.3rem;
+    }
+    
+    .price {
+        font-size: 2.5rem;
+    }
+    
+    .package-offers {
+        margin-top: 3rem;
+    }
+    
+    .package-card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .pricing-toggle {
+        margin: 1.5rem 0;
+    }
+    
+    .toggle-wrapper {
+        padding: 6px;
+        gap: 10px;
+    }
+    
+    .toggle-label {
+        font-size: 0.9rem;
+    }
+    
+    .pricing-card {
+        padding: 1.5rem;
+    }
+    
+    .plan-name {
+        font-size: 1.2rem;
+    }
+    
+    .price {
+        font-size: 2rem;
+    }
+    
+    .feature-list li {
+        font-size: 0.9rem;
+    }
+    
+    .free-plan-section {
+        padding: 40px 0;
+    }
+}

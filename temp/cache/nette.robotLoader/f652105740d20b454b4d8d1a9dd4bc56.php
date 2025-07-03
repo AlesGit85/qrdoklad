@@ -51,9 +51,9 @@ return array (
     'App\\Presentation\\Landing\\LandingTermsTemplate' => 3,
     'App\\Presentation\\Landing\\LandingPrivacyTemplate' => 3,
     'App\\Presentation\\Landing\\LandingAboutTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingDefaultTemplate' => 2,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 2,
-    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 1,
+    'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingCenikTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 2,
   ),
   2 => 
   array (
