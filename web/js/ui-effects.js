@@ -1,6 +1,12 @@
 /**
  * QRdoklad UI Effects
  * Všechny UI efekty, animace, loading stavy a notifikace
+ * 
+ * Barvy projektu:
+ * - Primární: #B1D235
+ * - Sekundární: #95B11F  
+ * - Šedá: #6c757d
+ * - Černá: #212529
  */
 
 /*
@@ -10,6 +16,7 @@ LOADING STATES MODULE
 */
 const LoadingStates = {
     init() {
+        console.log('LoadingStates - inicializace');
         this.addLoadingStyles();
         this.bindCTAButtons();
     },
@@ -44,42 +51,60 @@ const LoadingStates = {
 
     success(element, text = 'Hotovo!', duration = 2000) {
         if (!element) return;
-        element.disabled = false;
+        
+        const originalText = element.dataset.originalText;
+        element.innerHTML = `<i class="bi bi-check-circle me-2"></i>${text}`;
         element.classList.remove('loading');
         element.classList.add('success');
         
-        if (element.tagName === 'INPUT') {
-            element.value = text;
-        } else {
-            element.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>${text}`;
-        }
+        setTimeout(() => {
+            element.innerHTML = originalText;
+            element.classList.remove('success');
+            element.disabled = false;
+        }, duration);
+    },
+
+    error(element, text = 'Chyba!', duration = 3000) {
+        if (!element) return;
+        
+        const originalText = element.dataset.originalText;
+        element.innerHTML = `<i class="bi bi-exclamation-circle me-2"></i>${text}`;
+        element.classList.remove('loading');
+        element.classList.add('error');
         
         setTimeout(() => {
-            element.classList.remove('success');
-            if (element.tagName === 'INPUT') {
-                element.value = element.dataset.originalText;
-            } else {
-                element.innerHTML = element.dataset.originalText;
-            }
+            element.innerHTML = originalText;
+            element.classList.remove('error');
+            element.disabled = false;
         }, duration);
+    },
+
+    bindCTAButtons() {
+        document.querySelectorAll('.btn-primary, .btn-success').forEach(btn => {
+            if (btn.type === 'submit') return; // Skip form buttons
+            
+            btn.addEventListener('click', (e) => {
+                if (btn.classList.contains('loading')) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                this.show(btn, 'Načítání...');
+                
+                // Simulace loading pro demo účely
+                setTimeout(() => {
+                    this.success(btn, 'Úspěch!');
+                }, 1500);
+            });
+        });
     },
 
     addLoadingStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            .spin {
-                animation: spin 1s linear infinite;
-            }
-            
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-            }
-            
             .loading {
                 opacity: 0.8;
                 cursor: not-allowed;
-                transition: all 0.3s ease;
                 background-color: #95B11F !important;
                 border-color: #95B11F !important;
                 color: #212529 !important;
@@ -89,186 +114,24 @@ const LoadingStates = {
                 background-color: #B1D235 !important;
                 border-color: #B1D235 !important;
                 color: #212529 !important;
-                transition: all 0.3s ease;
             }
             
-            .btn:disabled {
-                opacity: 0.7;
-            }
-            
-            .page-transition {
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            
-            .page-transition.loaded {
-                opacity: 1;
-            }
-            
-            /* ÚPLNÉ ODSTRANĚNÍ MODRÉ BARVY Z TLAČÍTEK */
-            .btn-primary,
-            .btn-primary:hover,
-            .btn-primary:focus,
-            .btn-primary:active,
-            .btn-primary.active,
-            .btn-primary:not(:disabled):not(.disabled):active,
-            .btn-primary:not(:disabled):not(.disabled).active {
-                background-color: #B1D235 !important;
-                border-color: #B1D235 !important;
-                color: #212529 !important;
-                box-shadow: none !important;
-                outline: none !important;
-            }
-            
-            .btn-primary:hover {
-                background-color: #95B11F !important;
-                border-color: #95B11F !important;
-                color: #ffffff !important;
-                transform: translateY(-2px);
-            }
-            
-            .btn-primary:focus,
-            .btn-primary.focus {
-                background-color: #B1D235 !important;
-                border-color: #B1D235 !important;
-                color: #212529 !important;
-                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.5) !important;
-            }
-            
-            .btn-primary:active,
-            .btn-primary.active {
-                background-color: #95B11F !important;
-                border-color: #95B11F !important;
-                color: #ffffff !important;
-            }
-            
-            .btn-outline-primary,
-            .btn-outline-primary:hover,
-            .btn-outline-primary:focus,
-            .btn-outline-primary:active,
-            .btn-outline-primary.active {
-                color: #B1D235 !important;
-                border-color: #B1D235 !important;
-                box-shadow: none !important;
-                outline: none !important;
-            }
-            
-            .btn-outline-primary:hover {
-                background-color: #B1D235 !important;
-                border-color: #B1D235 !important;
-                color: #212529 !important;
-                transform: translateY(-2px);
-            }
-            
-            .btn-outline-primary:focus,
-            .btn-outline-primary.focus {
-                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.5) !important;
-            }
-            
-            .btn-outline-primary:active,
-            .btn-outline-primary.active {
-                background-color: #95B11F !important;
-                border-color: #95B11F !important;
-                color: #ffffff !important;
-            }
-            
-            /* Form kontroly - oprava focus stavů */
-            .form-control:focus {
-                border-color: #B1D235 !important;
-                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25) !important;
-                outline: none !important;
-            }
-            
-            .form-control.is-valid {
-                border-color: #B1D235 !important;
-                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25) !important;
-            }
-            
-            .form-control.is-invalid {
+            .error {
+                background-color: #dc3545 !important;
                 border-color: #dc3545 !important;
-                box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+                color: white !important;
             }
             
-            .form-check-input:checked {
-                background-color: #B1D235 !important;
-                border-color: #B1D235 !important;
+            .spin {
+                animation: spin 1s linear infinite;
             }
             
-            .form-check-input:focus {
-                border-color: #B1D235 !important;
-                box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25) !important;
-            }
-            
-            /* Range slider styly */
-            .form-range:focus {
-                outline: none !important;
-                box-shadow: none !important;
-            }
-            
-            .form-range::-webkit-slider-thumb {
-                background: #B1D235 !important;
-                border: none;
-                height: 20px;
-                width: 20px;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-            
-            .form-range::-webkit-slider-thumb:hover {
-                background: #95B11F !important;
-                transform: scale(1.1);
-            }
-            
-            .form-range::-moz-range-thumb {
-                background: #B1D235 !important;
-                border: none;
-                height: 20px;
-                width: 20px;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-            
-            .form-range::-moz-range-thumb:hover {
-                background: #95B11F !important;
-                transform: scale(1.1);
-            }
-            
-            .form-range::-webkit-slider-track {
-                background: #f8f9fa;
-                border-radius: 10px;
-                height: 6px;
-            }
-            
-            .form-range::-moz-range-track {
-                background: #f8f9fa;
-                border-radius: 10px;
-                height: 6px;
-                border: none;
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
             }
         `;
         document.head.appendChild(style);
-    },
-
-    bindCTAButtons() {
-        // Všechna CTA tlačítka
-        document.querySelectorAll('a[href*="app.qrdoklad.cz"]').forEach(button => {
-            button.addEventListener('click', (e) => {
-                this.show(button, 'Přesměrování...');
-                
-                // Pokud Analytics existuje, použijeme je
-                if (typeof Analytics !== 'undefined') {
-                    Analytics.trackCTAClick(button.textContent.trim(), window.location.pathname);
-                }
-                
-                // Pustíme přesměrování po krátké pauze pro lepší UX
-                setTimeout(() => {
-                    window.open(button.href, '_blank');
-                    this.hide(button);
-                }, 800);
-                
-                e.preventDefault();
-            });
-        });
     }
 };
 
@@ -281,6 +144,7 @@ const Notifications = {
     container: null,
     
     init() {
+        console.log('Notifications - inicializace');
         this.createContainer();
         this.addNotificationStyles();
     },
@@ -288,207 +152,212 @@ const Notifications = {
     createContainer() {
         this.container = document.createElement('div');
         this.container.id = 'notifications-container';
-        this.container.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            max-width: 420px;
-            pointer-events: none;
-        `;
+        this.container.className = 'notifications-container';
         document.body.appendChild(this.container);
+    },
+
+    show(message, type = 'info', duration = 4000) {
+        const notification = this.createNotification(message, type);
+        this.container.appendChild(notification);
+        
+        // Trigger animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Auto remove
+        if (duration > 0) {
+            setTimeout(() => {
+                this.remove(notification);
+            }, duration);
+        }
+        
+        return notification;
+    },
+
+    createNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        
+        const icons = {
+            success: 'bi-check-circle',
+            error: 'bi-exclamation-triangle',
+            warning: 'bi-exclamation-circle',
+            info: 'bi-info-circle'
+        };
+        
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="bi ${icons[type] || icons.info} notification-icon"></i>
+                <span class="notification-message">${message}</span>
+                <button class="notification-close" aria-label="Zavřít">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        `;
+        
+        // Close button functionality
+        const closeBtn = notification.querySelector('.notification-close');
+        closeBtn.addEventListener('click', () => {
+            this.remove(notification);
+        });
+        
+        return notification;
+    },
+
+    remove(notification) {
+        notification.classList.add('hide');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    },
+
+    success(message, duration = 4000) {
+        return this.show(message, 'success', duration);
+    },
+
+    error(message, duration = 6000) {
+        return this.show(message, 'error', duration);
+    },
+
+    warning(message, duration = 5000) {
+        return this.show(message, 'warning', duration);
+    },
+
+    info(message, duration = 4000) {
+        return this.show(message, 'info', duration);
     },
 
     addNotificationStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            /* VÝRAZNÉ NOTIFIKACE - dobře viditelné */
-            .notification-custom {
+            .notifications-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+                pointer-events: none;
+                width: 320px;
+                max-width: calc(100vw - 40px);
+            }
+            
+            .notification {
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                margin-bottom: 10px;
+                opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
                 pointer-events: auto;
-                border: none !important;
-                border-radius: 16px !important;
-                font-weight: 600 !important;
-                font-size: 1rem !important;
-                padding: 20px 24px !important;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
-                backdrop-filter: blur(10px) !important;
-                border-left: 5px solid transparent !important;
-                animation: slideInFromRight 0.4s ease-out !important;
-                margin-bottom: 16px !important;
-                min-height: 80px !important;
-                display: flex !important;
-                align-items: center !important;
+                border-left: 4px solid;
             }
             
-            .notification-custom.alert-success {
-                background: linear-gradient(135deg, #B1D235, #95B11F) !important;
-                color: #212529 !important;
-                border-left-color: #95B11F !important;
+            .notification.show {
+                opacity: 1;
+                transform: translateX(0);
             }
             
-            .notification-custom.alert-danger {
-                background: linear-gradient(135deg, #dc3545, #b02a37) !important;
-                color: #ffffff !important;
-                border-left-color: #b02a37 !important;
+            .notification.hide {
+                opacity: 0;
+                transform: translateX(100%);
             }
             
-            .notification-custom.alert-warning {
-                background: linear-gradient(135deg, #ffc107, #e0a800) !important;
-                color: #212529 !important;
-                border-left-color: #e0a800 !important;
+            .notification-success {
+                border-left-color: #B1D235;
             }
             
-            .notification-custom.alert-info {
-                background: linear-gradient(135deg, #6c757d, #5a6268) !important;
-                color: #ffffff !important;
-                border-left-color: #5a6268 !important;
+            .notification-error {
+                border-left-color: #dc3545;
             }
             
-            .notification-custom .btn-close {
-                filter: none !important;
-                opacity: 0.8 !important;
-                font-size: 1.2rem !important;
-                padding: 8px !important;
-                margin: -8px -8px -8px auto !important;
+            .notification-warning {
+                border-left-color: #ffc107;
             }
             
-            .notification-custom .btn-close:hover {
-                opacity: 1 !important;
-                transform: scale(1.1) !important;
+            .notification-info {
+                border-left-color: #6c757d;
             }
             
-            .notification-custom i {
-                font-size: 1.4rem !important;
-                margin-right: 12px !important;
+            .notification-content {
+                padding: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .notification-icon {
+                font-size: 1.2rem;
                 flex-shrink: 0;
             }
             
-            .notification-custom .notification-content {
-                flex-grow: 1;
+            .notification-success .notification-icon {
+                color: #B1D235;
+            }
+            
+            .notification-error .notification-icon {
+                color: #dc3545;
+            }
+            
+            .notification-warning .notification-icon {
+                color: #ffc107;
+            }
+            
+            .notification-info .notification-icon {
+                color: #6c757d;
+            }
+            
+            .notification-message {
+                flex: 1;
+                color: #212529;
+                font-size: 0.9rem;
                 line-height: 1.4;
             }
             
-            @keyframes slideInFromRight {
-                0% {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                100% {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
+            .notification-close {
+                background: none;
+                border: none;
+                color: #6c757d;
+                cursor: pointer;
+                padding: 4px;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                flex-shrink: 0;
             }
             
-            @keyframes slideOutToRight {
-                0% {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
+            .notification-close:hover {
+                background: rgba(108, 117, 125, 0.1);
+                color: #212529;
             }
             
-            .notification-custom.removing {
-                animation: slideOutToRight 0.3s ease-in !important;
+            @media (max-width: 480px) {
+                .notifications-container {
+                    top: 10px;
+                    right: 10px;
+                    left: 10px;
+                    width: auto;
+                    max-width: none;
+                }
+                
+                .notification-content {
+                    padding: 12px;
+                    gap: 8px;
+                }
+                
+                .notification-message {
+                    font-size: 0.85rem;
+                }
             }
         `;
         document.head.appendChild(style);
-    },
-
-    show(message, type = 'info', duration = 5000) {
-        const notification = document.createElement('div');
-        const id = 'notification-' + Date.now();
-        
-        const icons = {
-            success: 'bi-check-circle-fill',
-            error: 'bi-exclamation-triangle-fill',
-            warning: 'bi-exclamation-triangle-fill',
-            info: 'bi-info-circle-fill'
-        };
-        
-        // Přemapování danger na error pro konzistenci
-        const alertType = type === 'error' ? 'danger' : type;
-        
-        notification.id = id;
-        notification.className = `alert alert-${alertType} alert-dismissible fade show notification-custom`;
-        
-        notification.innerHTML = `
-            <i class="bi ${icons[type]}"></i>
-            <div class="notification-content">${message}</div>
-            <button type="button" class="btn-close" onclick="Notifications.remove('${id}')"></button>
-        `;
-        
-        this.container.appendChild(notification);
-        
-        // Auto remove
-        if (duration > 0) {
-            setTimeout(() => this.remove(id), duration);
-        }
-        
-        // Sound effect pro success (optional)
-        if (type === 'success') {
-            this.playNotificationSound();
-        }
-        
-        return id;
-    },
-
-    remove(id) {
-        const notification = document.getElementById(id);
-        if (notification) {
-            notification.classList.add('removing');
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.remove();
-                }
-            }, 300);
-        }
-    },
-
-    success(message, duration = 6000) {
-        return this.show(message, 'success', duration);
-    },
-
-    error(message, duration = 8000) {
-        return this.show(message, 'error', duration);
-    },
-
-    warning(message, duration = 6000) {
-        return this.show(message, 'warning', duration);
-    },
-
-    info(message, duration = 5000) {
-        return this.show(message, 'info', duration);
-    },
-
-    playNotificationSound() {
-        // Jednoduchý audio feedback (opcional)
-        try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-            oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.2);
-        } catch (e) {
-            // Audio není podporováno, nevadí
-        }
     }
 };
 
 /*
 ==================================
-LIGHTBOX MODULE - NOVÝ
+LIGHTBOX MODULE
 ==================================
 */
 const LightboxModule = {
@@ -508,7 +377,6 @@ const LightboxModule = {
     },
 
     findImages() {
-        // Najdeme všechny preview kontejnery v sekci ukázka systému
         const containers = document.querySelectorAll('.preview-image-container');
         this.images = [];
         
@@ -526,18 +394,15 @@ const LightboxModule = {
                     element: container
                 });
                 
-                // Přidáme click listener
                 container.addEventListener('click', (e) => {
                     e.preventDefault();
                     this.openLightbox(index);
                 });
                 
-                // Přidáme tabindex pro accessibility
                 container.setAttribute('tabindex', '0');
                 container.setAttribute('role', 'button');
                 container.setAttribute('aria-label', `Zobrazit obrázek: ${img.alt || 'Ukázka systému'}`);
                 
-                // Keyboard support pro jednotlivé obrázky
                 container.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -551,7 +416,6 @@ const LightboxModule = {
     },
 
     createLightboxHTML() {
-        // Vytvoříme lightbox HTML strukturu
         this.overlay = document.createElement('div');
         this.overlay.className = 'lightbox-overlay';
         this.overlay.innerHTML = `
@@ -561,233 +425,238 @@ const LightboxModule = {
                     <h4 class="lightbox-title"></h4>
                     <p class="lightbox-description"></p>
                 </div>
-                <button class="lightbox-close" aria-label="Zavřít lightbox">
-                    <i class="bi bi-x-lg"></i>
+                <button class="lightbox-close" aria-label="Zavřít">
+                    <i class="bi bi-x"></i>
                 </button>
-                <button class="lightbox-nav prev" aria-label="Předchozí obrázek">
+                <button class="lightbox-prev" aria-label="Předchozí">
                     <i class="bi bi-chevron-left"></i>
                 </button>
-                <button class="lightbox-nav next" aria-label="Následující obrázek">
+                <button class="lightbox-next" aria-label="Další">
                     <i class="bi bi-chevron-right"></i>
                 </button>
                 <div class="lightbox-counter"></div>
-                <div class="lightbox-loading" style="display: none;"></div>
             </div>
         `;
         
         document.body.appendChild(this.overlay);
-        
-        // Cachujeme elementy pro rychlejší přístup
-        this.elements = {
-            container: this.overlay.querySelector('.lightbox-container'),
-            image: this.overlay.querySelector('.lightbox-image'),
-            title: this.overlay.querySelector('.lightbox-title'),
-            description: this.overlay.querySelector('.lightbox-description'),
-            caption: this.overlay.querySelector('.lightbox-caption'),
-            closeBtn: this.overlay.querySelector('.lightbox-close'),
-            prevBtn: this.overlay.querySelector('.lightbox-nav.prev'),
-            nextBtn: this.overlay.querySelector('.lightbox-nav.next'),
-            counter: this.overlay.querySelector('.lightbox-counter'),
-            loading: this.overlay.querySelector('.lightbox-loading')
-        };
+        this.bindLightboxEvents();
+        this.addLightboxStyles();
     },
 
-    bindEvents() {
-        // Zavření lightboxu
-        this.elements.closeBtn.addEventListener('click', () => this.closeLightbox());
+    bindLightboxEvents() {
+        // Close lightbox
+        this.overlay.querySelector('.lightbox-close').addEventListener('click', () => {
+            this.closeLightbox();
+        });
         
-        // Klik mimo obrázek zavře lightbox
+        // Navigation
+        this.overlay.querySelector('.lightbox-prev').addEventListener('click', () => {
+            this.prevImage();
+        });
+        
+        this.overlay.querySelector('.lightbox-next').addEventListener('click', () => {
+            this.nextImage();
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!this.isOpen) return;
+            
+            switch (e.key) {
+                case 'Escape':
+                    this.closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    this.prevImage();
+                    break;
+                case 'ArrowRight':
+                    this.nextImage();
+                    break;
+            }
+        });
+        
+        // Click outside to close
         this.overlay.addEventListener('click', (e) => {
             if (e.target === this.overlay) {
                 this.closeLightbox();
             }
         });
-        
-        // Navigace
-        this.elements.prevBtn.addEventListener('click', () => this.showPrevious());
-        this.elements.nextBtn.addEventListener('click', () => this.showNext());
-        
-        // Keyboard support
-        document.addEventListener('keydown', (e) => {
-            if (!this.isOpen) return;
-            
-            switch(e.key) {
-                case 'Escape':
-                    this.closeLightbox();
-                    break;
-                case 'ArrowLeft':
-                    this.showPrevious();
-                    break;
-                case 'ArrowRight':
-                    this.showNext();
-                    break;
-            }
-        });
-        
-        // Touch/swipe support pro mobily
-        let startX = 0;
-        let endX = 0;
-        
-        this.overlay.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-        });
-        
-        this.overlay.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].clientX;
-            const diff = startX - endX;
-            
-            if (Math.abs(diff) > 50) { // Minimální vzdálenost pro swipe
-                if (diff > 0) {
-                    this.showNext(); // Swipe doleva = další
-                } else {
-                    this.showPrevious(); // Swipe doprava = předchozí
-                }
-            }
-        });
     },
 
     openLightbox(index) {
-        if (!this.images.length || index < 0 || index >= this.images.length) return;
-        
         this.currentIndex = index;
         this.isOpen = true;
-        
-        // Zablokujeme scrollování stránky
-        document.body.style.overflow = 'hidden';
-        
-        // Zobrazíme loading
-        this.showLoading();
-        
-        // Načteme obrázek
-        this.loadImage(this.images[index]);
-        
-        // Zobrazíme lightbox
+        this.updateLightbox();
         this.overlay.classList.add('active');
-        
-        // Focus na zavírací tlačítko pro accessibility
-        setTimeout(() => {
-            this.elements.closeBtn.focus();
-        }, 300);
-        
-        // Analytics tracking (pokud existuje)
-        if (typeof Analytics !== 'undefined') {
-            Analytics.trackEvent('lightbox_open', 'interaction', `image_${index}`);
-        }
-        
-        console.log('LightboxModule - otevřen lightbox pro obrázek:', index);
+        document.body.style.overflow = 'hidden';
     },
 
     closeLightbox() {
-        if (!this.isOpen) return;
-        
         this.isOpen = false;
         this.overlay.classList.remove('active');
-        
-        // Obnovíme scrollování
         document.body.style.overflow = '';
-        
-        // Vrátíme focus na původní element
-        if (this.images[this.currentIndex] && this.images[this.currentIndex].element) {
-            this.images[this.currentIndex].element.focus();
-        }
-        
-        console.log('LightboxModule - lightbox zavřen');
     },
 
-    showPrevious() {
-        if (!this.isOpen || this.images.length <= 1) return;
-        
-        this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.images.length - 1;
-        this.showLoading();
-        this.loadImage(this.images[this.currentIndex]);
-        
-        console.log('LightboxModule - předchozí obrázek:', this.currentIndex);
+    prevImage() {
+        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+        this.updateLightbox();
     },
 
-    showNext() {
-        if (!this.isOpen || this.images.length <= 1) return;
-        
-        this.currentIndex = this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0;
-        this.showLoading();
-        this.loadImage(this.images[this.currentIndex]);
-        
-        console.log('LightboxModule - následující obrázek:', this.currentIndex);
+    nextImage() {
+        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+        this.updateLightbox();
     },
 
-    showLoading() {
-        this.elements.loading.style.display = 'block';
-        this.elements.image.style.opacity = '0.5';
-    },
-
-    hideLoading() {
-        this.elements.loading.style.display = 'none';
-        this.elements.image.style.opacity = '1';
-    },
-
-    loadImage(imageData) {
-        // Vytvoříme nový Image objekt pro preloading
-        const img = new Image();
+    updateLightbox() {
+        const imageData = this.images[this.currentIndex];
+        const img = this.overlay.querySelector('.lightbox-image');
+        const title = this.overlay.querySelector('.lightbox-title');
+        const description = this.overlay.querySelector('.lightbox-description');
+        const counter = this.overlay.querySelector('.lightbox-counter');
         
-        img.onload = () => {
-            // Obrázek se načetl úspěšně
-            this.elements.image.src = imageData.src;
-            this.elements.image.alt = imageData.alt;
-            
-            // Aktualizujeme caption
-            this.elements.title.textContent = imageData.title;
-            this.elements.description.textContent = imageData.description;
-            
-            // Skryjeme/zobrazíme caption podle obsahu
-            if (imageData.title || imageData.description) {
-                this.elements.caption.style.display = 'block';
-            } else {
-                this.elements.caption.style.display = 'none';
+        img.src = imageData.src;
+        img.alt = imageData.alt;
+        title.textContent = imageData.title;
+        description.textContent = imageData.description;
+        counter.textContent = `${this.currentIndex + 1} / ${this.images.length}`;
+    },
+
+    addLightboxStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .lightbox-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
             }
             
-            // Aktualizujeme počítadlo
-            this.updateCounter();
+            .lightbox-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
             
-            // Aktualizujeme navigační tlačítka
-            this.updateNavigation();
+            .lightbox-container {
+                position: relative;
+                max-width: 90vw;
+                max-height: 90vh;
+                text-align: center;
+            }
             
-            // Skryjeme loading
-            this.hideLoading();
-        };
-        
-        img.onerror = () => {
-            console.error('LightboxModule - chyba při načítání obrázku:', imageData.src);
-            this.hideLoading();
+            .lightbox-image {
+                max-width: 100%;
+                max-height: 70vh;
+                border-radius: 8px;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            }
             
-            // Zobrazíme error placeholder
-            this.elements.title.textContent = 'Chyba při načítání';
-            this.elements.description.textContent = 'Obrázek se nepodařilo načíst.';
-            this.elements.caption.style.display = 'block';
-        };
-        
-        // Spustíme načítání
-        img.src = imageData.src;
-    },
-
-    updateCounter() {
-        this.elements.counter.textContent = `${this.currentIndex + 1} / ${this.images.length}`;
-        
-        // Skryjeme počítadlo pokud je jen jeden obrázek
-        if (this.images.length <= 1) {
-            this.elements.counter.style.display = 'none';
-        } else {
-            this.elements.counter.style.display = 'block';
-        }
-    },
-
-    updateNavigation() {
-        // Zobrazíme/skryjeme navigační tlačítka
-        if (this.images.length <= 1) {
-            this.elements.prevBtn.classList.remove('visible');
-            this.elements.nextBtn.classList.remove('visible');
-        } else {
-            this.elements.prevBtn.classList.add('visible');
-            this.elements.nextBtn.classList.add('visible');
-        }
+            .lightbox-caption {
+                color: white;
+                margin-top: 20px;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .lightbox-title {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+                color: #B1D235;
+            }
+            
+            .lightbox-description {
+                font-size: 1rem;
+                opacity: 0.9;
+                line-height: 1.5;
+            }
+            
+            .lightbox-close,
+            .lightbox-prev,
+            .lightbox-next {
+                position: absolute;
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: white;
+                cursor: pointer;
+                padding: 15px;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+            
+            .lightbox-close {
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+            }
+            
+            .lightbox-prev {
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 1.2rem;
+            }
+            
+            .lightbox-next {
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 1.2rem;
+            }
+            
+            .lightbox-close:hover,
+            .lightbox-prev:hover,
+            .lightbox-next:hover {
+                background: rgba(177, 210, 53, 0.8);
+                color: #212529;
+            }
+            
+            .lightbox-counter {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 0.9rem;
+            }
+            
+            @media (max-width: 768px) {
+                .lightbox-prev,
+                .lightbox-next {
+                    display: none;
+                }
+                
+                .lightbox-container {
+                    max-width: 95vw;
+                    max-height: 95vh;
+                }
+                
+                .lightbox-image {
+                    max-height: 60vh;
+                }
+                
+                .lightbox-caption {
+                    margin-top: 15px;
+                }
+                
+                .lightbox-title {
+                    font-size: 1.2rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     }
 };
 
@@ -818,14 +687,6 @@ const ScrollEffects = {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-in');
-                    
-                    // Track element visibility - pouze pokud Analytics existuje
-                    if (typeof Analytics !== 'undefined') {
-                        const elementClass = entry.target.className;
-                        if (elementClass.includes('pricing-card')) {
-                            Analytics.trackEvent('element_view', 'engagement', 'pricing_card');
-                        }
-                    }
                 }
             });
         }, observerOptions);
@@ -842,26 +703,24 @@ const ScrollEffects = {
     },
 
     initCounterAnimations() {
-        const counters = document.querySelectorAll('.counter');
+        const counters = document.querySelectorAll('[data-target]');
         if (counters.length === 0) return;
         
         const observerOptions = { threshold: 0.5 };
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
                     this.animateCounter(entry.target);
-                    
-                    // Track pouze pokud Analytics existuje
-                    if (typeof Analytics !== 'undefined') {
-                        Analytics.trackEvent('counter_view', 'engagement', 'animated_counter');
-                    }
-                    
+                    entry.target.dataset.animated = 'true';
                     counterObserver.unobserve(entry.target);
                 }
             });
         }, observerOptions);
         
-        counters.forEach(counter => counterObserver.observe(counter));
+        counters.forEach(counter => {
+            counter.textContent = '0';
+            counterObserver.observe(counter);
+        });
     },
 
     initParallaxEffects() {
@@ -871,7 +730,7 @@ const ScrollEffects = {
         
         window.addEventListener('scroll', this.throttle(() => {
             const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
+            const rate = scrolled * -0.3;
             
             parallaxElements.forEach(element => {
                 element.style.transform = `translateY(${rate}px)`;
@@ -880,7 +739,7 @@ const ScrollEffects = {
     },
 
     animateCounter(counter) {
-        const target = parseInt(counter.getAttribute('data-count'));
+        const target = parseInt(counter.getAttribute('data-target'));
         const duration = 2000;
         const step = target / (duration / 16);
         let current = 0;
@@ -920,7 +779,6 @@ const ScrollEffects = {
         document.head.appendChild(style);
     },
 
-    // Pomocná funkce throttle (abychom nemuseli záviset na Utils)
     throttle(func, limit) {
         let inThrottle;
         return function() {
@@ -948,6 +806,8 @@ const NavbarEffects = {
     init() {
         this.navbar = document.querySelector('.navbar');
         if (!this.navbar) return;
+        
+        console.log('NavbarEffects - inicializace');
         this.initScrollEffects();
         this.initMobileMenu();
     },
@@ -957,7 +817,6 @@ const NavbarEffects = {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             this.isScrollingDown = scrollTop > this.lastScrollTop;
             
-            // Background opacity based on scroll
             if (scrollTop > 50) {
                 this.navbar.classList.add('scrolled');
                 this.navbar.style.background = 'rgba(0, 0, 0, 0.98)';
@@ -970,52 +829,29 @@ const NavbarEffects = {
                 this.navbar.style.backdropFilter = 'blur(20px)';
             }
             
-            // Hide/show navbar on mobile when scrolling
-            if (window.innerWidth <= 768) {
-                if (this.isScrollingDown && scrollTop > 200) {
-                    this.navbar.style.transform = 'translateY(-100%)';
-                } else {
-                    this.navbar.style.transform = 'translateY(0)';
-                }
-            }
-            
-            this.lastScrollTop = scrollTop;
-        }, 16);
-        
+            this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, 10);
+
         window.addEventListener('scroll', scrollHandler);
-        scrollHandler(); // Initial call
     },
 
     initMobileMenu() {
         const toggleButton = this.navbar.querySelector('.navbar-toggler');
-        const navbarCollapse = this.navbar.querySelector('.navbar-collapse');
+        const navCollapse = this.navbar.querySelector('.navbar-collapse');
         
-        if (!toggleButton || !navbarCollapse) return;
-        
-        // Close mobile menu when clicking on links
-        navbarCollapse.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 991) {
-                    // Pokud Bootstrap je dostupný
-                    if (typeof bootstrap !== 'undefined') {
-                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                            toggle: false
-                        });
-                        bsCollapse.hide();
-                    }
-                }
-            });
-        });
-        
-        // Track mobile menu usage - pouze pokud Analytics existuje
+        if (!toggleButton || !navCollapse) return;
+
         toggleButton.addEventListener('click', () => {
-            if (typeof Analytics !== 'undefined') {
-                Analytics.trackEvent('mobile_menu_toggle', 'navigation', 'hamburger');
+            const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+            
+            if (!isExpanded) {
+                navCollapse.style.maxHeight = navCollapse.scrollHeight + 'px';
+            } else {
+                navCollapse.style.maxHeight = '0';
             }
         });
     },
 
-    // Pomocná funkce throttle
     throttle(func, limit) {
         let inThrottle;
         return function() {
@@ -1037,6 +873,7 @@ SMOOTH SCROLLING MODULE
 */
 const SmoothScrolling = {
     init() {
+        console.log('SmoothScrolling - inicializace');
         this.bindAnchorLinks();
         this.initPageTransitions();
     },
@@ -1047,31 +884,24 @@ const SmoothScrolling = {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const offsetTop = target.offsetTop - 80; // navbar height
+                    const offsetTop = target.offsetTop - 80;
                     
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
                     });
-                    
-                    // Track pouze pokud Analytics existuje
-                    if (typeof Analytics !== 'undefined') {
-                        Analytics.trackEvent('anchor_click', 'navigation', this.getAttribute('href'));
-                    }
                 }
             });
         });
     },
 
     initPageTransitions() {
-        // Add page transition effect
         document.body.classList.add('page-transition');
         
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
         });
         
-        // Smooth transitions for internal navigation
         document.querySelectorAll('a[href^="/"], a[n\\:href]').forEach(link => {
             link.addEventListener('click', function(e) {
                 if (this.href && this.href !== window.location.href) {
@@ -1088,82 +918,50 @@ const SmoothScrolling = {
 
 /*
 ==================================
-INIT FUNCTION PRO UI EFFECTS
+MAIN UI EFFECTS MODULE
 ==================================
 */
 const UIEffects = {
     init() {
         console.log('UIEffects - Inicializace začíná');
         
-        // Inicializace všech UI modulů s detailním debug
-        console.log('UIEffects - spouštím LoadingStates');
-        LoadingStates.init();
-        
-        console.log('UIEffects - spouštím Notifications');
-        Notifications.init();
-        
-        console.log('UIEffects - spouštím LightboxModule'); // NOVÉ
-        LightboxModule.init();
-        
-        console.log('UIEffects - spouštím ScrollEffects');
-        ScrollEffects.init();
-        
-        console.log('UIEffects - spouštím NavbarEffects');
-        NavbarEffects.init();
-        
-        console.log('UIEffects - spouštím SmoothScrolling');
-        SmoothScrolling.init();
-        
-        // NOUZOVÉ ŘEŠENÍ PRO POČÍTADLA
-        console.log('UIEffects - spouštím nouzové řešení počítadel');
-        setTimeout(() => {
-            const statNumbers = document.querySelectorAll('[data-target]');
-            console.log('UIEffects - nalezeno počítadel:', statNumbers.length);
+        try {
+            // Inicializace všech UI modulů
+            console.log('UIEffects - spouštím LoadingStates');
+            LoadingStates.init();
             
-            // Nejdříve nastavíme všechna počítadla na 0 pro konzistentní start
-            statNumbers.forEach((counter) => {
-                counter.textContent = '0';
-            });
+            console.log('UIEffects - spouštím Notifications');
+            Notifications.init();
             
-            // Pak je za chvilku animujeme
-            setTimeout(() => {
-                statNumbers.forEach((counter, index) => {
-                    const target = parseInt(counter.getAttribute('data-target'));
-                    console.log(`UIEffects - animuji počítadlo ${index} z 0 do ${target}`);
-                    
-                    if (target && !counter.dataset.animated) {
-                        counter.dataset.animated = 'true';
-                        this.animateCounterDirect(counter, target);
-                    }
-                });
-            }, 300); // Krátká pauza aby uživatel viděl, že se všechny nastavily na 0
-        }, 1000);
-        
-        console.log('UIEffects - Inicializace dokončena');
-    },
-    
-    // Přímá animace počítadel (vždy od 0)
-    animateCounterDirect(counter, target) {
-        console.log(`UIEffects - animuji počítadlo od 0 do ${target}`);
-        
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-        
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                counter.textContent = target.toLocaleString('cs-CZ');
-                clearInterval(timer);
-                console.log(`UIEffects - počítadlo dokončeno: ${target}`);
-            } else {
-                counter.textContent = Math.floor(current).toLocaleString('cs-CZ');
-            }
-        }, 16);
+            console.log('UIEffects - spouštím LightboxModule');
+            LightboxModule.init();
+            
+            console.log('UIEffects - spouštím ScrollEffects');
+            ScrollEffects.init();
+            
+            console.log('UIEffects - spouštím NavbarEffects');
+            NavbarEffects.init();
+            
+            console.log('UIEffects - spouštím SmoothScrolling');
+            SmoothScrolling.init();
+            
+            console.log('UIEffects - Inicializace dokončena');
+            
+        } catch (error) {
+            console.error('UIEffects - Chyba při inicializaci:', error);
+        }
     }
 };
 
 // Export pro možné použití v jiných souborech
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { UIEffects, LoadingStates, Notifications, LightboxModule, ScrollEffects, NavbarEffects, SmoothScrolling };
+    module.exports = { 
+        UIEffects, 
+        LoadingStates, 
+        Notifications, 
+        LightboxModule, 
+        ScrollEffects, 
+        NavbarEffects, 
+        SmoothScrolling 
+    };
 }

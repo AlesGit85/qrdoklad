@@ -344,32 +344,27 @@ final class Template_ab4446634a extends Latte\Runtime\Template
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- QRdoklad JS - modulární struktura -->
-    <!-- 📝 POZNÁMKA: Pořadí načítání je důležité! -->
+    <!-- QRdoklad JS - vyčištěná modulární struktura -->
+    <!-- 📝 POZNÁMKA: Načítáme pouze existující soubory v správném pořadí -->
     
-    <!-- 1. Nejdříve utility moduly (loading states, notifikace, analytics) -->
+    <!-- 1. UI efekty (scroll animace, navbar, smooth scrolling, lightbox) -->
     <script src="';
 		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 219 */;
-		echo '/js/utilities.js"></script>
-    
-    <!-- 2. UI efekty (scroll animace, navbar, smooth scrolling) -->
-    <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 222 */;
 		echo '/js/ui-effects.js"></script>
     
-    <!-- 3. Pricing funkce (toggle, kalkulačka) -->
+    <!-- 2. Pricing funkce (toggle, kalkulačka) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 225 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 222 */;
 		echo '/js/pricing.js"></script>
     
-    <!-- 4. Formulářové funkce (kontakt, validace) -->
+    <!-- 3. Formulářové funkce (kontakt, validace) -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 228 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 225 */;
 		echo '/js/form-handler.js"></script>
     
-    <!-- 5. Nakonec hlavní inicializační soubor -->
+    <!-- 4. Nakonec hlavní inicializační soubor -->
     <script src="';
-		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 231 */;
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 228 */;
 		echo '/js/landing.js"></script>
 
     <!-- Scroll to Top tlačítko -->
