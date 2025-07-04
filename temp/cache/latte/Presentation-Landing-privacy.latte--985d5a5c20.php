@@ -1,5 +1,36 @@
-{block content}
+<?php
 
+declare(strict_types=1);
+
+use Latte\Runtime as LR;
+
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/privacy.latte */
+final class Template_985d5a5c20 extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/privacy.latte';
+
+	public const Blocks = [
+		['content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+	}
+
+
+	/** {block content} on line 1 */
+	public function blockContent(array $ʟ_args): void
+	{
+		echo '
 <!-- Hero sekce pro privacy policy -->
 <section class="hero-section py-5">
     <div class="container">
@@ -14,7 +45,9 @@
                 </p>
                 <p class="text-muted">
                     <i class="bi bi-calendar-check me-2"></i>
-                    Poslední aktualizace: {date('j. n. Y')}
+                    Poslední aktualizace: ';
+		echo LR\Filters::escapeHtmlText(date('j. n. Y')) /* line 17 */;
+		echo '
                 </p>
             </div>
         </div>
@@ -315,7 +348,9 @@
                     <div class="text-center">
                         <p class="text-muted small mb-0">
                             <i class="bi bi-calendar-check me-2"></i>
-                            Tyto zásady jsou platné od {date('j. n. Y')} a jsou v souladu s GDPR a českými zákony.
+                            Tyto zásady jsou platné od ';
+		echo LR\Filters::escapeHtmlText(date('j. n. Y')) /* line 318 */;
+		echo ' a jsou v souladu s GDPR a českými zákony.
                         </p>
                     </div>
 
@@ -325,4 +360,6 @@
     </div>
 </section>
 
-{/block}
+';
+	}
+}

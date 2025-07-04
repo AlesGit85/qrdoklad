@@ -29,6 +29,7 @@
 @import url('pages.css');           /* VYČIŠTĚNO - jen FAQ, Status, Help */
 @import url('contact.css');         /* kontaktní formuláře a styly */
 @import url('modules.css');         /* modulové karty, balíčky, kalkulačka */
+@import url('faq.css');             /* FAQ stránka styly */
 
 /* Import responsive stylů (pouze jednou) */
 @import url('responsive.css');

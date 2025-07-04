@@ -1,5 +1,40 @@
-{block content}
+<?php
 
+declare(strict_types=1);
+
+use Latte\Runtime as LR;
+
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/faq.latte */
+final class Template_8ee902cb3d extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/faq.latte';
+
+	public const Blocks = [
+		['content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+	}
+
+
+	/** {block content} on line 1 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce pro FAQ -->
 <section class="hero-section py-5">
     <div class="container">
@@ -514,7 +549,9 @@
                                         <li><strong>Transparentnost</strong> - jasné informace o zpracování</li>
                                         <li><strong>Bezpečnost</strong> - technická a organizační opatření</li>
                                     </ul>
-                                    <p>Detaily najdete v naší <a n:href="Landing:privacy">zásadách ochrany osobních údajů</a>.</p>
+                                    <p>Detaily najdete v naší <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 517 */;
+		echo '">zásadách ochrany osobních údajů</a>.</p>
                                 </div>
                             </div>
                         </div>
@@ -659,7 +696,9 @@
                         </p>
                         <div class="row justify-content-center">
                             <div class="col-md-6">
-                                <a n:href="Landing:kontakt" class="btn btn-white btn-lg w-100 mb-3">
+                                <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 662 */;
+		echo '" class="btn btn-white btn-lg w-100 mb-3">
                                     <i class="bi bi-chat-dots me-2"></i>
                                     Kontaktovat podporu
                                 </a>
@@ -679,4 +718,6 @@
     </div>
 </section>
 
-{/block}
+';
+	}
+}

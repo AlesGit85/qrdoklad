@@ -1,0 +1,105 @@
+/* FAQ stránka - styly */
+
+/* Kategorie odkazy */
+.category-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--gray-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.category-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.category-link i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--gray-color) !important;
+    transition: color 0.3s ease;
+}
+
+.category-link:hover i {
+    color: white !important;
+}
+
+/* FAQ kategorie scroll offset */
+.faq-category {
+    scroll-margin-top: 100px;
+}
+
+/* Nadpisy kategorií */
+.category-title {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-title i {
+    color: var(--primary-color) !important;
+}
+
+/* Accordion styly */
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.accordion-button:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25);
+}
+
+/* CTA sekce */
+.cta-section {
+    border: 2px solid var(--primary-color);
+}
+
+/* Vyhledávání */
+#faqSearch:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(177, 210, 53, 0.25);
+}
+
+/* Odkazy v obsahu */
+.accordion-body a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.accordion-body a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Jednotné tlačítka */
+.btn-white {
+    background-color: white;
+    color: var(--primary-color);
+    border: 2px solid white;
+    font-weight: 600;
+}
+
+.btn-white:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.btn-outline-light {
+    border: 2px solid white;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: var(--primary-color);
+    border-color: white;
+}

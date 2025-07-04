@@ -140,8 +140,8 @@ class LandingPresenter extends Presenter
      */
     public function renderAbout(): void
     {
-        $this->template->pageTitle = 'O mně - Allimedia | Aleš Zita';
-        $this->template->metaDescription = 'Jmenuji se Aleš a pod značkou Allimedia vyvíjím weby, WordPress pluginy a chytrá řešení na míru. One-man studio založené v roce 2025.';
+        $this->template->pageTitle = 'O QRdokladu - QRdoklad.cz | od Allimedia.cz';
+        $this->template->metaDescription = 'Mise QRdokladu je zjednodušit fakturaci pro české podnikatele pomocí moderních technologií. Fakturačn systém od živnostníka pro živnostníky. Jmenuji se Aleš a pod značkou Allimedia.cz vyvíjím weby, webové aplikace, WordPress pluginy a chytrá řešení na míru. One-man studio založené v roce 2025.';
         $this->template->metaKeywords = 'QRdoklad, o nás, Aleš Zita, Allimedia, tvůrce, fakturační systém, webový vývojář, one-man studio';
     }
 
@@ -318,7 +318,7 @@ class LandingPresenter extends Presenter
         try {
             // Zde by byla logika pro odeslání e-mailu
             // Pro demo účely pouze nastavíme flash zprávu
-            
+
             // Log pro debug (můžeš odebrat v produkci)
             error_log("=== NOVÁ ZPRÁVA Z KONTAKTNÍHO FORMULÁŘE ===");
             error_log("Jméno: " . $data['name']);
@@ -328,10 +328,9 @@ class LandingPresenter extends Presenter
             error_log("Předmět: " . $data['subject']);
             error_log("Zpráva: " . $data['message']);
             error_log("Souhlas: " . ($data['privacy'] ? 'ANO' : 'NE'));
-            
+
             $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
             $this->redirect('this');
-            
         } catch (\Exception $e) {
             $this->flashMessage('Omlouváme se, ale při odesílání zprávy došlo k chybě. Zkuste to prosím znovu.', 'error');
         }

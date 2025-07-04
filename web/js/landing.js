@@ -17,20 +17,20 @@ SCROLL TO TOP MODUL
 const ScrollToTop = {
     button: null,
     threshold: 300, // Po kolika pixelech se tlačítko zobrazí
-    
+
     init() {
         this.button = document.getElementById('scrollToTop');
-        
+
         if (!this.button) {
             console.log('ScrollToTop - tlačítko nenalezeno');
             return;
         }
-        
+
         console.log('ScrollToTop - inicializace...');
         this.bindEvents();
         this.checkScroll(); // Počáteční kontrola
     },
-    
+
     bindEvents() {
         // Scroll událost pro zobrazení/skrytí tlačítka (throttled)
         let scrollTimeout;
@@ -42,39 +42,39 @@ const ScrollToTop = {
                 this.checkScroll();
             }, 10);
         });
-        
+
         // Click událost pro scroll nahoru
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
             this.scrollToTop();
         });
     },
-    
+
     checkScroll() {
         const scrolled = window.pageYOffset || document.documentElement.scrollTop;
-        
+
         if (scrolled > this.threshold) {
             this.showButton();
         } else {
             this.hideButton();
         }
     },
-    
+
     showButton() {
         this.button.classList.add('show');
     },
-    
+
     hideButton() {
         this.button.classList.remove('show');
     },
-    
+
     scrollToTop() {
         // Smooth scroll nahoru
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        
+
         // Analytics tracking (pokud je GA k dispozici)
         if (typeof gtag !== 'undefined') {
             gtag('event', 'scroll_to_top', {
@@ -82,14 +82,14 @@ const ScrollToTop = {
                 event_label: 'scroll_to_top_click'
             });
         }
-        
+
         console.log('ScrollToTop - scrollování nahoru');
     }
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🚀 QRdoklad Landing Page - inicializace začíná');
-    
+
     // Inicializace modulů postupně - pouze těch, které skutečně existují
     try {
         // 1. UI efekty (scroll, navbar, smooth scrolling, lightbox)
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.warn('⚠️ UIEffects modul nenalezen');
         }
-        
+
         // 2. Pricing funkcionalita
         if (typeof PricingModule !== 'undefined') {
             console.log('✅ Inicializuji PricingModule...');
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.log('ℹ️ PricingModule není dostupný na této stránce');
         }
-        
+
         // 3. Formuláře
         if (typeof FormHandler !== 'undefined') {
             console.log('✅ Inicializuji FormHandler...');
@@ -115,16 +115,16 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.log('ℹ️ FormHandler není dostupný na této stránce');
         }
-        
+
         // 4. Scroll to Top tlačítko
         console.log('✅ Inicializuji ScrollToTop...');
         ScrollToTop.init();
-        
+
         console.log('🎉 QRdoklad Landing Page - inicializace dokončena');
-        
+
     } catch (error) {
         console.error('❌ Chyba při inicializaci modulů:', error);
-        
+
         // Fallback - alespoň základní funkcionalita
         console.log('🔄 Spouštím fallback inicializaci...');
         initFallback();
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initFallback() {
     console.log('🔄 Spouštím fallback inicializaci...');
-    
+
     // Základní smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -151,7 +151,7 @@ function initFallback() {
             }
         });
     });
-    
+
     // Základní navbar scroll efekt
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
@@ -164,7 +164,7 @@ function initFallback() {
             }
         }
     });
-    
+
     console.log('✅ Fallback inicializace dokončena');
 }
 
@@ -184,7 +184,7 @@ window.QRdoklad = {
                     event_label: label
                 });
             }
-            
+
             // Debug v konzoli
             console.log('📊 Track:', { action, category, label });
         } catch (error) {
@@ -231,3 +231,11 @@ window.LandingInit = {
     track: window.QRdoklad.track
 };
 
+// 5. FAQ funkcionalita (po ScrollToTop)
+if (typeof initFAQSearch !== 'undefined') {
+    console.log('✅ Inicializuji FAQ...');
+    initFAQSearch();
+    initCategoryLinks();
+} else {
+    console.log('ℹ️ FAQ moduly nejsou dostupné na této stránce');
+}
