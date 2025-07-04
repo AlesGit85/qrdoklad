@@ -1,5 +1,40 @@
-{block content}
+<?php
 
+declare(strict_types=1);
+
+use Latte\Runtime as LR;
+
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/status.latte */
+final class Template_c44d950568 extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/status.latte';
+
+	public const Blocks = [
+		['content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+	}
+
+
+	/** {block content} on line 1 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce pro status -->
 <section class="hero-section py-5">
     <div class="container">
@@ -263,7 +298,9 @@
                             <div class="incident-content flex-grow-1">
                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                     <h6 class="text-success mb-1">Všechny služby jsou funkční</h6>
-                                    <small class="text-muted">{date('j. n. Y H:i')}</small>
+                                    <small class="text-muted">';
+		echo LR\Filters::escapeHtmlText(date('j. n. Y H:i')) /* line 266 */;
+		echo '</small>
                                 </div>
                                 <p class="text-muted mb-0">
                                     V současné době nehlásíme žádné výpadky nebo problémy. Všechny služby běží bez problémů.
@@ -327,7 +364,9 @@
                 <div class="text-center mt-4">
                     <p class="text-muted">
                         Zobrazeny jsou pouze poslední incidenty. 
-                        <a n:href="Landing:incidents" class="text-primary">Zobrazit kompletní historii</a>
+                        <a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:incidents')) /* line 330 */;
+		echo '" class="text-primary">Zobrazit kompletní historii</a>
                     </p>
                 </div>
             </div>
@@ -415,7 +454,9 @@
                 <small class="text-muted">
                     <i class="bi bi-arrow-clockwise me-2"></i>
                     Stránka se automaticky obnovuje každých 5 minut. 
-                    Poslední aktualizace: <span id="lastUpdate">{date('j. n. Y H:i:s')}</span>
+                    Poslední aktualizace: <span id="lastUpdate">';
+		echo LR\Filters::escapeHtmlText(date('j. n. Y H:i:s')) /* line 418 */;
+		echo '</span>
                 </small>
             </div>
         </div>
@@ -429,18 +470,20 @@ setTimeout(function() {
 }, 300000); // 5 minut = 300000ms
 
 // Aktualizace času posledního načtení
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener(\'DOMContentLoaded\', function() {
     const now = new Date();
     const options = { 
-        day: 'numeric', 
-        month: 'numeric', 
-        year: 'numeric',
-        hour: '2-digit', 
-        minute: '2-digit',
-        second: '2-digit'
+        day: \'numeric\', 
+        month: \'numeric\', 
+        year: \'numeric\',
+        hour: \'2-digit\', 
+        minute: \'2-digit\',
+        second: \'2-digit\'
     };
-    document.getElementById('lastUpdate').textContent = now.toLocaleDateString('cs-CZ', options);
+    document.getElementById(\'lastUpdate\').textContent = now.toLocaleDateString(\'cs-CZ\', options);
 });
 </script>
 
-{/block}
+';
+	}
+}

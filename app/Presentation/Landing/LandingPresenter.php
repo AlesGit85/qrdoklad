@@ -136,7 +136,7 @@ class LandingPresenter extends Presenter
     }
 
     /**
-     * O mně - Allimedia
+     * O QRdokladu - Allimedia
      */
     public function renderAbout(): void
     {
@@ -161,6 +161,16 @@ class LandingPresenter extends Presenter
         $this->template->pageTitle = 'Status systému - QRdoklad';
         $this->template->metaDescription = 'Aktuální stav dostupnosti služeb QRdoklad. Monitorujeme všechny systémy 24/7 a informujeme o jakýchkoli problémech.';
         $this->template->metaKeywords = 'status, dostupnost, monitoring, incidenty, výpadky služby';
+    }
+
+    /**
+     * Historie incidentů
+     */
+    public function renderIncidents(): void
+    {
+        $this->template->pageTitle = 'Historie incidentů - QRdoklad | Kompletní přehled';
+        $this->template->metaDescription = 'Kompletní historie všech incidentů, výpadků a údržeb služeb QRdoklad. Transparentní přehled s detailními informacemi.';
+        $this->template->metaKeywords = 'historie incidentů, výpadky, údržba, timeline, status historie';
     }
 
     /**
