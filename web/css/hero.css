@@ -163,26 +163,81 @@
 }
 
 .floating-card.stats-card .stat-item h3.text-success {
-    color: #28a745 !important;
+    color: #B1D235 !important;
+}
+
+/* OPRAVENÉ CENTROVÁNÍ PRO STATS-CARD */
+.floating-card.stats-card .stat-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0.75rem !important;
+    gap: 0.25rem !important;
+    min-height: 60px !important;
+}
+
+.floating-card.stats-card .stat-item h3 {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
 }
 
 .floating-card.stats-card .stat-item p {
     color: var(--gray-color) !important;
     margin: 0 !important;
-    font-size: 0.7rem !important;
+    font-size: 0.75rem !important;
     font-weight: 500 !important;
-    line-height: 1.1 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
     max-width: 100% !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    display: -webkit-box !important;
-    line-clamp: 2 !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    white-space: normal !important;
+}
+
+.floating-card {
+    position: absolute;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    animation: float-desktop 6s ease-in-out infinite;
+}
+
+.invoice-card {
+    width: 280px;
+    top: 20%;
+    right: 10%;
+    padding: 20px;
+}
+
+.stats-card {
+    width: 200px;
+    bottom: 20%;
+    left: 10%;
+    padding: 15px;
+}
+
+/* Float animace - opravená pro mobilní centrování */
+@keyframes float-mobile {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+@keyframes float-desktop {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.floating-card:nth-child(2) {
+    animation-delay: -3s;
 }
 
 /* ============================
@@ -206,6 +261,7 @@
     }
 }
 
+/* TABLET VERZE - OPRAVENÝ SPACING */
 @media (max-width: 991px) {
     .hero-section::before,
     .hero-section::after {
@@ -226,9 +282,29 @@
     
     .floating-card {
         position: relative;
-        margin: 20px auto;
+        margin: 0 auto;
         display: block;
-        animation: none;
+        animation: float-desktop 6s ease-in-out infinite;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+    }
+    
+    /* INVOICE CARD - VELKÝ SPACING NAHOŘE */
+    .floating-card.invoice-card {
+        margin-top: 2rem !important;
+        margin-bottom: 5rem !important;
+        width: 280px !important;
+        padding: 20px !important;
+    }
+    
+    /* STATS CARD - MENŠÍ SPACING DOLE */
+    .floating-card.stats-card {
+        width: 300px !important;
+        padding: 25px !important;
+        margin-top: 1rem !important;
+        margin-bottom: 2rem !important;
     }
     
     .hero-image {
@@ -240,11 +316,6 @@
         justify-content: center;
         text-align: center;
         gap: 3rem;
-    }
-    
-    .floating-card.stats-card {
-        width: 300px !important;
-        padding: 25px !important;
     }
     
     .floating-card.stats-card .stat-item h3 {
@@ -299,6 +370,7 @@
     }
 }
 
+/* MOBILNÍ VERZE - OPRAVENÉ CENTROVÁNÍ STATS-CARD */
 @media (max-width: 576px) {
     .hero-section {
         padding: 120px 0 40px !important;
@@ -317,13 +389,25 @@
     }
     
     .floating-card {
-        margin: 15px auto;
+        margin: 15px auto !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        position: relative !important;
+        display: block !important;
+        animation: float-desktop 6s ease-in-out infinite;
     }
     
-    .invoice-card,
+    .invoice-card {
+        width: 260px !important;
+        padding: 20px !important;
+        margin-bottom: 2rem;
+    }
+    
     .stats-card {
-        width: 280px;
-        padding: 20px;
+        width: 260px !important;
+        padding: 20px !important;
     }
     
     .hero-stats {
@@ -339,5 +423,25 @@
     
     .highlight-title {
         font-size: 1.1rem;
+    }
+    
+    /* Mobilní stats-card specifické úpravy */
+    .floating-card.stats-card .stat-item {
+        padding: 0.5rem !important;
+        min-height: 50px !important;
+    }
+    
+    .floating-card.stats-card .stat-item h3 {
+        font-size: 1.6rem !important;
+    }
+    
+    .floating-card.stats-card .stat-item p {
+        font-size: 0.7rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    /* Animace delay pro druhé dítě */
+    .floating-card:nth-child(2) {
+        animation-delay: -3s;
     }
 }

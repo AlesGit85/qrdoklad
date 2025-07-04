@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Latte\Runtime as LR;
 
-/** source: D:\_coding\nette\qrdoklad\app\Presentation\@layout.latte */
+/** source: D:\_coding\nette\qrdoklad\app\Presentation/@layout.latte */
 final class Template_ab4446634a extends Latte\Runtime\Template
 {
-	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\@layout.latte';
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation/@layout.latte';
 
 
 	public function main(array $ʟ_args): void
