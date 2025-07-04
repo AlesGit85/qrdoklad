@@ -194,6 +194,16 @@ class LandingPresenter extends Presenter
     }
 
     /**
+     * API dokumentace
+     */
+    public function renderApi(): void
+    {
+        $this->template->pageTitle = 'API dokumentace - QRdoklad | REST API';
+        $this->template->metaDescription = 'Kompletní dokumentace REST API pro QRdoklad. Propojte svou aplikaci s fakturačním systémem pomocí moderního API rozhraní.';
+        $this->template->metaKeywords = 'API, REST API, dokumentace, integrace, webhooks, SDK, vývojáři';
+    }
+
+    /**
      * XML Sitemap
      */
     public function actionSitemap(): void

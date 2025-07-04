@@ -261,9 +261,11 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                         <li><a href="';
 		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:cenik')) /* line 149 */;
 		echo '" class="text-light-50" title="✅ Hotové">Ceník</a></li>
+                        <li><a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:api')) /* line 150 */;
+		echo '" class="text-light-50" title="✅ Hotové">API dokumentace</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
-                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">API dokumentace</a></li>
                         <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">Changelog</a></li>
                     </ul>
                 </div>
@@ -277,13 +279,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:help')) /* line 162 */;
 		echo '" class="text-light-50" title="✅ Hotové">Nápověda</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 163 */;
-		echo '" class="text-light-50" title="✅ Hotové">Kontakt</a></li>
-                        <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 164 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:faq')) /* line 163 */;
 		echo '" class="text-light-50" title="✅ Hotové">FAQ</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 165 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:status')) /* line 164 */;
 		echo '" class="text-light-50" title="✅ Hotové">Status</a></li>
                     </ul>
                 </div>
@@ -294,10 +293,10 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- 🔄 PŘIPRAVENÉ V ROUTERU -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 174 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:terms')) /* line 173 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Obchodní podmínky</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 175 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:privacy')) /* line 174 */;
 		echo '" class="text-light-50" title="🔄 Připraveno v routeru">Ochrana osobních údajů</a></li>
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
@@ -311,14 +310,17 @@ final class Template_ab4446634a extends Latte\Runtime\Template
                     <ul class="list-unstyled">
                         <!-- ✅ HOTOVÉ STRÁNKY -->
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 187 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:about')) /* line 186 */;
 		echo '" class="text-light-50" title="✅ Hotové">O QRdokladu</a></li>
                         <li><a href="';
-		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 188 */;
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:blog')) /* line 187 */;
 		echo '" class="text-light-50" title="✅ Hotové">Blog</a></li>
+                        <li><a href="';
+		echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link('Landing:kontakt')) /* line 188 */;
+		echo '" class="text-light-50" title="✅ Hotové">Kontakt</a></li>
+
                         
                         <!-- 🚧 PŘIPRAVUJEME -->
-                        <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">Tým</a></li>
                         <li><a href="#" class="text-light-50 opacity-50" title="🚧 V přípravě">Kariéra</a></li>
                     </ul>
                 </div>

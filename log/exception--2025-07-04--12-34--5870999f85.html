@@ -1,0 +1,383 @@
+<!DOCTYPE html><!-- "' --></textarea></script></style></pre></xmp></a></iframe></noembed></noframes></noscript></option></select></template></title></table></p></code>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+	<meta name="generator" content="Tracy by Nette Framework">
+
+	<title>ReflectionException: Cannot fetch information from a closed Generator</title>
+	<!-- in D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml:13 -->
+	<!-- http://localhost:8000/api -->
+
+	<style class="tracy-debug">
+	:root{--tracy-space: 16px}@media (max-width: 600px){:root{--tracy-space: 8px}}tracy-div:not(a b),tracy-div:not(a b) *{font: inherit;line-height: inherit;color: inherit;background: transparent;margin: 0;padding: 0;border: none;text-align: inherit;list-style: inherit;opacity: 1;border-radius: 0;box-shadow: none;text-shadow: none;box-sizing: border-box;text-decoration: none;text-transform: inherit;white-space: inherit;float: none;clear: none;max-width: initial;min-width: initial;max-height: initial;min-height: initial}tracy-div:not(a b) *:hover{color: inherit;background: transparent}tracy-div:not(a b) *:not(svg):not(img):not(table){width: initial;height: initial}tracy-div:not(a b):before,tracy-div:not(a b):after,tracy-div:not(a b) *:before,tracy-div:not(a b) *:after{all: unset}tracy-div:not(a b) b,tracy-div:not(a b) strong{font-weight: bold}tracy-div:not(a b) small{font-size: smaller}tracy-div:not(a b) i,tracy-div:not(a b) em{font-style: italic}tracy-div:not(a b) big{font-size: larger}tracy-div:not(a b) small,tracy-div:not(a b) sub,tracy-div:not(a b) sup{font-size: smaller}tracy-div:not(a b) ins{text-decoration: underline}tracy-div:not(a b) del{text-decoration: line-through}tracy-div:not(a b) table{border-collapse: collapse}tracy-div:not(a b) pre{font-family: monospace;white-space: pre}tracy-div:not(a b) code,tracy-div:not(a b) kbd,tracy-div:not(a b) samp{font-family: monospace}tracy-div:not(a b) input{background-color: white;padding: 1px;border: 1px solid}tracy-div:not(a b) textarea{background-color: white;border: 1px solid;padding: 2px;white-space: pre-wrap}tracy-div:not(a b) select{border: 1px solid;white-space: pre}tracy-div:not(a b) article,tracy-div:not(a b) aside,tracy-div:not(a b) details,tracy-div:not(a b) div,tracy-div:not(a b) figcaption,tracy-div:not(a b) footer,tracy-div:not(a b) form,tracy-div:not(a b) header,tracy-div:not(a b) hgroup,tracy-div:not(a b) main,tracy-div:not(a b) nav,tracy-div:not(a b) section,tracy-div:not(a b) summary,tracy-div:not(a b) pre,tracy-div:not(a b) p,tracy-div:not(a b) dl,tracy-div:not(a b) dd,tracy-div:not(a b) dt,tracy-div:not(a b) blockquote,tracy-div:not(a b) figure,tracy-div:not(a b) address,tracy-div:not(a b) h1,tracy-div:not(a b) h2,tracy-div:not(a b) h3,tracy-div:not(a b) h4,tracy-div:not(a b) h5,tracy-div:not(a b) h6,tracy-div:not(a b) ul,tracy-div:not(a b) ol,tracy-div:not(a b) li,tracy-div:not(a b) hr{display: block}tracy-div:not(a b) a,tracy-div:not(a b) b,tracy-div:not(a b) big,tracy-div:not(a b) code,tracy-div:not(a b) em,tracy-div:not(a b) i,tracy-div:not(a b) small,tracy-div:not(a b) span,tracy-div:not(a b) strong{display: inline}tracy-div:not(a b) table{display: table}tracy-div:not(a b) tr{display: table-row}tracy-div:not(a b) col{display: table-column}tracy-div:not(a b) colgroup{display: table-column-group}tracy-div:not(a b) tbody{display: table-row-group}tracy-div:not(a b) thead{display: table-header-group}tracy-div:not(a b) tfoot{display: table-footer-group}tracy-div:not(a b) td{display: table-cell}tracy-div:not(a b) th{display: table-cell}tracy-div:not(a b) .tracy-sortable>:first-child>tr:first-child>*{position: relative}tracy-div:not(a b) .tracy-sortable>:first-child>tr:first-child>*:hover:before{position: absolute;right: .3em;content:"\21C5";opacity: .4;font-weight: normal}tracy-div:not(a b) .tracy-dump div{padding-left: 3ex}tracy-div:not(a b) .tracy-dump div div{border-left: 1px solid rgba(0,0,0,.1);margin-left: .5ex}tracy-div:not(a b) .tracy-dump div div:hover{border-left-color: rgba(0,0,0,.25)}tracy-div:not(a b) .tracy-dump{background: #FDF5CE;padding: .4em .7em;border: 1px dotted silver;overflow: auto}tracy-div:not(a b) table .tracy-dump.tracy-dump{padding: 0;margin: 0;border: none}tracy-div:not(a b) .tracy-dump-location{color: gray;font-size: 80%;text-decoration: none;background: none;opacity: .5;float: right;cursor: pointer}tracy-div:not(a b) .tracy-dump-location:hover,tracy-div:not(a b) .tracy-dump-location:focus{color: gray;background: none;opacity: 1}tracy-div:not(a b) .tracy-dump-array,tracy-div:not(a b) .tracy-dump-object{color: #C22}tracy-div:not(a b) .tracy-dump-string{color: #35D;white-space: break-spaces}tracy-div:not(a b) div.tracy-dump-string{position: relative;padding-left: 3.5ex}tracy-div:not(a b) .tracy-dump-lq{margin-left: calc(-1ex - 1px)}tracy-div:not(a b) div.tracy-dump-string:before{content:'';position: absolute;left: calc(3ex - 1px);top: 1.5em;bottom: 0;border-left: 1px solid rgba(0,0,0,.1)}tracy-div:not(a b) .tracy-dump-virtual span,tracy-div:not(a b) .tracy-dump-dynamic span,tracy-div:not(a b) .tracy-dump-string span{color: rgba(0,0,0,0.5)}tracy-div:not(a b) .tracy-dump-virtual i,tracy-div:not(a b) .tracy-dump-dynamic i,tracy-div:not(a b) .tracy-dump-string i{font-size: 80%;font-style: normal;color: rgba(0,0,0,0.5);user-select: none}tracy-div:not(a b) .tracy-dump-number{color: #090}tracy-div:not(a b) .tracy-dump-null,tracy-div:not(a b) .tracy-dump-bool{color: #850}tracy-div:not(a b) .tracy-dump-virtual{font-style: italic}tracy-div:not(a b) .tracy-dump-public::after{content:' pub'}tracy-div:not(a b) .tracy-dump-protected::after{content:' pro'}tracy-div:not(a b) .tracy-dump-private::after{content:' pri'}tracy-div:not(a b) .tracy-dump-public::after,tracy-div:not(a b) .tracy-dump-protected::after,tracy-div:not(a b) .tracy-dump-private::after,tracy-div:not(a b) .tracy-dump-hash{font-size: 85%;color: rgba(0,0,0,0.5)}tracy-div:not(a b) .tracy-dump-indent{display: none}tracy-div:not(a b) .tracy-dump-highlight{background: #C22;color: white;border-radius: 2px;padding: 0 2px;margin: 0 -2px}tracy-div:not(a b) span[data-tracy-href]{border-bottom: 1px dotted rgba(0,0,0,.2)}tracy-div:not(a b) .tracy-toggle:after{content:'';display: inline-block;vertical-align: middle;line-height: 0;border-top: .6ex solid;border-right: .6ex solid transparent;border-left: .6ex solid transparent;transform: scale(1,1.5);margin: 0 .2ex 0 .7ex;transition: .1s transform;opacity: .5}tracy-div:not(a b) .tracy-toggle.tracy-collapsed:after{transform: rotate(-90deg) scale(1,1.5) translate(.1ex,0)}tracy-div:not(a b) .tracy-tab-label{user-select: none}tracy-div:not(a b) .tracy-tab-panel:not(.tracy-active){display: none}html.tracy-bs-visible,html.tracy-bs-visible body{display: block;overflow: auto;position: static}#tracy-bs{font: 9pt/1.5 Verdana,sans-serif;background: white;color: #333;position: absolute;z-index: 20000;left: 0;top: 0;width: 100%;text-align: left}#tracy-bs a{text-decoration: none;color: #328ADC;padding: 0 4px;margin: 0 -4px}#tracy-bs a+a{margin-left: 0}#tracy-bs a:hover,#tracy-bs a:focus{color: #085AA3}#tracy-bs-toggle{position: absolute;right: .5em;top: .5em;text-decoration: none;background: #CD1818;color: white!important;padding: 3px}#tracy-bs-toggle.tracy-collapsed{position: fixed}.tracy-bs-main{display: flex;flex-direction: column;padding-bottom: 80vh}.tracy-bs-main.tracy-collapsed{display: none}#tracy-bs :where(:is( h1,h2,h3,h4,h5,h6,p,ol,ul,dl,pre,table,hr,.tracy-section-panel,.tracy-pane ):not(:first-child)){margin-top: var(--tracy-space)}#tracy-bs h1{font-size: 15pt;font-weight: normal;text-shadow: 1px 1px 2px rgba(0,0,0,.3)}#tracy-bs h1 span{white-space: pre-wrap}#tracy-bs h2{font-size: 14pt;font-weight: normal}#tracy-bs h3{font-size: 10pt;font-weight: bold}#tracy-bs pre,#tracy-bs code,#tracy-bs table{font: 9pt/1.5 Consolas,monospace!important}#tracy-bs pre,#tracy-bs table{background: #FDF5CE;padding: .4em .7em;border: 2px solid #ffffffa6;box-shadow: 1px 2px 6px #00000005;overflow: auto}#tracy-bs table pre{padding: 0;margin: 0;border: none;box-shadow: none}#tracy-bs table{border-collapse: collapse;width: 100%}#tracy-bs td,#tracy-bs th{vertical-align: top;text-align: left;padding: 2px 6px;border: 1px solid #e6dfbf}#tracy-bs th{font-weight: bold}#tracy-bs tr>:first-child{width: 20%}#tracy-bs tr:nth-child(2n),#tracy-bs tr:nth-child(2n) pre{background-color: #F7F0CB}#tracy-bs .tracy-footer--sticky{position: fixed;width: 100%;bottom: 0}#tracy-bs footer ul{font-size: 7pt;padding: var(--tracy-space);margin: var(--tracy-space) 0 0;color: #777;background: #F6F5F3;border-top: 1px solid #DDD;list-style: none}#tracy-bs .tracy-footer-logo{position: relative}#tracy-bs .tracy-footer-logo a{position: absolute;bottom: 0;right: 0;width: 100px;height: 50px;background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAUBAMAAAD/1DctAAAAMFBMVEWupZzj39rEvbTy8O3X0sz9/PvGwLu8tavQysHq6OS0rKP5+Pbd2dT29fPMxbzPx8DKErMJAAAACXBIWXMAAAsTAAALEwEAmpwYAAACGUlEQVQoFX3TQWgTQRQA0MWLIJJDYehBTykhG5ERTx56K1u8eEhCYtomE7x5L4iLh0ViF7egewuFFqSIYE6hIHsIYQ6CQSg9CDKn4QsNCRlB59C74J/ZNHW1+An5+bOPyf6/s46oz2P+A0yIeZZ2ieEHi6TOnLKTxvWq+b52mxlVO3xnM1s7xLX1504XQH65OnW2dBqn7cCkYsFsfYsWpyY/2salmFTpEyzeR8zosYqMdiPDXdyU52K1wgEa/SjGpdEwUAxqvRfckQCDOyFearsEHe2grvkh/cFAHKvdtI3lcVceKQIOFpv+FOZaNPQBwJZLPp+hfrvT5JZXaUFsR8zqQc9qSgAharkfS5M/5F6nGJJAtXq/eLr3ucZpHccSxOOIPaQhtHohpCH2Xu6rLmQ0djnr4/+J3C6v+AW8/XWYxwYNdlhWj/P5fPSTQwVr0T9lGxdaBCqErNZaqYnEwbkjEB3NasGF3lPdrHa1nnxNOMgj0+neePUPjd2v/qVvUv29ifvc19huQ48qwXShy/9o8o3OSk0cs37mOFd0Ydgvsf/oZEnPVtggfd66lORn9mDyyzXU13SRtH2L6aR5T/snGAcZPfAXz5J1YlJWBEuxdMYqQecpBrlM49xAbmqyHA+xlA1FxBtqT2xmJoNXZlIt74ZBLeJ9ZGDqByNI7p543idzJ23vXEv7IgnsxiS+eNtwNbFdLq7+Bi4wQ0I4SVb9AAAAAElFTkSuQmCC') no-repeat;opacity: .6;padding: 0;margin: 0}#tracy-bs .tracy-footer-logo a:hover,#tracy-bs .tracy-footer-logo a:focus{opacity: 1;transition: opacity 0.1s}#tracy-bs .tracy-section{padding: var(--tracy-space)}#tracy-bs .tracy-section-panel{background: #5040200E;padding: var(--tracy-space);border-radius: 8px;box-shadow: inset 1px 1px 0px 0 #00000005;overflow: hidden}#tracy-bs .outer,#tracy-bs .tracy-pane{overflow: auto}#tracy-bs.tracy-mac .tracy-pane{padding-bottom: 12px}#tracy-bs .tracy-section--error{background: #CD1818;color: white}#tracy-bs .tracy-section--error p,#tracy-bs .tracy-section--error h1{font-size: 13pt;color: white}#tracy-bs .tracy-section--error::selection,#tracy-bs .tracy-section--error ::selection{color: black!important;background: #FDF5CE!important}#tracy-bs .tracy-section--error h1 a{color: #ffefa1!important}#tracy-bs .tracy-section--error span span{font-size: 80%;color: rgba(255,255,255,0.5);text-shadow: none}#tracy-bs .tracy-section--error a.tracy-action{color: white!important;opacity: 0;font-size: .7em;border-bottom: none!important}#tracy-bs .tracy-section--error:hover a.tracy-action{opacity: .6}#tracy-bs .tracy-section--error a.tracy-action:hover{opacity: 1}#tracy-bs .tracy-section--error i{color: #ffefa1;font-style: normal}#tracy-bs .tracy-section--error:has(.tracy-caused){border-radius: 0 0 0 8px;overflow: hidden}#tracy-bs .tracy-caused{margin: var(--tracy-space) calc(-1 * var(--tracy-space)) calc(-1 * var(--tracy-space));padding: .3em var(--tracy-space);background: #df8075;white-space: nowrap}#tracy-bs .tracy-caused a{color: white}#tracy-bs pre.tracy-code>div{min-width: fit-content;white-space: pre}#tracy-bs .tracy-code-comment{color: rgba(0,0,0,0.5);font-style: italic}#tracy-bs .tracy-code-keyword{color: #D24;font-weight: bold}#tracy-bs .tracy-code-var{font-weight: bold}#tracy-bs .tracy-line-highlight{background: #CD1818;color: white;font-weight: bold;font-style: normal;display: block;padding: 0 1ch;margin: 0 -1ch -1lh}#tracy-bs .tracy-column-highlight{display: inline-block;backdrop-filter: grayscale(1);margin: 0 -1px;padding: 0 1px}#tracy-bs .tracy-line{color: #9F9C7F;font-weight: normal;font-style: normal}#tracy-bs a.tracy-editor{color: inherit;border-bottom: 1px dotted rgba(0,0,0,.3);border-radius: 3px}#tracy-bs a.tracy-editor:hover{background: #0001}#tracy-bs span[data-tracy-href]{border-bottom: 1px dotted rgba(0,0,0,.3)}#tracy-bs .tracy-dump-whitespace{color: #0003}#tracy-bs .tracy-callstack{display: grid;overflow: auto;grid-template-columns: max-content 1fr;row-gap: calc(.5 * var(--tracy-space))}#tracy-bs .tracy-callstack-file{text-align: right;padding-right: var(--tracy-space);white-space: nowrap}#tracy-bs .tracy-callstack-callee{white-space: nowrap}#tracy-bs .tracy-callstack-additional{grid-column-start: 1;grid-column-end: 3}#tracy-bs .tracy-callstack-args tr:first-child>*{position: relative}#tracy-bs .tracy-callstack-args tr:first-child td:before{position: absolute;right: .3em;content:'may not be true';opacity: .4}#tracy-bs .tracy-panel-fadein{animation: tracy-panel-fadein .12s ease}@keyframes tracy-panel-fadein{0%{opacity: 0}}#tracy-bs .tracy-section--causedby{flex-direction: column;padding: 0}#tracy-bs .tracy-section--causedby:not(.tracy-collapsed){display: flex}#tracy-bs .tracy-section--causedby .tracy-section--error{background: #cd1818a6}#tracy-bs .tracy-section--error+.tracy-section--stack{margin-top: calc(1.5 * var(--tracy-space))}#tracy-bs .tracy-tab-bar{display: flex;list-style: none;padding-left: 0;margin: 0;width: 100%;font-size: 110%;column-gap: var(--tracy-space)}#tracy-bs .tracy-tab-bar a{display: block;padding: calc(.5 * var(--tracy-space)) var(--tracy-space);margin: 0;height: 100%;box-sizing: border-box;border-radius: 5px 5px 0 0;text-decoration: none;transition: all 0.1s}#tracy-bs .tracy-tab-bar>.tracy-active a{background: white}#tracy-bs .tracy-tab-panel{border-top: 2px solid white;padding-top: var(--tracy-space);overflow: auto}.tracy-collapsed{display: none}.tracy-toggle.tracy-collapsed{display: inline}.tracy-toggle{cursor: pointer;user-select: none;white-space: nowrap}.tracy-toggle:after{content:'';display: inline-block;vertical-align: middle;line-height: 0;border-top: .6ex solid;border-right: .6ex solid transparent;border-left: .6ex solid transparent;transform: scale(1,1.5);margin: 0 .2ex 0 .7ex;transition: .1s transform;opacity: .5}.tracy-toggle.tracy-collapsed:after{transform: rotate(-90deg) scale(1,1.5) translate(.1ex,0)}.tracy-sortable>:first-child>tr:first-child>*{position: relative}.tracy-sortable>:first-child>tr:first-child>*:hover:before{position: absolute;right: .3em;content:"\21C5";opacity: .4;font-weight: normal}.tracy-tab-label{user-select: none}.tracy-tab-panel:not(.tracy-active){display: none}.tracy-dump.tracy-light{text-align: left;color: #444;background: #fdf9e2;border-radius: 4px;padding: var(--tracy-space);margin: var(--tracy-space) 0;word-break: break-all;white-space: pre-wrap}.tracy-dump.tracy-light div{padding-left: 2.5ex}.tracy-dump.tracy-light div div{border-left: 1px solid rgba(0,0,0,.1);margin-left: .5ex}.tracy-dump.tracy-light div div:hover{border-left-color: rgba(0,0,0,.25)}.tracy-light .tracy-dump-location{color: gray;font-size: 80%;text-decoration: none;background: none;opacity: .5;float: right;cursor: pointer}.tracy-light .tracy-dump-location:hover,.tracy-light .tracy-dump-location:focus{opacity: 1}.tracy-light .tracy-dump-array,.tracy-light .tracy-dump-object{color: #C22;user-select: text}.tracy-light .tracy-dump-string{color: #35D;white-space: break-spaces}.tracy-light div.tracy-dump-string{position: relative;padding-left: 3.5ex}.tracy-light .tracy-dump-lq{margin-left: calc(-1ex - 1px)}.tracy-light div.tracy-dump-string:before{content:'';position: absolute;left: calc(3ex - 1px);top: 1.5em;bottom: 0;border-left: 1px solid rgba(0,0,0,.1)}.tracy-light .tracy-dump-virtual span,.tracy-light .tracy-dump-dynamic span,.tracy-light .tracy-dump-string span{color: rgba(0,0,0,0.5)}.tracy-light .tracy-dump-virtual i,.tracy-light .tracy-dump-dynamic i,.tracy-light .tracy-dump-string i{font-size: 80%;font-style: normal;color: rgba(0,0,0,0.5);user-select: none}.tracy-light .tracy-dump-number{color: #090}.tracy-light .tracy-dump-null,.tracy-light .tracy-dump-bool{color: #850}.tracy-light .tracy-dump-virtual{font-style: italic}.tracy-light .tracy-dump-public::after{content:' pub'}.tracy-light .tracy-dump-protected::after{content:' pro'}.tracy-light .tracy-dump-private::after{content:' pri'}.tracy-light .tracy-dump-public::after,.tracy-light .tracy-dump-protected::after,.tracy-light .tracy-dump-private::after,.tracy-light .tracy-dump-hash{font-size: 85%;color: rgba(0,0,0,0.35)}.tracy-light .tracy-dump-indent{display: none}.tracy-light .tracy-dump-highlight{background: #C22;color: white;border-radius: 2px;padding: 0 2px;margin: 0 -2px}span[data-tracy-href]{border-bottom: 1px dotted rgba(0,0,0,.2)}.tracy-light .tracy-dump-flash{animation: tracy-dump-flash .2s ease}@keyframes tracy-dump-flash{0%{background: #c0c0c033}}	</style>
+</head>
+
+
+<body>
+<tracy-div id="tracy-bs" itemscope>
+	<a id="tracy-bs-toggle" href="#" class="tracy-toggle">&#xfeff;</a>
+	<div class="tracy-bs-main">
+<section class="tracy-section tracy-section--error">
+	<p>ReflectionException</p>
+
+	<h1><span>Cannot fetch information from a closed Generator</span>
+	</h1>
+
+	</section>
+
+
+<section class="tracy-section tracy-section--stack">
+	<div class="tracy-section-panel">
+		<div class="tracy-tabs">
+			<ul class="tracy-tab-bar">
+				<li class="tracy-tab-label tracy-active"><a href="#">Main thread</a></li>
+
+									<li class="tracy-tab-label"><a href="#">Generator #180</a></li>
+				
+							</ul>
+
+			<div>
+				<div class="tracy-tab-panel tracy-active">
+					
+<section class="tracy-section">
+	<h2 class="tracy-section-label"><a href="#" data-tracy-ref="^+" class="tracy-toggle tracy-collapsed">Source file</a></h2>
+
+	<div class="tracy-section-panel tracy-collapsed">
+		<p><b>File:</b> <a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Csection-stack-generator.phtml&amp;line=13&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml:13" class="tracy-editor">...\Tracy\BlueScreen\assets\<b>section-stack-generator.phtml</b>:13</a></p>
+		<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Csection-stack-generator.phtml&amp;line=13&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-line'> 3:</span>    <span class='tracy-code-keyword'>declare(</span>strict_types<span class='tracy-code-keyword'>=</span><span class='tracy-dump-number'>1</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'> 4:</span>    
+<span class='tracy-line'> 5:</span>    namespace </span>Tracy<span class='tracy-code-keyword'>;
+<span class='tracy-line'> 6:</span>    
+<span class='tracy-line'> 7:</span>    </span><span class='tracy-code-comment'>/**
+<span class='tracy-line'> 8:</span>     * @var \Generator $generator
+<span class='tracy-line'> 9:</span>     * @var callable $dump
+<span class='tracy-line'>10:</span>     */
+<span class='tracy-line'>11:</span>    
+<span class='tracy-line'>12:</span>    </span><span class='tracy-code-var'>$ref </span><span class='tracy-code-keyword'>= new </span>\ReflectionGenerator<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$generator</span><span class='tracy-code-keyword'>);
+</span><span class='tracy-line-highlight'>13:    $stack = $ref-&gt;getTrace();</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>14:</span>    </span><span class='tracy-code-var'>$expanded </span><span class='tracy-code-keyword'>= </span>null<span class='tracy-code-keyword'>;
+<span class='tracy-line'>15:</span>    </span><span class='tracy-code-var'>$execGenerator </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$ref</span><span class='tracy-code-keyword'>-&gt;</span>getExecutingGenerator<span class='tracy-code-keyword'>();
+<span class='tracy-line'>16:</span>    </span><span class='tracy-code-var'>$refExec </span><span class='tracy-code-keyword'>= new </span>\ReflectionGenerator<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$execGenerator</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>17:</span>    </span><span class='tracy-code-var'>$file </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$refExec</span><span class='tracy-code-keyword'>-&gt;</span>getExecutingFile<span class='tracy-code-keyword'>();
+</span></code></div></pre>
+	</div>
+</section>
+
+<section class="tracy-section">
+	<h2 class="tracy-section-label"><a href="#" data-tracy-ref="^+" class="tracy-toggle">Call stack</a></h2>
+
+	<div class="tracy-section-panel">
+	<div class="tracy-callstack">
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Csection-stack-generator.phtml&amp;line=13&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml:13" class="tracy-editor">...\Tracy\BlueScreen\assets\<b>section-stack-generator.phtml</b>:13</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed">ReflectionGenerator::<b>getTrace</b> ()</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Csection-stack-generator.phtml&amp;line=13&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-line'> 3:</span>    <span class='tracy-code-keyword'>declare(</span>strict_types<span class='tracy-code-keyword'>=</span><span class='tracy-dump-number'>1</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'> 4:</span>    
+<span class='tracy-line'> 5:</span>    namespace </span>Tracy<span class='tracy-code-keyword'>;
+<span class='tracy-line'> 6:</span>    
+<span class='tracy-line'> 7:</span>    </span><span class='tracy-code-comment'>/**
+<span class='tracy-line'> 8:</span>     * @var \Generator $generator
+<span class='tracy-line'> 9:</span>     * @var callable $dump
+<span class='tracy-line'>10:</span>     */
+<span class='tracy-line'>11:</span>    
+<span class='tracy-line'>12:</span>    </span><span class='tracy-code-var'>$ref </span><span class='tracy-code-keyword'>= new </span>\ReflectionGenerator<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$generator</span><span class='tracy-code-keyword'>);
+</span><span class='tracy-line-highlight'>13:    $stack = $ref-&gt;getTrace();</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>14:</span>    </span><span class='tracy-code-var'>$expanded </span><span class='tracy-code-keyword'>= </span>null<span class='tracy-code-keyword'>;
+<span class='tracy-line'>15:</span>    </span><span class='tracy-code-var'>$execGenerator </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$ref</span><span class='tracy-code-keyword'>-&gt;</span>getExecutingGenerator<span class='tracy-code-keyword'>();
+<span class='tracy-line'>16:</span>    </span><span class='tracy-code-var'>$refExec </span><span class='tracy-code-keyword'>= new </span>\ReflectionGenerator<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$execGenerator</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>17:</span>    </span><span class='tracy-code-var'>$file </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$refExec</span><span class='tracy-code-keyword'>-&gt;</span>getExecutingFile<span class='tracy-code-keyword'>();
+</span></code></div></pre>
+
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Csection-exception.phtml&amp;line=53&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-exception.phtml:53" class="tracy-editor">...\src\Tracy\BlueScreen\assets\<b>section-exception.phtml</b>:53</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed"><b>require</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Csection-exception.phtml&amp;line=53&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-comment'><span class='tracy-line'>43:</span>                    </span>&lt;?php <span class='tracy-code-keyword'>endforeach </span>?&gt;
+<span class='tracy-line'>44:</span>    <span class='tracy-code-comment'>            &lt;/ul&gt;
+<span class='tracy-line'>45:</span>    
+<span class='tracy-line'>46:</span>                &lt;div&gt;
+<span class='tracy-line'>47:</span>                    &lt;div class="tracy-tab-panel tracy-active"&gt;
+<span class='tracy-line'>48:</span>                        </span>&lt;?php <span class='tracy-code-keyword'>require </span>__DIR__ <span class='tracy-code-keyword'>. </span><span class='tracy-dump-string'>'/section-stack-exception.phtml' </span>?&gt;
+<span class='tracy-line'>49:</span>    <span class='tracy-code-comment'>                &lt;/div&gt;
+<span class='tracy-line'>50:</span>    
+<span class='tracy-line'>51:</span>                    </span>&lt;?php <span class='tracy-code-keyword'>foreach (</span><span class='tracy-code-var'>$generators </span><span class='tracy-code-keyword'>as </span><span class='tracy-code-var'>$generator</span><span class='tracy-code-keyword'>): </span>?&gt;
+<span class='tracy-line'>52:</span>    <span class='tracy-code-comment'>                    &lt;div class="tracy-tab-panel"&gt;
+</span><span class='tracy-line-highlight'>53:                            &lt;?php require __DIR__ . '/section-stack-generator.phtml' ?&gt;</span>
+<span class='tracy-line'>54:</span>    <span class='tracy-code-comment'>                    &lt;/div&gt;
+<span class='tracy-line'>55:</span>                    </span>&lt;?php <span class='tracy-code-keyword'>endforeach </span>?&gt;
+<span class='tracy-line'>56:</span>    <span class='tracy-code-comment'>
+<span class='tracy-line'>57:</span>                    </span>&lt;?php <span class='tracy-code-keyword'>foreach (</span><span class='tracy-code-var'>$fibers </span><span class='tracy-code-keyword'>as </span><span class='tracy-code-var'>$fiber</span><span class='tracy-code-keyword'>): </span>?&gt;
+</code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>#0</th><td><pre class="tracy-dump tracy-light"
+><span class="tracy-dump-string" title="102 characters"><span>'</span>D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml<span>'</span></span></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Ccontent.phtml&amp;line=30&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\content.phtml:30" class="tracy-editor">...\tracy\tracy\src\Tracy\BlueScreen\assets\<b>content.phtml</b>:30</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed"><b>require</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Ccontent.phtml&amp;line=30&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-comment'><span class='tracy-line'>20:</span>     * @var ?int $headersLine
+<span class='tracy-line'>21:</span>     * @var ?array $obStatus
+<span class='tracy-line'>22:</span>     * @var \Generator[] $generators
+<span class='tracy-line'>23:</span>     * @var \Fiber[] $fibers
+<span class='tracy-line'>24:</span>     */
+<span class='tracy-line'>25:</span>    </span>?&gt;
+<span class='tracy-line'>26:</span>    <span class='tracy-code-comment'>&lt;tracy-div id="tracy-bs" itemscope&gt;
+<span class='tracy-line'>27:</span>        &lt;a id="tracy-bs-toggle" href="#" class="tracy-toggle"&gt;&amp;#xfeff;&lt;/a&gt;
+<span class='tracy-line'>28:</span>        &lt;div class="tracy-bs-main"&gt;
+<span class='tracy-line'>29:</span>    </span>&lt;?php <span class='tracy-code-var'>$ex </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>; </span><span class='tracy-code-var'>$exceptions </span><span class='tracy-code-keyword'>= []; </span>?&gt;
+<span class='tracy-line-highlight'>30:    &lt;?php require __DIR__ . '/section-exception.phtml' ?&gt;</span>
+<span class='tracy-line'>31:</span>    <span class='tracy-code-comment'>
+<span class='tracy-line'>32:</span>    </span>&lt;?php <span class='tracy-code-keyword'>require </span>__DIR__ <span class='tracy-code-keyword'>. </span><span class='tracy-dump-string'>'/section-lastMutedError.phtml' </span>?&gt;
+<span class='tracy-line'>33:</span>    <span class='tracy-code-comment'>
+<span class='tracy-line'>34:</span>    </span>&lt;?php <span class='tracy-code-var'>$bottomPanels </span><span class='tracy-code-keyword'>= [] </span>?&gt;
+</code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>#0</th><td><pre class="tracy-dump tracy-light"
+><span class="tracy-dump-string" title="96 characters"><span>'</span>D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-exception.phtml<span>'</span></span></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Cpage.phtml&amp;line=40&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\page.phtml:40" class="tracy-editor">...\tracy\tracy\src\Tracy\BlueScreen\assets\<b>page.phtml</b>:40</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed"><b>require</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5Cassets%5Cpage.phtml&amp;line=40&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-comment'><span class='tracy-line'>30:</span>    </span>&lt;?php <span class='tracy-code-keyword'>endif </span>?&gt;
+<span class='tracy-line'>31:</span>    <span class='tracy-code-comment'>    &lt;!-- </span>&lt;?= Helpers<span class='tracy-code-keyword'>::</span>escapeHtml<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$source</span><span class='tracy-code-keyword'>) </span>?&gt;<span class='tracy-code-comment'> --&gt;
+<span class='tracy-line'>32:</span>    
+<span class='tracy-line'>33:</span>        &lt;style class="tracy-debug"&gt;
+<span class='tracy-line'>34:</span>        </span>&lt;?= str_replace<span class='tracy-code-keyword'>(</span><span class='tracy-dump-string'>'&lt;/'</span><span class='tracy-code-keyword'>, </span><span class='tracy-dump-string'>'&lt;\/'</span><span class='tracy-code-keyword'>, </span><span class='tracy-code-var'>$css</span><span class='tracy-code-keyword'>) </span>?&gt;
+<span class='tracy-line'>35:</span>    <span class='tracy-code-comment'>    &lt;/style&gt;
+<span class='tracy-line'>36:</span>    &lt;/head&gt;
+<span class='tracy-line'>37:</span>    
+<span class='tracy-line'>38:</span>    
+<span class='tracy-line'>39:</span>    &lt;body&gt;
+</span><span class='tracy-line-highlight'>40:    &lt;?php require __DIR__ . '/content.phtml' ?&gt;</span>
+<span class='tracy-line'>41:</span>    <span class='tracy-code-comment'>
+<span class='tracy-line'>42:</span>    &lt;script</span>&lt;?= <span class='tracy-code-var'>$nonceAttr </span>?&gt;<span class='tracy-code-comment'>&gt;
+<span class='tracy-line'>43:</span>    'use strict';
+<span class='tracy-line'>44:</span>    </span>&lt;?php
+</code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>#0</th><td><pre class="tracy-dump tracy-light"
+><span class="tracy-dump-string" title="86 characters"><span>'</span>D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\content.phtml<span>'</span></span></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5CBlueScreen.php&amp;line=185&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\BlueScreen.php:185" class="tracy-editor">...\vendor\tracy\tracy\src\Tracy\BlueScreen\<b>BlueScreen.php</b>:185</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed"><b>require</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5CBlueScreen.php&amp;line=185&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-keyword'><span class='tracy-line'>175:</span>                </span>__DIR__ <span class='tracy-code-keyword'>. </span><span class='tracy-dump-string'>'/../assets/toggle.css'</span><span class='tracy-code-keyword'>,
+<span class='tracy-line'>176:</span>                </span>__DIR__ <span class='tracy-code-keyword'>. </span><span class='tracy-dump-string'>'/../assets/table-sort.css'</span><span class='tracy-code-keyword'>,
+<span class='tracy-line'>177:</span>                </span>__DIR__ <span class='tracy-code-keyword'>. </span><span class='tracy-dump-string'>'/../assets/tabs.css'</span><span class='tracy-code-keyword'>,
+<span class='tracy-line'>178:</span>                </span>__DIR__ <span class='tracy-code-keyword'>. </span><span class='tracy-dump-string'>'/../Dumper/assets/dumper-light.css'</span><span class='tracy-code-keyword'>,
+<span class='tracy-line'>179:</span>            ], </span>Debugger<span class='tracy-code-keyword'>::</span><span class='tracy-code-var'>$customCssFiles</span><span class='tracy-code-keyword'>));
+<span class='tracy-line'>180:</span>            </span><span class='tracy-code-var'>$css </span><span class='tracy-code-keyword'>= </span>Helpers<span class='tracy-code-keyword'>::</span>minifyCss<span class='tracy-code-keyword'>(</span>implode<span class='tracy-code-keyword'>(</span><span class='tracy-dump-string'>''</span><span class='tracy-code-keyword'>, </span><span class='tracy-code-var'>$css</span><span class='tracy-code-keyword'>));
+<span class='tracy-line'>181:</span>    
+<span class='tracy-line'>182:</span>            </span><span class='tracy-code-var'>$nonceAttr </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$toScreen </span><span class='tracy-code-keyword'>? </span>Helpers<span class='tracy-code-keyword'>::</span>getNonceAttr<span class='tracy-code-keyword'>() : </span>null<span class='tracy-code-keyword'>;
+<span class='tracy-line'>183:</span>            </span><span class='tracy-code-var'>$actions </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$toScreen </span><span class='tracy-code-keyword'>? </span><span class='tracy-code-var'>$this</span><span class='tracy-code-keyword'>-&gt;</span>renderActions<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>) : [];
+<span class='tracy-line'>184:</span>    
+</span><span class='tracy-line-highlight'>185:            require $template;</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>186:</span>        }
+<span class='tracy-line'>187:</span>    
+<span class='tracy-line'>188:</span>    
+<span class='tracy-line'>189:</span>        </span><span class='tracy-code-comment'>/**
+</span></code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>#0</th><td><pre class="tracy-dump tracy-light"
+><span class="tracy-dump-string" title="83 characters"><span>'</span>D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\page.phtml<span>'</span></span></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5CBlueScreen.php&amp;line=116&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\BlueScreen.php:116" class="tracy-editor">...\vendor\tracy\tracy\src\Tracy\BlueScreen\<b>BlueScreen.php</b>:116</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed">Tracy\BlueScreen::<b>renderTemplate</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CBlueScreen%5CBlueScreen.php&amp;line=116&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-keyword'><span class='tracy-line'>106:</span>    
+<span class='tracy-line'>107:</span>        </span><span class='tracy-code-comment'>/**
+<span class='tracy-line'>108:</span>         * Renders blue screen.
+<span class='tracy-line'>109:</span>         */
+<span class='tracy-line'>110:</span>        </span><span class='tracy-code-keyword'>public function </span>render<span class='tracy-code-keyword'>(</span>\Throwable <span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>): </span>void
+<span class='tracy-line'>111:</span>        <span class='tracy-code-keyword'>{
+<span class='tracy-line'>112:</span>            if (!</span>headers_sent<span class='tracy-code-keyword'>()) {
+<span class='tracy-line'>113:</span>                </span>header<span class='tracy-code-keyword'>(</span><span class='tracy-dump-string'>'Content-Type: text/html; charset=UTF-8'</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>114:</span>            }
+<span class='tracy-line'>115:</span>    
+</span><span class='tracy-line-highlight'>116:            $this-&gt;renderTemplate($exception, __DIR__ . '/assets/page.phtml');</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>117:</span>        }
+<span class='tracy-line'>118:</span>    
+<span class='tracy-line'>119:</span>    
+<span class='tracy-line'>120:</span>        </span><span class='tracy-code-comment'>/** @internal */
+</span></code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>$exception</th><td><pre class="tracy-dump tracy-light" data-tracy-dump='{"ref":19749}'></pre>
+</td></tr>
+<tr><th>$template</th><td><pre class="tracy-dump tracy-light"
+><span class="tracy-dump-string" title="83 characters"><span>'</span>D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen/assets/page.phtml<span>'</span></span></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CDebugger%5CDevelopmentStrategy.php&amp;line=39&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\Debugger\DevelopmentStrategy.php:39" class="tracy-editor">...\tracy\tracy\src\Tracy\Debugger\<b>DevelopmentStrategy.php</b>:39</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed">Tracy\BlueScreen::<b>render</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CDebugger%5CDevelopmentStrategy.php&amp;line=39&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-line'>29:</span>        <span class='tracy-code-keyword'>{
+<span class='tracy-line'>30:</span>        }
+<span class='tracy-line'>31:</span>    
+<span class='tracy-line'>32:</span>    
+<span class='tracy-line'>33:</span>        public function </span>handleException<span class='tracy-code-keyword'>(</span>\Throwable <span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>, </span>bool <span class='tracy-code-var'>$firstTime</span><span class='tracy-code-keyword'>): </span>void
+<span class='tracy-line'>34:</span>        <span class='tracy-code-keyword'>{
+<span class='tracy-line'>35:</span>            if (</span>Helpers<span class='tracy-code-keyword'>::</span>isAjax<span class='tracy-code-keyword'>() &amp;&amp; </span><span class='tracy-code-var'>$this</span><span class='tracy-code-keyword'>-&gt;</span>defer<span class='tracy-code-keyword'>-&gt;</span>isAvailable<span class='tracy-code-keyword'>()) {
+<span class='tracy-line'>36:</span>                </span><span class='tracy-code-var'>$this</span><span class='tracy-code-keyword'>-&gt;</span>blueScreen<span class='tracy-code-keyword'>-&gt;</span>renderToAjax<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>, </span><span class='tracy-code-var'>$this</span><span class='tracy-code-keyword'>-&gt;</span>defer<span class='tracy-code-keyword'>);
+<span class='tracy-line'>37:</span>    
+<span class='tracy-line'>38:</span>            } elseif (</span><span class='tracy-code-var'>$firstTime </span><span class='tracy-code-keyword'>&amp;&amp; </span>Helpers<span class='tracy-code-keyword'>::</span>isHtmlMode<span class='tracy-code-keyword'>()) {
+</span><span class='tracy-line-highlight'>39:                $this-&gt;blueScreen-&gt;render($exception);</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>40:</span>    
+<span class='tracy-line'>41:</span>            } else {
+<span class='tracy-line'>42:</span>                </span><span class='tracy-code-var'>$this</span><span class='tracy-code-keyword'>-&gt;</span>renderExceptionCli<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>43:</span>            }
+</span></code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>$exception</th><td><pre class="tracy-dump tracy-light" data-tracy-dump='{"ref":19749}'></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CDebugger%5CDebugger.php&amp;line=322&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\Debugger\Debugger.php:322" class="tracy-editor">...\vendor\tracy\tracy\src\Tracy\Debugger\<b>Debugger.php</b>:322</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle tracy-collapsed">Tracy\DevelopmentStrategy::<b>handleException</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional tracy-collapsed">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cvendor%5Ctracy%5Ctracy%5Csrc%5CTracy%5CDebugger%5CDebugger.php&amp;line=322&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-keyword'><span class='tracy-line'>312:</span>            </span>self<span class='tracy-code-keyword'>::</span><span class='tracy-code-var'>$reserved </span><span class='tracy-code-keyword'>= </span>null<span class='tracy-code-keyword'>;
+<span class='tracy-line'>313:</span>            </span>self<span class='tracy-code-keyword'>::</span><span class='tracy-code-var'>$obStatus </span><span class='tracy-code-keyword'>= </span>ob_get_status<span class='tracy-code-keyword'>(</span>true<span class='tracy-code-keyword'>);
+<span class='tracy-line'>314:</span>    
+<span class='tracy-line'>315:</span>            if (!</span>headers_sent<span class='tracy-code-keyword'>()) {
+<span class='tracy-line'>316:</span>                </span>http_response_code<span class='tracy-code-keyword'>(isset(</span><span class='tracy-code-var'>$_SERVER</span><span class='tracy-code-keyword'>[</span><span class='tracy-dump-string'>'HTTP_USER_AGENT'</span><span class='tracy-code-keyword'>]) &amp;&amp; </span>str_contains<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$_SERVER</span><span class='tracy-code-keyword'>[</span><span class='tracy-dump-string'>'HTTP_USER_AGENT'</span><span class='tracy-code-keyword'>], </span><span class='tracy-dump-string'>'MSIE '</span><span class='tracy-code-keyword'>) ? </span><span class='tracy-dump-number'>503 </span><span class='tracy-code-keyword'>: </span><span class='tracy-dump-number'>500</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>317:</span>            }
+<span class='tracy-line'>318:</span>    
+<span class='tracy-line'>319:</span>            </span>Helpers<span class='tracy-code-keyword'>::</span>improveException<span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>320:</span>            </span>self<span class='tracy-code-keyword'>::</span>removeOutputBuffers<span class='tracy-code-keyword'>(</span>true<span class='tracy-code-keyword'>);
+<span class='tracy-line'>321:</span>    
+</span><span class='tracy-line-highlight'>322:            self::getStrategy()-&gt;handleException($exception, $firstTime);</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>323:</span>    
+<span class='tracy-line'>324:</span>            try {
+<span class='tracy-line'>325:</span>                foreach (</span><span class='tracy-code-var'>$firstTime </span><span class='tracy-code-keyword'>? </span>self<span class='tracy-code-keyword'>::</span><span class='tracy-code-var'>$onFatalError </span><span class='tracy-code-keyword'>: [] as </span><span class='tracy-code-var'>$handler</span><span class='tracy-code-keyword'>) {
+<span class='tracy-line'>326:</span>                    </span><span class='tracy-code-var'>$handler</span><span class='tracy-code-keyword'>(</span><span class='tracy-code-var'>$exception</span><span class='tracy-code-keyword'>);
+</span></code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>$exception</th><td><pre class="tracy-dump tracy-light" data-tracy-dump='{"ref":19749}'></pre>
+</td></tr>
+<tr><th>$firstTime</th><td><pre class="tracy-dump tracy-light"><span class="tracy-dump-bool">true</span></pre>
+</td></tr>
+			</table>
+		</div>
+
+		<div class="tracy-callstack-file">
+			<a href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cweb%5Cindex.php&amp;line=28&amp;search=&amp;replace=" title="D:\_coding\nette\qrdoklad\web\index.php:28" class="tracy-editor">D:\_coding\nette\qrdoklad\web\<b>index.php</b>:28</a>
+		</div>
+
+		<div class="tracy-callstack-callee">
+			<a href="#" data-tracy-ref="^div + div" class="tracy-toggle">Tracy\Debugger::<b>exceptionHandler</b> (...)</a>
+		</div>
+
+		<div class="tracy-callstack-additional">
+			<pre title="Ctrl-Click to open in editor" data-tracy-href="editor://open/?file=D%3A%5C_coding%5Cnette%5Cqrdoklad%5Cweb%5Cindex.php&amp;line=28&amp;search=&amp;replace=" class='tracy-code'><div><code><span class='tracy-code-keyword'><span class='tracy-line'>18:</span>        </span><span class='tracy-code-var'>$application </span><span class='tracy-code-keyword'>= </span><span class='tracy-code-var'>$container</span><span class='tracy-code-keyword'>-&gt;</span>getByType<span class='tracy-code-keyword'>(</span>Nette\Application\Application<span class='tracy-code-keyword'>::class);
+<span class='tracy-line'>19:</span>        </span><span class='tracy-code-var'>$application</span><span class='tracy-code-keyword'>-&gt;</span>run<span class='tracy-code-keyword'>();
+<span class='tracy-line'>20:</span>    } catch (</span>Throwable <span class='tracy-code-var'>$e</span><span class='tracy-code-keyword'>) {
+<span class='tracy-line'>21:</span>        </span><span class='tracy-code-comment'>// Ensure we handle any errors gracefully
+<span class='tracy-line'>22:</span>        </span><span class='tracy-code-keyword'>if (!</span>headers_sent<span class='tracy-code-keyword'>()) {
+<span class='tracy-line'>23:</span>            </span>http_response_code<span class='tracy-code-keyword'>(</span><span class='tracy-dump-number'>500</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>24:</span>            </span>header<span class='tracy-code-keyword'>(</span><span class='tracy-dump-string'>'Content-Type: text/html; charset=UTF-8'</span><span class='tracy-code-keyword'>);
+<span class='tracy-line'>25:</span>        }
+<span class='tracy-line'>26:</span>        
+<span class='tracy-line'>27:</span>        if (</span>class_exists<span class='tracy-code-keyword'>(</span><span class='tracy-dump-string'>'Tracy\Debugger'</span><span class='tracy-code-keyword'>)) {
+</span><span class='tracy-line-highlight'>28:            Tracy\Debugger::exceptionHandler($e);</span>
+<span class='tracy-code-keyword'><span class='tracy-line'>29:</span>        } else {
+<span class='tracy-line'>30:</span>            echo </span><span class='tracy-dump-string'>'&lt;h1&gt;Application Error&lt;/h1&gt;'</span><span class='tracy-code-keyword'>;
+<span class='tracy-line'>31:</span>            echo </span><span class='tracy-dump-string'>'&lt;p&gt;An error occurred while processing your request.&lt;/p&gt;'</span><span class='tracy-code-keyword'>;
+<span class='tracy-line'>32:</span>            if (</span>error_reporting<span class='tracy-code-keyword'>() &amp; </span>E_ERROR<span class='tracy-code-keyword'>) {
+</span></code></div></pre>
+
+			<table class="tracy-callstack-args">
+<tr><th>$exception</th><td><pre class="tracy-dump tracy-light" data-tracy-dump='{"ref":19749}'></pre>
+</td></tr>
+			</table>
+		</div>
+	</div>
+	</div>
+</section>
+				</div>
+
+									<div class="tracy-tab-panel">
+						ReflectionException: Cannot fetch information from a closed Generator in D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml:13
+Stack trace:
+#0 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml(13): ReflectionGenerator->getTrace()
+#1 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-exception.phtml(53): require('D:\\_coding\\nett...')
+#2 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\content.phtml(30): require('D:\\_coding\\nett...')
+#3 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\page.phtml(40): require('D:\\_coding\\nett...')
+#4 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\BlueScreen.php(185): require('D:\\_coding\\nett...')
+#5 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\BlueScreen.php(116): Tracy\BlueScreen->renderTemplate(Object(Latte\CompileException), 'D:\\_coding\\nett...')
+#6 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\Debugger\DevelopmentStrategy.php(39): Tracy\BlueScreen->render(Object(Latte\CompileException))
+#7 D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\Debugger\Debugger.php(322): Tracy\DevelopmentStrategy->handleException(Object(Latte\CompileException), true)
+#8 D:\_coding\nette\qrdoklad\web\index.php(28): Tracy\Debugger::exceptionHandler(Object(Latte\CompileException))
+#9 {main}
+Tracy is unable to log error: Cannot fetch information from a closed Generator

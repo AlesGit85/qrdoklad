@@ -30,6 +30,7 @@
 @import url('contact.css');         /* kontaktní formuláře a styly */
 @import url('modules.css');         /* modulové karty, balíčky, kalkulačka */
 @import url('faq.css');             /* FAQ stránka styly */
+@import url('api.css');             /* API dokumentace styly */
 
 /* Import responsive stylů (pouze jednou) */
 @import url('responsive.css');
@@ -70,4 +71,3 @@
 .testimonial-card:nth-child(3).animate-on-scroll {
     transition-delay: 0.45s;
 }
-

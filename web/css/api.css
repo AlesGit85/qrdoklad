@@ -1,0 +1,402 @@
+/**
+ * QRdoklad API Documentation Styles
+ * Styly pro API dokumentaci - konzistentní s designem webu
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   API HERO SEKCE - POUŽITÍ STÁVAJÍCÍHO STYLU
+   ========================== */
+
+/* API hero používá stávající .hero-section styly z hero.css */
+.hero-section .hero-subtitle {
+    max-width: 85%;
+}
+
+/* API Stats badges - konzistentní se stávajícími styly */
+.api-stats .stat-badge {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    font-weight: 500;
+    background: var(--white) !important;
+}
+
+.api-stats .stat-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+/* API Demo Card - konzistentní s floating cards */
+.api-demo-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    max-width: 300px;
+    animation: float-desktop 6s ease-in-out infinite;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.api-demo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Feature ikony s pozadím */
+.feature-icon {
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================
+   API NAVIGACE
+   ========================== */
+
+.api-nav {
+    background: var(--white);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    z-index: 1020;
+}
+
+.api-navigation .nav-link {
+    color: var(--gray-color);
+    border-radius: 8px;
+    transition: var(--transition);
+    font-weight: 500;
+    padding: 12px 20px;
+    margin: 0 4px;
+}
+
+.api-navigation .nav-link:hover,
+.api-navigation .nav-link.active {
+    background-color: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(177, 210, 53, 0.3);
+}
+
+/* ============================
+   SECTIONS
+   ========================== */
+
+.getting-started-section,
+.endpoints-section,
+.webhooks-section,
+.errors-section,
+.sdk-section,
+.rate-limiting {
+    scroll-margin-top: 100px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* ============================
+   CARDS A CONTAINERS
+   ========================== */
+
+.quick-start-card,
+.auth-method,
+.auth-steps,
+.endpoint-card,
+.webhook-info,
+.webhook-example,
+.error-codes,
+.rate-info,
+.sdk-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+.quick-start-card:hover,
+.auth-method:hover,
+.auth-steps:hover,
+.endpoint-card:hover,
+.webhook-info:hover,
+.webhook-example:hover,
+.error-codes:hover,
+.rate-info:hover,
+.sdk-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: rgba(177, 210, 53, 0.2);
+}
+
+.feature-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-color: rgba(177, 210, 53, 0.3);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* ============================
+   CODE BLOCKS
+   ========================== */
+
+.code-example {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.code-header {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.code-block {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    word-break: break-all;
+    border: none;
+    margin: 0;
+}
+
+.code-block code {
+    color: inherit;
+    background: none;
+    padding: 0;
+    font-size: inherit;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+/* ============================
+   ENDPOINTS
+   ========================== */
+
+.endpoint-group {
+    margin-bottom: 3rem;
+}
+
+.endpoint-group h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+}
+
+.endpoint-header {
+    background: linear-gradient(135deg, rgba(177, 210, 53, 0.05) 0%, rgba(149, 177, 31, 0.05) 100%);
+}
+
+.endpoint-method .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+}
+
+.endpoint-path {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+
+.table th {
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    border: none;
+}
+
+.table-primary th {
+    background: var(--primary-color) !important;
+    color: var(--white) !important;
+}
+
+.table td code {
+    background: rgba(177, 210, 53, 0.1);
+    color: var(--dark-color);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* ============================
+   WEBHOOKS
+   ========================== */
+
+.event-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    background: var(--white);
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+/* ============================
+   SDK CARDS
+   ========================== */
+
+.sdk-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.code-install .code-block {
+    font-size: 0.85rem;
+    padding: 12px 16px;
+}
+
+/* ============================
+   SUPPORT SECTION - KONZISTENTNÍ S CTA
+   ========================== */
+
+.api-support {
+    /* Používá stávající .cta-section styly z cta.css */
+}
+
+.btn-white {
+    background-color: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--white);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-white:hover {
+    background-color: transparent;
+    color: var(--white);
+    border-color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline-light:hover {
+    background-color: var(--white);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+}
+
+/* ============================
+   RESPONSIVE
+   ========================== */
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .api-navigation .nav-pills {
+        flex-direction: column;
+    }
+    
+    .api-navigation .nav-link {
+        margin: 4px 0;
+        text-align: center;
+    }
+    
+    .endpoint-header .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .code-block {
+        font-size: 0.8rem;
+    }
+    
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .api-stats .row {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .api-stats .col-auto {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .api-stats .stat-badge {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .quick-start-card,
+    .auth-method,
+    .auth-steps,
+    .endpoint-card,
+    .webhook-info,
+    .webhook-example,
+    .error-codes,
+    .rate-info,
+    .sdk-card {
+        margin-bottom: 1rem;
+    }
+}

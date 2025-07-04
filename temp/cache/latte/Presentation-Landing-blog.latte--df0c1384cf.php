@@ -1,5 +1,40 @@
-{block content}
+<?php
 
+declare(strict_types=1);
+
+use Latte\Runtime as LR;
+
+/** source: D:\_coding\nette\qrdoklad\app\Presentation\Landing/blog.latte */
+final class Template_df0c1384cf extends Latte\Runtime\Template
+{
+	public const Source = 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing/blog.latte';
+
+	public const Blocks = [
+		['content' => 'blockContent'],
+	];
+
+
+	public function main(array $ʟ_args): void
+	{
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		if ($this->global->snippetDriver?->renderSnippets($this->blocks[self::LayerSnippet], $this->params)) {
+			return;
+		}
+
+		$this->renderBlock('content', get_defined_vars()) /* line 1 */;
+	}
+
+
+	/** {block content} on line 1 */
+	public function blockContent(array $ʟ_args): void
+	{
+		extract($this->params);
+		extract($ʟ_args);
+		unset($ʟ_args);
+
+		echo '
 <!-- Hero sekce pro blog -->
 <section class="hero-section py-5">
     <div class="container">
@@ -92,7 +127,9 @@
                                 </p>
                                 <div class="featured-author d-flex align-items-center justify-content-between">
                                     <div class="author-info d-flex align-items-center">
-                                        <img src="{$basePath}/images/ales-avatar.webp" alt="Aleš Zita" class="author-avatar rounded-circle me-2" style="width: 40px; height: 40px;">
+                                        <img src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 95 */;
+		echo '/images/ales-avatar.webp" alt="Aleš Zita" class="author-avatar rounded-circle me-2" style="width: 40px; height: 40px;">
                                         <div>
                                             <small class="text-muted">Napsal</small>
                                             <div class="fw-semibold">Aleš Zita</div>
@@ -397,39 +434,39 @@
 
 <!-- JavaScript pro filtrování a vyhledávání -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener(\'DOMContentLoaded\', function() {
     initBlogFiltering();
     initLoadMore();
 });
 
 function initBlogFiltering() {
-    const filterButtons = document.querySelectorAll('input[name="categoryFilter"]');
-    const searchInput = document.getElementById('blogSearch');
-    const articles = document.querySelectorAll('[data-category]');
+    const filterButtons = document.querySelectorAll(\'input[name="categoryFilter"]\');
+    const searchInput = document.getElementById(\'blogSearch\');
+    const articles = document.querySelectorAll(\'[data-category]\');
     
     // Filtrování podle kategorie
     filterButtons.forEach(button => {
-        button.addEventListener('change', function() {
-            const filterCategory = this.id.replace('filter', '').toLowerCase();
+        button.addEventListener(\'change\', function() {
+            const filterCategory = this.id.replace(\'filter\', \'\').toLowerCase();
             
             articles.forEach(article => {
-                const articleCategory = article.getAttribute('data-category');
+                const articleCategory = article.getAttribute(\'data-category\');
                 let shouldShow = false;
                 
-                if (filterCategory === 'all') {
+                if (filterCategory === \'all\') {
                     shouldShow = true;
                 } else {
                     shouldShow = articleCategory === filterCategory;
                 }
                 
-                article.style.display = shouldShow ? '' : 'none';
+                article.style.display = shouldShow ? \'\' : \'none\';
             });
         });
     });
     
     // Vyhledávání v článcích
     if (searchInput) {
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener(\'input\', function() {
             const searchTerm = this.value.toLowerCase().trim();
             
             articles.forEach(article => {
@@ -437,8 +474,8 @@ function initBlogFiltering() {
                 const shouldShow = !searchTerm || text.includes(searchTerm);
                 
                 // Pouze pokud není skrytý filtrem
-                if (article.style.display !== 'none' || searchTerm) {
-                    article.style.display = shouldShow ? '' : 'none';
+                if (article.style.display !== \'none\' || searchTerm) {
+                    article.style.display = shouldShow ? \'\' : \'none\';
                 }
             });
         });
@@ -446,18 +483,18 @@ function initBlogFiltering() {
 }
 
 function initLoadMore() {
-    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const loadMoreBtn = document.getElementById(\'loadMoreBtn\');
     
     if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
+        loadMoreBtn.addEventListener(\'click\', function() {
             // Simulace načítání dalších článků
-            this.innerHTML = '<i class="bi bi-arrow-repeat me-2"></i>Načítám...';
+            this.innerHTML = \'<i class="bi bi-arrow-repeat me-2"></i>Načítám...\';
             this.disabled = true;
             
             setTimeout(() => {
-                this.innerHTML = '<i class="bi bi-check-circle me-2"></i>Všechny články načteny';
-                this.classList.remove('btn-primary');
-                this.classList.add('btn-success');
+                this.innerHTML = \'<i class="bi bi-check-circle me-2"></i>Všechny články načteny\';
+                this.classList.remove(\'btn-primary\');
+                this.classList.add(\'btn-success\');
             }, 1500);
         });
     }
@@ -533,4 +570,6 @@ function initLoadMore() {
 }
 </style>
 
-{/block}
+';
+	}
+}

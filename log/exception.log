@@ -1,0 +1,1 @@
+[2025-07-04 12-34-19] ReflectionException: Cannot fetch information from a closed Generator in D:\_coding\nette\qrdoklad\vendor\tracy\tracy\src\Tracy\BlueScreen\assets\section-stack-generator.phtml:13  @  http://localhost:8000/api  @@  exception--2025-07-04--12-34--5870999f85.html
