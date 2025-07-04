@@ -48,6 +48,7 @@ return array (
     'null' => 1,
     'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
     'App\\Presentation\\Landing\\LandingTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingCenikTemplate' => 1,
   ),
   2 => 
   array (
