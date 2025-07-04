@@ -181,3 +181,83 @@
         margin: 1.5rem 0 1rem;
     }
 }
+
+/* ============================
+   MOBILNÍ VYCENTROVÁNÍ ODKAZŮ
+   ========================== */
+
+/* Vycentrování všech odkazů v patičce na mobilu */
+@media (max-width: 768px) {
+    
+    /* Všechny footer sloupce vycentrované */
+    .footer .container .row > div {
+        text-align: center !important;
+        margin-bottom: 2rem;
+    }
+    
+    /* Nadpisy sekcí vycentrované */
+    .footer h6 {
+        text-align: center !important;
+    }
+    
+    /* Seznam odkazů vycentrovaný */
+    .footer .list-unstyled {
+        text-align: center !important;
+    }
+    
+    /* Odkazy v seznamu vycentrované */
+    .footer .list-unstyled li {
+        text-align: center !important;
+    }
+    
+    .footer .list-unstyled a {
+        display: inline-block !important;
+        text-align: center !important;
+    }
+    
+    /* Hover efekt upravený pro vycentrované */
+    .footer .list-unstyled a:hover {
+        padding-left: 0 !important; /* Vypni posun vlevo */
+        transform: scale(1.05); /* Místo toho malé zvětšení */
+    }
+    
+    /* Sociální odkazy zůstavají vycentrované */
+    .footer-social {
+        justify-content: center !important;
+    }
+    
+    /* Copyright a company info vycentrované */
+    .footer .row.align-items-center {
+        text-align: center !important;
+    }
+    
+    .footer .row.align-items-center .col-md-6 {
+        text-align: center !important;
+    }
+    
+    /* Footer popis také vycentrovaný */
+    .footer-description {
+        text-align: center !important;
+        margin: 0 auto 1.5rem !important;
+    }
+}
+
+/* Pro extra malé mobily - ještě kompaktnější */
+@media (max-width: 576px) {
+    
+    /* Menší mezery mezi položkami */
+    .footer .list-unstyled li {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* Menší nadpisy sekcí */
+    .footer h6 {
+        font-size: 0.95rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Menší odkazu */
+    .footer .list-unstyled a {
+        font-size: 0.85rem !important;
+    }
+}

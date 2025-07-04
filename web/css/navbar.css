@@ -4,7 +4,10 @@
  * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
  */
 
-/* Navigation - Úplně černý design */
+/* ============================
+   ZÁKLADNÍ NAVBAR STYLY
+   ========================== */
+
 .navbar {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(20px);
@@ -32,13 +35,15 @@
     transition: var(--transition);
 }
 
-/* Hover efekt - zelený glow pro bílé logo */
 .navbar-brand img:hover {
     filter: drop-shadow(0 0 10px var(--primary-color)) brightness(1.1);
     transform: scale(1.05);
 }
 
-/* Navigation Links s hover a active efekty */
+/* ============================
+   DESKTOP NAVIGATION LINKS
+   ========================== */
+
 .nav-link {
     font-weight: 500;
     color: rgba(255, 255, 255, 0.85) !important;
@@ -58,7 +63,6 @@
     transition: var(--transition);
 }
 
-/* Hover efekt - zvětšení, bílý text a rozsvícená ikona */
 .nav-link:hover {
     transform: scale(1.05);
     color: var(--white) !important;
@@ -69,7 +73,6 @@
     color: var(--primary-color);
 }
 
-/* Active efekt - zelené podtržení jen pod textem a zelená ikona */
 .nav-link.active {
     color: rgba(255, 255, 255, 0.95) !important;
 }
@@ -89,7 +92,10 @@
     color: var(--primary-color);
 }
 
-/* Tlačítka v navbaru s hover efekty */
+/* ============================
+   NAVBAR TLAČÍTKA
+   ========================== */
+
 .navbar-nav .btn {
     margin: 0 4px;
     padding: 10px 20px;
@@ -102,15 +108,9 @@
     justify-content: center !important;
     gap: 8px !important;
     line-height: 1 !important;
-    vertical-align: middle !important;
-}
-
-/* Specifické pravidlo pro odkazy s třídou btn v navbaru */
-.navbar-nav a.btn {
     text-decoration: none !important;
 }
 
-/* Registrace tlačítko */
 .navbar-nav .btn-outline-primary {
     color: var(--white);
     border-color: rgba(255, 255, 255, 0.3);
@@ -123,7 +123,6 @@
     text-decoration: none;
 }
 
-/* Login tlačítko */
 .navbar-nav .btn-primary {
     background: var(--primary-color);
     border-color: var(--primary-color);
@@ -138,160 +137,7 @@
 }
 
 /* ============================
-   MOBILNÍ MENU - KOMPLETNÍ OPRAVA
-   ========================== */
-
-/* Mobile navbar responsive */
-@media (max-width: 991px) {
-    /* ŘEŠENÍ: Celý navbar dostane silné pozadí když je menu rozbalené */
-    .navbar.show,
-    .navbar:has(.navbar-collapse.show) {
-        background: rgba(0, 0, 0, 0.98) !important;
-        backdrop-filter: blur(25px) !important;
-        padding-bottom: 2rem !important;
-    }
-    
-    /* Fallback - vždy tmavé pozadí na mobilu */
-    .navbar {
-        background: rgba(0, 0, 0, 0.95) !important;
-        min-height: auto !important;
-    }
-    
-    /* Navbar collapse roztažený */
-    .navbar-collapse {
-        background: transparent !important;
-        margin: 1rem 0 0 0 !important;
-        padding: 1rem 0 !important;
-        width: 100% !important;
-    }
-    
-    /* Extra pozadí pro container když je menu otevřené */
-    .navbar-collapse.show {
-        background: rgba(0, 0, 0, 0.98) !important;
-        margin: 1rem -15px 0 -15px !important;
-        padding: 1.5rem 15px 2rem 15px !important;
-        width: calc(100% + 30px) !important;
-        position: relative !important;
-        left: -15px !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-    }
-    
-    /* Navbar nav container na mobilu */
-    .navbar-nav {
-        background: transparent !important;
-        padding: 0 !important;
-    }
-    
-    /* Mobilní nav-links */
-    .nav-link {
-        margin: 4px 0 !important;
-        padding: 15px 20px !important;
-        border-radius: 12px !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .nav-link:hover {
-        background: rgba(177, 210, 53, 0.1) !important;
-        border-color: var(--primary-color) !important;
-        transform: translateX(5px) !important;
-    }
-    
-    .nav-link.active {
-        background: rgba(177, 210, 53, 0.15) !important;
-        border-color: var(--primary-color) !important;
-    }
-    
-    /* Mobilní tlačítka */
-    .navbar-nav .btn {
-        margin: 8px 0 !important;
-        width: 100% !important;
-        padding: 15px 20px !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    }
-    
-    .navbar-nav .btn-primary {
-        background: var(--primary-color) !important;
-        border-color: var(--primary-color) !important;
-        color: var(--dark-color) !important;
-    }
-    
-    .navbar-nav .btn-outline-primary {
-        background: transparent !important;
-        border-color: rgba(255, 255, 255, 0.3) !important;
-        color: var(--white) !important;
-    }
-    
-    .navbar-nav .btn-outline-primary:hover {
-        background: var(--white) !important;
-        color: var(--dark-color) !important;
-    }
-    
-    /* Ostřejší logo na mobilu */
-    .navbar-brand img {
-        height: 36px;
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-    }
-}
-
-/* ============================
-   TABLET SPECIFICKÉ ÚPRAVY
-   ========================== */
-
-@media (max-width: 991px) and (min-width: 769px) {
-    /* Tablet menu má trochu větší padding */
-    .navbar-collapse {
-        padding: 2rem !important;
-        margin-top: 1.5rem !important;
-    }
-    
-    .nav-link {
-        padding: 18px 25px !important;
-        font-size: 1.1rem !important;
-    }
-    
-    .navbar-nav .btn {
-        padding: 18px 25px !important;
-        font-size: 1.1rem !important;
-    }
-}
-
-/* ============================
-   MOBILNÍ TELEFON SPECIFICKÉ
-   ========================== */
-
-@media (max-width: 576px) {
-    .navbar-collapse {
-        padding: 1rem !important;
-        margin-top: 0.75rem !important;
-        border-radius: 12px !important;
-    }
-    
-    .nav-link {
-        padding: 12px 16px !important;
-        font-size: 0.95rem !important;
-        margin: 2px 0 !important;
-    }
-    
-    .navbar-nav .btn {
-        padding: 12px 16px !important;
-        font-size: 0.95rem !important;
-        margin: 6px 0 !important;
-    }
-    
-    .navbar-brand img {
-        height: 32px;
-    }
-}
-
-/* ============================
-   NAVBAR TOGGLER ÚPRAVY
+   NAVBAR TOGGLER (HAMBURGER)
    ========================== */
 
 .navbar-toggler {
@@ -316,7 +162,151 @@
 }
 
 /* ============================
-   ANIMACE PRO MOBILNÍ MENU
+   MOBILNÍ MENU RESPONSIVE
+   ========================== */
+
+@media (max-width: 991.98px) {
+    
+    /* Základní navbar na mobilu */
+    .navbar {
+        background: rgba(0, 0, 0, 0.98) !important;
+        backdrop-filter: blur(25px) !important;
+    }
+    
+    /* KLÍČ: Bootstrap collapse container - fix max-height */
+    #navbarNav.navbar-collapse {
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    
+    /* KLÍČ: Když je menu rozbalené - přepsat Bootstrap max-height */
+    #navbarNav.navbar-collapse.show {
+        background: rgba(0, 0, 0, 0.95) !important;
+        margin: 1.5rem -15px 0 -15px !important;
+        padding: 2rem 15px !important;
+        width: calc(100% + 30px) !important;
+        border-top: 2px solid var(--primary-color) !important;
+        border-radius: 0 0 15px 15px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8) !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    
+    /* Nav links v mobilním menu */
+    #navbarNav .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 10px !important;
+        margin: 8px 0 !important;
+        padding: 16px 20px !important;
+        width: 100% !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    #navbarNav .nav-link:hover {
+        color: var(--white) !important;
+        background: rgba(177, 210, 53, 0.2) !important;
+        border-color: var(--primary-color) !important;
+        transform: translateX(8px) !important;
+        text-decoration: none !important;
+    }
+    
+    #navbarNav .nav-link.active {
+        background: rgba(177, 210, 53, 0.25) !important;
+        border-color: var(--primary-color) !important;
+        color: var(--white) !important;
+    }
+    
+    /* Remove desktop active underline */
+    #navbarNav .nav-link.active::after {
+        display: none !important;
+    }
+    
+    /* Tlačítka v mobilním menu */
+    #navbarNav .btn {
+        margin: 8px 0 !important;
+        padding: 16px 20px !important;
+        width: 100% !important;
+        border-radius: 10px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    #navbarNav .btn-primary {
+        background: var(--primary-color) !important;
+        border-color: var(--primary-color) !important;
+        color: var(--dark-color) !important;
+    }
+    
+    #navbarNav .btn-primary:hover {
+        background: var(--secondary-color) !important;
+        border-color: var(--secondary-color) !important;
+        transform: translateX(8px) !important;
+    }
+    
+    #navbarNav .btn-outline-primary {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+        color: var(--white) !important;
+    }
+    
+    #navbarNav .btn-outline-primary:hover {
+        background: var(--white) !important;
+        color: var(--dark-color) !important;
+        transform: translateX(8px) !important;
+    }
+    
+    /* Logo na mobilu */
+    .navbar-brand img {
+        height: 36px;
+    }
+}
+
+/* ============================
+   TABLET SPECIFICKÉ ÚPRAVY
+   ========================== */
+
+@media (max-width: 991.98px) and (min-width: 768px) {
+    #navbarNav.show {
+        padding: 2.5rem 15px !important;
+        margin-top: 1.5rem !important;
+    }
+    
+    #navbarNav .nav-link,
+    #navbarNav .btn {
+        padding: 18px 25px !important;
+        font-size: 1.1rem !important;
+    }
+}
+
+/* ============================
+   MALÉ MOBILY
+   ========================== */
+
+@media (max-width: 576px) {
+    #navbarNav.show {
+        padding: 1.5rem 15px !important;
+        margin-top: 1rem !important;
+        border-radius: 0 0 12px 12px !important;
+    }
+    
+    #navbarNav .nav-link,
+    #navbarNav .btn {
+        padding: 14px 16px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .navbar-brand img {
+        height: 32px !important;
+    }
+}
+
+/* ============================
+   COLLAPSE ANIMACE
    ========================== */
 
 .navbar-collapse {

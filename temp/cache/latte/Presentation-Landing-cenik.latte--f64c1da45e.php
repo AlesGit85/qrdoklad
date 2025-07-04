@@ -85,7 +85,7 @@ final class Template_f64c1da45e extends Latte\Runtime\Template
                         <div class="col-md-6">
                             <div class="quick-contact-item">
                                 <i class="bi bi-person-plus-fill"></i>
-                                <span>Neomezený počet uživatelských účtů</span>
+                                <span>Neomezený počet uživatelů</span>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ final class Template_f64c1da45e extends Latte\Runtime\Template
                             <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>ARES integrace</strong> - automatické načítání firemních údajů</li>
                             <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>Barevné přizpůsobitelné faktury</strong></li>
                             <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>Přístup z mobilu</strong> - responzivní rozhraní</li>
-                            <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>Neomezený počet uživatelských účtů</strong></li>
+                            <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>Neomezený počet uživatelů</strong></li>
                             <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>QR platby</strong> na všech fakturách</li>
                             <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>Export do PDF</strong></li>
                             <li><i class="bi bi-check-circle-fill text-primary"></i> <strong>Základní reporty</strong></li>

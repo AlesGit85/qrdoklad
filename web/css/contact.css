@@ -467,3 +467,116 @@ input[type="checkbox"][name="privacy"]:checked {
         font-size: 3rem;
     }
 }
+
+/* ============================
+   TABLET LAYOUT - PERFEKTNÍ 50/50 PROPORCE
+   ========================== */
+
+/* Přesně 50/50 layout na tabletu */
+@media (max-width: 1199px) and (min-width: 768px) {
+    
+    /* Kontaktní sekce na tabletu - vycentrování */
+    .contact-section .row {
+        justify-content: center;
+    }
+    
+    /* OBA sloupce přesně 50% */
+    .contact-section .row > .col-lg-8,
+    .contact-section .row > .col-lg-4 {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+    
+    /* Formulář přizpůsobený 50% šířce */
+    .contact-form-card {
+        padding: 2.5rem; /* Trochu menší padding */
+        width: 100%;
+    }
+    
+    .form-title {
+        font-size: 1.8rem; /* Trochu menší titulek */
+        margin-bottom: 0.8rem;
+    }
+    
+    .form-subtitle {
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+    }
+    
+    /* Kontaktní info 50% šířka */
+    .contact-info-card {
+        width: 100%;
+        padding: 2rem;
+        position: sticky;
+        top: 100px;
+        margin-bottom: 0;
+    }
+    
+    /* Rychlé akce také 50% šířka */
+    .tablet-quick-actions {
+        width: 100%;
+        padding: 1.8rem;
+        margin-top: 1.5rem;
+    }
+    
+    /* Grid rychlých akcí přizpůsoben šířce */
+    .tablet-action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .tablet-action-item {
+        padding: 1.2rem 0.8rem;
+    }
+    
+    .tablet-action-text {
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+}
+
+/* Pro menší tablety - stack vertikálně (zůstává stejné) */
+@media (max-width: 991px) and (min-width: 768px) {
+    
+    /* Na menších tabletech stack formulář nad kontakty */
+    .contact-section .row {
+        flex-direction: column;
+    }
+    
+    .contact-section .row > .col-lg-8,
+    .contact-section .row > .col-lg-4 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Formulář na plnou šířku ale vycentrovaný */
+    .contact-form-card {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2.5rem;
+    }
+    
+    .form-title {
+        font-size: 2rem; /* Větší na stacku */
+    }
+    
+    .form-subtitle {
+        margin-bottom: 2.5rem;
+    }
+    
+    /* Kontaktní info pod formulářem, také vycentrované */
+    .contact-info-card {
+        max-width: 500px;
+        margin: 2rem auto 0;
+        position: static; /* Ne sticky na menších tabletech */
+        padding: 2rem;
+    }
+    
+    /* Rychlé akce na stacku */
+    .tablet-quick-actions {
+        max-width: 500px;
+        margin: 1.5rem auto 0;
+        position: static;
+    }
+}
