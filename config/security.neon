@@ -5,15 +5,17 @@ parameters:
 		sessionName: 'QRDOKLAD_SECURE'
 		sessionTimeout: '1 hour'
 		
-		# CSRF protection
+		# ✅ CSRF protection - rozšířená konfigurace
 		csrfProtection: true
-		csrfExpiration: 3600
+		csrfExpiration: 3600  # 1 hodina
+		csrfTokenName: '_token_'
 		
-		# Rate limiting
+		# Rate limiting for forms
 		rateLimitRequests: 100
 		rateLimitWindow: 300  # 5 minutes
+		formRateLimit: 30     # 30 sekund mezi odesláními stejného formuláře
 		
-		# Password security
+		# Password security (pro budoucí použití)
 		passwordMinLength: 8
 		passwordRequireSpecialChar: true
 		passwordRequireNumber: true
@@ -22,8 +24,17 @@ parameters:
 		allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
 		maxFileSize: 10485760  # 10MB
 		
-		# IP restrictions (for admin access)
+		# IP restrictions (pro admin access)
 		adminAllowedIPs: []  # Empty = allow all, add IPs for restriction
+		
+		# Content Security Policy
+		csp:
+			defaultSrc: "'self'"
+			scriptSrc: "'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com"
+			styleSrc: "'self' 'unsafe-inline' https://cdn.jsdelivr.net"
+			imgSrc: "'self' data: https:"
+			fontSrc: "'self' https://cdn.jsdelivr.net"
+			connectSrc: "'self' https://www.google-analytics.com"
 
 session:
 	autoStart: false
@@ -34,11 +45,18 @@ session:
 	cookieSamesite: Strict
 	cookiePath: /
 	cookieDomain: 
+	# ✅ Bezpečnostní nastavení session
+	gcProbability: 1
+	gcDivisor: 100
+	gcMaxlifetime: 3600
 
 http:
-	# Security headers via Nette
+	# ✅ Rozšířené Security headers
 	headers:
 		X-Content-Type-Options: nosniff
 		X-Frame-Options: DENY
 		X-XSS-Protection: "1; mode=block"
 		Referrer-Policy: strict-origin-when-cross-origin
+		Permissions-Policy: "camera=(), microphone=(), geolocation=()"
+		Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+		# Content-Security-Policy se nastaví dynamicky v presenteru

@@ -47,3 +47,14 @@ security:
 		guest:
 		user:
 		admin:
+
+# ✅ Registrace vlastních služeb pro zabezpečení
+services:
+	# SecurityHelper pro bezpečnostní operace
+	securityHelper: App\Core\SecurityHelper
+	
+	# EmailService pro správu emailů
+	emailService: App\Core\EmailService
+	
+	# ✅ KROK 2: TestMailer pro lokální vývoj (ukládání do souborů)
+	mail.mailer: App\Core\TestMailer(%tempDir%)

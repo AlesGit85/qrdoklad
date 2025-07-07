@@ -1,0 +1,55 @@
+# SMTP konfigurace pro produkci
+# Přejmenujte na mail.local.neon a nastavte podle vašeho poskytovatele
+
+mail:
+	# ✅ Pro Gmail/Google Workspace
+	smtp: true
+	host: smtp.gmail.com
+	port: 587
+	username: 'your-email@gmail.com'
+	password: 'your-app-password'  # Použijte App Password, ne běžné heslo
+	secure: tls
+	
+	# ✅ Pro Outlook/Hotmail
+	# smtp: true
+	# host: smtp-mail.outlook.com
+	# port: 587
+	# username: 'your-email@outlook.com'
+	# password: 'your-password'
+	# secure: tls
+	
+	# ✅ Pro Seznam.cz
+	# smtp: true
+	# host: smtp.seznam.cz
+	# port: 465
+	# username: 'your-email@seznam.cz'
+	# password: 'your-password'
+	# secure: ssl
+	
+	# ✅ Pro vlastní SMTP server
+	# smtp: true
+	# host: mail.yourdomain.com
+	# port: 587
+	# username: 'noreply@yourdomain.com'
+	# password: 'strong-password'
+	# secure: tls
+
+# ✅ Email parametry pro QRdoklad
+parameters:
+	email:
+		# Email adresy
+		fromEmail: 'noreply@qrdoklad.cz'
+		fromName: 'QRdoklad'
+		adminEmail: 'info@qrdoklad.cz'
+		supportEmail: 'support@qrdoklad.cz'
+		
+		# Nastavení
+		replyTimeout: 24  # hodin
+		maxMessageLength: 5000
+		
+		# Anti-spam nastavení
+		maxLinksInMessage: 3
+		blockedDomains: 
+			- 'tempmail.org'
+			- '10minutemail.com'
+			- 'guerrillamail.com'

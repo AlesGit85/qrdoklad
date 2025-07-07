@@ -54,6 +54,7 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 		'Nette\Application\UI\TemplateFactory' => [['latte.templateFactory']],
 		'Nette\Bridges\ApplicationLatte\TemplateFactory' => [['latte.templateFactory']],
 		'Nette\Mail\Mailer' => [['mail.mailer']],
+		'App\Core\TestMailer' => [['mail.mailer']],
 		'Nette\Security\Passwords' => [['security.passwords']],
 		'Nette\Security\UserStorage' => [['security.userStorage']],
 		'Nette\Security\User' => [['security.user']],
@@ -62,6 +63,8 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 		'Tracy\ILogger' => [['tracy.logger']],
 		'Tracy\BlueScreen' => [['tracy.blueScreen']],
 		'Tracy\Bar' => [['tracy.bar']],
+		'App\Core\SecurityHelper' => [['securityHelper']],
+		'App\Core\EmailService' => [['emailService']],
 		'Nette\Routing\RouteList' => [['01']],
 		'Nette\Routing\Router' => [['01']],
 		'ArrayAccess' => [2 => ['01', 'application.1', 'application.3', 'application.4']],
@@ -149,7 +152,7 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 
 	public function createServiceApplication__4(): App\Presentation\Landing\LandingPresenter
 	{
-		$service = new App\Presentation\Landing\LandingPresenter;
+		$service = new App\Presentation\Landing\LandingPresenter($this->getService('securityHelper'), $this->getService('emailService'));
 		$service->injectPrimary(
 			$this->getService('http.request'),
 			$this->getService('http.response'),
@@ -292,6 +295,12 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 	}
 
 
+	public function createServiceEmailService(): App\Core\EmailService
+	{
+		return new App\Core\EmailService($this->getService('mail.mailer'), $this->getService('securityHelper'));
+	}
+
+
 	public function createServiceHttp__request(): Nette\Http\Request
 	{
 		return $this->getService('http.requestFactory')->fromGlobals();
@@ -357,9 +366,9 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 	}
 
 
-	public function createServiceMail__mailer(): Nette\Mail\Mailer
+	public function createServiceMail__mailer(): App\Core\TestMailer
 	{
-		return new Nette\Mail\SendmailMailer;
+		return new App\Core\TestMailer('D:\_coding\nette\qrdoklad/temp');
 	}
 
 
@@ -396,6 +405,12 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 	}
 
 
+	public function createServiceSecurityHelper(): App\Core\SecurityHelper
+	{
+		return new App\Core\SecurityHelper($this->getService('http.request'), $this->getService('session.session'));
+	}
+
+
 	public function createServiceSession__session(): Nette\Http\Session
 	{
 		$service = new Nette\Http\Session($this->getService('http.request'), $this->getService('http.response'));
@@ -407,6 +422,9 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 			'cookieSamesite' => 'Strict',
 			'cookiePath' => '/',
 			'cookieDomain' => null,
+			'gcProbability' => 1,
+			'gcDivisor' => 100,
+			'gcMaxlifetime' => 3600,
 		]);
 		return $service;
 	}
@@ -445,6 +463,8 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 			$response->setHeader('X-Frame-Options', 'DENY');
 			$response->setHeader('X-XSS-Protection', '1; mode=block');
 			$response->setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+			$response->setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+			$response->setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
 			Nette\Http\Helpers::initCookie($this->getService('http.request'), $response);
 		})();
 		// tracy.

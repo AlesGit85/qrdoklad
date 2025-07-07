@@ -1,0 +1,84 @@
+From: QRdoklad - Kontaktní formulář
+To: QRdoklad Support
+Subject: [QRdoklad] 🔵 Obecný dotaz z webu
+Reply-To: Aleš Zita
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Date: Mon, 07 Jul 2025 13:12:08 +0000
+Message-ID: <686bc7a846bdd@qrdoklad.local>
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Nová zpráva z kontaktního formuláře</title>
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { background: #B1D235; padding: 20px; border-radius: 8px 8px 0 0; }
+                .header h1 { margin: 0; color: #212529; font-size: 24px; }
+                .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
+                .field { margin-bottom: 20px; }
+                .field-label { font-weight: bold; color: #6c757d; text-transform: uppercase; font-size: 12px; }
+                .field-value { margin-top: 5px; padding: 10px; background: white; border-radius: 4px; border-left: 4px solid #B1D235; }
+                .message-box { background: white; padding: 20px; border-radius: 8px; border: 1px solid #dee2e6; }
+                .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; font-size: 12px; color: #6c757d; }
+                .ip-info { background: #e7f3ff; padding: 15px; border-radius: 6px; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>🔔 Nová zpráva z kontaktního formuláře</h1>
+                </div>
+                
+                <div class="content">
+                    <div class="field">
+                        <div class="field-label">Jméno a příjmení</div>
+                        <div class="field-value">Aleš Zita</div>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="field-label">E-mail</div>
+                        <div class="field-value">
+                            <a href="mailto:a.zita@post.cz">a.zita@post.cz</a>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Firma</div>
+                        <div class="field-value">Aleš Zita</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Telefon</div>
+                        <div class="field-value">
+                            <a href="tel:+420703985390">+420703985390</a>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Typ dotazu</div>
+                        <div class="field-value">Obecný dotaz</div>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="field-label">Zpráva</div>
+                        <div class="message-box">svsfr dfwd +6+<br />
+<br />
+wfwdw cw</div>
+                    </div>
+                    
+                    <div class="ip-info">
+                        <strong>📍 Technické informace:</strong><br>
+                        <strong>IP adresa:</strong> ::1<br>
+                        <strong>Čas odeslání:</strong> 07.07.2025 13:12:08<br>
+                        <strong>User Agent:</strong> Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <p>Tento email byl automaticky vygenerován z kontaktního formuláře na webu QRdoklad.cz</p>
+                    <p>Pro odpověď stačí odpovědět na tento email - adresa zákazníka je nastavená jako Reply-To.</p>
+                </div>
+            </div>
+        </body>
+        </html>
