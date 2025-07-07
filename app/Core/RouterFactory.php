@@ -37,6 +37,9 @@ final class RouterFactory
         $router->addRoute('napoveda', 'Landing:help');
         $router->addRoute('blog', 'Landing:blog');
 
+        // Changelog
+        $router->addRoute('changelog', 'Landing:changelog');
+
         // API a dokumentace (pro budoucí použití)
         $router->addRoute('api', 'Landing:api');
         $router->addRoute('dokumentace', 'Landing:docs');

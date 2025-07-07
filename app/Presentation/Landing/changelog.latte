@@ -1,0 +1,168 @@
+{block content}
+
+<!-- Hero sekce pro changelog -->
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center min-vh-50 py-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="hero-title">
+                    <span class="text-primary">Changelog</span> - Historie změn
+                </h1>
+                <p class="hero-subtitle">
+                    Sledujte vývoj QRdokladu. Zde najdete kompletní historii všech 
+                    aktualizací, nových funkcí a vylepšení našeho fakturačního systému.
+                </p>
+                <div class="d-flex justify-content-center align-items-center gap-4 mt-4">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-rocket-fill text-primary me-2"></i>
+                        <span class="text-muted">Průběžné aktualizace</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-shield-check-fill text-success me-2"></i>
+                        <span class="text-muted">Bezpečnost na prvním místě</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Obsah changelog -->
+<section class="content-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                
+                <!-- Timeline changelog -->
+                <div class="changelog-timeline">
+                    {foreach $changelogData as $year => $versions}
+                        
+                        <!-- Rok -->
+                        <div class="year-divider mb-5">
+                            <h2 class="text-center text-primary mb-5">
+                                <i class="bi bi-calendar-event me-2"></i>
+                                {$year}
+                            </h2>
+                        </div>
+                        
+                        {foreach $versions as $version => $release}
+                            <!-- Verze -->
+                            <div class="changelog-item mb-5" data-version="{$version}">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!-- Datum a verze -->
+                                        <div class="version-info sticky-top">
+                                            <div class="version-badge version-{$release['type']}" title="{$release['type']}">
+                                                <h4 class="version-number mb-1">v{$version}</h4>
+                                                <p class="version-date mb-0">
+                                                    <i class="bi bi-calendar3 me-1"></i>
+                                                    {$release['date']}
+                                                </p>
+                                                <span class="version-type-badge">
+                                                    {if $release['type'] === 'major'}
+                                                        <i class="bi bi-star-fill"></i> Hlavní verze
+                                                    {elseif $release['type'] === 'feature'}
+                                                        <i class="bi bi-plus-circle-fill"></i> Nové funkce
+                                                    {elseif $release['type'] === 'bugfix'}
+                                                        <i class="bi bi-bug-fill"></i> Opravy chyb
+                                                    {else}
+                                                        <i class="bi bi-gear-fill"></i> Aktualizace
+                                                    {/if}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-9">
+                                        <!-- Obsah změn -->
+                                        <div class="changelog-content">
+                                            <h3 class="changelog-title">{$release['title']}</h3>
+                                            
+                                            {if isset($release['changes']['added']) && !empty($release['changes']['added'])}
+                                                <div class="change-group added mb-4">
+                                                    <h5 class="change-type">
+                                                        <i class="bi bi-plus-circle-fill text-success me-2"></i>
+                                                        Nové funkce
+                                                    </h5>
+                                                    <ul class="change-list">
+                                                        {foreach $release['changes']['added'] as $change}
+                                                            <li>{$change}</li>
+                                                        {/foreach}
+                                                    </ul>
+                                                </div>
+                                            {/if}
+                                            
+                                            {if isset($release['changes']['improved']) && !empty($release['changes']['improved'])}
+                                                <div class="change-group improved mb-4">
+                                                    <h5 class="change-type">
+                                                        <i class="bi bi-arrow-up-circle-fill text-primary me-2"></i>
+                                                        Vylepšení
+                                                    </h5>
+                                                    <ul class="change-list">
+                                                        {foreach $release['changes']['improved'] as $change}
+                                                            <li>{$change}</li>
+                                                        {/foreach}
+                                                    </ul>
+                                                </div>
+                                            {/if}
+                                            
+                                            {if isset($release['changes']['fixed']) && !empty($release['changes']['fixed'])}
+                                                <div class="change-group fixed mb-4">
+                                                    <h5 class="change-type">
+                                                        <i class="bi bi-bug-fill text-warning me-2"></i>
+                                                        Opravené chyby
+                                                    </h5>
+                                                    <ul class="change-list">
+                                                        {foreach $release['changes']['fixed'] as $change}
+                                                            <li>{$change}</li>
+                                                        {/foreach}
+                                                    </ul>
+                                                </div>
+                                            {/if}
+                                            
+                                            {if isset($release['changes']['removed']) && !empty($release['changes']['removed'])}
+                                                <div class="change-group removed mb-4">
+                                                    <h5 class="change-type">
+                                                        <i class="bi bi-dash-circle-fill text-danger me-2"></i>
+                                                        Odstraněno
+                                                    </h5>
+                                                    <ul class="change-list">
+                                                        {foreach $release['changes']['removed'] as $change}
+                                                            <li>{$change}</li>
+                                                        {/foreach}
+                                                    </ul>
+                                                </div>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {/foreach}
+                    {/foreach}
+                </div>
+                
+                <!-- Info box na konci -->
+                <div class="alert alert-info mt-5" role="alert">
+                    <div class="d-flex">
+                        <div class="me-3">
+                            <i class="bi bi-info-circle-fill" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h5 class="alert-heading">Sledujte vývoj QRdokladu!</h5>
+                            <p class="mb-2">
+                                Chcete být informováni o nových funkcích a aktualizacích? 
+                                <a n:href="Landing:blog" class="alert-link">Sledujte náš blog</a> nebo 
+                                <a n:href="Landing:kontakt" class="alert-link">kontaktujte nás přímo</a>.
+                            </p>
+                            <p class="mb-0 small text-muted">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Všechny aktualizace jsou automatické a bezplatné pro všechny uživatele.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>

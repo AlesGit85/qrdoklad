@@ -1,0 +1,298 @@
+/**
+ * QRdoklad Changelog Styles
+ * Styly pro stránku historie změn
+ * Barvy: primární #B1D235, sekundární #95B11F, šedá #6c757d, černá #212529
+ */
+
+/* ============================
+   CHANGELOG TIMELINE
+   ========================== */
+
+.changelog-timeline {
+    position: relative;
+}
+
+.year-divider {
+    position: relative;
+}
+
+.year-divider::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.changelog-item {
+    position: relative;
+    padding: 2rem 0;
+    border-left: 3px solid rgba(177, 210, 53, 0.2);
+    margin-left: 1rem;
+}
+
+.changelog-item::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 2rem;
+    width: 13px;
+    height: 13px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px rgba(177, 210, 53, 0.2);
+}
+
+/* ============================
+   VERSION INFO SIDEBAR
+   ========================== */
+
+.version-info {
+    padding-left: 2rem;
+    top: 100px;
+}
+
+.version-badge {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.version-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.version-badge.version-major {
+    border-left: 5px solid #dc3545;
+}
+
+.version-badge.version-feature {
+    border-left: 5px solid var(--primary-color);
+}
+
+.version-badge.version-bugfix {
+    border-left: 5px solid #ffc107;
+}
+
+.version-number {
+    color: var(--dark-color);
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.version-date {
+    color: var(--gray-color);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.version-type-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--gray-color);
+    background: rgba(108, 117, 125, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    margin-top: 0.5rem;
+}
+
+/* ============================
+   CHANGELOG CONTENT
+   ========================== */
+
+.changelog-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-left: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.changelog-content:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.changelog-title {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+/* ============================
+   CHANGE GROUPS
+   ========================== */
+
+.change-group {
+    margin-bottom: 1.5rem;
+}
+
+.change-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.change-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.change-list li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--dark-color);
+    line-height: 1.5;
+    transition: all 0.2s ease;
+}
+
+.change-list li:hover {
+    padding-left: 1.8rem;
+}
+
+.change-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--gray-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Barevné rozlišení změn */
+.change-group.added .change-list li::before {
+    color: #28a745;
+}
+
+.change-group.improved .change-list li::before {
+    color: var(--primary-color);
+}
+
+.change-group.fixed .change-list li::before {
+    color: #ffc107;
+}
+
+.change-group.removed .change-list li::before {
+    color: #dc3545;
+}
+
+/* ============================
+   ANIMACE
+   ========================== */
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animation when scrolling into view */
+.changelog-item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered animation delay */
+.changelog-item:nth-child(1) { animation-delay: 0.1s; }
+.changelog-item:nth-child(2) { animation-delay: 0.2s; }
+.changelog-item:nth-child(3) { animation-delay: 0.3s; }
+.changelog-item:nth-child(4) { animation-delay: 0.4s; }
+.changelog-item:nth-child(5) { animation-delay: 0.5s; }
+.changelog-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* ============================
+   RESPONSIVE
+   ========================== */
+
+@media (max-width: 768px) {
+    .changelog-item {
+        margin-left: 0;
+        border-left: none;
+        padding-left: 0;
+    }
+    
+    .changelog-item::before {
+        display: none;
+    }
+    
+    .version-info {
+        padding-left: 0;
+        position: static !important;
+        margin-bottom: 2rem;
+    }
+    
+    .changelog-content {
+        margin-left: 0;
+    }
+    
+    .year-divider::after {
+        width: 60px;
+    }
+    
+    .version-badge {
+        padding: 1rem;
+    }
+    
+    .version-number {
+        font-size: 1.1rem;
+    }
+    
+    .changelog-title {
+        font-size: 1.2rem;
+    }
+    
+    .change-type {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .version-badge {
+        padding: 0.75rem;
+    }
+    
+    .changelog-content {
+        padding: 1.5rem;
+    }
+    
+    .changelog-title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .change-group {
+        margin-bottom: 1rem;
+    }
+    
+    .change-type {
+        font-size: 0.95rem;
+    }
+    
+    .change-list li {
+        font-size: 0.9rem;
+        padding: 0.3rem 0;
+    }
+}

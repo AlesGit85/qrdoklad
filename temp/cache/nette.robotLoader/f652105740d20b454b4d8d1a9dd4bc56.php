@@ -10,7 +10,7 @@ return array (
     'App\\Core\\RouterFactory' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Core\\RouterFactory.php',
-      1 => 1751628048,
+      1 => 1751874645,
     ),
     'App\\Presentation\\Accessory\\LatteExtension' => 
     array (
@@ -35,7 +35,7 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1751629753,
+      1 => 1751886204,
     ),
     'App\\Security\\SecurityMiddleware' => 
     array (
@@ -46,20 +46,9 @@ return array (
   1 => 
   array (
     'null' => 3,
-    'App\\Presentation\\Landing\\LandingDefaultTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingDocsTemplate' => 3,
     'App\\Presentation\\Landing\\LandingTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingFunkceTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingPrivacyTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingTermsTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingAboutTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingFaqTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingHelpTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingStatusTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingIncidentsTemplate' => 1,
-    'App\\Presentation\\Landing\\LandingBlogTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingApiTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingChangelogTemplate' => 3,
   ),
   2 => 
   array (
