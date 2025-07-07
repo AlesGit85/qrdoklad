@@ -1,0 +1,68 @@
+From: QRdoklad
+To: Aleš Zita
+Subject: Potvrzení přijetí vaší zprávy - QRdoklad
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Date: Mon, 07 Jul 2025 13:33:01 +0000
+Message-ID: <686bcc8d3dc8f@qrdoklad.local>
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Potvrzení přijetí zprávy - QRdoklad</title>
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                .header { background: #B1D235; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+                .header h1 { margin: 0; color: #212529; font-size: 28px; }
+                .content { background: #f8f9fa; padding: 40px 30px; border-radius: 0 0 8px 8px; }
+                .success-icon { font-size: 48px; margin-bottom: 20px; }
+                .message-summary { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #B1D235; }
+                .contact-info { background: #e7f3ff; padding: 20px; border-radius: 8px; margin-top: 30px; }
+                .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; text-align: center; font-size: 14px; color: #6c757d; }
+                .btn { display: inline-block; padding: 12px 24px; background: #B1D235; color: #212529; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 20px 0; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <div class="success-icon">✅</div>
+                    <h1>Vaše zpráva byla přijata</h1>
+                </div>
+                
+                <div class="content">
+                    <p><strong>Děkujeme, Aleš Zita!</strong></p>
+                    
+                    <p>Vaši zprávu jsme úspěšně přijali a zpracujeme ji co nejdříve. Náš tým vám odpoví do 24 hodin.</p>
+                    
+                    <div class="message-summary">
+                        <h3>📋 Shrnutí vaší zprávy:</h3>
+                        <p><strong>Typ dotazu:</strong> Obchodní dotaz</p>
+                        <p><strong>Odesláno:</strong> 07.07.2025 000 13:33</p>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <h3>📞 Potřebujete urgentní pomoc?</h3>
+                        <p>Pro technické problémy můžete také:</p>
+                        <ul>
+                            <li>📧 Napsat na: <a href="mailto:support@qrdoklad.cz">support@qrdoklad.cz</a></li>
+                            <li>📖 Navštívit naši <a href="https://qrdoklad.cz/dokumentace">dokumentaci</a></li>
+                            <li>❓ Projít <a href="https://qrdoklad.cz/napoveda">často kladené otázky</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <a href="https://qrdoklad.cz" class="btn">🏠 Zpět na QRdoklad.cz</a>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <p><strong>QRdoklad</strong> - Moderní fakturační systém s QR platbami</p>
+                    <p>📧 info@qrdoklad.cz | 🌐 <a href="https://qrdoklad.cz">qrdoklad.cz</a></p>
+                    <p style="font-size: 12px;">Tento email byl automaticky vygenerován. Prosím neodpovídejte na tuto adresu.</p>
+                </div>
+            </div>
+        </body>
+        </html>

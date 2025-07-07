@@ -65,6 +65,8 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 		'Tracy\Bar' => [['tracy.bar']],
 		'App\Core\SecurityHelper' => [['securityHelper']],
 		'App\Core\EmailService' => [['emailService']],
+		'App\Core\InputSanitizer' => [['inputSanitizer']],
+		'App\Core\CSPMiddleware' => [['cspMiddleware']],
 		'Nette\Routing\RouteList' => [['01']],
 		'Nette\Routing\Router' => [['01']],
 		'ArrayAccess' => [2 => ['01', 'application.1', 'application.3', 'application.4']],
@@ -152,7 +154,12 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 
 	public function createServiceApplication__4(): App\Presentation\Landing\LandingPresenter
 	{
-		$service = new App\Presentation\Landing\LandingPresenter($this->getService('securityHelper'), $this->getService('emailService'));
+		$service = new App\Presentation\Landing\LandingPresenter(
+			$this->getService('securityHelper'),
+			$this->getService('emailService'),
+			$this->getService('inputSanitizer'),
+			$this->getService('cspMiddleware'),
+		);
 		$service->injectPrimary(
 			$this->getService('http.request'),
 			$this->getService('http.response'),
@@ -257,6 +264,12 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 	}
 
 
+	public function createServiceCspMiddleware(): App\Core\CSPMiddleware
+	{
+		return new App\Core\CSPMiddleware($this->getService('http.response'), true, $this->getService('session.session'));
+	}
+
+
 	public function createServiceDatabase__default__connection(): Nette\Database\Connection
 	{
 		$service = new Nette\Database\Connection('sqlite::memory:', null, null, []);
@@ -320,6 +333,12 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 		$service = new Nette\Http\Response;
 		$service->cookieSecure = $this->getService('http.request')->isSecured();
 		return $service;
+	}
+
+
+	public function createServiceInputSanitizer(): App\Core\InputSanitizer
+	{
+		return new App\Core\InputSanitizer;
 	}
 
 
@@ -463,8 +482,10 @@ class Container_d8c984b1c7 extends Nette\DI\Container
 			$response->setHeader('X-Frame-Options', 'DENY');
 			$response->setHeader('X-XSS-Protection', '1; mode=block');
 			$response->setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-			$response->setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-			$response->setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+			$response->setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()');
+			$response->setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+			$response->setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+			$response->setHeader('Cross-Origin-Resource-Policy', 'same-site');
 			Nette\Http\Helpers::initCookie($this->getService('http.request'), $response);
 		})();
 		// tracy.

@@ -369,10 +369,15 @@ final class Template_ab4446634a extends Latte\Runtime\Template
 ';
 		}
 		echo '
-    <!-- Scroll to Top tlačítko -->
+    <!-- 6. Scroll to Top tlačítko -->
     <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top" title="Zpět nahoru">
         <i class="bi bi-arrow-up"></i>
     </button>
+
+    <!-- 7. Scrollování na flash messages -->
+    <script src="';
+		echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 226 */;
+		echo '/js/flash-scroll.js"></script>
     
 </body>
 </html>';

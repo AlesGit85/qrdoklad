@@ -4,23 +4,32 @@ declare(strict_types=1);
 
 namespace App\Presentation\Landing;
 
-use Tracy\Debugger;
-use Nette\Utils\DateTime;
-use App\Core\EmailService;
-use App\Core\SecurityHelper;
-use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
+use Nette\Application\UI\Form;
+use Nette\Utils\DateTime;
+use App\Core\SecurityHelper;
+use App\Core\EmailService;
+use App\Core\InputSanitizer;
+use App\Core\CSPMiddleware;
 
 final class LandingPresenter extends Presenter
 {
     private SecurityHelper $securityHelper;
     private EmailService $emailService;
+    private InputSanitizer $inputSanitizer;
+    private CSPMiddleware $cspMiddleware;
 
-    public function __construct(SecurityHelper $securityHelper, EmailService $emailService)
-    {
+    public function __construct(
+        SecurityHelper $securityHelper, 
+        EmailService $emailService,
+        InputSanitizer $inputSanitizer,
+        CSPMiddleware $cspMiddleware
+    ) {
         parent::__construct();
         $this->securityHelper = $securityHelper;
         $this->emailService = $emailService;
+        $this->inputSanitizer = $inputSanitizer;
+        $this->cspMiddleware = $cspMiddleware;
     }
 
     /**
@@ -30,8 +39,20 @@ final class LandingPresenter extends Presenter
     {
         parent::beforeRender();
         
+        // ✅ KROK 3: Content Security Policy
+        $this->cspMiddleware->applyCSP();
+        
+        // ✅ CSP specifické pro jednotlivé stránky
+        $action = $this->getAction();
+        if (in_array($action, ['kontakt', 'cenik', 'funkce'])) {
+            $this->cspMiddleware->applyPageSpecificCSP($action);
+        }
+        
         // ✅ Přidání currentUrl pro Open Graph
         $this->template->currentUrl = $this->getHttpRequest()->getUrl()->getAbsoluteUrl();
+        
+        // ✅ CSP nonce pro template
+        $this->template->cspNonce = $this->cspMiddleware->generateNonce();
     }
 
     /**
@@ -186,7 +207,7 @@ final class LandingPresenter extends Presenter
     }
 
     /**
-     * Kontaktní formulář s CSRF ochranou
+     * Kontaktní formulář s CSRF ochranou a pokročilou sanitizací
      */
     protected function createComponentContactForm(): Form
     {
@@ -200,7 +221,8 @@ final class LandingPresenter extends Presenter
             ->addRule(Form::MinLength, 'Jméno musí mít alespoň %d znaky', 2)
             ->addRule(Form::MaxLength, 'Jméno je příliš dlouhé (max %d znaků)', 100)
             ->addFilter(function($value) {
-                return trim(strip_tags($value)); // Základní sanitization
+                // ✅ KROK 3: Pokročilá sanitizace
+                return $this->inputSanitizer->sanitizeText($value, 100);
             });
 
         $form->addEmail('email', 'E-mail:')
@@ -208,21 +230,23 @@ final class LandingPresenter extends Presenter
             ->addRule(Form::Email, 'Zadejte platný e-mail')
             ->addRule(Form::MaxLength, 'E-mail je příliš dlouhý (max %d znaků)', 255)
             ->addFilter(function($value) {
-                return trim(strtolower($value));
+                // ✅ KROK 3: Email sanitizace
+                $sanitized = $this->inputSanitizer->sanitizeEmail($value);
+                return $sanitized !== false ? $sanitized : $value;
             });
 
         $form->addText('company', 'Firma:')
             ->setRequired(false)
             ->addRule(Form::MaxLength, 'Název firmy je příliš dlouhý (max %d znaků)', 200)
             ->addFilter(function($value) {
-                return trim(strip_tags($value));
+                return $this->inputSanitizer->sanitizeText($value, 200);
             });
 
         $form->addText('phone', 'Telefon:')
             ->setRequired(false)
             ->addRule(Form::MaxLength, 'Telefon je příliš dlouhý (max %d znaků)', 20)
             ->addFilter(function($value) {
-                return trim(strip_tags($value));
+                return $this->inputSanitizer->sanitizePhone($value);
             });
 
         $form->addSelect('subject', 'Typ dotazu:', [
@@ -240,7 +264,8 @@ final class LandingPresenter extends Presenter
             ->addRule(Form::MinLength, 'Zpráva musí mít alespoň %d znaků', 10)
             ->addRule(Form::MaxLength, 'Zpráva je příliš dlouhá (max %d znaků)', 2000)
             ->addFilter(function($value) {
-                return trim(strip_tags($value, '<br><p>')); // Povolíme základní HTML tagy
+                // ✅ KROK 3: Základní sanitizace (XSS detection je už v contactFormSucceeded)
+                return $this->inputSanitizer->sanitizeHtml($value, ['<br>', '<p>', '<strong>', '<em>']);
             });
 
         $form->addCheckbox('privacy', '') // ✅ Prázdný label - popis je v latte template
@@ -251,22 +276,23 @@ final class LandingPresenter extends Presenter
 
         $form->onSuccess[] = [$this, 'contactFormSucceeded'];
 
-        // Zabezpečení proti spam botům
+        // ✅ KROK 3: Dodatečné zabezpečení formuláře
         $form->getElementPrototype()->addAttributes([
             'novalidate' => true,
-            'data-form' => 'contact'
+            'data-form' => 'contact',
+            'data-csrf-protection' => 'enabled'
         ]);
 
         return $form;
     }
 
     /**
-     * Zpracování kontaktního formuláře s bezpečnostními kontrolami
+     * Zpracování kontaktního formuláře s rozšířenými bezpečnostními kontrolami
      */
     public function contactFormSucceeded(Form $form, \stdClass $values): void
     {
         try {
-            // ✅ BEZPEČNOSTNÍ KONTROLY
+            // ✅ KROK 3: SPAM DETECTION PŘED SANITIZACÍ (důležité pořadí!)
             
             // 1. Rate limiting
             if (!$this->securityHelper->checkFormRateLimit('contact_form', 30)) {
@@ -275,8 +301,44 @@ final class LandingPresenter extends Presenter
                 return;
             }
             
-            // 2. Validace email dat
-            $validationErrors = $this->emailService->validateEmailData($values);
+            // 2. Spam detection na RAW datech (před sanitizací)
+            if (isset($values->message) && $this->securityHelper->checkSpamContent($values->message)) {
+                $this->securityHelper->logSecurityEvent('spam_detected', [
+                    'email' => $values->email ?? 'unknown',
+                    'message_preview' => substr($values->message, 0, 100)
+                ]);
+                $this->flashMessage('Zpráva byla označena jako spam a nebyla odeslána.', 'error');
+                $this->redirect('this');
+                return;
+            }
+            
+            // 3. XSS detection na RAW datech (před sanitizací)
+            \Tracy\Debugger::log("Checking XSS for message: " . substr($values->message ?? '', 0, 100), 'debug');
+            foreach ((array)$values as $field => $value) {
+                if (is_string($value) && $this->inputSanitizer->detectXss($value)) {
+                    \Tracy\Debugger::log("XSS detected in field {$field}: " . substr($value, 0, 100), 'security');
+                    $this->securityHelper->logSecurityEvent('xss_detected', [
+                        'field' => $field,
+                        'email' => $values->email ?? 'unknown',
+                        'value_preview' => substr($value, 0, 50)
+                    ]);
+                    $this->flashMessage('Formulář obsahuje neplatný obsah. Zkuste to znovu bez speciálních znaků.', 'error');
+                    $this->redirect('this');
+                    return;
+                }
+            }
+            
+            // Debug log pro spam detection
+            \Tracy\Debugger::log("Checking spam for message: " . substr($values->message ?? '', 0, 100), 'debug');
+            
+            // ✅ TEPRVE NYNÍ SANITIZUJEME DATA
+            $sanitizedData = $this->inputSanitizer->sanitizeFormData((array)$values);
+            $values = (object)$sanitizedData;
+            
+            // ✅ DODATEČNÉ VALIDACE NA SANITIZOVANÝCH DATECH
+            
+            // 4. Pokročilá validace vstupních dat
+            $validationErrors = $this->validateFormData($values);
             if (!empty($validationErrors)) {
                 foreach ($validationErrors as $error) {
                     $this->flashMessage($error, 'error');
@@ -285,7 +347,17 @@ final class LandingPresenter extends Presenter
                 return;
             }
             
-            // 3. Honeypot kontrola (pokud by byla implementována)
+            // 5. Email validace
+            $emailValidationErrors = $this->emailService->validateEmailData($values);
+            if (!empty($emailValidationErrors)) {
+                foreach ($emailValidationErrors as $error) {
+                    $this->flashMessage($error, 'error');
+                }
+                $this->redirect('this');
+                return;
+            }
+            
+            // 6. Honeypot kontrola (pokud by byla implementována)
             if (!$this->securityHelper->checkHoneypot((array)$values)) {
                 $this->securityHelper->logSecurityEvent('honeypot_triggered', ['email' => $values->email]);
                 $this->flashMessage('Došlo k chybě při odesílání. Zkuste to prosím znovu.', 'error');
@@ -299,6 +371,13 @@ final class LandingPresenter extends Presenter
             if ($emailSent) {
                 $this->flashMessage('Děkujeme za vaši zprávu! Odpovíme vám do 24 hodin.', 'success');
                 $this->flashMessage('Vaši zprávu jsme úspěšně přijali a zpracujeme ji co nejdříve.', 'info');
+                
+                // ✅ KROK 3: Audit trail s sanitizovanými daty
+                $this->securityHelper->logSecurityEvent('contact_form_success', [
+                    'email' => $values->email,
+                    'subject' => $values->subject,
+                    'message_length' => strlen($values->message)
+                ]);
             } else {
                 $this->flashMessage('Omlouváme se, došlo k chybě při odesílání zprávy. Zkuste to prosím znovu.', 'error');
                 $this->securityHelper->logSecurityEvent('email_send_failed', [
@@ -307,12 +386,48 @@ final class LandingPresenter extends Presenter
                 ]);
             }
             
+        } catch (\Nette\Application\AbortException $e) {
+            // ✅ AbortException je normální (redirect) - nepřeposíláme
+            throw $e;
+        } catch (\Nette\InvalidArgumentException $e) {
+            // XSS nebo jiná bezpečnostní hrozba - už je zalogována
+            \Tracy\Debugger::log("Security exception in form: " . $e->getMessage(), 'security');
+            $this->flashMessage('Formulář obsahuje neplatný obsah. Zkuste to znovu bez speciálních znaků.', 'error');
         } catch (\Exception $e) {
+            // Pouze skutečné neočekávané chyby
+            \Tracy\Debugger::log("Unexpected error in contact form: " . $e->getMessage(), 'error');
             \Tracy\Debugger::log($e);
             $this->flashMessage('Omlouváme se, došlo k neočekávané chybě. Zkuste to prosím znovu.', 'error');
         }
 
         $this->redirect('this');
+    }
+
+    /**
+     * ✅ KROK 3: Rozšířená validace formulářových dat (bez spam detection - ta je už před sanitizací)
+     */
+    private function validateFormData(\stdClass $values): array
+    {
+        $errors = [];
+        
+        // Kontrola velikosti dat (na sanitizovaných datech)
+        foreach ((array)$values as $field => $value) {
+            if (is_string($value) && !$this->inputSanitizer->checkInputSize($value, 5000)) {
+                $errors[] = "Pole {$field} je příliš dlouhé.";
+            }
+        }
+        
+        // Validace emailu (znovu na sanitizovaných datech)
+        if (isset($values->email)) {
+            $cleanEmail = $this->inputSanitizer->sanitizeEmail($values->email);
+            if ($cleanEmail === false) {
+                $errors[] = 'Neplatná e-mailová adresa nebo zakázaná doména.';
+            }
+        }
+        
+        // POZNÁMKA: XSS a spam kontrola se dělá už před sanitizací
+        
+        return $errors;
     }
 
     /**

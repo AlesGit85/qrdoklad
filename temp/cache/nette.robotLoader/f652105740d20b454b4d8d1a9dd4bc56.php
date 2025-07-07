@@ -7,10 +7,20 @@ return array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Bootstrap.php',
       1 => 1750197470,
     ),
+    'App\\Core\\CSPMiddleware' => 
+    array (
+      0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Core\\CSPMiddleware.php',
+      1 => 1751895433,
+    ),
     'App\\Core\\EmailService' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Core\\EmailService.php',
       1 => 1751893777,
+    ),
+    'App\\Core\\InputSanitizer' => 
+    array (
+      0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Core\\InputSanitizer.php',
+      1 => 1751897535,
     ),
     'App\\Core\\RouterFactory' => 
     array (
@@ -20,7 +30,7 @@ return array (
     'App\\Core\\SecurityHelper' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Core\\SecurityHelper.php',
-      1 => 1751888574,
+      1 => 1751897803,
     ),
     'App\\Core\\TestMailer' => 
     array (
@@ -50,7 +60,7 @@ return array (
     'App\\Presentation\\Landing\\LandingPresenter' => 
     array (
       0 => 'D:\\_coding\\nette\\qrdoklad\\app\\Presentation\\Landing\\LandingPresenter.php',
-      1 => 1751891775,
+      1 => 1751898108,
     ),
     'App\\Security\\SecurityMiddleware' => 
     array (
@@ -61,9 +71,9 @@ return array (
   1 => 
   array (
     'null' => 1,
-    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
+    'App\\Presentation\\Landing\\LandingDefaultTemplate' => 2,
     'App\\Presentation\\Landing\\LandingTemplate' => 3,
-    'App\\Presentation\\Landing\\LandingCenikTemplate' => 1,
+    'App\\Presentation\\Landing\\LandingKontaktTemplate' => 3,
   ),
   2 => 
   array (

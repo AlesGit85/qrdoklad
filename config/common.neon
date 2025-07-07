@@ -56,5 +56,10 @@ services:
 	# EmailService pro správu emailů
 	emailService: App\Core\EmailService
 	
+	# ✅ KROK 3: Pokročilé zabezpečení
+	inputSanitizer: App\Core\InputSanitizer
+	cspMiddleware: 
+		factory: App\Core\CSPMiddleware(@http.response, %debugMode%, @session.session)
+	
 	# ✅ KROK 2: TestMailer pro lokální vývoj (ukládání do souborů)
 	mail.mailer: App\Core\TestMailer(%tempDir%)

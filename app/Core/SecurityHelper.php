@@ -27,6 +27,7 @@ class SecurityHelper
      */
     public function checkFormRateLimit(string $formName, int $limitSeconds = 30): bool
     {
+        // Použijeme Nette Session místo raw PHP sessions
         $section = $this->session->getSection('rate_limit');
         $key = $formName . '_' . $this->getClientIp();
         $lastSubmit = $section->$key ?? 0;
@@ -50,26 +51,43 @@ class SecurityHelper
      */
     public function checkSpamContent(string $content): bool
     {
+        $originalContent = $content;
         $content = strtolower($content);
         
-        // Kontrola počtu odkazů
-        if (substr_count($content, 'http') > 3) {
+        \Tracy\Debugger::log("Spam check for: " . substr($originalContent, 0, 150), 'debug');
+        
+        // Kontrola počtu odkazů (chytne i 2 linky)
+        $httpCount = substr_count($content, 'http');
+        \Tracy\Debugger::log("HTTP count found: {$httpCount}", 'debug');
+        
+        if ($httpCount > 1) {
+            Debugger::log("Spam detected: too many links ({$httpCount})", 'security');
             return true;
         }
 
         // Spam slova (jednoduché)
-        $spamWords = ['viagra', 'casino', 'lottery', 'winner', 'congratulations'];
+        $spamWords = ['viagra', 'casino', 'lottery', 'winner', 'congratulations', 'prize', 'click here', 'urgent'];
         foreach ($spamWords as $word) {
             if (strpos($content, $word) !== false) {
+                Debugger::log("Spam detected: keyword '{$word}' found", 'security');
                 return true;
             }
         }
 
         // Kontrola nadměrného opakování znaků
         if (preg_match('/(.)\1{5,}/', $content)) {
+            Debugger::log("Spam detected: repeated characters", 'security');
             return true;
         }
 
+        // Kontrola množství velkých písmen
+        $upperCount = preg_match_all('/[A-Z]/', $originalContent);
+        if ($upperCount > strlen($originalContent) * 0.5) {
+            Debugger::log("Spam detected: too many uppercase letters", 'security');
+            return true;
+        }
+
+        \Tracy\Debugger::log("No spam detected", 'debug');
         return false;
     }
 

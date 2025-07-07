@@ -1,0 +1,42 @@
+[2025-07-07 14-13-18] Checking XSS for message: Toto je zkouska XSS alert(&apos;test&apos;)  @  http://localhost:8000/kontakt 
+[2025-07-07 14-14-08] Checking XSS for message: Toto je SPAM test Navštivte http://example.com a http://test.com  @  http://localhost:8000/kontakt 
+[2025-07-07 14-17-37] Spam check for: Uvidime jestli se to povede. Navštivte http://example.com a http://test.com  @  http://localhost:8000/kontakt 
+[2025-07-07 14-17-37] HTTP count found: 2  @  http://localhost:8000/kontakt 
+[2025-07-07 14-18-23] Spam check for: Tak co, projde to? alert(&apos;test&apos;)  @  http://localhost:8000/kontakt 
+[2025-07-07 14-18-23] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-18-23] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-18-23] Checking XSS for message: Tak co, projde to? alert(&apos;test&apos;)  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] Spam check for: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] Checking XSS for message: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] Checking spam for message: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] Spam check for: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-19-04] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-22-39] Spam check for: Navštivte http://example.com a http://test.com  @  http://localhost:8000/kontakt 
+[2025-07-07 14-22-39] HTTP count found: 2  @  http://localhost:8000/kontakt 
+[2025-07-07 14-23-12] Spam check for: Toto je maly testik: alert(&apos;test&apos;)  @  http://localhost:8000/kontakt 
+[2025-07-07 14-23-12] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-23-12] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-23-12] Checking XSS for message: Toto je maly testik: alert(&apos;test&apos;)  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] Spam check for: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] Checking XSS for message: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] Checking spam for message: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] Spam check for: Dobrý den, mám dotaz ohledně faktury.  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-24-12] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] Spam check for: jknkdnoiejk oihonwháí iiii  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] Checking XSS for message: jknkdnoiejk oihonwháí iiii  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] Checking spam for message: jknkdnoiejk oihonwháí iiii  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] Spam check for: jknkdnoiejk oihonwháí iiii  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] HTTP count found: 0  @  http://localhost:8000/kontakt 
+[2025-07-07 14-25-10] No spam detected  @  http://localhost:8000/kontakt 
+[2025-07-07 14-29-51] Spam check for: Navštivte http://example.com a http://test.com  @  http://localhost:8000/kontakt 
+[2025-07-07 14-29-51] HTTP count found: 2  @  http://localhost:8000/kontakt 
+[2025-07-07 14-34-39] Spam check for: Navštivte http://example.com a http://test.com  @  http://localhost:8000/kontakt 
+[2025-07-07 14-34-39] HTTP count found: 2  @  http://localhost:8000/kontakt 

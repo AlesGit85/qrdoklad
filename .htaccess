@@ -1,8 +1,8 @@
 # ===============================================
-# QRdoklad - Security .htaccess Configuration
+# QRdoklad - Enhanced Security .htaccess Configuration
 # ===============================================
 
-# ✅ ZÁKLADNÍ BEZPEČNOSTNÍ HLAVIČKY
+# ✅ KROK 3: ROZŠÍŘENÉ BEZPEČNOSTNÍ HLAVIČKY
 <IfModule mod_headers.c>
     # XSS Protection
     Header always set X-XSS-Protection "1; mode=block"
@@ -16,14 +16,26 @@
     # Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     
-    # Permissions Policy
-    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    # Permissions Policy (Feature Policy)
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()"
     
-    # Content Security Policy (přizpůsobte podle potřeby)
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://www.google-analytics.com"
+    # Cross-Origin Policies
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-site"
+    
+    # Content Security Policy (Backup - primárně se nastavuje v PHP)
+    # Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self'"
     
     # HSTS (pouze pro HTTPS)
-    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+    
+    # ✅ KROK 3: Dodatečné bezpečnostní hlavičky
+    # Expect-CT pro Certificate Transparency
+    Header always set Expect-CT "max-age=86400, enforce" env=HTTPS
+    
+    # Clear-Site-Data při logouu (můžete použít)
+    # Header always set Clear-Site-Data "\"cache\", \"cookies\", \"storage\", \"executionContexts\"" "expr=%{REQUEST_URI} =~ /logout/"
 </IfModule>
 
 # ✅ OCHRANA CITLIVÝCH SOUBORŮ
@@ -32,7 +44,7 @@
     Deny from all
 </FilesMatch>
 
-<FilesMatch "\.(neon|lock|md|txt|log)$">
+<FilesMatch "\.(neon|lock|md|txt|log|ini|conf|sql|bak|old|tmp)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
@@ -44,78 +56,173 @@ RedirectMatch 403 /app
 RedirectMatch 403 /vendor
 RedirectMatch 403 /temp
 RedirectMatch 403 /log
+RedirectMatch 403 /tests
+RedirectMatch 403 /\.env
 
-# ✅ OCHRANA PROTI DIRECTORY TRAVERSAL
+# ✅ KROK 3: ROZŠÍŘENÁ OCHRANA PROTI ÚTOKŮ
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Blokování directory traversal pokusů
+    # ✅ Blokování directory traversal pokusů
     RewriteCond %{QUERY_STRING} \.\./\.\./ [OR]
     RewriteCond %{QUERY_STRING} \.\.\\\.\.\\ [OR]
     RewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [OR]
+    
+    # ✅ Ochrana proti Local File Inclusion
     RewriteCond %{QUERY_STRING} etc/passwd [OR]
     RewriteCond %{QUERY_STRING} boot\.ini [OR]
+    RewriteCond %{QUERY_STRING} proc/self/environ [OR]
+    
+    # ✅ Blokování protokolů
     RewriteCond %{QUERY_STRING} ftp: [OR]
     RewriteCond %{QUERY_STRING} http: [OR]
     RewriteCond %{QUERY_STRING} https: [OR]
+    RewriteCond %{QUERY_STRING} file: [OR]
+    RewriteCond %{QUERY_STRING} gopher: [OR]
+    
+    # ✅ XSS ochrana
     RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C).*iframe.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C).*object.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C).*embed.*(>|%3E) [NC,OR]
+    
+    # ✅ SQL Injection ochrana
     RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
     RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} (union|select|insert|update|delete|drop|create|alter).*(from|where|table|database) [NC,OR]
+    
+    # ✅ Code injection ochrana
+    RewriteCond %{QUERY_STRING} (eval|exec|system|shell_exec|passthru|base64_decode) [NC,OR]
+    RewriteCond %{QUERY_STRING} php://input [NC,OR]
+    RewriteCond %{QUERY_STRING} data://text [NC,OR]
+    
+    # ✅ Pokročilé pattern matching
     RewriteCond %{QUERY_STRING} ^.*(\(|\)|<|>|%3c|%3e).* [NC,OR]
     RewriteCond %{QUERY_STRING} ^.*(\\x00|\\x04|\\x08|\\x0d|\\x1b|\\x20|\\x3c|\\x3e|\\x7f).* [NC]
+    
+    # Block if any condition is met
     RewriteRule ^(.*)$ - [F,L]
     
-    # Blokování podezřelých user agentů
+    # ✅ Blokování podezřelých user agentů
     RewriteCond %{HTTP_USER_AGENT} ^$ [OR]
-    RewriteCond %{HTTP_USER_AGENT} ^(java|curl|wget) [NC,OR]
-    RewriteCond %{HTTP_USER_AGENT} (winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner) [NC]
+    RewriteCond %{HTTP_USER_AGENT} ^(java|curl|wget|libwww|python|nikto|wkito|scanner) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (winhttp|HTTrack|clshttp|archiver|loader|email|harvest|extract|grab|miner|bot) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (;|<|>|'|"|\)|\(|%0A|%0D|%27|%3C|%3E|%00) [NC]
     RewriteRule ^(.*)$ - [F,L]
+    
+    # ✅ Rate limiting pro specifické paths
+    RewriteCond %{REQUEST_URI} (wp-admin|wp-login|admin|login|phpmyadmin) [NC]
+    RewriteRule ^(.*)$ - [F,L]
+    
+    # ✅ Blokování common exploit attempts
+    RewriteCond %{REQUEST_URI} (\.php\?|\.asp\?|\.jsp\?|\.cgi\?) [NC]
+    RewriteRule ^(.*)$ - [F,L]
+</IfModule>
+
+# ✅ KROK 3: UPLOAD SECURITY
+<IfModule mod_rewrite.c>
+    # Blokování nebezpečných file extensionů v upload
+    RewriteCond %{REQUEST_FILENAME} \.(php|phtml|php3|php4|php5|pl|py|jsp|asp|sh|cgi)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/index\.php$ [NC]
+    RewriteRule .* - [F,L]
 </IfModule>
 
 # ✅ RATE LIMITING (pokud server podporuje)
 <IfModule mod_limitipconn.c>
-    MaxConnPerIP 10
+    MaxConnPerIP 15
 </IfModule>
 
-# ✅ KOMPRESE A CACHE
+<IfModule mod_evasive24.c>
+    DOSHashTableSize    2048
+    DOSPageCount        10
+    DOSPageInterval     1
+    DOSSiteCount        50
+    DOSSiteInterval     1
+    DOSBlockingPeriod   600
+</IfModule>
+
+# ✅ KOMPRESE A CACHE (optimalizace)
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/xml
     AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
     AddOutputFilterByType DEFLATE application/xml
     AddOutputFilterByType DEFLATE application/xhtml+xml
     AddOutputFilterByType DEFLATE application/rss+xml
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
 
 <IfModule mod_expires.c>
     ExpiresActive on
+    
+    # CSS a JavaScript
     ExpiresByType text/css "access plus 1 year"
     ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    
+    # Obrázky
     ExpiresByType image/png "access plus 1 year"
     ExpiresByType image/jpg "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    
+    # Fonty
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    
+    # HTML - kratší cache
+    ExpiresByType text/html "access plus 1 hour"
 </IfModule>
 
 # ✅ NETTE FRAMEWORK ROUTING
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz)$ index.php [L]
+RewriteRule !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz|svg|woff|woff2|eot|ttf|webp)$ index.php [L]
 
 # ✅ ZABRÁNĚNÍ SPUŠTĚNÍ PHP V UPLOAD SLOŽKÁCH
 <Directory "/uploads">
     php_flag engine off
+    Options -ExecCGI
+    AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
 </Directory>
 
 <Directory "/images">
     php_flag engine off
+    Options -ExecCGI
 </Directory>
 
-# ✅ SKRYTÍ VERZE SERVERU (pokud je to možné)
+<Directory "/temp/mails">
+    Order allow,deny
+    Deny from all
+</Directory>
+
+# ✅ SKRYTÍ VERZE SERVERU
 ServerTokens Prod
 ServerSignature Off
+
+# ✅ KROK 3: MIME TYPE SECURITY
+<IfModule mod_mime.c>
+    # Force download pro nebezpečné typy
+    AddType application/octet-stream .php
+    AddType application/octet-stream .phps
+    AddType application/octet-stream .phtml
+    AddType application/octet-stream .php3
+    AddType application/octet-stream .php4
+    AddType application/octet-stream .php5
+    AddType application/octet-stream .inc
+    
+    # Bezpečné MIME types
+    AddType text/css .css
+    AddType application/javascript .js
+    AddType image/svg+xml .svg
+</IfModule>

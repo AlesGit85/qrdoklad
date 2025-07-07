@@ -1,4 +1,4 @@
-# Security configuration for QRdoklad
+# Security configuration for QRdoklad - Enhanced for Step 3
 parameters:
 	security:
 		# Session security
@@ -15,6 +15,35 @@ parameters:
 		rateLimitWindow: 300  # 5 minutes
 		formRateLimit: 30     # 30 sekund mezi odesláními stejného formuláře
 		
+		# ✅ KROK 3: Input sanitization konfigurace
+		input:
+			maxLength: 5000
+			allowedHtmlTags: ['<br>', '<p>', '<strong>', '<em>', '<b>', '<i>']
+			blockedPatterns: ['<script', 'javascript:', 'vbscript:', 'onload=', 'onerror=']
+			maxFileSize: 10485760  # 10MB
+		
+		# ✅ KROK 3: XSS Protection
+		xss:
+			strictMode: true
+			logAttempts: true
+			blockSuspiciousRequests: true
+			sanitizeOutput: true
+		
+		# ✅ KROK 3: Content Security Policy
+		csp:
+			enabled: true
+			reportOnly: %debugMode%  # Report-only ve vývoji, enforce v produkci
+			defaultSrc: "'self'"
+			scriptSrc: "'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com"
+			styleSrc: "'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com"
+			imgSrc: "'self' data: https: http:"
+			fontSrc: "'self' https://cdn.jsdelivr.net https://fonts.gstatic.com"
+			connectSrc: "'self' https://www.google-analytics.com"
+			objectSrc: "'none'"
+			frameAncestors: "'none'"
+			baseUri: "'self'"
+			formAction: "'self'"
+		
 		# Password security (pro budoucí použití)
 		passwordMinLength: 8
 		passwordRequireSpecialChar: true
@@ -23,18 +52,35 @@ parameters:
 		# File upload security
 		allowedMimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'application/pdf']
 		maxFileSize: 10485760  # 10MB
+		uploadScanViruses: false  # Nastavit na true pokud máte antivirus scanner
 		
 		# IP restrictions (pro admin access)
 		adminAllowedIPs: []  # Empty = allow all, add IPs for restriction
 		
-		# Content Security Policy
-		csp:
-			defaultSrc: "'self'"
-			scriptSrc: "'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com"
-			styleSrc: "'self' 'unsafe-inline' https://cdn.jsdelivr.net"
-			imgSrc: "'self' data: https:"
-			fontSrc: "'self' https://cdn.jsdelivr.net"
-			connectSrc: "'self' https://www.google-analytics.com"
+		# ✅ KROK 3: Advanced security features
+		advanced:
+			# Honeypot protection
+			honeypotEnabled: true
+			honeypotFields: ['website', 'url', 'homepage']
+			
+			# Request validation
+			validateReferer: true
+			validateUserAgent: true
+			blockEmptyUserAgent: true
+			
+			# Input validation
+			validateInputEncoding: true
+			normalizeInput: true
+			trimInput: true
+			
+			# Logging
+			logSecurityEvents: true
+			logLevel: 'info'  # debug, info, warning, error
+			
+			# Auto-blocking
+			autoBlockSuspiciousIPs: false
+			blockDuration: 3600  # 1 hour
+			maxViolationsPerHour: 5
 
 session:
 	autoStart: false
@@ -45,18 +91,21 @@ session:
 	cookieSamesite: Strict
 	cookiePath: /
 	cookieDomain: 
-	# ✅ Bezpečnostní nastavení session
+	# ✅ Bezpečnostní nastavení session (pouze platné parametry)
 	gcProbability: 1
 	gcDivisor: 100
 	gcMaxlifetime: 3600
 
 http:
-	# ✅ Rozšířené Security headers
+	# ✅ Rozšířené Security headers (backup pro případy kdy .htaccess nefunguje)
 	headers:
 		X-Content-Type-Options: nosniff
 		X-Frame-Options: DENY
 		X-XSS-Protection: "1; mode=block"
 		Referrer-Policy: strict-origin-when-cross-origin
-		Permissions-Policy: "camera=(), microphone=(), geolocation=()"
-		Strict-Transport-Security: "max-age=31536000; includeSubDomains"
-		# Content-Security-Policy se nastaví dynamicky v presenteru
+		Permissions-Policy: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()"
+		Cross-Origin-Embedder-Policy: require-corp
+		Cross-Origin-Opener-Policy: same-origin
+		Cross-Origin-Resource-Policy: same-site
+		# Content-Security-Policy se nastavuje dynamicky v CSPMiddleware
+		# Strict-Transport-Security se nastavuje jen přes HTTPS
